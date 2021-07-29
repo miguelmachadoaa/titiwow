@@ -33,7 +33,9 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 use App\Imports\InvitacionesImport;
-use App\Imports\AlmacenImport;
+use App\Imports\AlmacenImport; //anterior
+use App\Imports\AlmacenInventarioImport;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 use Activation;
@@ -922,8 +924,9 @@ class AlpAlmacenesController extends JoshController
 
         \Session::put('cities', $request->cities);
 
-        Excel::import(new AlmacenImport, $archivo);
-        
+     #   Excel::import(new AlmacenImport, $archivo);
+
+        Excel::import(new AlmacenInventarioImport, $archivo);
        
         return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }

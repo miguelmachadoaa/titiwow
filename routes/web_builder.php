@@ -54,6 +54,8 @@ Route::get('reportes/cronexportcuponesdescuento', 'Admin\AlpReportesController@c
 
 Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cronexportcuponesusados')->name('reportes.cronexportcuponesusados');
 
+Route::get('reportes/exportinventarioalmacen/{id}', 'Admin\AlpReportesController@exportinventarioalmacen')->name('reportes.exportinventarioalmacen');
+
 
 
 Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')->name('clientes.updaterol');
