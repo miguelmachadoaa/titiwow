@@ -87,7 +87,6 @@
                                     </a>
 
                                 @endif
-
                                         
 
                             @endif
