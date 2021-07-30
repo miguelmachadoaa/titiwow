@@ -14405,6 +14405,14 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
     }
 
 
+    
+    public function getOrden(){
+
+      $id_orden= \Session::get('orden');
+
+      return $id_orden;
+
+    }
 
 
 

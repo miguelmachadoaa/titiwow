@@ -19,6 +19,14 @@
     
     <script type="text/javascript">
 
+        $(document).ready(function(){
+
+            $('.epayco-button-render').hide();
+
+        });
+
+        
+
     /*funciones para crear ubicacion del comprador*/
 
     ban_modal=0;
@@ -639,17 +647,13 @@
 
                         if (cantidad==0) {
 
-
                                 $('.updatecartTrigger').data('tipo', tipo);
                                 $('.updatecartTrigger').data('cantidad', cantidadinicio);
                                 $('.updatecartTrigger').data('single', single);
                                 $('.updatecartTrigger').data('id', id);
 
                                 $('.updatecartTrigger').trigger('click');
-
-
                         }
-
 
                          if (single==1) {
 
@@ -657,12 +661,9 @@
                         }
 
 
-
                     });
 
         });
-
-
 
          $(document).on('change','.cartselect', function(){
 

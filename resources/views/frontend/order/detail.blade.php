@@ -1271,6 +1271,122 @@ $('.sendCupon').click(function () {
         });
 
 
+
+          $('body').on('click', '#epayco', function (e){
+
+           // e.preventDefault();
+
+          
+            id_direccion= $("#id_direccion").val(); 
+
+            id_forma_envio=$("#id_forma_envio").val(); 
+            
+
+            
+            id_forma_pago=$(this).data('id');
+
+            url=$(this).data('href');
+
+
+            if (id_forma_envio==undefined || id_direccion==undefined ||  id_forma_pago==undefined) {
+
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
+
+            }else{
+
+                $('#id_forma_pago').val(id_forma_pago);
+
+                base=$('#base').val();
+
+                var banpago = $('#banpago').val();
+        
+                console.log($('#banpago').val());
+
+                if (banpago==0) {
+
+                    $('#banpago').val('1');
+
+                $.ajax({
+                    type: "POST",
+                    data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                        $('#banpago').val('0');
+
+
+                       if(datos.responseText=='true'){
+
+
+                            $.ajax({
+                                type: "GET",
+                                url: base+"/cart/getOrden",
+
+                                complete: function(datos){  
+
+                                    $('.epayco-button').data('epayco-name', 'Compra XP'+datos.responseText);
+                                    $('.epayco-button').data('epayco-descriptionx', 'Compra XP'+datos.responseText);
+
+                                 $('.epayco-button-render').trigger('click'); 
+
+                                }
+
+                            });
+
+
+
+                       }else{
+
+                            if (datos.responseText=='falseicg') {
+
+                                    $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
+
+                                 $('#modalPse').modal('hidden');
+
+
+                                }else if(datos.responseText=='falseCancelado'){
+
+                                    $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                                     $('#modalCancelado').modal('show');
+
+                           // window.location.href = base+'/cart/show';
+
+                                 $('#modalPse').modal('hidden');
+                                }else{
+
+                                    $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                 $('#modalPse').modal('hidden');
+                                }
+
+                       }
+                    
+                    }
+
+                });
+
+                }
+            }
+
+            
+
+        });
+
+
+
+
+
+
+
+
+
+
+
         $('body').on('click', '#creditcard', function (e){
 
            // e.preventDefault();

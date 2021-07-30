@@ -165,12 +165,128 @@ class VerificarPagos extends Command
 
 
 
+          if($orden->id_forma_pago=='6'){
+
+
+            $this->procesarEpayco($orden->id);
+
+
+
+          }
+
+
+
+
+
+
 
         }//endforeach ordenes
 
       }//endifhay ordenes 
 
     }//endhadle
+
+
+
+
+
+
+
+
+
+
+    private function procesarEpayco($id_orden){
+
+
+            $pago=AlpPagos::where('id_orden', $ord->id)->first();
+
+            if (isset($pago->referencia)) {
+
+                \Log::debug('pago a verificar' . $pago);
+
+                $datos = array(
+                'public_key' => $configuracion->epayco_public_key, 
+                'refPayco' => $pago->referencia 
+                );
+
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, 'https://apiservices.epayco.co/consulta/transaccion?public_key='.$configuracion->epayco_public_key.'&refPayco='.$pago->referencia);
+
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+                curl_setopt($ch, CURLOPT_POST, 1);
+
+                $headers = array();
+
+                $headers[] = 'Accept: application/json';
+
+                //$headers[] = 'Paypal-Request-Id: YL_PLAN_12';
+
+                $headers[] = 'Prefer: return=representation';
+
+                $headers[] = 'Content-Type: application/json';
+
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $result2 = curl_exec($ch);
+
+                if (curl_errno($ch)) {
+
+                    echo 'Error:' . curl_error($ch);
+
+                }
+
+                curl_close($ch);
+
+                $datos2=json_decode($result2);
+
+                \Log::debug('Orden '.$ord->id.'Json: ' . $result2);
+
+                if (isset($datos2->success)) {
+
+                  if ($datos2->success) {
+
+                      foreach ($datos2->data->data as $r) {
+
+                        if ($r->tipo_cod_respuesta=='2' || $r->tipo_cod_respuesta=='4' || $r->tipo_cod_respuesta=='9' || $r->tipo_cod_respuesta=='6' || $r->tipo_cod_respuesta=='10' || $r->tipo_cod_respuesta=='11' || $r->tipo_cod_respuesta=='12' || $r->tipo_cod_respuesta=='7') {
+
+                          $cancel=1;
+
+                        }
+
+                        if ($r->tipo_cod_respuesta=='1') {
+
+                          $aproved=1;
+
+                        }
+
+                        if ($r->tipo_cod_respuesta=='3' || $r->tipo_cod_respuesta=='8') {
+
+                          $pending=1;
+
+                        }
+
+                      }
+
+                  }
+                  
+                }
+            
+            }
+              
+
+
+
+    }
+
+
+
+
+
+
+
+
 
 
 

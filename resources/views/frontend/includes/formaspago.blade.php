@@ -394,7 +394,7 @@ $total_descuentos_icg=0;
                                           <img class="img-responsive" alt="Epayco" style="width: 5em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/epayco.png">
                                           </p> 
 
-                                       <div data-type='epayco' id="epayco" data-id="5" class=" col-sm-6 col-xs-12 cbtnpagar" style="padding:8px;background-color:#3c763d;color:#ffffff;cursor:pointer;">
+                                       <div data-type='epayco' id="epayco" data-id="5" class=" col-sm-6 col-xs-12  btnpg cbtnpagar" style="padding:8px;background-color:#3c763d;color:#ffffff;cursor:pointer;">
 
                                           <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
