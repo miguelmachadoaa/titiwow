@@ -471,6 +471,102 @@
 
 
 
+                         <fieldset>
+                            <h3>Datos para Epayco </h3>
+
+                            <hr />
+
+                            <div class="form-group {{ $errors->first('epayco_id_cliente', 'has-error') }}">
+                                <label for="epayco_id_cliente" class="col-sm-2 control-label">
+                                    ID Epayco
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="epayco_id_cliente" name="epayco_id_cliente" class="form-control" placeholder="ID Mercadopago"
+                                        value="{!! old('epayco_id_cliente') !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('epayco_id_cliente', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->first('epayco_key', 'has-error') }}">
+                                <label for="epayco_key" class="col-sm-2 control-label">
+                                    Key Epayco
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="epayco_key" name="epayco_key" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('epayco_key') !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('epayco_key', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('epayco_public_key', 'has-error') }}">
+                                <label for="epayco_public_key" class="col-sm-2 control-label">
+                                    Public Key Epayco
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="epayco_public_key" name="epayco_public_key" class="form-control" placeholder="Public Key Mercadopago Produccion"
+                                        value="{!! old('epayco_public_key') !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('epayco_public_key', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('epayco_private_key', 'has-error') }}">
+                                <label for="epayco_private_key" class="col-sm-2 control-label">
+                                    Private Key Epayco
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="epayco_private_key" name="epayco_private_key" class="form-control" placeholder="Public Key Mercadopago Produccion"
+                                        value="{!! old('epayco_private_key') !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('epayco_private_key', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                           
+
+                           
+                         
+
+                            <div class="form-group  {{ $errors->first('epayco_sand', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Modo Epayco
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="epayco_sand" name="epayco_sand" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                >Modo Sandbox</option>
+
+                                        <option value="{{ 2 }}"
+                                                 >Modo Real</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('epayco_sand', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+
+                        </fieldset>
+
+
+
+
+
+
+
+
 
                         <fieldset>
                             <h3>Direccón del Almacen</h3>

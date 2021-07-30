@@ -295,83 +295,145 @@ $total_descuentos_icg=0;
 
                     @elseif($fp->id==5)
 
-                    @if(isset($cupo_credito_icg))
+                        @if(isset($cupo_credito_icg))
 
-                    @if($cupo_credito_icg>0)
+                        @if($cupo_credito_icg>0)
 
-                    @if($cupo_credito_icg>$total)
+                        @if($cupo_credito_icg>$total)
 
-                   
-                      <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
-                                  <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id }}" aria-expanded="true" aria-controls="collapse{{ $fp->id }}">
-                                      {{ $fp->nombre_forma_pago }} <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapse{{ $fp->id }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $fp->id }}">
-                                  <div class="panel-body">
+                       
+                          <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
+                                      <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id }}" aria-expanded="true" aria-controls="collapse{{ $fp->id }}">
+                                          {{ $fp->nombre_forma_pago }} <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapse{{ $fp->id }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $fp->id }}">
+                                      <div class="panel-body">
 
 
-                                       <p class=" col-sm-6 col-xs-12">
-                                        {{ $fp->nombre_forma_pago }}
+                                           <p class=" col-sm-6 col-xs-12">
+                                            {{ $fp->nombre_forma_pago }}
 
-                                        <br>
+                                            <br>
 
-                                        <b>Disponible:</b>  {{$cupo_credito_icg}}
+                                            <b>Disponible:</b>  {{$cupo_credito_icg}}
 
-                                        </p> 
+                                            </p> 
 
-                                       @if($fp->id==5)
+                                           @if($fp->id==5)
 
-                                          @if($cupo_credito_icg>($total-$total_pagos+$costo_envio))
+                                              @if($cupo_credito_icg>($total-$total_pagos+$costo_envio))
 
-                                         <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+                                             <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
-                                          <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
+                                              <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
+
+                                            </div>
+
+                                            @else
+
+
+                                              <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 " style="padding:8px;background-color:#f3f3f3;color:#ffffff; cursor: pointer;">
+
+                                                <h5 class="text-center">Saldo Insuficiente <i class="fa  fa-chevron-right"></i></h5>
+
+                                              </div>
+
+
+
+                                            @endif
+
+
+
+                                           @else
+
+                                           <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+
+                                            <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
 
                                         </div>
 
-                                        @else
 
+                                           @endif
 
-                                          <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 " style="padding:8px;background-color:#f3f3f3;color:#ffffff; cursor: pointer;">
+                                         
 
-                                            <h5 class="text-center">Saldo Insuficiente <i class="fa  fa-chevron-right"></i></h5>
-
-                                          </div>
-
-
-
-                                        @endif
-
-
-
-                                       @else
-
-                                       <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
-
-                                        <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
-
+                                      </div>
                                     </div>
+                                </div>
+
+                                <br>
+
+                        @endif
+
+                        @endif
+
+                        @endif
+
+                    @elseif($fp->id==6)
+
+                    
+
+        
+
+                    <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading{{ $fp->id.'x' }}">
+                                  <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id.'x' }}" aria-expanded="true" aria-controls="collapse{{ $fp->id.'x' }}">
+                                      Epayco <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="collapse{{ $fp->id.'x' }}" class="panel-collapse collapse in " role="tabpanel" aria-labelledby="heading{{ $fp->id.'x' }}">
+                                  <div class="panel-body">
+
+                                      <p class=" col-sm-6 col-xs-12">
+                                          <img class="img-responsive" alt="Epayco" style="width: 5em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/epayco.png">
+                                          </p> 
+
+                                       <div data-type='epayco' id="epayco" data-id="5" class=" col-sm-6 col-xs-12 cbtnpagar" style="padding:8px;background-color:#3c763d;color:#ffffff;cursor:pointer;">
+
+                                          <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                      </div>
 
 
-                                       @endif
-
-                                     
+                                    <form>
+                                        <script
+                                            src="https://checkout.epayco.co/checkout.js"
+                                            class="epayco-button"
+                                            data-epayco-key="{{$almacen->epayco_public_key}}"
+                                            data-epayco-amount="{{ doubleval($total+$costo_envio-$total_descuentos) }}"
+                                            data-epayco-name="Compra  {{ $user->id.' '.$almacen->nombre_tienda}}"
+                                            data-epayco-description="Compra {{$almacen->nombre_tienda}}"
+                                            data-epayco-currency="cop"
+                                            data-epayco-country="co"
+                                            data-epayco-test="@if($almacen->epayco_sand==1){{'true'}} @else {{'false'}} @endif"
+                                            data-epayco-external="false"
+                                            data-epayco-response="{{secure_url('/epayco/respuesta')}}"
+                                            data-epayco-confirmation="{{secure_url('/epayco/confirmacion')}}"
+                                            data-epayco-extra1="{{$user->id}}"
+                                            data-epayco-extra2="{{time()}}"
+                                            data-epayco-email-billing="{{$user->email}}"
+                                            data-epayco-name-billing="{{$user->first_name.' '.$user->last_name}}"
+                                            data-epayco-type-doc-billing="{{'CC'}}"
+                                            data-epayco-number-doc-billing="{{$user->documento}}"
+                                            data-epayco-mobilephone-billing="{{$user->telefono}}"
+                                            >
+                                        </script>
+                                    </form>
+                                    
 
                                   </div>
                                 </div>
                             </div>
 
-                            <br>
+                          
+                            <br>  
 
-                    @endif
-
-                    @endif
-
-                    @endif
 
                     @else
 

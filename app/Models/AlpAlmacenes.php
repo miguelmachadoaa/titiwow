@@ -42,7 +42,11 @@ class AlpAlmacenes extends Model
         'comision_mp_pse',
         'retencion_fuente_mp',
         'retencion_iva_mp',
-        'retencion_ica_mp',
+        'epayco_sand',
+        'epayco_id_cliente',
+        'epayco_key',
+        'epayco_public_key',
+        'epayco_private_key',
         'id_user'
     ];
 
