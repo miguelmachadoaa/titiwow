@@ -79,7 +79,7 @@ class AlmacenInventarioImport implements ToCollection
                                    }
 
                                     AlpInventario::create($data_inventario_nuevo);
-
+                                   
                         }
 
                     }
