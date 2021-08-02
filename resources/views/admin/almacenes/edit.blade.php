@@ -493,7 +493,7 @@ Editar Almacen {{$almacen->nombre_almacen}}
                                     ID Epayco
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="epayco_id_cliente" name="epayco_id_cliente" class="form-control" placeholder="ID Mercadopago"
+                                    <input type="text" id="epayco_id_cliente" name="epayco_id_cliente" class="form-control" placeholder="ID Epayco"
                                         value="{!! old('epayco_id_cliente', $almacen->epayco_id_cliente) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -505,7 +505,7 @@ Editar Almacen {{$almacen->nombre_almacen}}
                                     Key Epayco
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="epayco_key" name="epayco_key" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="epayco_key" name="epayco_key" class="form-control" placeholder="Key Epayco"
                                         value="{!! old('epayco_key', $almacen->epayco_key) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -518,7 +518,7 @@ Editar Almacen {{$almacen->nombre_almacen}}
                                     Public Key Epayco
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="epayco_public_key" name="epayco_public_key" class="form-control" placeholder="Public Key Mercadopago Produccion"
+                                    <input type="text" id="epayco_public_key" name="epayco_public_key" class="form-control" placeholder="Public Key Epayco"
                                         value="{!! old('epayco_public_key', $almacen->epayco_public_key) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -531,7 +531,7 @@ Editar Almacen {{$almacen->nombre_almacen}}
                                     Private Key Epayco
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="epayco_private_key" name="epayco_private_key" class="form-control" placeholder="Public Key Mercadopago Produccion"
+                                    <input type="text" id="epayco_private_key" name="epayco_private_key" class="form-control" placeholder="Private Key Epaycon"
                                         value="{!! old('epayco_private_key', $almacen->epayco_private_key) !!}">
                                 </div>
                                 <div class="col-sm-4">
