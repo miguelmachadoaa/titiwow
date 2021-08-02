@@ -342,7 +342,7 @@
     @endif
 
 
-    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.create']))
 
           <li {!! (Request::is('admin/productosmasivos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.productos.productosmasivos') !!}">
