@@ -361,11 +361,8 @@ class AlpCartController extends JoshController
      * @return View
      */
 
-    
-
      public function gracias($id)
     {
-
 
        if (Sentinel::check()) {
 
@@ -446,7 +443,6 @@ class AlpCartController extends JoshController
             $envio_impuesto=0;
 
           }
-
       
           $fecha_entrega=$envio->fecha_envio;
           
@@ -469,7 +465,6 @@ class AlpCartController extends JoshController
             $aviso_pago="Hemos recibido su orden y estaremos revisando su pago, en cuanto sea aprobado Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
             
             $metodo='Descuento Nomina';
-            
 
           }elseif($compra->id_forma_pago=='1'){
             
@@ -522,7 +517,6 @@ class AlpCartController extends JoshController
             }
 
           }
-
           
         }
 
@@ -567,8 +561,6 @@ class AlpCartController extends JoshController
 
         }
 
-
-       
         $dl_productos = array();
 
           foreach($detalles as $c){
@@ -588,16 +580,10 @@ class AlpCartController extends JoshController
 
               $dl_productos[]=$dl_p;
             }
-            
-
 
           }
 
-
-          
-
         return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto', 'descuentos', 'descuentosIcg', 'cupo_icg', 'cupo_icg_total', 'porcentaje_icg', 'dl_productos'));
-
 
         }else{
         
@@ -607,9 +593,6 @@ class AlpCartController extends JoshController
 
         
     }
-
-    
-
 
 
     public function orderRapipago(){
@@ -649,7 +632,6 @@ class AlpCartController extends JoshController
           }
           
       }
-
       
     }
 

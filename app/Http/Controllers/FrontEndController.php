@@ -5275,14 +5275,10 @@ public function getApiUrl($endpoint, $jsessionid)
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Update';
 
 
-
      // $urls='https://alpina.local/get360';
 
 
-
       activity()->withProperties($dataraw)->log('360 api update');
-
-
 
       $ch = curl_init();
 
@@ -5369,94 +5365,49 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
   public function get360(Request $request)
-
   {
-
-
-
-
 
         if (Sentinel::check()) {
 
-
-
           $user = Sentinel::getUser();
 
-
-
           activity($user->full_name)
-
             ->performedOn($user)
-
             ->causedBy($user)
-
             ->withProperties($request->getContent())->log('FrontEndController/get360 ');
-
 
 
         }else{
 
-
-
           activity()
-
           ->withProperties($request->getContent())->log('FrontEndController/get360');
-
-
 
         }
 
-
-
       $content = $request->getContent();
-
-
 
       $datos = json_decode($content, true);
 
-
-
        activity()->withProperties($datos)->log('FrontEndController/get360_datosrecibidos');
-
-
 
           $r="false";
 
-
-
        if (count($datos)) {
-
-
 
             foreach ($datos as $dato ) {
 
-
-
           activity()
-
           ->withProperties($dato)->log('FrontEndController/get360_2.1');
-
-
 
           activity() ->withProperties($dato['email'])->log('FrontEndController/getCompramas2');
 
-
-
               $user=User::where('email', '=', $dato['email'])->first();
-
-
 
               if (isset($user->id)) {
 
-
-
                 $r="true";
 
-
-
                  $c=AlpClientes::where('id_user_client', $user->id)->first();
-
-
 
                   $data_user = array(
 
@@ -5469,7 +5420,6 @@ public function getApiUrl($endpoint, $jsessionid)
                   );
 
 
-
                    $data = array(
 
                 //    'genero_cliente' =>$dato['genero_cliente'],
@@ -5478,7 +5428,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
                 //    'telefono_cliente' =>$dato['telefono_cliente'],
 
-                    'marketig_email' =>$dato['marketig_email'],
+                    'marketing_email' =>$dato['marketing_email'],
 
                     'marketing_sms' =>$dato['marketing_sms'],
 
@@ -5487,36 +5437,17 @@ public function getApiUrl($endpoint, $jsessionid)
                   );
 
 
-
                    $c->update($data);
-
-
 
                 }
 
-                
-
             } //end foreach datos
-
-
 
        } //(end if hay resspuessta)
 
-
-
     return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
 
-   
-
   }
-
-
-
-
-
-
-
-
 
 
   public function get360actualizar(Request $request)
@@ -5553,7 +5484,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
             foreach ($datos as $dato ) {
 
-              #dd($dato);
+              dd($dato);
 
               activity()->withProperties($dato)->log('FrontEndController/get 360 actualizar');
 
@@ -5567,6 +5498,7 @@ public function getApiUrl($endpoint, $jsessionid)
                  $c=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
 
                  if (isset($c->id)) {
+
                    $data_user = array(
                     'first_name' =>$dato['first_name'],
                     'last_name' =>$dato['last_name'],
@@ -5593,12 +5525,7 @@ public function getApiUrl($endpoint, $jsessionid)
                      $c->delete();
                    }
 
-
-
-
                  }
-
-                  
 
                 }
                 

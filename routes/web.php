@@ -272,9 +272,11 @@ Route::post('get360', 'FrontEndController@get360')->name('get360');
 Route::post('get360actualizar', 'FrontEndController@get360actualizar')->name('get360actualizar');
 
 Route::post('get360consultar', 'FrontEndController@get360consultar')->name('get360consultar');
+
 Route::get('get360consultar', 'FrontEndController@get360consultar')->name('get360consultar');
 
 Route::post('compramasinventario', 'FrontEndController@getCompramasInventario')->name('compramasinventario');
+
 
 
 Route::get('login', 'FrontEndController@getLogin')->name('login');
