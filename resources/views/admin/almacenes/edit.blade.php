@@ -659,8 +659,6 @@ Editar Almacen {{$almacen->nombre_almacen}}
                             {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
                         </div>
 
-
-
                         <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('notas', 'has-error') }}">
 
                             <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" >{{$direccion->notas}}</textarea>
@@ -669,9 +667,7 @@ Editar Almacen {{$almacen->nombre_almacen}}
 
                         </div>
 
-
                         @else
-
 
                              <input type="hidden" class="form-control" id="titulo" name="titulo" placeholder="Nombre para esta dirección" value="Direccion de Almacen" >
 
