@@ -214,11 +214,20 @@
         <li {!! (Request::is('admin/productos/index') ? 'class="active"' : '') !!}>
             <a href="{!! route('admin.productos.index') !!}">
                 <i class="fa fa-angle-double-right"></i>
-                Productos
+                Lista de Productos
             </a>
         </li>
         @endif
+        
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.create']))
 
+        <li {!! (Request::is('admin/productos/create') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.create') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Crear Producto
+            </a>
+        </li>
+        @endif
 
         @if (Sentinel::getUser()->hasAnyAccess(['productos.destacados']))
 
@@ -333,7 +342,7 @@
     @endif
 
 
-    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.create']))
 
           <li {!! (Request::is('admin/productosmasivos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.productos.productosmasivos') !!}">
@@ -992,7 +1001,7 @@
     </li>
 
     @endif
-    @if (Sentinel::getUser()->hasAnyAccess(['reportes.registrados']))
+    @if (Sentinel::getUser()->hasAnyAccess(['reportes.nomina']))
 
     <li {!! (Request::is('admin/reportes/*') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">

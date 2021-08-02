@@ -128,7 +128,7 @@ Route::get('admin/ordenes/{id}/reenviaryaprobarcompramas/', 'Admin\AlpOrdenesCon
 
 
 
-
+Route::get('admin/productos/{id}/show', 'Admin\AlpProductosController@show')->name('productos.show');
 
 Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
 
