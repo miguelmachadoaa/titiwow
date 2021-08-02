@@ -296,33 +296,44 @@ class AlpCartController extends JoshController
         
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        
+        $dl_productos = array();
 
+        foreach($cart as $c){
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion'));
+          if(isset($c->id)){
+
+            $dl_p=array();
+            $dl_p['nombre_producto']=$c->nombre_producto;
+            $dl_p['presentacion_producto']=$c->presentacion_producto;
+            $dl_p['referencia_producto']=$c->referencia_producto;
+            $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+            $dl_p['slug']=$c->slug;
+            $dl_p['precio_base']=$c->precio_base;
+            $dl_p['precio_oferta']=$c->precio_oferta;
+            $dl_p['cantidad']=$c->cantidad;
+
+            $dl_productos[]=$dl_p;
+          }
+
+        }
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
 
     }
-
     
     public function detalle()
-
     {
-
       
       $cart= \Session::get('cart');
 
-      
       $view= View::make('frontend.order.detalle', compact('cart'));
-
       
       $data=$view->render();
-
       
       return $data;
 
       
     }
-
 
 
      /**
@@ -2771,7 +2782,6 @@ class AlpCartController extends JoshController
             if(isset($c->id)){
 
               $dl_p=array();
-
               $dl_p['nombre_producto']=$c->nombre_producto;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
               $dl_p['referencia_producto']=$c->referencia_producto;
@@ -2783,8 +2793,6 @@ class AlpCartController extends JoshController
 
               $dl_productos[]=$dl_p;
             }
-            
-
 
           }
 
