@@ -226,10 +226,6 @@ Resultado de la Búsqueda @parent
 </div>
 
 
-
-
-
-
         <!-- Modal Direccion -->
  <div class="modal fade" id="detailCartModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
