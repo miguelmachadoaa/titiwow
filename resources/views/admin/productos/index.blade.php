@@ -29,7 +29,7 @@ Productos
                     Listado de Productos
                 </h4>
                 <div class="pull-right">
-                    <a href="{{ secure_url('admin/productos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
+                    <!--a href="{{ secure_url('admin/productos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a-->
 
                    
                 </div>
