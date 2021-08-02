@@ -114,7 +114,11 @@ Actualizar Almacen
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <a class="btn btn-link" target="_blank" href="{{secure_url('uploads/files/almacen_productos_alpina.xlsx')}}">Descargar Archivo de Muestra</a>
+                                    <a class="btn btn-link" target="_blank" href="{{secure_url('reportes/exportinventarioalmacen/'.$almacen->id)}}">Descargar Archivo de Inventario Actual del Almacen </a>
+
+                                    <div class="alert alert-danger ">
+                                        Los productos en el archivo descargado son los que estan activos en el almacen actualmente, al igual que el inventario, recomendamos modificar el mismo archivo con el nuevo inventario y subirlo.
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -100,9 +100,7 @@ Todos los productos
                 @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' || $producto->tipo_producto=='4')
 
 
-                    @if(isset($inventario[$producto->id]))
-
-                        @if($inventario[$producto->id]>0)
+                    @if($configuracion->mostrar_agotados=='1')
 
                             @php $i++; @endphp
 
@@ -114,6 +112,25 @@ Todos los productos
                                     <div class="row">
                                 @endif
 
+                    @else
+
+                        @if(isset($inventario[$producto->id]))
+
+
+                            @if($inventario[$producto->id]>0)
+
+                                @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+
+                                    @if ($i % 4 == 0)
+                                        </div>
+                                        <div class="row">
+                                    @endif
+
+                            @endif
+                        
                         @endif
 
                     @endif

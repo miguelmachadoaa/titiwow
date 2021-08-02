@@ -213,23 +213,7 @@ Carrito de Compras
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-     
 </div>
-
-
-
-
 
 </div>
 @endsection
@@ -336,9 +320,14 @@ Carrito de Compras
 
          }, 1000);
 
+         window.dataLayer = window.dataLayer || [];
 
+        window.dataLayer.push({
+        'event': 'cartshow',
+        'total': '{{ $total }}',
+        'productos':{!!json_encode($dl_productos)!!}
+        });
 
-        
 
     </script>
 @stop

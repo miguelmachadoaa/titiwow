@@ -54,6 +54,8 @@ Route::get('reportes/cronexportcuponesdescuento', 'Admin\AlpReportesController@c
 
 Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cronexportcuponesusados')->name('reportes.cronexportcuponesusados');
 
+Route::get('reportes/exportinventarioalmacen/{id}', 'Admin\AlpReportesController@exportinventarioalmacen')->name('reportes.exportinventarioalmacen');
+
 
 
 Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')->name('clientes.updaterol');
@@ -1486,6 +1488,9 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 //carrito  del video 
 
 Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'Admin\AlpCartController@show']);
+
+Route::get('cart/getOrden/',['as'=>'cart.getOrden', 'uses'=>'Admin\AlpCartController@getOrden']);
+
 
 Route::get('cart/add/{id}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}/{h?}/{i?}/{j?}', ['as'=>'cart.addlink', 'uses'=>'Admin\AlpCartController@addlink']);
 

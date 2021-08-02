@@ -28,6 +28,7 @@ use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
 use App\Exports\UsocuponesExport;
 use App\Exports\Usuarios360Export;
+use App\Exports\InventarioAlmacenExport;
 
 
 
@@ -2600,6 +2601,32 @@ public function bono()
         Excel::import(new BarriosImport, $archivo);
 
         return redirect('admin.reportes.barrios')->with('success', trans('Se ha importado satisfactoriamente'));
+    }
+
+
+
+    
+    public function exportinventarioalmacen(Request $request, $id) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('AlpReportesController/exportinventarioalmacen');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('AlpReportesController/exportinventarioalmacen');
+        }
+
+        $inventario=$this->inventario($id);
+
+        return Excel::download(new InventarioAlmacenExport($id, $inventario), 'inventarioalmacen'.'.xlsx');
     }
 
 

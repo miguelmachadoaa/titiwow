@@ -33,7 +33,9 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 use App\Imports\InvitacionesImport;
-use App\Imports\AlmacenImport;
+use App\Imports\AlmacenImport; //anterior
+use App\Imports\AlmacenInventarioImport;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 use Activation;
@@ -293,9 +295,15 @@ class AlpAlmacenesController extends JoshController
             'comision_mp_pse' => $request->comision_mp_pse,
             'retencion_fuente_mp' => $request->retencion_fuente_mp,
             'retencion_iva_mp' => $request->retencion_iva_mp,
-            'retencion_ica_mp' => $request->retencion_ica_mp,
+            'epayco_sand' => $request->epayco_sand,
+            'epayco_id_cliente' => $request->epayco_id_cliente,
+            'epayco_key' => $request->epayco_key,
+            'epayco_public_key' => $request->epayco_public_key,
+            'epayco_private_key' => $request->epayco_private_key,
             'id_user' =>$user_id
         );
+
+
          
         $almacen=AlpAlmacenes::create($data);
 
@@ -466,6 +474,11 @@ class AlpAlmacenesController extends JoshController
                 'retencion_fuente_mp' => $request->retencion_fuente_mp,
                 'retencion_iva_mp' => $request->retencion_iva_mp,
                 'retencion_ica_mp' => $request->retencion_ica_mp,
+                'epayco_sand' => $request->epayco_sand,
+                'epayco_id_cliente' => $request->epayco_id_cliente,
+                'epayco_key' => $request->epayco_key,
+                'epayco_public_key' => $request->epayco_public_key,
+                'epayco_private_key' => $request->epayco_private_key,
                 'tipo_almacen' => $request->tipo_almacen
                 );
 
@@ -922,8 +935,9 @@ class AlpAlmacenesController extends JoshController
 
         \Session::put('cities', $request->cities);
 
-        Excel::import(new AlmacenImport, $archivo);
-        
+     #   Excel::import(new AlmacenImport, $archivo);
+
+        Excel::import(new AlmacenInventarioImport, $archivo);
        
         return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }

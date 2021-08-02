@@ -296,33 +296,44 @@ class AlpCartController extends JoshController
         
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        
+        $dl_productos = array();
 
+        foreach($cart as $c){
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion'));
+          if(isset($c->id)){
+
+            $dl_p=array();
+            $dl_p['nombre_producto']=$c->nombre_producto;
+            $dl_p['presentacion_producto']=$c->presentacion_producto;
+            $dl_p['referencia_producto']=$c->referencia_producto;
+            $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+            $dl_p['slug']=$c->slug;
+            $dl_p['precio_base']=$c->precio_base;
+            $dl_p['precio_oferta']=$c->precio_oferta;
+            $dl_p['cantidad']=$c->cantidad;
+
+            $dl_productos[]=$dl_p;
+          }
+
+        }
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
 
     }
-
     
     public function detalle()
-
     {
-
       
       $cart= \Session::get('cart');
 
-      
       $view= View::make('frontend.order.detalle', compact('cart'));
-
       
       $data=$view->render();
-
       
       return $data;
 
       
     }
-
 
 
      /**
@@ -2412,33 +2423,19 @@ class AlpCartController extends JoshController
           }
 
 
-
-
-
-         
           $countries = Country::all();
 
-          
           $inv = $this->inventario();
 
-          
-
           $pagos=AlpPagos::where('id_orden', $carrito)->get();
-
-         
-
           
           $total_pagos=0;
 
-          
           foreach ($pagos as $pago) {
-
             
             $total_pagos=$total_pagos+$pago->monto_pago;
 
-            
           }
-
           
           $total_descuentos=0;
 
@@ -2695,13 +2692,7 @@ class AlpCartController extends JoshController
 
                   }
 
-                  
-
           }
-
-          
-    //   echo $id_forma_envio;
-
           
 
         $valor_impuesto=AlpImpuestos::where('id', '1')->first();
@@ -2719,8 +2710,6 @@ class AlpCartController extends JoshController
           $envio_impuesto=0;
           
         }
-
-        /*limitar forma de envio segun la hora o dias feriados */
 
         $express=0;
 
@@ -2793,7 +2782,6 @@ class AlpCartController extends JoshController
             if(isset($c->id)){
 
               $dl_p=array();
-
               $dl_p['nombre_producto']=$c->nombre_producto;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
               $dl_p['referencia_producto']=$c->referencia_producto;
@@ -2805,8 +2793,6 @@ class AlpCartController extends JoshController
 
               $dl_productos[]=$dl_p;
             }
-            
-
 
           }
 
@@ -4152,18 +4138,33 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     //dd($tipo);
 
     
-    if(isset($json_pago['response']['id'])){
-      
-      $id_pago=$json_pago['response']['id'];
+    if ($tipo=='epayco') {
+
+      if (isset($json_pago->data->x_ref_payco)) {
+        
+        $id_pago=$json_pago->data->x_ref_payco;
+
+      }
 
       
+
     }else{
-      
-       if (\Session::has('pse')) {
-        
-              $id_pago=\Session::get('pse');
-          }
-          
+
+       if(isset($json_pago['response']['id'])){
+
+        $id_pago=$json_pago['response']['id'];
+
+      }else{
+
+         if (\Session::has('pse')) {
+
+                $id_pago=\Session::get('pse');
+
+            }
+
+      }
+
+
     }
     
         $cart= \Session::get('cart');
@@ -4402,21 +4403,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           $comision_mp=$almacen->comision_mp_baloto/100;
 
-          
           $data_update = array(
-
           'estatus' =>$estatus_orden, 
-
           'estatus_pago' =>$estatus_pago,
-
           'comision_mp' =>0,
-
           'retencion_fuente_mp' =>0,
-
           'retencion_iva_mp' =>0,
-
           'retencion_ica_mp' =>0
-
            );
 
           
@@ -4424,19 +4417,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           
           $data_update = array(
-
           'estatus' =>$estatus_orden, 
-
           'estatus_pago' =>$estatus_pago,
-
           'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
-
           'retencion_fuente_mp' =>0,
-
           'retencion_iva_mp' =>0,
-
           'retencion_ica_mp' =>0
-
            );
 
           
@@ -4448,9 +4434,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         foreach ($cupones as $cupon) {
           
           $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
-
           $data_cupon = array('id_orden' => $orden->id, 'aplicado'=>'1' );
-          
           $c->update($data_cupon);
           
         }
@@ -4458,52 +4442,60 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          $orden->update($data_update);
 
-         $data_pago = array(
-          'id_orden' => $orden->id, 
-          'id_forma_pago' => $orden->id_forma_pago, 
-          'id_estatus_pago' => $estatus_pago, 
-          'monto_pago' => $orden->monto_total-$total_tarjetas, 
-          'json' => json_encode($json_pago), 
-          'id_user' => $user_id, 
 
-        );
+         if ($tipo=='epayco') {
+
+          $data_pago = array(
+             'id_orden' => $orden->id, 
+             'id_forma_pago' => $orden->id_forma_pago, 
+             'id_estatus_pago' => $estatus_pago, 
+             'monto_pago' => $total+$envio_costo-$total_descuentos, 
+             'referencia' => $json_pago->data->x_ref_payco, 
+              'tipo' => $json_pago->data->x_type_payment, 
+              'metodo' => $json_pago->data->x_bank_name,
+             'json' => json_encode($json_pago), 
+             'id_user' => $user_id, 
+           );
+         
+        }else{
+
+            $data_pago = array(
+              'id_orden' => $orden->id, 
+              'id_forma_pago' => $orden->id_forma_pago, 
+              'id_estatus_pago' => $estatus_pago, 
+              'monto_pago' => $orden->monto_total-$total_tarjetas, 
+              'referencia' => $json_pago['response']['id'], 
+            'metodo' => $json_pago['response']['payment_method_id'], 
+            'tipo' => $json_pago['response']['payment_type_id'],
+              'json' => json_encode($json_pago), 
+              'id_user' => $user_id, 
+    
+            );
+
+        }
+
+       
 
          
          AlpPagos::create($data_pago);
 
-         
-
          $data_history = array(
-
               'id_orden' => $orden->id, 
-
              'id_status' => $estatus_orden, 
-
               'notas' => 'Orden procesada', 
-
              'id_user' => 1
-
           );
 
          
         $history=AlpOrdenesHistory::create($data_history);
 
         
-
-         //se limpian las sessiones
-
-        
          \Session::forget('cart');
-
          \Session::forget('orden');
-
          \Session::forget('cr');
-
          \Session::forget('direccion');
-
          \Session::forget('envio');
 
-         
          return array('id_orden' => $orden->id, 'fecha_entrega' => $fecha_entrega   );
 
 
@@ -14223,6 +14215,197 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function epaycorespuesta(Request $request){
+
+
+      #dd($request->all());
+
+       $cart= \Session::get('cart');
+
+        $carrito= \Session::get('cr');
+
+       $id_orden= \Session::get('orden');
+
+       $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $input=$request->all();
+
+      $user = Sentinel::getUser();
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'https://secure.epayco.co/validation/v1/reference/'.$request->ref_payco);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+      $result = curl_exec($ch);
+
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+      if (isset($res->success)) {
+
+        $data=$this->generarPedido('8', '4', $res, 'epayco');
+
+            $id_orden=$data['id_orden'];
+
+            $fecha_entrega=$data['fecha_entrega'];
+
+            $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
+
+              $aviso_pago = array(
+            'tipo' => 'yellow', 
+            'medio' => 'Epayco', 
+            'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
+          );
+          
+
+          $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente','alp_clientes.telefono_cliente as telefono_cliente')
+            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+            ->where('alp_ordenes.id', $id_orden)->first();
+
+          $dets =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id_orden)
+          ->whereNull('alp_ordenes_detalle.deleted_at')->get();
+
+
+          $detalles = array( );
+
+            foreach ($dets as $d) {
+
+              if ($d->id_producto_atributo!=0) {
+
+              $p=AlpProductosAtributos::where('id', $d->id_producto_atributo)->first();
+
+              $d->nombre_producto=$p->nombre_producto;
+              $d->referencia_producto=$p->referencia_producto;
+              $d->referencia_producto_sap=$p->referencia_producto_sap;
+              $d->slug=$p->slug;
+
+              }
+
+              $detalles[]=$d;
+          }
+
+          $envio=DB::table('alp_envios')->select('alp_envios.*')->where('id_orden', $orden->id)->first();
+
+           $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id', $compra->id_address)->first();
+
+
+           $total_descuentos=0;
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $compra->id)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
+          $configuracion = AlpConfiguracion::where('id','1')->first();
+
+         $cart= \Session::forget('cart');
+
+         $states=State::where('config_states.country_id', $configuracion->pais_tienda)->get();
+
+          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+          return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'envio', 'descuentos', 'total_descuentos'));
+
+
+      }else{
+
+        $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
+
+        $data_pago = array(
+          'id_orden' => $orden->id, 
+          'id_forma_pago' => $orden->id_forma_pago, 
+          'id_estatus_pago' => '3', 
+          'monto_pago' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => '1', 
+          );
+
+         AlpPagos::create($data_pago);
+
+          $resp = array(
+            'clase' =>  'danger',
+            'aviso' => $aviso
+          );
+
+        return redirect('order/detail')->with('aviso', $resp);
+
+      }
+
+      return view('clientes.respuesta',compact( 'res', 'plan', 'user', 'res_data'));
+
+    }
+
+
+    
+    public function getOrden(){
+
+      $id_orden= \Session::get('orden');
+
+      return $id_orden;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

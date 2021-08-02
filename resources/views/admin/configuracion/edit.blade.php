@@ -156,6 +156,7 @@ Editar Configuración General
                                 </div>
                             </div>
                             <hr />
+
                             <div class="form-group  {{ $errors->first('popup', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
                                     Popup
@@ -179,6 +180,7 @@ Editar Configuración General
                                 </div>
                                
                             </div>
+
                             <div class="form-group {{ $errors->first('popup_titulo', 'has-error') }}">
                                     <label for="popup_titulo" class="col-sm-2 control-label">
                                         Titulo para el Popup
@@ -227,6 +229,30 @@ Editar Configuración General
                                 </select>
                                 <div class="col-sm-4">
                                     {!! $errors->first('explicacion_precios', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+                            <div class="form-group  {{ $errors->first('mostrar_agotados', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Mostrar Agotados
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="mostrar_agotados" name="mostrar_agotados" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                       
+                                        <option value="{{ 0 }}"
+                                                @if($configuracion->mostrar_agotados == 0) selected="selected" @endif >No Mostrar</option>
+
+                                        <option value="{{ 1 }}"
+                                                @if($configuracion->mostrar_agotados == 1) selected="selected" @endif >Mostrar</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('mostrar_agotados', '<span class="help-block">:message</span> ') !!}
                                 </div>
                                   
                                 </div>
