@@ -17,10 +17,11 @@ use \DB;
 class CuponesDescuentoExport implements FromView
 {
     
-    public function __construct()
-    {
-        
-    }
+  public function __construct(string $desde, string $hasta)
+  {
+      $this->desde = $desde;
+      $this->hasta = $hasta;
+  }
 
     public function view(): View
     {
@@ -59,8 +60,8 @@ class CuponesDescuentoExport implements FromView
           ->whereIn('alp_ordenes.estatus', [1,5,6,7,3])
           ->where('alp_ordenes.estatus_pago','=', '2')
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
-          //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
-          //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();
 
 
