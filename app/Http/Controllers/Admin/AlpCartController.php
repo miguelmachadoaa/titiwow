@@ -9594,22 +9594,13 @@ public function verificarDireccion( Request $request)
 
                               }
 
-                        
-
                             }
                       
                           }
 
-
-
-
-
                       }//si se venrifica
 
-
                   }
-
-                    
 
 
                   if($b_marca==1){
