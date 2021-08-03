@@ -2780,9 +2780,6 @@ class AlpCartController extends JoshController
 
 
 
-          
-
-
           return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos', 'almacen', 'cupo_credito_icg', 'dl_productos'));
 
           
