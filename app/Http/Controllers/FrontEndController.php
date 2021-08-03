@@ -5213,118 +5213,60 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
     private function datos360update($id_user)
-
     {
-
 
 
       $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
-
-
       $user=User::where('id', $id_user)->first();
-
-
 
       $c=AlpClientes::where('id_user_client', $user->id)->first();
 
 
-
       $data = array(
-
         'first_name' =>$user->first_name,
-
         'last_name' =>$user->last_name,
-
         'dob' =>$user->dob,
-
         'genero_cliente' =>$c->genero_cliente,
-
         'doc_cliente' =>$c->doc_cliente,
-
         'telefono_cliente' =>$c->telefono_cliente,
-
         'marketing_email' =>$c->marketing_email,
-
         'marketing_sms' =>$c->marketing_sms,
-
         'eliminar_cliente' =>0,
-
         'email' =>$user->email,
-
       );
-
-
 
       $d = array();
 
-
-
       $d[]=$data;
-
-
 
       $dataraw=json_encode($d);
 
-
-
-     //dd($dataraw);
-
-
-
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Update';
-
-
-     // $urls='https://alpina.local/get360';
-
 
       activity()->withProperties($dataraw)->log('360 api update');
 
       $ch = curl_init();
 
-
-
       curl_setopt($ch, CURLOPT_URL, $urls);
-
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
       curl_setopt($ch, CURLOPT_POST, 1);
-
       curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
-
-
       $headers = array();
-
       $headers[] = 'Content-Type: application/json';
-
       $headers[] = 'Authorization: Basic zHnI1jLI3GH88tT0Pu6w7Q==';
-
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-
 
       try {
 
-
-
         $result = curl_exec($ch);
-
-        
 
       } catch (Exception $e) {
 
-        
-
       }
-
-
-
-      
 
       if (curl_errno($ch)) {
 
@@ -5332,36 +5274,17 @@ public function getApiUrl($endpoint, $jsessionid)
 
       }
 
-      
-
       curl_close($ch);
-
-
 
       $res=json_decode($result);
 
-
-
       activity()->withProperties($result)->log('360 respuesta update');
-
-
 
       $notas='Registro de orden en api 360 res.';
 
-
-
       return 1;
 
-      
-
     }
-
-
-
-
-
-
-
 
 
   public function get360(Request $request)
@@ -5375,7 +5298,6 @@ public function getApiUrl($endpoint, $jsessionid)
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties($request->getContent())->log('FrontEndController/get360 ');
-
 
         }else{
 
@@ -5673,13 +5595,11 @@ public function getApiUrl($endpoint, $jsessionid)
                 }
               }
 
-              
-                
+          } //(end if hay resspuessta)
 
-       } //(end if hay resspuessta)
-       } //(end if hay resspuessta)
+      } //(end if hay resspuessta)
 
-    return response(json_encode($modificados), 200) ->header('Content-Type', 'application/json');
+      return response(json_encode($modificados), 200)->header('Content-Type', 'application/json');
    
   }
 

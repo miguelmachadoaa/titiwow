@@ -9505,105 +9505,109 @@ public function verificarDireccion( Request $request)
 
                           
 
-                        }else{
+                      }else{
 
                           
                            $cb=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
-
                            
                               if (isset($cb->id)) {
-
                                 
                                 $b_producto_valido=1;
-
                                 
                                 $mensaje_producto=' No aplicable por filtro categoria. ';
-
                                 
                                 $clase='info';
-
-                                
 
                               }
 
                               
                         }
 
+                        if ($b_producto_valido=='0' ) {
+
+                            $cas=AlpCategoriasProductos::where('id_producto', $detalle->id)->get();
+
+                             foreach ($cas as $ca) {
                         
-
-                        if ($b_producto_valido=='0') {
-
-                          # code...
-
-                          
-
-                      $cas=AlpCategoriasProductos::where('id_producto', $detalle->id)->get();
-
-                      
-                      foreach ($cas as $ca) {
-
-                        
-                         $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $ca->id_categoria)->first();
+                              $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $ca->id_categoria)->first();
 
                          
-                      if(isset($cc->id)){
-
+                              if(isset($cc->id)){
                         
-                        //dd($cc);
+                                if ($cc->condicion==0) {
 
-                        
-                          if ($cc->condicion==0) {
+                                  $b_producto_valido=1;
+                                  
+                                  $mensaje_producto=' No aplicable por filtro categoria. ';
+                                  
+                                  $clase='info';
+                                  
+                                }
+
+                          
+
+                              }else{
+
+                          
+                              $cb=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
 
                               
+                                  if (isset($cb->id)) {
+                                    
+                                    $b_producto_valido=1;
+                                    
+                                    $mensaje_producto=' No aplicable por filtro categoria. ';
+                                    
+                                    $clase='info';
+                                    
 
-                            $b_producto_valido=1;
+                                  }
 
-                            
-                            $mensaje_producto=' No aplicable por filtro categoria. ';
+                              
+                              }
+                        
+                        }//endforeach
+                        
+                      }else{
+                       
 
-                            
-                            $clase='info';
 
-                            
-                          }
+                        $cas=AlpCategoriasProductos::where('id_producto', $detalle->id)->get();
 
-                          
+                        foreach ($cas as $ca) {
+                   
+                         $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $ca->id_categoria)->first();
+                    
+                            if(isset($cc->id)){
+                      
+                              if ($cc->condicion==0) {
 
-                        }else{
-
-                          
-                           $cb=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
-
-                           
-                              if (isset($cb->id)) {
-
-                                
                                 $b_producto_valido=1;
-
                                 
                                 $mensaje_producto=' No aplicable por filtro categoria. ';
-
                                 
                                 $clase='info';
-
                                 
+                              }else{
+
+                                $b_producto_valido=0;
 
                               }
 
-                              
-                        }
-
                         
-                      }//endforeach
 
+                            }
                       
-                        }//si se venrifica
-
-                        
+                          }
 
 
 
-                    }
+
+
+                      }//si se venrifica
+
+
+                  }
 
                     
 
@@ -9725,19 +9729,9 @@ public function verificarDireccion( Request $request)
 
                     if ($b_producto_valido==0) {
 
-                      
-                     // dd($detalle);
-
-                      
                       $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
-
-                      
-                      
-
                       
                     }
-
-                    
                 
 
               }//endforeach detalles
@@ -14187,35 +14181,11 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
         //  $descuentosIcg->update(['json'=>json_encode($result)]);
 
-
-
         return $res;
-
-                       
 
       }
 
-      
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
