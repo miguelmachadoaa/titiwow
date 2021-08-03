@@ -11,7 +11,10 @@
             <th ><b>Cantidad</b></th>
             <th ><b>Total Producto</b></th>
             <th ><b>Total Descuento</b></th>
+            <th ><b>Tipo Cupon</b></th>
+            <th ><b>Valor Cupon</b></th>
             <th ><b>Origen Cupon</b></th>
+            <th ><b>Fecha</b></th>
 
         </tr>
 
@@ -28,7 +31,14 @@
                 <td>{!! $row->cantidad !!}</td>
                 <td>{!! $row->precio_total !!}</td>
                 <td>{!! $row->monto_descuento !!}</td>
+                @if($row->tipo_reduccion == 1)
+                    <td>Absoluto</td>
+                @elseif($row->tipo_reduccion == 2)
+                    <td>Porcentual</td>
+                @endif
+                <td>{!! $row->valor_cupon !!}</td>
                 <td>{!! $row->origen !!}</td>
+                <td>{!! $row->fecha_pedido!!}</td>
             </tr>
         @endforeach
 </table>

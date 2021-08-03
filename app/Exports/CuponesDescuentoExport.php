@@ -27,10 +27,13 @@ class CuponesDescuentoExport implements FromView
     {
          $productos= AlpDetalles::select(
           'alp_ordenes_detalle.*', 
+          'alp_ordenes_detalle.created_at as fecha_pedido',
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_ordenes.ordencompra as ordencompra',
           'alp_ordenes.monto_descuento as monto_descuento',
           'alp_cupones.origen as origen',
+          'alp_cupones.valor_cupon as valor_cupon',
+          'alp_cupones.tipo_reduccion as tipo_reduccion',
           'alp_ordenes_descuento.codigo_cupon as codigo_cupon',
           'users.id as id_usuario', 
           'users.first_name as first_name', 
@@ -52,12 +55,12 @@ class CuponesDescuentoExport implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
-          ->leftJoin('alp_ordenes_descuento', 'alp_ordenes.id', '=', 'alp_ordenes_descuento.id_orden')
+          ->join('alp_ordenes_descuento', 'alp_ordenes.id', '=', 'alp_ordenes_descuento.id_orden')
           ->leftJoin('alp_cupones', 'alp_ordenes_descuento.codigo_cupon', '=', 'alp_cupones.codigo_cupon')
 
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
-          ->whereIn('alp_ordenes.estatus', [1,5,6,7,3])
+          ->whereIn('alp_ordenes.estatus', [1,2,3,5,6,7])
           ->where('alp_ordenes.estatus_pago','=', '2')
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
