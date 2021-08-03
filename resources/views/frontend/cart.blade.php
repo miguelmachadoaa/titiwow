@@ -328,6 +328,6 @@ Carrito de Compras
         'productos':{!!json_encode($dl_productos)!!}
         });
 
-
+        
     </script>
 @stop
