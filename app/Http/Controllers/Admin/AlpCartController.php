@@ -2792,13 +2792,34 @@ class AlpCartController extends JoshController
 
       }else{
 
+        $dl_productos = array();
+
+        foreach($cart as $c){
+
+          if(isset($c->id)){
+
+            $dl_p=array();
+            $dl_p['nombre_producto']=$c->nombre_producto;
+            $dl_p['presentacion_producto']=$c->presentacion_producto;
+            $dl_p['referencia_producto']=$c->referencia_producto;
+            $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+            $dl_p['slug']=$c->slug;
+            $dl_p['precio_base']=$c->precio_base;
+            $dl_p['precio_oferta']=$c->precio_oferta;
+            $dl_p['cantidad']=$c->cantidad;
+
+            $dl_productos[]=$dl_p;
+          }
+
+        }
+
         
         $url='order.detail';
 
         
           //return redirect('login');
 
-        return view('login', compact('url'));
+        return view('login', compact('url', 'dl_productos'));
 
         
       }
