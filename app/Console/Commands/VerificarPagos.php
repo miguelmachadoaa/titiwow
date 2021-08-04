@@ -78,9 +78,9 @@ class VerificarPagos extends Command
 
       
         
-        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('id', '20782')->get();
+        #$ordenes=AlpOrdenes::where('id', '20782')->get();
         //
         
      //  Log::info('ordenes a verficar  '.json_encode($ordenes_id));
@@ -591,6 +591,8 @@ class VerificarPagos extends Command
 
     private function procesarMercadopago($preference, $id_orden){
 
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
+
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
       if (isset($preference['response']['results'])) {
@@ -925,6 +927,8 @@ class VerificarPagos extends Command
 
            }elseif($cancel){
 
+              $configuracion = AlpConfiguracion::where('id', '1')->first();
+
 
                $date = Carbon::parse($orden->created_at); 
 
@@ -1022,10 +1026,10 @@ class VerificarPagos extends Command
              }else{
 
                  $data_pago = array(
-               'id_orden' => $ord->id, 
-               'id_forma_pago' => $ord->id_forma_pago, 
+               'id_orden' => $orden->id, 
+               'id_forma_pago' => $orden->id_forma_pago, 
                'id_estatus_pago' => 4, 
-               'monto_pago' => $ord->monto_total, 
+               'monto_pago' => $orden->monto_total, 
                'json' => json_encode($preference['response']['results']), 
                'id_user' => '0' 
                  );
