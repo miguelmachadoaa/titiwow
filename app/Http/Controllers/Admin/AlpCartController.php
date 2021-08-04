@@ -14278,6 +14278,8 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
       $res=json_decode($result);
 
+      dd($res);
+
       if (isset($res->success)) {
 
         $data=$this->generarPedido('8', '4', $res, 'epayco');
@@ -14378,7 +14380,7 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
             'aviso' => $aviso
           );
 
-        return redirect('order/detail')->with('aviso', $resp);
+        return redirect('order/detail')->with('aviso', $aviso);
 
       }
 

@@ -1487,6 +1487,15 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 //carrito  del video 
 
+Route::get('epayco/respuesta',array('as'=>'epayco.respuesta','uses'=>'Admin\AlpCartController@epaycorespuesta'));
+
+Route::post('epayco/respuesta',array('as'=>'epayco.respuesta','uses'=>'Admin\AlpCartController@epaycorespuesta'));
+
+
+Route::get('pedidos/epayco/respuesta',array('as'=>'pedidosepayco.respuesta','uses'=>'Admin\AlpPedidosController@epaycorespuesta'));
+
+Route::post('pedidos/epayco/respuesta',array('as'=>'pedidosepayco.respuesta','uses'=>'Admin\AlpPedidosController@epaycorespuesta'));
+
 Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'Admin\AlpCartController@show']);
 
 Route::get('cart/getOrden/',['as'=>'cart.getOrden', 'uses'=>'Admin\AlpCartController@getOrden']);
