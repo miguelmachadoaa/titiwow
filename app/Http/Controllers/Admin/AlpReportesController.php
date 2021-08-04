@@ -946,7 +946,7 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        return Excel::download(new CuponesDescuentoExport(), 'cuponesdescuento.xlsx');
+        return Excel::download(new CuponesDescuentoExport( $request->desde, $request->hasta), 'cuponesdescuento.xlsx');
     }
 
     public function ventasdescuento() 

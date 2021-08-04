@@ -58,7 +58,7 @@ Reporte de Cupones de Descuento
                 <div class="row">   
                     
 
-                    <!--div class="form-group">
+                    <div class="form-group">
 
                                 <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
 
@@ -83,7 +83,7 @@ Reporte de Cupones de Descuento
                             </div>
                         </div>
                             <!-- /.input group -->
-                    <!--/div-->
+                    </div>
 
 
 
