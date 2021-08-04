@@ -77,9 +77,9 @@ class VerificarPagosHora extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+      $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
        # $ordenes=AlpOrdenes::where('id', '15532')->where('countvp','>=', '5')->get();
-       $ordenes=AlpOrdenes::where('id', '20783')->get();
+       #$ordenes=AlpOrdenes::where('id', '20783')->get();
         
      #  echo json_encode($ordenes);         
 
