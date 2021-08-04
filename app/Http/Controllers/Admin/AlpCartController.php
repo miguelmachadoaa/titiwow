@@ -4288,6 +4288,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          }
 
          $envio=$this->envio();
+         $envio_valor=$this->envio();
 
       $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
@@ -4478,7 +4479,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
              'id_orden' => $orden->id, 
              'id_forma_pago' => $orden->id_forma_pago, 
              'id_estatus_pago' => $estatus_pago, 
-             'monto_pago' => $total+$envio_costo-$total_descuentos, 
+             'monto_pago' => $total+$envio_valor, 
              'referencia' => $json_pago->data->x_ref_payco, 
               'tipo' => $json_pago->data->x_type_payment, 
               'metodo' => $json_pago->data->x_bank_name,
@@ -14278,7 +14279,6 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
       $res=json_decode($result);
 
-      dd($res);
 
       if (isset($res->success)) {
 
@@ -14315,16 +14315,6 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
             foreach ($dets as $d) {
 
-              if ($d->id_producto_atributo!=0) {
-
-              $p=AlpProductosAtributos::where('id', $d->id_producto_atributo)->first();
-
-              $d->nombre_producto=$p->nombre_producto;
-              $d->referencia_producto=$p->referencia_producto;
-              $d->referencia_producto_sap=$p->referencia_producto_sap;
-              $d->slug=$p->slug;
-
-              }
 
               $detalles[]=$d;
           }
