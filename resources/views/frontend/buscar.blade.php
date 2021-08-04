@@ -136,6 +136,14 @@ Resultado de la Búsqueda @parent
                     
                             @php $i++; @endphp
 
+                            @if(isset($inventario[$producto->id]))
+
+                            @else
+
+                            $inventario[$producto->id]=0;
+
+                            @endif
+
                             @include('frontend.producto')
 
 

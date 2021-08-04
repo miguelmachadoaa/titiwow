@@ -902,12 +902,12 @@ Orden {{$orden->id}}
                      @foreach($pagos as $p)
 
 
-                     @if($p->id_forma_pago=='4')
+                        @if($p->id_forma_pago=='4' && $p->id_estatus_pago=='2')
 
-                        <tr>
-                            <td style="text-align: right;" colspan="7"><b> {{$p->nombre_forma_pago}}: </b></td>
-                            <td >{{ number_format($p->monto_pago, 0) }}</td>
-                        </tr>
+                            <tr>
+                                <td style="text-align: right;" colspan="7"><b> {{$p->nombre_forma_pago}}: </b></td>
+                                <td >{{ number_format($p->monto_pago, 0) }}</td>
+                            </tr>
 
                         @endif
 
