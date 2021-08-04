@@ -2210,6 +2210,28 @@ class AlpCartController extends JoshController
         
       }
 
+
+      $dl_productos = array();
+
+      foreach($cart as $c){
+
+        if(isset($c->id)){
+
+          $dl_p=array();
+          $dl_p['nombre_producto']=$c->nombre_producto;
+          $dl_p['presentacion_producto']=$c->presentacion_producto;
+          $dl_p['referencia_producto']=$c->referencia_producto;
+          $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+          $dl_p['slug']=$c->slug;
+          $dl_p['precio_base']=$c->precio_base;
+          $dl_p['precio_oferta']=$c->precio_oferta;
+          $dl_p['cantidad']=$c->cantidad;
+
+          $dl_productos[]=$dl_p;
+        }
+
+      }
+
       
 
 
@@ -2301,10 +2323,10 @@ class AlpCartController extends JoshController
             
             $inv=$this->inventario();
 
-            return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
+            return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso', 'dl_productos'));
 
             
-            return redirect('cart/show');
+          #  return redirect('cart/show');
 
             
           }
@@ -3365,7 +3387,15 @@ class AlpCartController extends JoshController
               \Session::put('aviso_bono', '');
 
 
-            if (($orden->monto_total+$envio)>0) {
+            if(($orden->monto_total+$envio)<$request->bono_use){
+
+              $request->bono_use=($orden->monto_total+$envio);
+
+            }
+
+            
+
+            if (($orden->monto_total+$envio)>0){
 
               if ($disponible->total>=$request->bono_use) {
 
@@ -3373,31 +3403,29 @@ class AlpCartController extends JoshController
                   
                    $rr=($orden->monto_total+$envio)-$request->bono_use;
 
-                activity($user->full_name) ->performedOn($user) ->causedBy($user) ->withProperties($rr)  ->log('diferencia al procesar bono ');
+                    activity($user->full_name) ->performedOn($user) ->causedBy($user) ->withProperties($rr)  ->log('diferencia al procesar bono ');
 
-                  if ($almacen->minimo_compra<=$rr || $rr==0) {
-
+                    if ($almacen->minimo_compra<=$rr || $rr==0) {
 
                     $ppa=AlpAbonosDisponible::where('id_cliente', $user_id)->first();
 
                 
-                  $data_abono = array(
-                    'id_abono'=>$ppa->id_abono,
-                    'id_cliente'=>$user_id,
-                    'operacion'=>1,
-                    'codigo_abono'=>'',
-                    'valor_abono'=>-$request->bono_use,
-                    'fecha_final'=>now(),
-                    'origen'=>'Compra',
-                    'token'=>md5(time()),
-                    'json'=>json_encode($orden),
-                    'id_user'=>$user_id
-                  );
+                    $data_abono = array(
+                      'id_abono'=>$ppa->id_abono,
+                      'id_cliente'=>$user_id,
+                      'operacion'=>1,
+                      'codigo_abono'=>'',
+                      'valor_abono'=>-$request->bono_use,
+                      'fecha_final'=>now(),
+                      'origen'=>'Compra',
+                      'token'=>md5(time()),
+                      'json'=>json_encode($orden),
+                      'id_user'=>$user_id
+                    );
 
-                 $pa=AlpAbonosDisponible::create($data_abono);
+                   $pa=AlpAbonosDisponible::create($data_abono);
 
-
-                 if ($total-$request->bono_use>0) {
+                  if ($total-$request->bono_use>0) {
                   
 
                     $data_pago = array(
@@ -3461,6 +3489,7 @@ class AlpCartController extends JoshController
 
               $data=$this->generarPedido('8', '4', $pa, 'bono');
 
+              #dd($data);
               
               if (isset($data['id_orden'])) {
 
@@ -4459,14 +4488,30 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          
         }else{
 
+          $referencia='';
+          $metodo='';
+          $tipo='';
+
+          if(isset($json_pago['response']['id'])){
+            $referencia=$json_pago['response']['id'];
+          }
+
+          if(isset($json_pago['response']['payment_method_id'])){
+            $metodo=$json_pago['response']['payment_method_id'];
+          }
+
+          if(isset($json_pago['response']['payment_type_id'])){
+            $tipo=$json_pago['response']['payment_type_id'];
+          }
+
             $data_pago = array(
               'id_orden' => $orden->id, 
               'id_forma_pago' => $orden->id_forma_pago, 
               'id_estatus_pago' => $estatus_pago, 
               'monto_pago' => $orden->monto_total-$total_tarjetas, 
-              'referencia' => $json_pago['response']['id'], 
-            'metodo' => $json_pago['response']['payment_method_id'], 
-            'tipo' => $json_pago['response']['payment_type_id'],
+              'referencia' => $referencia, 
+              'metodo' => $metodo, 
+             'tipo' => $tipo,
               'json' => json_encode($json_pago), 
               'id_user' => $user_id, 
     

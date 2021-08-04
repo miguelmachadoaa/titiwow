@@ -59,17 +59,17 @@ $total_descuentos_icg=0;
                                         
                                         <input class=" " id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" 
                                           @if($total>$bono_disponible->total)
-                                          value="{{$bono_disponible->total}}" 
+                                            value="{{$bono_disponible->total}}" 
                                           @else
-                                          value="{{$total}}"
+                                            value="{{round($total)}}"
                                           @endif
                                           step="1" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"  ></p>
                                          
                                           <input id="monto_total_compra_bono_icg" name="monto_total_compra_bono_icg" type="hidden" 
                                           @if($total>$bono_disponible->total)
-                                          value="{{$bono_disponible->total}}" 
+                                            value="{{$bono_disponible->total}}" 
                                           @else
-                                          value="{{$total}}"
+                                            value="{{round($total)}}"
                                           @endif
                                           step="1" >    
 
