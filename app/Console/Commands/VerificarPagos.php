@@ -197,7 +197,11 @@ class VerificarPagos extends Command
 
     private function procesarEpayco($id_orden){
 
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
            $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+           $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
             $pago=AlpPagos::where('id_orden', $id_orden)->first();
 
@@ -206,13 +210,13 @@ class VerificarPagos extends Command
                 \Log::debug('pago a verificar' . $pago);
 
                 $datos = array(
-                'public_key' => $configuracion->epayco_public_key, 
+                'public_key' => $almacen->epayco_public_key, 
                 'refPayco' => $pago->referencia 
                 );
 
                 $ch = curl_init();
 
-                curl_setopt($ch, CURLOPT_URL, 'https://apiservices.epayco.co/consulta/transaccion?public_key='.$configuracion->epayco_public_key.'&refPayco='.$pago->referencia);
+                curl_setopt($ch, CURLOPT_URL, 'https://apiservices.epayco.co/consulta/transaccion?public_key='.$almacen->epayco_public_key.'&refPayco='.$pago->referencia);
 
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
