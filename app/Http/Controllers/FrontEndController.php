@@ -5491,6 +5491,23 @@ public function getApiUrl($endpoint, $jsessionid)
 
       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 
+
+      if($datos[0]['hash']==md5($datos[0]['fecha'].$u->private_key)){
+
+
+      }else{
+
+          $data = array(
+              'estatus' =>false, 
+              'mensaje'=>'Credenciales Invalidas', 
+              'cod'=>'501'
+          );
+
+          return json_encode($data);
+      }
+
+      
+
         $modificados = array();
 
 
