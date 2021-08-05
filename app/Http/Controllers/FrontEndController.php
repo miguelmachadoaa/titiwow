@@ -5327,7 +5327,7 @@ public function getApiUrl($endpoint, $jsessionid)
           return json_encode($data);
       }
 
-      
+
 
           $r="false";
 
