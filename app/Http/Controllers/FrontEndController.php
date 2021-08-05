@@ -5312,6 +5312,23 @@ public function getApiUrl($endpoint, $jsessionid)
 
        activity()->withProperties($datos)->log('FrontEndController/get360_datosrecibidos');
 
+       $u=User::where('public_key', '=', $datos[0]['key'])->first();
+       
+       if($datos[0]['hash']==md5($datos[0]['fecha'].$u->private_key)){
+
+      }else{
+
+          $data = array(
+              'estatus' =>false, 
+              'mensaje'=>'Credenciales Invalidas', 
+              'cod'=>'501'
+          );
+
+          return json_encode($data);
+      }
+
+      
+
           $r="false";
 
        if (count($datos)) {
@@ -5397,6 +5414,24 @@ public function getApiUrl($endpoint, $jsessionid)
       $datos = json_decode($content, true);
 
        activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
+
+       $u=User::where('public_key', '=', $datos[0]['key'])->first();
+
+       if($datos[0]['hash']==md5($datos[0]['fecha'].$u->private_key)){
+
+      }else{
+
+          $data = array(
+              'estatus' =>false, 
+              'mensaje'=>'Credenciales Invalidas', 
+              'cod'=>'501'
+          );
+
+          return json_encode($data);
+      }
+
+
+
 
     //  dd($datos);
 
@@ -5491,9 +5526,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 
+      $u=User::where('public_key', '=', $datos[0]['key'])->first();
 
       if($datos[0]['hash']==md5($datos[0]['fecha'].$u->private_key)){
-
 
       }else{
 

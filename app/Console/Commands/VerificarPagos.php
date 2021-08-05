@@ -83,7 +83,7 @@ class VerificarPagos extends Command
         #$ordenes=AlpOrdenes::where('id', '20782')->get();
         //
         
-      Log::info('ordenes a verficar  '.json_encode($ordenes_id));
+     # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -197,7 +197,7 @@ class VerificarPagos extends Command
 
     private function procesarEpayco($id_orden){
 
-      Log::info('procesar epayco   '.json_encode($id_orden));
+     ## Log::info('procesar epayco   '.json_encode($id_orden));
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
