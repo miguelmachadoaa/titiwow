@@ -7197,8 +7197,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         unset( $cart[$producto->slug]);
 
        }
-      }
 
+      }
       
       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 

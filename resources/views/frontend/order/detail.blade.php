@@ -445,11 +445,6 @@ div.overlay > div {
 
         </div>
 
-  
-
-{{json_encode($dl_productos)}}
-
-
 
 @endsection
 
