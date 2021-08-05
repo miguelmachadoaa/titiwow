@@ -401,14 +401,17 @@
 
             url=$(this).attr('href');
 
-
             pimagen=$(this).data('imagen');
             
             name=$(this).data('name');
+            sku=$(this).data('sku');
+            ean=$(this).data('ean');
 
 
             dataLayer.push({
             'nombre': name,
+            'sku': sku,
+            'ean': ean,
             'imagen': pimagen,
             'precio': price,
             'slug': slug,

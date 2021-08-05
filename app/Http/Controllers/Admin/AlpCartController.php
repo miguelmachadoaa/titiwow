@@ -298,6 +298,7 @@ class AlpCartController extends JoshController
 
         $dl_productos = array();
 
+
         foreach($cart as $c){
 
           if(isset($c->id)){
@@ -305,8 +306,8 @@ class AlpCartController extends JoshController
             $dl_p=array();
             $dl_p['nombre_producto']=$c->nombre_producto;
             $dl_p['presentacion_producto']=$c->presentacion_producto;
-            $dl_p['referencia_producto']=$c->referencia_producto;
-            $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+            $dl_p['ean']=$c->referencia_producto;
+            $dl_p['sku']=$c->referencia_producto_sap;
             $dl_p['slug']=$c->slug;
             $dl_p['precio_base']=$c->precio_base;
             $dl_p['precio_oferta']=$c->precio_oferta;
@@ -571,8 +572,8 @@ class AlpCartController extends JoshController
 
               $dl_p['nombre_producto']=$c->nombre_producto;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
-              $dl_p['referencia_producto']=$c->referencia_producto;
-              $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+              $dl_p['ean']=$c->referencia_producto;
+              $dl_p['sku']=$c->referencia_producto_sap;
               $dl_p['slug']=$c->slug;
               $dl_p['precio_base']=$c->precio_base;
               $dl_p['precio_oferta']=$c->precio_unitario;
@@ -2220,8 +2221,8 @@ class AlpCartController extends JoshController
           $dl_p=array();
           $dl_p['nombre_producto']=$c->nombre_producto;
           $dl_p['presentacion_producto']=$c->presentacion_producto;
-          $dl_p['referencia_producto']=$c->referencia_producto;
-          $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+          $dl_p['ean']=$c->referencia_producto;
+            $dl_p['sku']=$c->referencia_producto_sap;
           $dl_p['slug']=$c->slug;
           $dl_p['precio_base']=$c->precio_base;
           $dl_p['precio_oferta']=$c->precio_oferta;
@@ -2788,8 +2789,8 @@ class AlpCartController extends JoshController
               $dl_p=array();
               $dl_p['nombre_producto']=$c->nombre_producto;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
-              $dl_p['referencia_producto']=$c->referencia_producto;
-              $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+              $dl_p['ean']=$c->referencia_producto;
+            $dl_p['sku']=$c->referencia_producto_sap;
               $dl_p['slug']=$c->slug;
               $dl_p['precio_base']=$c->precio_base;
               $dl_p['precio_oferta']=$c->precio_oferta;
@@ -2820,8 +2821,8 @@ class AlpCartController extends JoshController
             $dl_p=array();
             $dl_p['nombre_producto']=$c->nombre_producto;
             $dl_p['presentacion_producto']=$c->presentacion_producto;
-            $dl_p['referencia_producto']=$c->referencia_producto;
-            $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+            $dl_p['ean']=$c->referencia_producto;
+            $dl_p['sku']=$c->referencia_producto_sap;
             $dl_p['slug']=$c->slug;
             $dl_p['precio_base']=$c->precio_base;
             $dl_p['precio_oferta']=$c->precio_oferta;
