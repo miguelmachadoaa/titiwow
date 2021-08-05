@@ -117,7 +117,7 @@ Actualizar Almacen
                                     <a class="btn btn-link" target="_blank" href="{{secure_url('reportes/exportinventarioalmacen/'.$almacen->id)}}">Descargar Archivo de Inventario Actual del Almacen </a>
 
                                     <div class="alert alert-danger ">
-                                    IMPORTANTE: Los productos que se muestran en el archivo descargado son los que actualmente se encuentran activos en el almacén, al igual que el inventario, recomendamos modificar el mismo archivo con el nuevo inventario y subirlo. Trate de no copias y pegar contenido de otros archivos ya que puede traer formatos ocultos y la carga del inventario no quedará de forma correcta.
+                                    IMPORTANTE: Los productos que se muestran en el archivo descargado son los que actualmente se encuentran activos en el almacén, al igual que el inventario, recomendamos modificar el mismo archivo con el nuevo inventario y subirlo. Trate de no copiar y pegar contenido de otros archivos, ya que este puede traer formatos ocultos y la carga del inventario no quedará de forma correcta.
                                     </div>
                                 </div>
                             </div>
