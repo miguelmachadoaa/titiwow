@@ -156,6 +156,14 @@ class VerificarPagosHora extends Command
 
         }
 
+        if($orden->id_forma_pago=='6'){
+
+          $this->procesarEpayco($ord->id);
+
+
+        }
+
+
 
       }//endforeach ordenes
 
@@ -165,6 +173,509 @@ class VerificarPagosHora extends Command
      
 
     }//endhadle
+
+
+
+    
+
+    private function procesarEpayco($id_orden){
+
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+           $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+           $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
+            $pago=AlpPagos::where('id_orden', $id_orden)->first();
+
+            if (isset($pago->referencia)) {
+
+                \Log::debug('pago a verificar' . $pago);
+
+                $datos = array(
+                'public_key' => $almacen->epayco_public_key, 
+                'refPayco' => $pago->referencia 
+                );
+
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, 'https://apiservices.epayco.co/consulta/transaccion?public_key='.$almacen->epayco_public_key.'&refPayco='.$pago->referencia);
+
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+                curl_setopt($ch, CURLOPT_POST, 1);
+
+                $headers = array();
+
+                $headers[] = 'Accept: application/json';
+
+                //$headers[] = 'Paypal-Request-Id: YL_PLAN_12';
+
+                $headers[] = 'Prefer: return=representation';
+
+                $headers[] = 'Content-Type: application/json';
+
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $result2 = curl_exec($ch);
+
+                if (curl_errno($ch)) {
+
+                    echo 'Error:' . curl_error($ch);
+
+                }
+
+                curl_close($ch);
+
+                $datos2=json_decode($result2);
+
+                \Log::debug('Orden '.$orden->id.'Json: ' . $result2);
+
+
+                $cancel=0;
+              $aproved=0;
+              $pending=0;
+
+
+
+                if (isset($datos2->success)) {
+
+                  if ($datos2->success) {
+
+                      foreach ($datos2->data->data as $r) {
+
+                        if ($r->tipo_cod_respuesta=='2' || $r->tipo_cod_respuesta=='4' || $r->tipo_cod_respuesta=='9' || $r->tipo_cod_respuesta=='6' || $r->tipo_cod_respuesta=='10' || $r->tipo_cod_respuesta=='11' || $r->tipo_cod_respuesta=='12' || $r->tipo_cod_respuesta=='7') {
+
+                          $cancel=1;
+
+                        }
+
+                        if ($r->tipo_cod_respuesta=='1') {
+
+                          $aproved=1;
+
+                        }
+
+                        if ($r->tipo_cod_respuesta=='3' || $r->tipo_cod_respuesta=='8') {
+
+                          $pending=1;
+
+                        }
+
+                      }
+
+
+                      if ( $aproved )   {
+
+                          $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+                          $direccion=AlpDirecciones::where('id', $orden->id_address)->withTrashed()->first();
+
+                          //dd($direccion);
+
+                          $feriados=AlpFeriados::feriados();
+
+                          $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+                          $date = Carbon::now();
+
+                          $hora=$date->format('Hi');
+
+                          $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+                          if (intval($hora)>intval($hora_base)) {
+
+                            $ciudad_forma->dias=$ciudad_forma->dias+1;
+
+                          }
+
+                          for ($i=1; $i <=$ciudad_forma->dias ; $i++) { 
+
+                            $date2 = Carbon::now();
+
+                            $date2->addDays($i);
+
+                            if ($date2->isSunday()) {
+
+                              $ciudad_forma->dias=$ciudad_forma->dias+1;
+                            
+                            }else{
+
+                              if (isset($feriados[$date2->format('Y-m-d')])) {
+
+                                  $ciudad_forma->dias=$ciudad_forma->dias+1;
+                                
+                              }
+
+                            }
+
+                            
+                          }
+
+                          $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
+
+
+
+                          $envio=$ciudad_forma->costo;
+
+                          $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+                            if ($envio>0) {
+                              
+                                $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+                                $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+                            }else{
+
+                                $envio_base=0;
+
+                                $envio_impuesto=0;
+
+                            }
+
+                              $data_envio = array(
+                                'id_orden' => $orden->id, 
+                                'fecha_envio' => $fecha_entrega,
+                                'costo' => $envio, 
+                                'costo_base' => $envio_base, 
+                                'costo_impuesto' => $envio_impuesto, 
+                                'estatus' => 1, 
+                                'id_user' =>1                   
+                              );
+
+                              $envio=AlpEnvios::create($data_envio);
+
+                              $data_envio_history = array(
+                                'id_envio' => $envio->id, 
+                                'estatus_envio' => 1, 
+                                'nota' => 'Envio Generado por Verificar Pagos', 
+                                'id_user' =>1                 
+
+                              );
+
+                              AlpEnviosHistory::create($data_envio_history);
+
+
+                                $data_update = array(
+                                'estatus' =>1, 
+                                'estatus_pago' =>2,
+                                  );
+
+
+                                $orden->update($data_update);
+
+
+                                $data_pago = array(
+                                  'id_orden' => $orden->id, 
+                                  'id_forma_pago' => $orden->id_forma_pago, 
+                                  'id_estatus_pago' => '2', 
+                                  'monto_pago' => $orden->monto_total, 
+                                  'json' => json_encode($preference), 
+                                  'id_user' => '1'
+                                );
+
+
+                                AlpPagos::create($data_pago);
+
+                          if ($orden->id_almacen==1) {
+
+                            try {
+                              # $this->sendcompramas($orden->id, 'approved');
+
+                              $this->registrarOrden($orden->id);
+
+
+                            } catch (\Exception $e) {
+
+                              activity()->withProperties($orden)->log('error compramas vp l355');
+                              
+                            }
+
+                            }
+
+
+                            $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+                            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+                            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+                          ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+                          ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+                          ->where('alp_ordenes.id', $orden->id)->first();
+
+
+                            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*',
+                              'alp_productos.presentacion_producto as presentacion_producto',
+                              'alp_productos.nombre_producto as nombre_producto',
+                              'alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+                              ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+                              ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                              ->whereNull('alp_ordenes_detalle.deleted_at')
+                              ->get();
+
+
+
+                            $orden=AlpOrdenes::where('id', $orden->id)->first();
+
+                            $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.tipo_producto as tipo_producto')
+                              ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+                              ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                              ->whereNull('alp_ordenes_detalle.deleted_at')
+                              ->get();
+
+                              $productos = array();
+
+                              foreach ($detalles as $d) {
+                                
+                                  $dt = array(
+                                    'sku' => $d->referencia_producto, 
+                                    'name' => $d->nombre_producto, 
+                                    'url_img' => $d->imagen_producto, 
+                                    'value' => $d->precio_unitario, 
+                                    'value_prom' => $d->precio_unitario, 
+                                    'quantity' => $d->cantidad
+                                  );
+
+                                  $productos[]=$dt;
+                              }
+
+
+
+                          $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+                            ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+                            ->join('role_users', 'users.id', '=', 'role_users.user_id')
+                            ->join('roles', 'role_users.role_id', '=', 'roles.id')
+                            ->where('users.id', '=', $orden->id_user)->first();
+
+
+                          // dd($cliente);
+
+
+                          $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                          ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
+
+
+                          $dir = array(
+                            'ordenId' => $orden->referencia, 
+                            'ciudad' => $direccion->state_name, 
+                            'telefonoCliente' => $cliente->telefono_cliente, 
+                            'identificacionCliente' => $cliente->doc_cliente, 
+                            'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
+                            'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
+                            'observacionDomicilio' => "", 
+                            'formaPago' => "Efectivo"
+                          );
+
+                          $o = array(
+                            'tipoServicio' => 1, 
+                            'retorno' => "false", 
+                            'totalFactura' => $orden->monto_total, 
+                            'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                            'iva' => $orden->monto_impuesto, 
+                            'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
+                            'horaMinPedido' => "00:00", 
+                            'horaMaxPedido' => "00:00", 
+                            'observaciones' => "", 
+                            'paradas' => $dir, 
+                            'products' => $productos, 
+                          );
+
+
+                          $dataraw=json_encode($o);
+
+
+
+
+                          if ($compra->id_forma_envio!=1) {
+
+                              try {
+
+                                $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                                Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+                                Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                                
+                                } catch (\Exception $e) {
+
+                                  activity()->withProperties(1)->log('Error de correo vp354');
+                            
+                              
+                                }
+
+                              try {
+
+                                # $this->ibmConfirmarCompra($user_cliente, $orden);
+
+                                # $this->ibmConfirmarPago($user_cliente, $orden);
+
+                                # $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
+                                
+                              } catch (\Exception $e) {
+
+                                activity()->withProperties(1)->log('Error de ibm vp372');
+                                
+                              }
+
+                                                    
+                            }
+
+
+                            
+
+                            try {
+
+                                Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+                                Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
+
+                                Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+                                Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+                              
+                            } catch (\Exception $e) {
+
+                              activity()->withProperties(1)->log('Error de correo vp408');
+                              
+                            }
+
+
+
+
+                            foreach ($detalles as $d ) {
+
+                              if ($d->tipo_producto=='4') {
+
+                                $prod=AlpProductos::Where('id_producto', '=', $d->id_producto)->first();
+
+                                  Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionDigital($prod));
+                                
+                                  Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionDigital($prod));
+
+                              }
+                              # code...
+                            }
+
+                          
+                      }elseif($pending){
+                        
+
+                      }elseif($cancel){
+
+                          $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+
+                          $date = Carbon::parse($orden->created_at); 
+
+                          $now = Carbon::now();
+
+                          $diff = $date->diffInMinutes($now); 
+                          
+
+                          if ($diff>$configuracion->vence_ordenes_pago) {
+
+                          //dd($diff);
+
+                            $data_update = array(
+                              'estatus' =>4, 
+                              'estatus_pago' =>3,
+                                );
+
+                              $orden->update($data_update);
+
+                              $data_history = array(
+                                'id_orden' => $orden->id, 
+                                'id_status' => '4', 
+                                'notas' => 'Notificacion Mercadopago Cron',
+                                'id_user' => 1
+                              );
+
+                              $history=AlpOrdenesHistory::create($data_history);
+
+                              $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+                                foreach ($descuentos as $desc) {
+                                  
+                                  $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+                                  $d->delete();
+
+                                }
+
+
+                                /* try {
+
+                                    if ($orden->id_almacen=='1') {
+
+                                      // $this->sendcompramas($orden->id, 'rejected');
+
+                                      $this->cancelarCompramas($orden->id);
+
+
+                                      # code...
+                                    }
+                                  
+                                } catch (\Exception $e) {
+
+                                  activity()->withProperties(1)->log('Error de compramas vp477');
+                                  
+                                }*/
+
+
+                                $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+
+                                $total_descuentos_icg=0;
+
+                                foreach ($descuentosIcg as $pagoi) {
+
+                                  $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+                                }
+
+                                if ($total_descuentos_icg>0) {
+
+                                  $this->registroIcgCancelar($orden->id);
+
+                                }
+
+
+
+
+
+
+
+
+                          }
+
+                      }
+
+
+
+
+                  }
+                  
+                }
+            
+            }
+              
+
+
+
+    }
+
+
+
+
+
+
+
+
+
 
 
 
