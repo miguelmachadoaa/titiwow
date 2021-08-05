@@ -391,7 +391,7 @@ $total_descuentos_icg=0;
                                   <div class="panel-body">
 
                                       <p class=" col-sm-6 col-xs-12">
-                                          <img class="img-responsive" alt="Epayco" style="width: 5em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/epayco.png">
+                                          <img class="img-responsive" alt="Epayco" style="width: 5em;     padding: 0.5em 0em 0em 0em;" src="https://369969691f476073508a-60bf0867add971908d4f26a64519c2aa.ssl.cf5.rackcdn.com/logos/logo_epayco_200px.png">
                                           </p> 
 
                                        <div data-type='epayco' id="epayco" data-id="5" class=" col-sm-6 col-xs-12  btnpg cbtnpagar" style="padding:8px;background-color:#3c763d;color:#ffffff;cursor:pointer;">
