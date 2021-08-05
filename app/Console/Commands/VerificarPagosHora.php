@@ -176,9 +176,11 @@ class VerificarPagosHora extends Command
 
 
 
-    
+
 
     private function procesarEpayco($id_orden){
+
+      Log::info('procesar epayco   '.json_encode($id_orden));
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -187,6 +189,9 @@ class VerificarPagosHora extends Command
            $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
             $pago=AlpPagos::where('id_orden', $id_orden)->first();
+
+
+            Log::info('pago epayco   '.json_encode($pago));
 
             if (isset($pago->referencia)) {
 
@@ -372,7 +377,7 @@ class VerificarPagosHora extends Command
                                   'id_forma_pago' => $orden->id_forma_pago, 
                                   'id_estatus_pago' => '2', 
                                   'monto_pago' => $orden->monto_total, 
-                                  'json' => json_encode($preference), 
+                                  'json' => json_encode($datos2), 
                                   'id_user' => '1'
                                 );
 
@@ -667,8 +672,6 @@ class VerificarPagosHora extends Command
 
 
     }
-
-
 
 
 
