@@ -157,18 +157,11 @@ Carrito de Compras
 
                                                 @if(isset($cart[$producto->slug]))
 
-
-                                               
-
-
                                                 @else
-                                                  
                                                      
                                                      <a style="width: 90%;" data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocartDetail" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                                 @endif
-
-
                                                 
                                         </div>
                                         </div>
@@ -182,7 +175,6 @@ Carrito de Compras
                             @endif
 
                             @endif
-
 
                             @endforeach
                             @else
@@ -220,6 +212,27 @@ Carrito de Compras
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+
+
+
+    @if(isset($dl_productos))
+
+    <script>
+
+        window.dataLayer = window.dataLayer || [];
+
+        window.dataLayer.push({
+        'event': 'cartshow',
+        'total': '{{ $total }}',
+        'productos':{!!json_encode($dl_productos)!!}
+        });
+
+    </script>
+
+    @endif
+
+
+
     <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
@@ -320,13 +333,7 @@ Carrito de Compras
 
          }, 1000);
 
-         window.dataLayer = window.dataLayer || [];
-
-        window.dataLayer.push({
-        'event': 'cartshow',
-        'total': '{{ $total }}',
-        'productos':{!!json_encode($dl_productos)!!}
-        });
+        
 
         
     </script>
