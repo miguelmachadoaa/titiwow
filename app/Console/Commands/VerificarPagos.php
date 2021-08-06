@@ -78,9 +78,9 @@ class VerificarPagos extends Command
 
       
         
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('id', '20782')->get();
+        $ordenes=AlpOrdenes::where('id', '21188')->get();
         //
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
@@ -1001,16 +1001,18 @@ class VerificarPagos extends Command
 
     private function procesarMercadopago($preference, $id_orden){
 
+
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      if (isset($preference['response']['results'])) {
+      if (1) {
+       # if (isset($preference['response']['results'])) {
         // if (isset($preference)) {
 
            $cantidad=count($preference['response']['results']);
 
-           $aproved=0;
+           $aproved=1;
 
            $cancel=0;
            $pending=0;
@@ -1038,6 +1040,8 @@ class VerificarPagos extends Command
 
            if ( $aproved ) 
              {
+
+              #dd('aproved');
 
                $direccion=AlpDirecciones::where('id', $orden->id_address)->withTrashed()->first();
 
@@ -1298,7 +1302,7 @@ class VerificarPagos extends Command
 
                  try {
 
-                    Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+                    Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 

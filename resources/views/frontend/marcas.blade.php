@@ -161,9 +161,16 @@
 
                 @else
 
-                    @if(isset($combos[$producto->id]))
+                    @if($configuracion->mostrar_agotados=='1')
 
-                        @if($combos[$producto->id])
+                        @if(!isset($combos[$producto->id]) )
+
+                            @php $combos[$producto->id]=0; @endphp
+
+                        @endif
+
+
+                        @if($producto->precio_oferta>0)
 
                             @php $i++; @endphp
 
@@ -174,8 +181,31 @@
                                     </div>
                                     <div class="row">
                                 @endif
+                        @endif
+
+                        @else
+
+                        @if(isset($combos[$producto->id]) )
+
+                            @if($combos[$producto->id] )
+
+                                @if($producto->precio_oferta>0)
+
+                                    @php $i++; @endphp
+
+                                    @include('frontend.producto')
+
+
+                                        @if ($i % 4 == 0)
+                                            </div>
+                                            <div class="row">
+                                        @endif
+                                @endif
+
+                            @endif
 
                         @endif
+
 
                     @endif
 

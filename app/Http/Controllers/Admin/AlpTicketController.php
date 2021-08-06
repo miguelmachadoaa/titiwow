@@ -294,13 +294,10 @@ class AlpTicketController extends JoshController
 
             Mail::to(trim($value))->send(new \App\Mail\NotificacionTicket($ticket));
 
-
-
           } catch (\Exception $e) {
 
             activity()->withProperties(1)
                         ->log('error envio de correo ticket controller 302');
-
 
           }
 
