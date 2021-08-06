@@ -1586,7 +1586,7 @@ class ClientesFrontController extends Controller
 
             }
 
-             return redirect('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+             return redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
         
         }else{
 
