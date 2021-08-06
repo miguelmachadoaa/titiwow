@@ -5499,8 +5499,6 @@ public function getApiUrl($endpoint, $jsessionid)
   {
 
 
-
-
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -5524,11 +5522,12 @@ public function getApiUrl($endpoint, $jsessionid)
        // dd($content);
       $datos = json_decode($datos1, true);
 
+
       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 
-      $u=User::where('public_key', '=', $datos[0]['key'])->first();
+      $u=User::where('public_key', '=', $datos['key'])->first();
 
-      if($datos[0]['hash']==md5($datos[0]['fecha'].$u->private_key)){
+      if($datos['hash']==md5($datos['fecha'].$u->private_key)){
 
       }else{
 
@@ -5540,8 +5539,6 @@ public function getApiUrl($endpoint, $jsessionid)
 
           return json_encode($data);
       }
-
-      
 
         $modificados = array();
 
@@ -5563,13 +5560,8 @@ public function getApiUrl($endpoint, $jsessionid)
 
             //  dd($datos['fechaInicio'].'--'.$datos['fechaFinal']);
 
-             
-
 
               foreach ($users as $u) {
-
-
-
 
                    $c=AlpClientes::where('id_user_client', $u->id)->first();
 

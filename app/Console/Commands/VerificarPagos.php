@@ -1279,11 +1279,11 @@ class VerificarPagos extends Command
 
                    try {
 
-                     # $this->ibmConfirmarCompra($user_cliente, $orden);
+                      $this->ibmConfirmarCompra($user_cliente, $orden);
 
-                    # $this->ibmConfirmarPago($user_cliente, $orden);
+                     $this->ibmConfirmarPago($user_cliente, $orden);
 
-                    # $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
+                     $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
                      
                    } catch (\Exception $e) {
 
@@ -1378,23 +1378,6 @@ class VerificarPagos extends Command
                      }
 
 
-                    /* try {
-
-                        if ($orden->id_almacen=='1') {
-
-                          // $this->sendcompramas($orden->id, 'rejected');
-
-                           $this->cancelarCompramas($orden->id);
-
-
-                           # code...
-                         }
-                       
-                     } catch (\Exception $e) {
-
-                       activity()->withProperties(1)->log('Error de compramas vp477');
-                       
-                     }*/
 
 
                      $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
