@@ -78,8 +78,6 @@
 
         $('.cerrarMyModal').click(function(){
 
-            alert('click');
-
             localStorage.setItem("ubicacionmymodal", 1);
 
             $('#miModal').fadeOut();
