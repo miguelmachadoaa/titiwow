@@ -142,6 +142,8 @@
 
                     $('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name);
 
+                    $('.pmimodal').html('Esta visualizando productos de la ubicación '+ ubicacion.city_name+' '+ubicacion.state_name);
+
                     $('.addtocart').removeClass('hidden');
 
 
