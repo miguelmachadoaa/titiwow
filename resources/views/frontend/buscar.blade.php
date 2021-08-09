@@ -236,7 +236,7 @@ Resultado de la Búsqueda @parent
             </div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                        <h1 class="subtitulo" style="font-size: 24px; color: #1450C9; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';">Intente búscar Nuevamente</h1>
+                        <h1 class="subtitulo" style="font-size: 24px; color: #241F48; margin-bottom: 15px; font-weight: 500; font-family: 'AlpinaSans Semibold';">   Intente búscar Nuevamente</h1>
                 </div>
             </div>
             <div class="row">
