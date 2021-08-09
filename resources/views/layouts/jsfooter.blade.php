@@ -62,6 +62,45 @@
             location.reload();
 
         });
+
+        $(document).ready(function(){
+
+
+            ubicacionmymodal = localStorage.getItem("ubicacionmymodal");
+
+            if (ubicacionmymodal==1) {
+
+                $('#miModal').fadeOut();
+
+            }   
+        })
+
+
+        $('.cerrarMyModal').click(function(){
+
+            alert('click');
+
+            localStorage.setItem("ubicacionmymodal", 1);
+
+            $('#miModal').fadeOut();
+
+        });
+
+        $('.ubicacion_header_my').click(function(e){
+
+        e.preventDefault();
+
+        $('#ubicacionModal').modal('show');
+
+        $('#miModal').fadeOut();
+
+        localStorage.setItem("ubicacionmymodal", 1);
+
+        });
+
+
+
+        
     
 
 
@@ -103,6 +142,8 @@
 
                     $('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name);
 
+                    $('.pmimodal').html('Esta visualizando productos de la ubicación '+ ubicacion.city_name+' '+ubicacion.state_name);
+
                     $('.addtocart').removeClass('hidden');
 
 
@@ -141,6 +182,8 @@
             e.preventDefault();
 
             $('#ubicacionModal').modal('show');
+
+            localStorage.setItem("ubicacionmymodal", 1);
 
         });
 
