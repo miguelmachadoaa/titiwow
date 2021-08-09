@@ -356,3 +356,19 @@
         <!-- Nav bar End -->
     </header>
     <!-- //Header End -->
+
+    <div id="miModal" class=" " style="     position: absolute;    top: 4em;    right: 10em;    background: #fff;
+    box-shadow: 0px 0px 15px rgb(0 0 0 / 40%); text-aling:center; padding:3em;  color: #333;     font-weight: 600;   ">
+        <div class="contenido">
+            <div class="row">
+                <p class="pmimodal">Estas viendo los productos disponibles en esta ubicación.</p>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-primary cerrarMyModal">Mantenerse</button>
+                <button class="btn btn-danger ubicacion_header_my">Cambiar Ubicación</button>
+            </div>
+            
+
+        </div>  
+    </div>
