@@ -1056,7 +1056,9 @@ class ClientesFrontController extends Controller
 
          \Session::put('orden', $orden);
 
-        return redirect('order/detail');
+         return redirect::route('order/detail');
+
+        #return redirect('order/detail');
 
     }
 
@@ -1109,7 +1111,9 @@ class ClientesFrontController extends Controller
 
          \Session::put('cart', $cart);
 
-        return redirect('cart/show');
+        return redirect::route('cart/show');
+
+        #return redirect('cart/show');
 
     }
 
@@ -1299,7 +1303,9 @@ class ClientesFrontController extends Controller
 
         if ($direccion->id) {
 
-          return redirect('misdirecciones');
+            return redirect::route('misdirecciones');
+
+         # return redirect('misdirecciones');
 
         } else {
 
