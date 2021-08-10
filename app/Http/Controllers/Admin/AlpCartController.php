@@ -10706,7 +10706,7 @@ public function addcupon(Request $request)
         }
 
 
-        echo  json_encode('id_almacen_cart : '.$id_almacen);
+       # echo  json_encode('id_almacen_cart : '.$id_almacen);
       return $id_almacen;
       
     }
@@ -11133,7 +11133,7 @@ public function addcupon(Request $request)
 
         
        // dd($id_almacen);
-        echo  json_encode('id_almacen : '.$id_almacen);
+       # echo  json_encode('id_almacen : '.$id_almacen);
         
       return $id_almacen;
 

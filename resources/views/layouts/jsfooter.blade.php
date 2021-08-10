@@ -68,12 +68,19 @@
 
             ubicacionmymodal = localStorage.getItem("ubicacionmymodal");
 
-            if (ubicacionmymodal==1) {
+            if (ubicacionmymodal=='1') {
 
                 $('#miModal').fadeOut();
 
-            }   
-        })
+            }else{
+
+                $('#miModal').removeClass('hidden');
+
+
+            }
+
+
+        });
 
 
         $('.cerrarMyModal').click(function(){
