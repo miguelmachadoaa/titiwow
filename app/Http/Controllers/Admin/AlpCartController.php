@@ -218,44 +218,29 @@ class AlpCartController extends JoshController
       
       $precio = array();
 
-      
-
-         if (\Session::has('cr')) {
-
-          
+      if (\Session::has('cr')) {
 
           $carrito= \Session::get('cr');
-
           
           $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
-
           
             foreach ($cupones as $cupon) {
 
-              
-
               $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
-              
               if (isset($c->id)) {
-
                 
               $c->delete();
 
                 # code...
 
               }
-
               
             }
-
             
         }
-
         
         $descuento=1;
-
-        
 
       $productos = DB::table('alp_productos')->select('alp_productos.*')
 
@@ -2232,8 +2217,6 @@ class AlpCartController extends JoshController
         }
 
       }
-
-      
 
 
       foreach ($cart as $vcart) {
@@ -6706,6 +6689,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $id_almacen=$this->getAlmacenCart();
 
+      $inventario=$this->inventario();
+
+
       $total=0;
 
       $cambio=1;
@@ -6966,6 +6952,24 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $cart[$producto->slug]=$producto;
 
          }
+      }
+    }
+
+
+    foreach($cart as $cc){
+
+      if(isset($inventario[$cc->id])){
+
+        if($inventario[$cc->id]>0){
+
+        }else{
+
+          $cc->disponible=0;
+
+        }
+
+      }else{
+        $cc->disponible=0;
       }
     }
 
@@ -10700,6 +10704,9 @@ public function addcupon(Request $request)
             }
 
         }
+
+
+       # echo  json_encode('id_almacen_cart : '.$id_almacen);
       return $id_almacen;
       
     }
@@ -10720,20 +10727,13 @@ public function addcupon(Request $request)
 
         if (isset(Sentinel::getUser()->id)) {
 
-          
-            # code...
-
             $user_id = Sentinel::getUser()->id;
-
             
             $usuario=User::where('id', $user_id)->first();
 
-            
             $user_cliente=User::where('id', $user_id)->first();
-
             
             $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
             
              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
 
@@ -11133,7 +11133,7 @@ public function addcupon(Request $request)
 
         
        // dd($id_almacen);
-
+       # echo  json_encode('id_almacen : '.$id_almacen);
         
       return $id_almacen;
 
@@ -14328,7 +14328,6 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id', $compra->id_address)->first();
-
 
            $total_descuentos=0;
 
