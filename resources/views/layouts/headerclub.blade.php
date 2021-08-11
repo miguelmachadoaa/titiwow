@@ -360,7 +360,7 @@
     <div id="miModal" class=" hidden " >
         <div class="contenido">
             <div class="row">
-                <p class="pmimodal">Estas viendo los productos disponibles en esta ubicación.</p>
+                <p class="pmimodal">Está visualizando los productos disponibles en esta ubicación:</p>
             </div>
 
             <div class="row">

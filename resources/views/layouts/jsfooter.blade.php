@@ -147,7 +147,7 @@
 
                     $('.ubicacion_header a').html('Ubicación: '+ubicacion.city_name+' '+ubicacion.state_name);
 
-                    $('.pmimodal').html('Esta visualizando productos de la ubicación: <br> <span style="font-size:16px" > '+ ubicacion.city_name+', '+ubicacion.state_name+'</sapn>');
+                    $('.pmimodal').html('Est&aacute; visualizando los productos disponibles en esta ubicaci&oacute;n: <br> <span style="font-size:16px" > '+ ubicacion.city_name+', '+ubicacion.state_name+'</sapn>');
 
                     $('.addtocart').removeClass('hidden');
 
