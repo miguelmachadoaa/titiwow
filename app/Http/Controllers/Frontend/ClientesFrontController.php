@@ -1323,7 +1323,9 @@ class ClientesFrontController extends Controller
 
           $direccion->delete();
 
-          return redirect('misdirecciones');
+          return redirect::route('misdirecciones');
+
+          #return redirect('misdirecciones');
     }
 
      public function storedir(DireccionRequest $request)
@@ -1446,7 +1448,9 @@ class ClientesFrontController extends Controller
 
             }
 
-             return redirect('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+            return redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+
+            # return redirect('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
         
         }else{
 
