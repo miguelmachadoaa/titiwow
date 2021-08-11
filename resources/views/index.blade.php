@@ -236,8 +236,6 @@
 
                         @php $i=0; @endphp
 
-                        {!! $i.' inicio en 0   i <br>'!!}   
-
                         @if(count($prods))
 
                             @foreach($prods as $producto)
