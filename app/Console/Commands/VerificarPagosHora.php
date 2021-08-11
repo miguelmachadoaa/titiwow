@@ -186,6 +186,8 @@ class VerificarPagosHora extends Command
 
            $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+           $user_cliente=User::where('id', $orden->id_user)->first();
+
            $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
             $pago=AlpPagos::where('id_orden', $id_orden)->first();
@@ -514,11 +516,11 @@ class VerificarPagosHora extends Command
 
                               try {
 
-                                 $this->ibmConfirmarCompra($user_cliente, $orden);
+                                # $this->ibmConfirmarCompra($user_cliente, $orden);
 
-                                 $this->ibmConfirmarPago($user_cliente, $orden);
+                                # $this->ibmConfirmarPago($user_cliente, $orden);
 
-                                 $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
+                                # $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
                                 
                               } catch (\Exception $e) {
 
@@ -613,6 +615,23 @@ class VerificarPagosHora extends Command
                                 }
 
 
+                                /* try {
+
+                                    if ($orden->id_almacen=='1') {
+
+                                      // $this->sendcompramas($orden->id, 'rejected');
+
+                                      $this->cancelarCompramas($orden->id);
+
+
+                                      # code...
+                                    }
+                                  
+                                } catch (\Exception $e) {
+
+                                  activity()->withProperties(1)->log('Error de compramas vp477');
+                                  
+                                }*/
 
 
                                 $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
@@ -671,6 +690,8 @@ class VerificarPagosHora extends Command
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $user_cliente=User::where('id', $orden->id_user)->first();
 
       $direccion=AlpDirecciones::where('id', $orden->id_address)->withTrashed()->first();
 
@@ -972,6 +993,8 @@ class VerificarPagosHora extends Command
     private function procesarMercadopago($preference, $id_orden){
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $user_cliente=User::where('id', $orden->id_user)->first();
 
       if (isset($preference['response']['results'])) {
         // if (isset($preference)) {
@@ -2788,6 +2811,8 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $user_cliente=User::where('id', $orden->id_user)->first();
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 

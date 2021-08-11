@@ -78,9 +78,9 @@ class VerificarPagos extends Command
 
       
         
-        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('id', '21188')->get();
+        #$ordenes=AlpOrdenes::where('id', '20782')->get();
         //
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
@@ -202,6 +202,8 @@ class VerificarPagos extends Command
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
            $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+           $user_cliente=User::where('id', $orden->id_user)->first();
 
            $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
@@ -704,6 +706,8 @@ class VerificarPagos extends Command
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+      $user_cliente=User::where('id', $orden->id_user)->first();
+
       $direccion=AlpDirecciones::where('id', $orden->id_address)->withTrashed()->first();
 
                //dd($direccion);
@@ -1001,18 +1005,20 @@ class VerificarPagos extends Command
 
     private function procesarMercadopago($preference, $id_orden){
 
+      
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      if (1) {
-       # if (isset($preference['response']['results'])) {
+      $user_cliente=User::where('id', $orden->id_user)->first();
+
+      if (isset($preference['response']['results'])) {
         // if (isset($preference)) {
 
            $cantidad=count($preference['response']['results']);
 
-           $aproved=1;
+           $aproved=0;
 
            $cancel=0;
            $pending=0;
@@ -1040,8 +1046,6 @@ class VerificarPagos extends Command
 
            if ( $aproved ) 
              {
-
-              #dd('aproved');
 
                $direccion=AlpDirecciones::where('id', $orden->id_address)->withTrashed()->first();
 
@@ -1277,6 +1281,7 @@ class VerificarPagos extends Command
                      } catch (\Exception $e) {
 
                        activity()->withProperties(1)->log('Error de correo vp354');
+                 
                    
                      }
 
@@ -1284,9 +1289,9 @@ class VerificarPagos extends Command
 
                      # $this->ibmConfirmarCompra($user_cliente, $orden);
 
-                     #$this->ibmConfirmarPago($user_cliente, $orden);
+                    # $this->ibmConfirmarPago($user_cliente, $orden);
 
-                     #$this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
+                    # $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
                      
                    } catch (\Exception $e) {
 
@@ -1302,11 +1307,12 @@ class VerificarPagos extends Command
 
                  try {
 
-                    Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+                    Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
-                    Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
                    
@@ -1380,6 +1386,23 @@ class VerificarPagos extends Command
                      }
 
 
+                    /* try {
+
+                        if ($orden->id_almacen=='1') {
+
+                          // $this->sendcompramas($orden->id, 'rejected');
+
+                           $this->cancelarCompramas($orden->id);
+
+
+                           # code...
+                         }
+                       
+                     } catch (\Exception $e) {
+
+                       activity()->withProperties(1)->log('Error de compramas vp477');
+                       
+                     }*/
 
 
                      $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
@@ -1401,6 +1424,10 @@ class VerificarPagos extends Command
 
 
                      $this->cancelarMercadopago($orden->id);
+
+
+
+
 
               }
 
