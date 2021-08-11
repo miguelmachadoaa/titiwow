@@ -6964,22 +6964,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }else{
 
-          unset( $cart[$cc->slug]);
-
           $cc->disponible=0;
 
         }
 
       }else{
-        unset( $cart[$cc->slug]);
+
+        $cc->disponible=0;
+        
       }
     }
+
+
+    \Session::put('cart', $cart);
 
      // dd($cart);
 
        return $cart;
 
       }else{
+
+        \Session::put('cart', $cart);
 
         return $cart;
 
