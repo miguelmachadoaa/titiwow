@@ -1,12 +1,18 @@
 @if($i<12)
 
+
     @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3')
+
 
         @if(isset($inventario[$producto->id]))
 
+
             @if($inventario[$producto->id]>0)
 
-            @php $i++; @endphp
+
+
+                @php $i++; @endphp
+
 
                 <div class="col-md-2 col-sm-6 col-xs-6 ">
                 
