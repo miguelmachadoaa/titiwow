@@ -22,6 +22,26 @@
 
         <h1>Carrito de Compras</h1>
 
+
+         @if(isset($ban_disponible))
+
+            @if($ban_disponible==1)
+
+                <div class="col-sm-12 alert alert-danger">
+
+                <h4 style="color: #d5006e;">Debes Eliminar los productos que no estan disponible para su dirección de envio, o asignar una dirección  que concuerde con la ubicación seleccionada en la tienda.  <a href="{{secure_url('misdirecciones')}}"> Ir a mis direcciones</a> </h4>
+
+            </div>
+
+            <hr>
+
+            @endif
+        @endif
+
+
+
+
+
         <a style="color: #d9534f !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar Carrito</a>
 
         @if(count($cart))
@@ -295,21 +315,7 @@
                             @endif
 
 
-                            @if(isset($ban_disponible))
-
-                                @if($ban_disponible==1)
-
-                                    <div class="col-sm-12">
-
-                                    <h4 style="color: #d5006e;">Debes Eliminar los productos que no estan disponible para su dirección de envio, o asignar una dirección  que concuerde con la ubicación seleccionada en la tienda.  <a href="{{secure_url('misdirecciones')}}"> Ir a mis direcciones</a> </h4>
-
-                                </div>
-
-                                <hr>
-
-                                @endif
-                            @endif
-
+                           
 
 
                     <div class="col-xs-4 col-sm-4">

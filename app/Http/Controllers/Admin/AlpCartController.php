@@ -243,29 +243,17 @@ class AlpCartController extends JoshController
         $descuento=1;
 
       $productos = DB::table('alp_productos')->select('alp_productos.*')
-
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-
         ->where('alp_almacenes.id', '=', $id_almacen)
-
         ->whereNull('alp_almacen_producto.deleted_at')
-
         ->whereNull('alp_productos.deleted_at')
-
         ->where('alp_productos.sugerencia','=', 1)
-
         ->where('alp_productos.estado_registro','=',1)
-
         ->groupBy('alp_productos.id')
-
         ->orderBy('order', 'asc')
-
         ->inRandomOrder()
-
         ->orderBy('updated_at', 'desc')
-
         ->limit(6)->get();
 
         
@@ -303,7 +291,20 @@ class AlpCartController extends JoshController
 
         }
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
+        $ban_disponible=0;
+
+        foreach($cart as $cc){
+
+          if($cc->disponible=='0'){
+
+            $ban_disponible='1';
+
+          }
+
+        }
+
+
+      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
 
     }
     
@@ -6971,7 +6972,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       }else{
 
         $cc->disponible=0;
-        
+
       }
     }
 
