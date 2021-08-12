@@ -36,7 +36,7 @@ class NotificacionTicket extends Mailable
     {
 
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Nuevo Ticket  | Alpina Alimenta tu vida')
+        ->subject('Nuevo Ticket  | Alpina Por un mundo delicioso')
         ->markdown('emails.notificacion-ticket');
 
     }

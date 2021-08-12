@@ -16,7 +16,7 @@ class NotificacionCarrito extends Mailable
     public $compra;
     public $detalles;
     public $configuracion;
-public $configuracion;
+
     /**
      * Create a new message instance.
      *
@@ -38,7 +38,7 @@ public $configuracion;
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Finaliza Tu Compra | Alpina Alimenta tu vida')
+        ->subject('Finaliza Tu Compra | Alpina Por un mundo delicioso')
         ->markdown('emails.carrito');
     }
 }

@@ -36,7 +36,7 @@ public $configuracion;
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Ya Puedes Comprar en Alpina Go | Alpina Alimenta tu vida')
+        ->subject('Ya Puedes Comprar en Alpina Go | Alpina Por un mundo delicioso')
         ->markdown('emails.aprobado');
     }
 }

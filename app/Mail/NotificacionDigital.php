@@ -36,7 +36,7 @@ class NotificacionDigital extends Mailable
     {
 
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Compra Producto Digital | Alpina Alimenta tu vida')
+        ->subject('Compra Producto Digital | Alpina Por un mundo delicioso')
         ->markdown('emails.notificacion-digital');
 
     }

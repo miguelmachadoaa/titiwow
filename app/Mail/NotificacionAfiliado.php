@@ -40,7 +40,7 @@ public $configuracion;
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Invitación a Alpina Go Corporativo | Alpina Alimenta tu vida')
+        ->subject('Invitación a Alpina Go Corporativo | Alpina Por un mundo delicioso')
         ->markdown('emails.afiliado');
     }
 }
