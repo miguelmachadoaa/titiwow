@@ -11,7 +11,6 @@ Gracias por su compra
 Ir a area cliente
 @endcomponent
 
-<h3 style="text-align: center;"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></h3>
 
 Gracias,<br>
 {{ config('app.name') }}

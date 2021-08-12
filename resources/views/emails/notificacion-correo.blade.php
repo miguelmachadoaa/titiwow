@@ -16,7 +16,6 @@ Si su navegador no lo redirige por favor diríjase a esta url
 	{{secure_url('/confirmarcorreo/'.$user->token)}}
 </p>
 
-<h3 style="text-align: center;"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></h3>
 
 Gracias,<br>
 {{ config('app.name') }}

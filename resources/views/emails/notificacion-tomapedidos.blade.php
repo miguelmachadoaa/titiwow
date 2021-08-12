@@ -16,7 +16,6 @@ Pagar Orden
 
 Si el enlace no funciona puede dirigirse a est URL {{secure_url('pedidos/'.$orden->token.'/pago')}}.
 
-<h3 style="text-align: center;"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></h3>
 
 Gracias,<br>
 {{ config('app.name') }}
