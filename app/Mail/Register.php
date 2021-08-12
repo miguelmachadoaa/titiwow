@@ -30,7 +30,7 @@ class Register extends Mailable
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-            ->subject('Activa tu Cuenta | Alpina Alimenta tu vida')
+            ->subject('Activa tu Cuenta | Alpina Por un mundo delicioso')
             ->markdown('emails.emailTemplates.activate');
     }
 }

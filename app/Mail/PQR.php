@@ -39,7 +39,7 @@ class PQR extends Mailable
     {
 
        $email= $this->from($this->configuracion->correo_respuesta)
-        ->subject('PQR | Alpina Alimenta tu vida')
+        ->subject('PQR | Alpina Por un mundo delicioso')
         ->markdown('emails.formulariopqr');
 
         if ($this->archivo!='0') {

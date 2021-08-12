@@ -40,7 +40,7 @@ class WelcomeUser extends Mailable
     {
 
         return $this->from('noresponder@alpinago.com')
-        ->subject('Bienvenido a Alpina Go! | Alpina Alimenta tu vida')
+        ->subject('Bienvenido a Alpina Go! | Alpina Por un mundo delicioso')
         ->markdown('emails.welcome');
 
     }

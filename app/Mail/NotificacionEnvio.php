@@ -43,7 +43,7 @@ public $configuracion;
     {
 
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('El envio de su orden '.$this->orden->id.' ha sido '.$this->status->estatus_envio_nombre.' | Alpina Alimenta tu vida')
+        ->subject('El envio de su orden '.$this->orden->id.' ha sido '.$this->status->estatus_envio_nombre.' | Alpina Por un mundo delicioso')
         ->markdown('emails.envio');
 
     }

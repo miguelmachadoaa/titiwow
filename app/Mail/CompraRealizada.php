@@ -58,7 +58,7 @@ public $configuracion;
     {
         
 return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Gracias por Su Compra | Alpina Alimenta tu vida')
+        ->subject('Gracias por Su Compra | Alpina Por un mundo delicioso')
         ->markdown('emails.compra');
     }
 }

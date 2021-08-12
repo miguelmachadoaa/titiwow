@@ -34,7 +34,7 @@ public $configuracion;
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Recuperar Contraseña | Alpina Alimenta tu vida')
+        ->subject('Recuperar Contraseña | Alpina Por un mundo delicioso')
         ->markdown('emails.recuperar-clave');
     }
 }

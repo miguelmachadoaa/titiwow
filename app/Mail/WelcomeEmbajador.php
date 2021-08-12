@@ -36,7 +36,7 @@ public $configuracion;
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Ya eres un Embajador Alpina Go | Alpina Alimenta tu vida')
+        ->subject('Ya eres un Embajador Alpina Go | Alpina Por un mundo delicioso')
         ->markdown('emails.welcome-embajador');
     }
 }
