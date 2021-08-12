@@ -1349,18 +1349,26 @@ class ClientesFrontController extends Controller
         $input['default_address']=1;
 
 
+        if(isset($input['id_barrio'])){
+
             if ($input['id_barrio']=='0') {
-              # code...
-            }else{
-
-              $b=Barrio::where('id', $input['id_barrio'])->first();
-
-              if (isset($b->id)) {
-                $input['barrio_address']=$b->barrio_name;
-                
+                # code...
+              }else{
+  
+                $b=Barrio::where('id', $input['id_barrio'])->first();
+  
+                if (isset($b->id)) {
+                  $input['barrio_address']=$b->barrio_name;
+                  
+                }
               }
-            }
-               
+
+        }else{
+            $input['id_barrio']=0;
+        }
+
+
+           
          
         $direccion=AlpDirecciones::create($input);
 
