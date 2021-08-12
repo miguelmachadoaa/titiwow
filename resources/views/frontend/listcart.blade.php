@@ -29,7 +29,7 @@
 
                 <div class="col-sm-12 alert alert-danger">
 
-                <h4 style="color: #d5006e;">Debes Eliminar los productos que no estan disponible para su dirección de envio, o asignar una dirección  que concuerde con la ubicación seleccionada en la tienda.  <a href="{{secure_url('misdirecciones')}}"> Ir a mis direcciones</a> </h4>
+                <h4 style="">Debes Eliminar los productos que no estan disponible para su dirección de envio, o asignar una dirección  que concuerde con la ubicación seleccionada en la tienda.  <a href="{{secure_url('misdirecciones')}}"> Ir a mis direcciones</a> </h4>
 
             </div>
 
