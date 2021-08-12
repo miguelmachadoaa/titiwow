@@ -1056,9 +1056,9 @@ class ClientesFrontController extends Controller
 
          \Session::put('orden', $orden);
 
-         return Redirect::route('order/detail');
+         #return Redirect::route('order/detail');
 
-        #return redirect('order/detail');
+        return redirect('order/detail');
 
     }
 
@@ -1303,13 +1303,17 @@ class ClientesFrontController extends Controller
 
         if ($direccion->id) {
 
-            return Redirect::route('misdirecciones');
+           # return Redirect::route('misdirecciones');
+
+            return redirect('misdirecciones');
 
          # return redirect('misdirecciones');
 
         } else {
 
-            return Redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return redirect('misdirecciones');
+
+           # return Redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }       
 
     }
@@ -1323,7 +1327,9 @@ class ClientesFrontController extends Controller
 
           $direccion->delete();
 
-          return Redirect::route('misdirecciones');
+         # return Redirect::route('misdirecciones');
+
+          return redirect('misdirecciones');
 
           #return redirect('misdirecciones');
     }
@@ -1456,13 +1462,17 @@ class ClientesFrontController extends Controller
 
             }
 
-            return Redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+            return redirect('misdirecciones');
+
+           # return Redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
 
             # return redirect('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
         
         }else{
 
-            return redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return redirect('misdirecciones');
+
+           # return redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
 
 
 
@@ -1604,11 +1614,15 @@ class ClientesFrontController extends Controller
 
             }
 
-             return Redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+            return redirect('misdirecciones');
+
+            # return Redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
         
         }else{
 
-            return Redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return redirect('misdirecciones');
+
+            #return Redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }
 
     }
@@ -1958,12 +1972,6 @@ class ClientesFrontController extends Controller
         }
 
     }
-
-
-
-
-
-
 
 
 
