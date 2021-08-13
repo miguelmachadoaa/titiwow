@@ -278,7 +278,7 @@
 
                                 @if(isset($combos[$producto->id]) && $combos[$producto->id]!=0)
 
-                                <b style="color: #143473;">Incluye:</b>
+                                    <b style="color: #143473;">Incluye:</b>
 
                                     @foreach($combos[$producto->id] as $cp)
 

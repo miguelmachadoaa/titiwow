@@ -1,7 +1,9 @@
 @if($producto->precio_oferta>0)
 
 <div class="col-md-3 col-sm-6 col-xs-6">
+
                     <div class="productos">
+
                         <div class="text-align:center;" >
 
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive"></a>
@@ -242,7 +244,7 @@
 
                             @if(isset($combos[$producto->id]) && isset($inventario[$producto->id]))
                               
-                                @if($inventario[$producto->id]>0 && $combos[$producto->id]!=0)
+                                @if($inventario[$producto->id]>0 && !is_numeric($combos[$producto->id]) )
 
                                     @if(isset($cart[$producto->slug]))
 
