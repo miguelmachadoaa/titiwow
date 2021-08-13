@@ -52,13 +52,16 @@ Fecha de Orden: {{$orden->created_at}}
 
 </table>
 
-	<br />
 
-	@component('mail::button', ['url' => secure_url('/admin/ordenes')])
-	Ver Ordenes
-	@endcomponent
+@if(is_null($compra->token))
 
-	<h3 style="text-align: center;"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></h3>
+@else
+
+@component('mail::button', ['url' =>  secure_url('/tracking/'.$compra->token)])
+	Rastrea tu Pedido
+@endcomponent
+
+@endif
 
 	Gracias,<br>
 	{{ config('app.name') }}
