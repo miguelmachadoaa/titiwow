@@ -39,11 +39,12 @@ class InventarioAlmacenExport implements FromView
       ->join('alp_almacen_producto', 'alp_productos.id','=', 'alp_almacen_producto.id_producto')
       ->whereNull('alp_almacen_producto.deleted_at')
       ->whereNull('alp_productos.deleted_at')
+      ->where('alp_almacen_producto.id_almacen', '=', $this->id)
       ->groupBy('alp_productos.id')
       //->limit(550)
       ->get();
 
-     
+     #dd($productos);
 
       $prods = array();
 
