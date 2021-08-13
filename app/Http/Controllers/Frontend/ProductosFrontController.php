@@ -1287,6 +1287,10 @@ class ProductosFrontController extends Controller
         if ($ban==0) {
 
             $combos[$co->id]=$lista;
+           # $combos[$co->id]='1';
+        }else{
+
+          $combos[$co->id]='0';
         }
 
       }

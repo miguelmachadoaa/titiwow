@@ -24,6 +24,14 @@
 
                                 @if(isset($combos[$producto->id]))
 
+                                    @if(!is_array($combos[$producto->id])){
+
+                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+
+                                    @else
+                                        {{"NO ES ARRAY"}}
+                                    @endif
+
                                 @else
 
                                         <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
