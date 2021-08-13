@@ -4,8 +4,6 @@
                     <div class="productos">
                         <div class="text-align:center;" >
 
-                        
-
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive"></a>
 
                            <!--p>{{$producto->order}}</p> 
@@ -244,7 +242,7 @@
 
                             @if(isset($combos[$producto->id]) && isset($inventario[$producto->id]))
                               
-                                @if($inventario[$producto->id]>0 )
+                                @if($inventario[$producto->id]>0 && $combos[$producto->id]!=0)
 
                                     @if(isset($cart[$producto->slug]))
 
