@@ -243,7 +243,13 @@
 
                             @else
 
-                                @if(isset($combos[$producto->id]))
+                                @if(isset($combos[$producto->id]) )
+
+                                    @if( $combos[$producto->id]=='0' || $inventario[$producto->id]==0)
+
+                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+
+                                    @endif
 
                                 @else
 
