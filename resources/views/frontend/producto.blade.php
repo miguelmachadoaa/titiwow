@@ -2,7 +2,7 @@
 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">
-                            
+
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive"></a>
 
                            <!--p>{{$producto->order}}</p> 
@@ -23,9 +23,9 @@
 
                             @else
 
-                                @if(isset($combos[$producto->id]))
+                                @if( isset($combos[$producto->id]) )
 
-                                    @if($combos[$producto->id]=='0'){
+                                    @if( $combos[$producto->id]=='0' )
 
                                         <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
