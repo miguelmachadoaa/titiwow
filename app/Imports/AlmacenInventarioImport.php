@@ -50,20 +50,20 @@ class AlmacenInventarioImport implements ToCollection
                                 'id_user' => $user_id 
                             );
 
-                            AlpAlmacenProducto::create($data);
+                                AlpAlmacenProducto::create($data);
 
-                            AlpInventario::where('id_producto', '=', $p->id)->where('id_almacen', '=', $almacen)->delete();
+                                AlpInventario::where('id_producto', '=', $p->id)->where('id_almacen', '=', $almacen)->delete();
 
                                    if ($row[3]>0){
 
-                                    $data_inventario_nuevo = array(
-                                        'id_almacen' => $almacen, 
-                                        'id_producto' => $p->id, 
-                                        'cantidad' => $row[3], 
-                                        'operacion' => 1, 
-                                        'notas' => 'Actualización de inventario por upload almacen', 
-                                        'id_user' => $user_id 
-                                    );
+                                        $data_inventario_nuevo = array(
+                                            'id_almacen' => $almacen, 
+                                            'id_producto' => $p->id, 
+                                            'cantidad' => $row[3], 
+                                            'operacion' => 1, 
+                                            'notas' => 'Actualización de inventario por upload almacen', 
+                                            'id_user' => $user_id 
+                                        );
 
                                    }else{
 
