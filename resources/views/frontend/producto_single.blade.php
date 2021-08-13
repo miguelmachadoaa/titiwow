@@ -276,7 +276,7 @@
 
                          @if($producto->tipo_producto=='2')
 
-                                @if(isset($combos[$producto->id]) && is_numeric($combos[$producto->id]) )
+                                @if(isset($combos[$producto->id]) && !is_numeric($combos[$producto->id]) )
 
                                     <b style="color: #143473;">Incluye:</b>
 
