@@ -193,11 +193,6 @@ class VerificarPagos extends Command
 
 
 
-
-
-
-
-
     private function procesarEpayco($id_orden){
 
      ## Log::info('procesar epayco   '.json_encode($id_orden));
