@@ -308,9 +308,6 @@
                             @endif
 
 
-
-
-
                         <b>Marca:</b> <a href="{{ secure_url('marcas/'.$producto->marca_slug) }}" class="marca_single" >{{ $producto->nombre_marca}}</a> <br />
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
