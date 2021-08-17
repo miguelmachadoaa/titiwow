@@ -508,7 +508,7 @@ $hoy=$date->format('Y-m-d');
 
       ->get();
 
-      dd($productos);
+      #dd($productos);
 
 
       $cs1=AlpXml::first();
