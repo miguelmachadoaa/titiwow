@@ -131,7 +131,7 @@ $total_descuentos_icg=0;
                                 <div class="panel-heading" role="tab" id="headingPSE">
                                   <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
-                                     PSE - Tarjeta de Débito<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    PSE - Transferencia Bancaria<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                     </a>
                                   </h4>
                                 </div>
@@ -168,7 +168,7 @@ $total_descuentos_icg=0;
                                 <div class="panel-heading" role="tab" id="headingTDC">
                                   <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTDC" aria-expanded="true" aria-controls="collapseTDC">
-                                      Tarjeta de Credito <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    Tarjetas de Crédito y Débito <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                     </a>
                                   </h4>
                                 </div>
