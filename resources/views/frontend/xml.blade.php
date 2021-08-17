@@ -4,7 +4,7 @@
     {!!'<channel>'!!}
         {!!'<title>Alpina</title>'!!}
         {!!'<link>http://www.alpinago.com</link>'!!}
-        {!!'<description>Alpinago Store</description>'!!}
+        {!!'<description>Alpinago Store {{$id}}</description>'!!}
         {!!'<atom:link href="https://www.alpinago.com/xml" rel="self" type="application/rss+xml"'!!} />
         @if(count($prods))
             @foreach($prods as $p)

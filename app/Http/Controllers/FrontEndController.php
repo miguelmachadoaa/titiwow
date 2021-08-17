@@ -368,6 +368,7 @@ $hoy=$date->format('Y-m-d');
     public function getXml()
     {
 
+        $id='1';
 
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
 
@@ -476,7 +477,7 @@ $hoy=$date->format('Y-m-d');
 
       $inventario=$this->inventario();
 
-      return view('frontend.xml', compact('prods', 'inventario'));
+      return view('frontend.xml', compact('prods', 'inventario', 'id'));
 
     }
 
@@ -595,7 +596,7 @@ $hoy=$date->format('Y-m-d');
 
       $inventario=$this->inventario();
 
-      return view('frontend.xml', compact('prods', 'inventario'));
+      return view('frontend.xml', compact('prods', 'inventario', 'id'));
 
     }
 
