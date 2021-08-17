@@ -1019,7 +1019,7 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-     # if (isset($preference['response']['results'])) {
+      #if (isset($preference['response']['results'])) {
          if (isset($preference)) {
 
            $cantidad=count($preference['response']['results']);
@@ -1930,12 +1930,12 @@ private function registrarOrdenNuevo($id_orden)
     activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas nuevo orden id '.$orden->id.' .vp634');
 
 
-         ## dd($dataraw);
+          dd($dataraw);
 
 
   $ch = curl_init();
 
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/registerOrder/'.$configuracion->compramas_hash);
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$configuracion->compramas_hash);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
