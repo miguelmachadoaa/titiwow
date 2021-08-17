@@ -480,6 +480,128 @@ $hoy=$date->format('Y-m-d');
 
     }
 
+
+    
+
+    public function getXmlAlmacen($id)
+    {
+
+      $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
+
+      ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
+
+     // ->join('alp_xml', 'alp_productos.id', '=','alp_xml.id_producto')
+
+      ->join('alp_almacen_producto', 'alp_productos.id', '=','alp_almacen_producto.id_producto')
+
+      ->where('alp_productos.estado_registro','=',1)
+
+      ->where('alp_almacen_producto.id_almacen', '=', $id)
+
+      ->whereNull('alp_almacen_producto.deleted_at')
+
+      //->whereNull('alp_xml.deleted_at')
+
+      ->whereNull('alp_productos.deleted_at')
+
+      ->groupBy('alp_productos.id')
+
+      ->get();
+
+      dd($productos);
+
+
+      $cs1=AlpXml::first();
+
+
+          $precio = array();
+
+         foreach ($productos as  $row) {
+
+          if (isset($cs1->id_rol)) {
+
+            $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $cs1->id_rol)->first();
+
+            if (isset($pregiogrupo->id)) {
+
+                $precio[$row->id]['precio']=$pregiogrupo->precio;
+
+                $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+
+            }
+
+          }
+
+
+        }
+
+        $descuento=1;
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+          if ($descuento=='1') {
+
+           if (isset($precio[$producto->id])) {
+
+            switch ($precio[$producto->id]['operacion']) {
+
+             case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+
+              break;
+
+            default:
+
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+       }
+
+       $prods[]=$producto;
+
+      }
+
+
+      $inventario=$this->inventario();
+
+      return view('frontend.xml', compact('prods', 'inventario'));
+
+    }
+
+
+
+
     public function confirmarcorreo($token)
     {
 

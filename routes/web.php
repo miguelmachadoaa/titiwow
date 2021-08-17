@@ -242,6 +242,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 Route::get('xml', 'FrontEndController@getXml')->name('xml');
 
+Route::get('/xml/{id}', 'FrontEndController@getXmlAlmacen')->name('xmlalmacen');
+
 
 Route::get('tracking/{token}', 'Frontend\ClientesFrontController@trackingorden')->name('trackingorden');
 
@@ -263,7 +265,7 @@ Route::get('tomapedidos/marketingcliente/',['as'=>'tomapedidos.marketingcliente'
   Route::post('pedidos/order/creditcard', 'Admin\AlpPedidosController@orderCreditcard');
 
 
-Route::get('api/getmasvendidos/{token}', 'FrontEndController@getmasvendidos')->name('xml');
+Route::get('api/getmasvendidos/{token}', 'FrontEndController@getmasvendidos')->name('getmasvendidos');
 
 Route::post('compramas', 'FrontEndController@getCompramas')->name('compramas');
 
