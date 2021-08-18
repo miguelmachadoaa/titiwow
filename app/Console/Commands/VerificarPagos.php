@@ -81,7 +81,7 @@ class VerificarPagos extends Command
         
         #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('id', '20792')->get();
+        $ordenes=AlpOrdenes::where('id', '21189')->get();
         //
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
