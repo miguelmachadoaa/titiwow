@@ -1450,7 +1450,7 @@ class VerificarPagos extends Command
                'id_user' => '0' 
                  );
 
-                AlpPagos::create($data_pago);
+                #AlpPagos::create($data_pago);
              }
 
          }
