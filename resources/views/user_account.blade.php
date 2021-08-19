@@ -90,7 +90,7 @@
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                             <span class="input-group-addon">
-                        <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
+                                            <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
                                             </span>
                                         <input type="text" placeholder=" " name="last_name" id="ul-name"
                                                class="form-control"
@@ -106,15 +106,35 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
-                                                                <span class="input-group-addon">
-                        <i class="livicon" data-name="mail" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
-                                                                </span>
+                                        <span class="input-group-addon">
+                                            <i class="livicon" data-name="mail" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
+                                        </span>
                                         <input type="text" placeholder=" " id="email" name="email" class="form-control"
                                                value="{!! old('email',$user->email) !!}"></div>
                                     <span class="help-block">{{ $errors->first('email', ':message') }}</span>
                                 </div>
 
                             </div>
+
+
+                            <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
+                                <label class="col-lg-2 control-label">
+                                    Telefono:
+                                    <span class='require'>*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="livicon" data-name="phone" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
+                                        </span>
+                                        <input type="text" placeholder="Numero de Telefono " id="telefono_cliente" name="telefono_cliente" class="form-control"
+                                               value="{!! old('telefono_cliente',$cliente->telefono_cliente) !!}"></div>
+                                    <span class="help-block">{{ $errors->first('telefono_cliente', ':message') }}</span>
+                                </div>
+
+                            </div>
+
+
 
                             <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                 <p class="text-warning col-md-offset-2"><strong>Si no deseas cambiar la Contraseña, por favor dejar en blanco.</strong></p>

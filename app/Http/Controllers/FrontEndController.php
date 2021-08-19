@@ -1731,7 +1731,6 @@ $hoy=$date->format('Y-m-d');
      */
 
     public function myAccount(User $user)
-
     {
 
         $user = Sentinel::getUser();
@@ -1766,7 +1765,7 @@ $hoy=$date->format('Y-m-d');
 
         $user = Sentinel::getUser();
 
-        $user->update($request->except('password','pic','password_confirm','marketing_email','marketing_sms'));
+        $user->update($request->except('password','pic','password_confirm','marketing_email','telefono_cliente','marketing_sms'));
 
 
         if ($password = $request->get('password')) {
@@ -1829,7 +1828,7 @@ $hoy=$date->format('Y-m-d');
 
         }
 
-
+        $cliente->telefono_cliente=$request->telefono_cliente;
 
         $cliente->save();
 
