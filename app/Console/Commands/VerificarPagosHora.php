@@ -1901,11 +1901,11 @@ private function registrarOrdenNuevo($id_orden)
 
     $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
-    Log::info('Datos enviados a compramas nuevo para registro de orden aprobada  '.$urls);
+    Log::info('Datos enviados a Velocity para registro de orden aprobada  '.$urls);
 
     Log::info($dataraw);
 
-    activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas nuevo orden id '.$orden->id.' .vp634');
+    activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp634');
 
 
   $ch = curl_init();
@@ -1930,14 +1930,14 @@ private function registrarOrdenNuevo($id_orden)
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de compramas Nuevo al registro de la orden '.json_encode($res));
+   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
    
-   Log::info('Respuesta de compramas Nuevo al registro de la orden. '.$result);
+   Log::info('Respuesta de Velocity al registro de la orden. '.$result);
 
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en compramas Nuevo orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
 
 
-   $notas='Registro de orden en compramas Nuevo.';
+   $notas='Registro de orden en Velocity.';
 
 
    if (isset($res->mensaje)) {
