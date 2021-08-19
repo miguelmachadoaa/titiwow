@@ -31,7 +31,27 @@
             <i class="livicon" data-name="ticket" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
              Mesa de Soporte
+             <span class="fa arrow"></span>
             </a>
+
+            <ul class="sub-menu">
+
+                <li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
+                    <a href="{!! secure_url('admin/ticket') !!}">
+                        <i class="fa fa-angle-double-right"></i>
+                    Tickets Abiertos
+                    </a>
+                </li>
+
+                <li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
+                    <a href="{!! secure_url('admin/ticket/cerrados') !!}">
+                        <i class="fa fa-angle-double-right"></i>
+                    Tickets Cerrados
+                    </a>
+                </li>
+
+
+        </ul>
     </li>
 
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))

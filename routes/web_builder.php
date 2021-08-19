@@ -169,6 +169,8 @@ Route::get('admin/empresas/data', 'Admin\AlpEmpresasController@data')->name('emp
 
 Route::get('admin/ticket/data', 'Admin\AlpTicketController@data')->name('ticket.data');
 
+Route::get('admin/ticket/datacerrados', 'Admin\AlpTicketController@datacerrados')->name('ticket.datacerrados');
+
 Route::get('admin/almacenes/data', 'Admin\AlpAlmacenesController@data')->name('almacenes.data');
 
 Route::get('admin/almacenes/{id}/datagestionar', 'Admin\AlpAlmacenesController@datagestionar')->name('almacenes.datagestionar');
@@ -1034,6 +1036,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::post('ticket/{id}/postcomentario', 'Admin\AlpTicketController@postcomentario');
     
+
+    Route::get('ticket/cerrados', 'Admin\AlpTicketController@cerrados');
 
     Route::get('ticket/{id}/gestionar', 'Admin\AlpTicketController@gestionar');
 

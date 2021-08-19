@@ -118,6 +118,7 @@ class AlpTicketController extends JoshController
         ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
         ->join('users', 'alp_ticket.id_user', '=', 'users.id')
         ->orderBy('alp_ticket.id', 'desc')
+        ->where('alp_ticket.estado_registro', '=', 1)
         ->limit(1000)
         ->get();
          
@@ -161,6 +162,98 @@ class AlpTicketController extends JoshController
           return json_encode( array('data' => $data ));
           
       }
+
+
+
+      public function cerrados()
+      {
+          // Grab all the groups
+  
+          if (Sentinel::check()) {
+  
+            $user = Sentinel::getUser();
+  
+             activity($user->full_name)
+                          ->performedOn($user)
+                          ->causedBy($user)
+                          ->log('AlpTicketController/index ');
+  
+          }else{
+  
+            activity()
+            ->log('AlpTicketController/index');
+  
+  
+          }
+  
+  
+          if (!Sentinel::getUser()->hasAnyAccess(['ticket.*'])) {
+  
+             return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+          }
+  
+          $tickets = AlpTicket::all();
+  
+          // Show the page
+          return view('admin.ticket.cerrados', compact('tickets'));
+      }
+  
+      public function datacerrados()
+      {
+         
+          $tickets = AlpTicket::select('alp_ticket.*', 'alp_departamento.nombre_departamento as nombre_departamento', 'alp_urgencia.nombre_urgencia as nombre_urgencia', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+          ->join('alp_departamento', 'alp_ticket.departamento', '=', 'alp_departamento.id')
+          ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
+          ->join('users', 'alp_ticket.id_user', '=', 'users.id')
+          ->orderBy('alp_ticket.id', 'desc')
+          ->where('alp_ticket.estado_registro', '=', 0)
+          ->limit(1000)
+          ->get();
+           
+          $data = array();
+  
+          foreach($tickets as $row){
+  
+            if ($row->estado_registro=='1') {
+  
+               $estatus=" <div class='ticket_".$row->id."'>
+               <span class='btn-success badge'>Abierto</span>
+              </div>";
+  
+            }else{
+  
+              $estatus="<div class='estaticket_tus_".$row->id."'>
+              <span class='btn-danger badge'>Cerrado</span>
+               </div>";
+  
+             }
+  
+  
+          $actions = "<a class='btn btn-primary btn-xs' href='".secure_url('admin/ticket/'.$row->id)."' target='_blank'>
+                        ver detalles
+                    </a> ";
+  
+                 $data[]= array(
+                   $row->id, 
+                   $row->nombre_departamento, 
+                   $row->nombre_urgencia,
+                   $row->orden, 
+                   $row->titulo_ticket, 
+                   $row->origen, 
+                   $row->created_at->format('d-m-Y h:i:s'), 
+                   $estatus, 
+                   $actions
+                );
+  
+            }
+  
+            return json_encode( array('data' => $data ));
+            
+        }
+
+
+
+
  
     public function create()
     {
@@ -377,14 +470,54 @@ class AlpTicketController extends JoshController
         $comentario=AlpComentario::create($data);
 
         $ticket=AlpTicket::where('id', $request->id_ticket_respuesta)->first();
+
+        $comentarios=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+         ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+        ->where('alp_comentario.id_ticket', $ticket->id)->get();
+
+        foreach ($comentarios as $c) {
+
+          $ac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+           ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+          ->where('alp_comentario.id_padre', $c->id)->get();
+
+          foreach ($ac as $cc) {
+            
+              $aac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+             ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+            ->where('alp_comentario.id_padre', $cc->id)->get();
+
+            foreach ($aac as $ccc) {
+            
+                $aaac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+               ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+              ->where('alp_comentario.id_padre', $ccc->id)->get();
+
+              $ccc->respuestas=$aaac;
+            }
+
+            $cc->respuestas=$aac;
+          }
+
+           $c->respuestas=$ac;
+
+          # code...
+        }
+
+        $historico=AlpTicketHistory::select('alp_ticket_history.*', 'users.first_name as first_name', 'users.last_name as last_name')
+              ->join('users', 'alp_ticket_history.id_user', '=', 'users.id')
+              ->where('id_ticket', $ticket->id)->get();
+
+
+        $ticket->comentarios=$comentarios;
+        $ticket->historico=$historico;
+
+
          
 
         if ($comentario->id) {
 
-
-
           $departamento=AlpDepartamento::where('id', $ticket->departamento)->first();
-
 
         $correos = explode(";", $departamento->correos);
 
@@ -862,21 +995,83 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/uploads/ticket/');   
+        $destinationPath = public_path('/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
       }
 
-                $data = array(
+          $data = array(
             'id_ticket' => $id, 
             'titulo_ticket' => $request->titulo_ticket, 
             'texto_ticket' => $request->texto_ticket, 
             'archivo' => $archivo, 
             'id_user' =>$user->id
-        );
+          );
          
         $comentario=AlpComentario::create($data);
+
+
+        $comentarios=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+         ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+        ->where('alp_comentario.id_ticket', $ticket->id)->get();
+
+        foreach ($comentarios as $c) {
+
+          $ac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+           ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+          ->where('alp_comentario.id_padre', $c->id)->get();
+
+          foreach ($ac as $cc) {
+            
+              $aac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+             ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+            ->where('alp_comentario.id_padre', $cc->id)->get();
+
+            foreach ($aac as $ccc) {
+            
+                $aaac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+               ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+              ->where('alp_comentario.id_padre', $ccc->id)->get();
+
+              $ccc->respuestas=$aaac;
+            }
+
+            $cc->respuestas=$aac;
+          }
+
+           $c->respuestas=$ac;
+
+          # code...
+        }
+
+        $historico=AlpTicketHistory::select('alp_ticket_history.*', 'users.first_name as first_name', 'users.last_name as last_name')
+              ->join('users', 'alp_ticket_history.id_user', '=', 'users.id')
+              ->where('id_ticket', $ticket->id)->get();
+
+
+        $ticket->comentarios=$comentarios;
+        $ticket->historico=$historico;
+
+        $departamento=AlpDepartamento::where('id', $ticket->departamento)->first();
+
+
+        $correos = explode(";", $departamento->correos);
+
+        foreach ($correos as $key => $value) {
+
+            Mail::to(trim($value))->send(new \App\Mail\NotificacionTicket($ticket));
+
+          #  Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+
+
+
+
+
 
 
        
@@ -930,7 +1125,6 @@ public function estatus(Request $request)
           $estatus='Cerrado';
         }
 
-
         $arrayhistory = array(
           'id_ticket' => $ticket->id,
            'id_status' => '0',
@@ -941,10 +1135,7 @@ public function estatus(Request $request)
 
         AlpTicketHistory::create($arrayhistory);
 
-
-
         if ($ticket->id) {
-
 
           $departamento=AlpDepartamento::where('id', $ticket->departamento)->first();
 
