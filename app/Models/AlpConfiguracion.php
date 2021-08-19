@@ -80,6 +80,8 @@ class AlpConfiguracion extends Model
         'porcentaje_icg',
         'token_icg',
         'dias_abono',
+        'public_key_360',
+        'private_key_360',
         'id_user',
         'popup',
         'popup_titulo',
