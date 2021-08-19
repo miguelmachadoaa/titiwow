@@ -1923,19 +1923,15 @@ private function registrarOrdenNuevo($id_orden)
 
     $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
-    Log::info('Datos enviados a compramas nuevo para registro de orden aprobada  '.$urls);
+    Log::info('Datos enviados a Velocity registro de orden aprobada  '.$urls);
 
     Log::info($dataraw);
 
-    activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas nuevo orden id '.$orden->id.' .vp634');
-
-
-          dd($dataraw);
-
+    activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en Velocity nuevo orden id '.$orden->id.' .vp634');
 
   $ch = curl_init();
 
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$configuracion->compramas_hash);
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -1955,14 +1951,14 @@ private function registrarOrdenNuevo($id_orden)
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de compramas Nuevo al registro de la orden '.json_encode($res));
+   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
    
-   Log::info('Respuesta de compramas Nuevo al registro de la orden. '.$result);
+   Log::info('Respuesta de Velocity al registro de la orden. '.$result);
 
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en compramas Nuevo orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
 
 
-   $notas='Registro de orden en compramas Nuevo.';
+   $notas='Registro de orden en Velocity.';
 
 
    if (isset($res->mensaje)) {
@@ -2039,7 +2035,7 @@ private function registrarOrdenNuevo($id_orden)
 
       $data_history = array(
           'id_orden' => $orden->id, 
-         'id_status' => '9', 
+          'id_status' => '9', 
           'notas' => 'Error '.$notas, 
           'json' => json_encode($result), 
          'id_user' => 1
@@ -2051,7 +2047,7 @@ private function registrarOrdenNuevo($id_orden)
 
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-       Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
           
         } catch (\Exception $e) {
 
@@ -2060,11 +2056,7 @@ private function registrarOrdenNuevo($id_orden)
           
         }
 
-      
-
-
     }
-
 
   }else{
 
@@ -2096,13 +2088,8 @@ private function registrarOrdenNuevo($id_orden)
 
   }
 
-  
-
 
 }
-
-
-
 
 
 

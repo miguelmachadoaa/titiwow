@@ -1880,6 +1880,13 @@ Route::get('ibm-pagos', function() {
   
 });
 
+Route::get('ibm-pagoshora', function() {
+    $exitCode = Artisan::call('verificar:pagoshora');
+  
+});
+
+
+
 
 
 Route::get('pedidos-enviados', function() {
