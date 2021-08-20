@@ -227,7 +227,7 @@
 
                             @else
 
-                            $inventario[$producto->id]=0;
+                           @php  $inventario[$producto->id]=0; @endphp
 
                             @endif
 
