@@ -73,9 +73,9 @@ use App\Models\AlpEnviosEstatus;
 use App\Models\AlpEnviosHistory;
 
 use App\Models\AlpXml;
-
-
-
+use App\Models\AlpTicket;
+use App\Models\AlpTicketHistory;
+use App\Models\AlpDepartamento;
 
 
 use App\User;
@@ -122,6 +122,7 @@ use Exception;
 
 use Carbon\Carbon;
 
+use Intervention\Image\Facades\Image;
 
 
 
@@ -720,13 +721,87 @@ $hoy=$date->format('Y-m-d');
 
         $archivo = $picture;
 
+        $destinationPathDestino = public_path('/uploads/ticket/');   
+
+        #Image::make($file)->save($destinationPath); 
+
         $destinationPath = public_path('/uploads/pqr/');   
 
         $file->move($destinationPath,$archivo);
+
+        if (!copy($destinationPath.$picture, $destinationPathDestino.$picture)) {
+          echo "Error al copiar $fichero...\n";
+        }
+
+      
         
       }
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+      $mensaje='';
+      $mensaje=$mensaje.' <b>Nombre:</b>'. $input['nombre_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Apellido:</b>'. $input['apellido_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Tipo de Documento:</b>'. $input['tdocume_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Identificación:</b>'. $input['identificacion_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Email:</b>'. $input['email_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Celular:</b>'. $input['celular_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Pais:</b>'. $input['pais_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Ciudad:</b>'. $input['ciudad_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Mensaje:</b>'. $input['mensaje_pqr'].'<br>';
+      $mensaje=$mensaje.' <b>Términos:</b>'. $input['habeas_cliente'].'<br>';
+
+
+      $data = array(
+        'departamento' => '1', 
+        'urgencia' => '1', 
+        'caso' => '15',
+        'titulo_ticket' => 'PQR '.$input['nombre_pqr'].' '.$input['apellido_pqr'], 
+        'texto_ticket' => $mensaje, 
+        'orden' =>'', 
+        'archivo' => $archivo, 
+        'origen' => 'Administrador', 
+        'id_user' =>'1'
+    );
+     
+    $ticket=AlpTicket::create($data);
+
+     $arrayhistory = array(
+          'id_ticket' => $ticket->id,
+           'id_status' => '1',
+           'notas' => 'Ticket creado',
+           'json' => json_encode($ticket),
+           'id_user' => '1',
+        );
+
+        AlpTicketHistory::create($arrayhistory);
+
+
+
+    $departamento=AlpDepartamento::where('id', '1')->first();
+
+        $correos = explode(";", $departamento->correos);
+
+        foreach ($correos as $key => $value) {
+
+          try {
+
+            Mail::to(trim($value))->send(new \App\Mail\NotificacionTicket($ticket));
+
+          } catch (\Exception $e) {
+
+            activity()->withProperties(1)
+                        ->log('error envio de correo ticket controller 302');
+
+          }
+
+          #  Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+
 
        try {
 
@@ -1831,9 +1906,6 @@ $hoy=$date->format('Y-m-d');
         $cliente->telefono_cliente=$request->telefono_cliente;
 
         $cliente->save();
-
-
-
 
 
        $datos360= $this->datos360update($user->id); 

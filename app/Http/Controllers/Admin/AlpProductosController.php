@@ -42,7 +42,7 @@ use App\Imports\ProductosUpdateImport;
 use App\Imports\ProductosPrecioBase;
 use Maatwebsite\Excel\Facades\Excel;
 
-
+use Intervention\Image\Facades\Image;
 use App\State;
 use App\City;
 use App\Roles;
@@ -52,7 +52,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Response;
 use Sentinel;
-use Intervention\Image\Facades\Image;
+
 use DOMDocument;
 use View;
 use DB;

@@ -346,6 +346,9 @@ class AlpTicketController extends JoshController
         
       }
 
+
+      
+
         $data = array(
             'departamento' => $request->departamento, 
             'urgencia' => $request->urgencia, 
@@ -374,10 +377,7 @@ class AlpTicketController extends JoshController
 
         if ($ticket->id) {
 
-         
-
         $departamento=AlpDepartamento::where('id', $ticket->departamento)->first();
-
 
         $correos = explode(";", $departamento->correos);
 
@@ -393,8 +393,6 @@ class AlpTicketController extends JoshController
                         ->log('error envio de correo ticket controller 302');
 
           }
-
-
 
           #  Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
 
