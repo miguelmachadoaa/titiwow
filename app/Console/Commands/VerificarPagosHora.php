@@ -1850,6 +1850,7 @@ private function registrarOrdenNuevo($id_orden)
             'ordenId' => $orden->referencia, 
             'ciudad' => $direccion->state_name, 
             'telefonoCliente' => $cliente->telefono_cliente, 
+            'correoCliente' => $cliente->email, 
             'identificacionCliente' => $cliente->doc_cliente, 
             'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
             'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 

@@ -1783,6 +1783,7 @@ private function registrarOrdenNuevo($id_orden)
   
   $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+
     //Log::info('compramas orden '.json_encode($orden));
 
   $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.cantidad as cantidad_producto')
@@ -1872,6 +1873,7 @@ private function registrarOrdenNuevo($id_orden)
             'ordenId' => $orden->referencia, 
             'ciudad' => $direccion->state_name, 
             'telefonoCliente' => $cliente->telefono_cliente, 
+            'correoCliente' => $cliente->email, 
             'identificacionCliente' => $cliente->doc_cliente, 
             'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
             'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
