@@ -1846,6 +1846,7 @@ $hoy=$date->format('Y-m-d');
 
         $user = Sentinel::getUser();
 
+
         $user->update($request->except('password','pic','password_confirm','marketing_email','telefono_cliente','marketing_sms'));
 
 

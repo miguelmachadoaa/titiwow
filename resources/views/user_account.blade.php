@@ -127,7 +127,7 @@
                                         <span class="input-group-addon">
                                             <i class="livicon" data-name="phone" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
                                         </span>
-                                        <input type="text" placeholder="Numero de Telefono " id="telefono_cliente" name="telefono_cliente" class="form-control"
+                                        <input type="number" step='1' min='1' placeholder="Numero de Telefono " id="telefono_cliente" name="telefono_cliente" class="form-control"
                                                value="{!! old('telefono_cliente',$cliente->telefono_cliente) !!}"></div>
                                     <span class="help-block">{{ $errors->first('telefono_cliente', ':message') }}</span>
                                 </div>

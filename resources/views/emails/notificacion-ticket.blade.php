@@ -2,9 +2,9 @@
 
     Se ha creado un nuevo ticket 
 
-    <p>Asunto : {{$ticket->titulo_ticket }}</p>
-    <p>Contenido : {!!$ticket->texto_ticket !!}</p>
-    <p>Fecha de Creación : {{$ticket->created_at }}</p>
+    <p>Asunto : {{ $ticket->titulo_ticket }}</p>
+    <p>Contenido : {{ $ticket->texto_ticket }}</p>
+    <p>Fecha de Creación : {{ $ticket->created_at }}</p>
     <br>
 
     @if(isset($ticket->comentarios))
@@ -15,8 +15,8 @@
 
             @foreach($ticket->comentarios as $c)
 
-                <p>Usuario: {!!$c->first_name.' '.$c->last_name!!}</p>
-                <p>{!!$c->texto_ticket!!}</p>
+                <p>Usuario: {{ $c->first_name.' '.$c->last_name}}</p>
+                <p>{{ $c->texto_ticket}}</p>
                 <p>
                     @if(is_null($c->archivo) || $c->archivo=='')
 
@@ -24,7 +24,7 @@
 
                     @else
 
-                        Adjunto <a class="btn btn-info" target="_blank" href="{!!secure_url('uploads/ticket/'.$c->archivo)!!}">Ver Archivo </a> </h3>
+                        Adjunto <a class="btn btn-info" target="_blank" href="{{ secure_url('uploads/ticket/'.$c->archivo)}}">Ver Archivo </a> </h3>
                     
                     @endif 
                 </p>
@@ -42,6 +42,6 @@
 
 
     Gracias,<br>
-    {{ config('app.name') }}
+    {{  config('app.name') }}
     
 @endcomponent

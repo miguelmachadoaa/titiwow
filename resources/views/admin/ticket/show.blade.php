@@ -664,7 +664,7 @@ Detalle Ticket
                 
             complete: function(datos){     
 
-               //location.reload();
+               location.reload();
             }
         });
 
