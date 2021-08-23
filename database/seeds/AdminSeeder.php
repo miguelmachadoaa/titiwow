@@ -4,6 +4,7 @@ use Faker\Factory;
 use App\User;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class AdminSeeder extends DatabaseSeeder {
 

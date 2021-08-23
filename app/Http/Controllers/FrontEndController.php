@@ -1592,9 +1592,9 @@ $hoy=$date->format('Y-m-d');
                     ->log('LoggedIn');
 
                     $role = DB::table('role_users')
-               ->select('role_users.role_id')
-               ->where('user_id','=', $user->id)
-               ->first();
+                   ->select('role_users.role_id')
+                   ->where('user_id','=', $user->id)
+                   ->first();
 
                if ($role->role_id=='15') {
 
