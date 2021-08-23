@@ -55,6 +55,11 @@ Detalle Ticket
                         <div class="alert alert-info">
                             Actualmente el ticket se encuentra abierto
                         </div> 
+
+                        @elseif($ticket->estado_registro==2)
+                        <div class="alert alert-warning">
+                            Actualmente el ticket se encuentra En Proceso
+                        </div>
                         @else
                         <div class="alert alert-danger">
                             Actualmente el ticket se encuentra Cerrado
@@ -96,16 +101,22 @@ Detalle Ticket
                             <h3><b>Estado :</b> 
 
                                 @if($ticket->estado_registro==1)
-                                Abierto
-                            @else
-                                Cerrado
-                            @endif
+                                    Abierto
+                                @elseif($ticket->estado_registro==2)
+                                    En Proceso
+
+                                    @else
+                                    Cerrado
+                                @endif
 
                             @if($ticket->estado_registro==1)
                                <button class="btn btn-primary ticketstatus" data-estatus='1' data-id="{{$ticket->id}}">Cambiar</button> 
-                            @else
+                            @elseif($ticket->estado_registro==2)
+                                <button class="btn btn-warning ticketstatus" data-estatus='2' data-id="{{$ticket->id}}">Cambiar</button>
+                                @else
                                 <button class="btn btn-danger ticketstatus" data-estatus='0' data-id="{{$ticket->id}}">Cambiar</button>
-                            @endif
+                            
+                                @endif
 
 
                             </h3>
@@ -436,6 +447,9 @@ Detalle Ticket
                                             <option value="{{ 1 }}"
                                                     >Abierto</option>
 
+                                                    <option value="{{ 2 }}"
+                                                    >En Proceso</option>
+
                                             <option value="{{ 0 }}"
                                                      >Cerrado</option>
                                            
@@ -650,7 +664,7 @@ Detalle Ticket
                 
             complete: function(datos){     
 
-                location.reload();
+               //location.reload();
             }
         });
 

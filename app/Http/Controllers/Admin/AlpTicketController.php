@@ -118,7 +118,7 @@ class AlpTicketController extends JoshController
         ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
         ->join('users', 'alp_ticket.id_user', '=', 'users.id')
         ->orderBy('alp_ticket.id', 'desc')
-        ->where('alp_ticket.estado_registro', '=', 1)
+        ->where('alp_ticket.estado_registro', '!=', 0)
         ->limit(1000)
         ->get();
          
@@ -132,7 +132,13 @@ class AlpTicketController extends JoshController
              <span class='btn-success badge'>Abierto</span>
             </div>";
 
-          }else{
+          }elseif ($row->estado_registro=='2'){
+
+            $estatus="<div class='estaticket_tus_".$row->id."'>
+            <span class='btn-warning badge'>En Proceso</span>
+             </div>";
+
+           }else{
 
             $estatus="<div class='estaticket_tus_".$row->id."'>
             <span class='btn-danger badge'>Cerrado</span>
@@ -907,6 +913,25 @@ class AlpTicketController extends JoshController
         ->where('alp_ticket.id', '=', $id)
         ->first();
 
+        if(isset($ticket->id)){
+
+          if($ticket->estado_registro=='1'){
+
+            $da=AlpDepartamentoUsuario::where('id_usuario', $user->id)->where('id_departamento', $ticket->departamento)->first();
+
+            if(isset($da->id)){
+
+              $ticket->update(['estado_registro'=> '2']);
+
+            }
+
+
+          }
+
+
+
+        }
+
         $comentarios=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
          ->join('users', 'alp_comentario.id_user', '=', 'users.id')
         ->where('alp_comentario.id_ticket', $id)->get();
@@ -945,12 +970,9 @@ class AlpTicketController extends JoshController
 
         $urgencia=AlpUrgencia::get();
 
-
         $historico=AlpTicketHistory::select('alp_ticket_history.*', 'users.first_name as first_name', 'users.last_name as last_name')
         ->join('users', 'alp_ticket_history.id_user', '=', 'users.id')
         ->where('id_ticket', $id)->get();
-
-
 
         return view('admin.ticket.show', compact('ticket', 'comentarios', 'departamentos', 'urgencia', 'historico'));
     }
@@ -1111,13 +1133,18 @@ public function estatus(Request $request)
         $data = array(
           'estado_registro' => $request->estatus,
           'notas'=> $request->notas
-        );       
+        );   
+
 
         $ticket->update($data);
 
-        if ($request->estatus==1) {
+
+        if ($ticket->estado_registro==1) {
           
           $estatus='Abierto';
+        }elseif ($ticket->estado_registro==2){
+
+          $estatus='En Proceso';
         }else{
 
           $estatus='Cerrado';
@@ -1125,7 +1152,7 @@ public function estatus(Request $request)
 
         $arrayhistory = array(
           'id_ticket' => $ticket->id,
-           'id_status' => '0',
+           'id_status' =>$ticket->estado_registro,
            'notas' => 'Ticket actualizado a '. $estatus.' '.$request->notas,
            'json' => json_encode($ticket),
            'id_user' => $user->id,
@@ -1147,11 +1174,6 @@ public function estatus(Request $request)
           #  Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
 
         }
-
-
-       
-
-
 
 
             return 'true';
