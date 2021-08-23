@@ -45,7 +45,7 @@ class FrontendRequest extends FormRequest
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
-                    'telefono_cliente' => 'required|numeric|min:7',
+                    'telefono_cliente' => 'required|numeric|min:7|max:11',
                     'email' => 'required|email|unique:users,email,' . $user_id,
                     'password_confirm' => 'same:password',
                     'pic' => 'mimes:jpg,jpeg,bmp,png|max:10000'
