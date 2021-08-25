@@ -166,11 +166,12 @@ class AlpReportesController extends Controller
         }
 
 
+        $almacenes=AlpAlmacenes::all();
         $productos=AlpProductos::all();
         $marcas=AlpMarcas::all();
         $categorias=AlpCategorias::all();
 
-        return view('admin.reportes.productos', compact('productos', 'marcas', 'categorias'));
+        return view('admin.reportes.productos', compact('productos', 'marcas', 'categorias', 'almacenes'));
 
     }
 
@@ -198,16 +199,18 @@ class AlpReportesController extends Controller
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
+
+        #dd($request->all());
         
 
        if($request->tipo=='0'){
 
-        return Excel::download(new ProductosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+        return Excel::download(new ProductosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria, $request->almacen), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
 
 
        }else{
 
-        return Excel::download(new ProductosCombosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+        return Excel::download(new ProductosCombosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria, $request->almacen), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
         
       }
 

@@ -1165,7 +1165,7 @@
                 <li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Ventas por producto y combos
+                    Venta por Productos/Combos
                 </a>
             </li>
             @endif

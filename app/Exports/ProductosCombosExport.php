@@ -17,13 +17,14 @@ use \DB;
 class ProductosCombosExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta, string $producto, string $marca, string $categoria)
+    public function __construct(string $desde, string $hasta, string $producto, string $marca, string $categoria, string $almacen)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;
         $this->producto = $producto;
         $this->marca = $marca;
         $this->categoria = $categoria;
+        $this->almacen = $almacen;
     }
 
 
@@ -40,6 +41,7 @@ class ProductosCombosExport implements FromView
           'alp_productos.referencia_producto as referencia_producto',
           'alp_categorias.nombre_categoria as nombre_categoria',
           'alp_marcas.nombre_marca as nombre_marca',
+          'alp_almacenes.nombre_almacen as nombre_almacen',
           'users.first_name as first_name',
           'users.last_name as last_name',
           'users.email as email'
@@ -47,6 +49,7 @@ class ProductosCombosExport implements FromView
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->join('alp_combos_productos', 'alp_productos.id', '=', 'alp_combos_productos.id_producto')
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
+          ->join('alp_almacenes', 'alp_ordenes.id_almacen', '=', 'alp_almacenes.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
@@ -58,6 +61,10 @@ class ProductosCombosExport implements FromView
 
           if($this->producto!=0){
             $p->where('alp_productos.id', '=', $this->producto);
+          }
+
+          if($this->almacen!=0){
+            $p->where('alp_ordenes.id_almacen', '=', $this->almacen);
           }
 
 
