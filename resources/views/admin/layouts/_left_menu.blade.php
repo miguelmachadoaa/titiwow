@@ -1032,6 +1032,8 @@
         </a>
         <ul class="sub-menu">
 
+           
+
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventario']))
 
@@ -1163,7 +1165,7 @@
                 <li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Ventas por producto
+                    Ventas por producto y combos
                 </a>
             </li>
             @endif
