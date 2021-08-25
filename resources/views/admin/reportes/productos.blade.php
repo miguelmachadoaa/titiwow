@@ -62,7 +62,7 @@ Reporte de Ventas por Producto
                         Producto                                               
                         </label>
                         <div class="col-md-10">   
-                            <select id="producto" name="producto" class="form-control select2">
+                            <select id="producto" name="producto" class="form-control select2 filtro">
                                 <option value="0">Todos</option>
                                 
                                  @foreach($productos as $producto)
@@ -80,7 +80,7 @@ Reporte de Ventas por Producto
                         Marca                                               
                         </label>
                         <div class="col-md-10">   
-                            <select id="marca" name="marca" class="form-control select2">
+                            <select id="marca" name="marca" class="form-control select2 filtro">
                                 <option value="0">Todos</option>
                                 
                                  @foreach($marcas as $marca)
@@ -99,7 +99,7 @@ Reporte de Ventas por Producto
                         Categorias                                               
                         </label>
                         <div class="col-md-10">   
-                            <select id="categoria" name="categoria" class="form-control select2">
+                            <select id="categoria" name="categoria" class="form-control select2 filtro">
                                 <option value="0">Todos</option>
                                 
                                  @foreach($categorias as $categoria)
@@ -150,6 +150,11 @@ Reporte de Ventas por Producto
                             </div>
                         </div>
                             <!-- /.input group -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="alert alert-danger">Por favor no generar reportes con rango de fechas mayor a 30 dias.</div>
+                        </div>
                     </div>
 
 
@@ -214,12 +219,25 @@ Reporte de Ventas por Producto
 
 
      $(document).ready(function(){
-        $('.select2').select2({
+        var s2=$('.select2').select2({
             placeholder: "select",
             theme:"bootstrap"
         });
+
+        $('.filtro').change(function(){
+        id=$(this).attr('id');
+        v=$(this).val();
+        $('.filtro').select2("destroy");
+        $('.filtro').val(0);
+        $(this).val(v);
+        $('.filtro').select2();
+
+    });
+
     })
 
+
+   
 
 
    </script>

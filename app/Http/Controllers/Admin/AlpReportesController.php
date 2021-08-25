@@ -200,8 +200,6 @@ class AlpReportesController extends Controller
         }
         
 
-       // dd($request->all());
-
        if($request->tipo=='0'){
 
         return Excel::download(new ProductosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
