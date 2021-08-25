@@ -210,7 +210,7 @@
                     <div class="res_convenio"></div>
                     {!! $errors->first('convenio', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="clearfix"></div>
+                <div class="clearfix"></div-->
                 <hr />
                 <div class="form-group checkbox">
                     <label>
@@ -225,7 +225,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <hr />
-                <div class="clearfix"></div-->
+                <div class="clearfix"></div>
                 <div class="form-group ">
                 
                 </div>

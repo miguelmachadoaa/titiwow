@@ -29,6 +29,8 @@ use App\Exports\DescuentoVentasExport;
 use App\Exports\UsocuponesExport;
 use App\Exports\Usuarios360Export;
 use App\Exports\InventarioAlmacenExport;
+use App\Exports\ProductosCombosExport
+;
 
 
 
@@ -57,6 +59,8 @@ use App\Models\AlpAlmacenProducto;
 use App\Models\AlpInventario;
 use App\Models\AlpClientes;
 use App\Models\AlpAbonosDisponible;
+use App\Models\AlpMarcas;
+use App\Models\AlpCategorias;
 use App\Imports\UsersImport;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -163,8 +167,10 @@ class AlpReportesController extends Controller
 
 
         $productos=AlpProductos::all();
+        $marcas=AlpMarcas::all();
+        $categorias=AlpCategorias::all();
 
-        return view('admin.reportes.productos', compact('productos'));
+        return view('admin.reportes.productos', compact('productos', 'marcas', 'categorias'));
 
     }
 
@@ -196,7 +202,17 @@ class AlpReportesController extends Controller
 
        // dd($request->all());
 
-        return Excel::download(new ProductosExport($request->desde, $request->hasta), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+       if($request->tipo=='0'){
+
+        return Excel::download(new ProductosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+
+
+       }else{
+
+        return Excel::download(new ProductosCombosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+        
+      }
+
     }
 
 

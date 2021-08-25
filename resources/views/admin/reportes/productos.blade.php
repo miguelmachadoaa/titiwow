@@ -56,14 +56,15 @@ Reporte de Ventas por Producto
                         {{ csrf_field() }}
 
                 <div class="row">   
-                   <!-- <div class="form-group col-sm-12 ">
+
+                   <div class="form-group col-sm-12 ">
                         <label for="select21" class="col-md-2 control-label text-right">
                         Producto                                               
                         </label>
                         <div class="col-md-10">   
                             <select id="producto" name="producto" class="form-control select2">
-                                <option value="">Seleccione</option>
-
+                                <option value="0">Todos</option>
+                                
                                  @foreach($productos as $producto)
                                  
                                     <option  value="{{ $producto->id }}">{{ $producto->nombre_producto }}</option>
@@ -72,7 +73,56 @@ Reporte de Ventas por Producto
                                 
                             </select>
                         </div>           
-                    </div>-->
+                    </div>
+
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Marca                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="marca" name="marca" class="form-control select2">
+                                <option value="0">Todos</option>
+                                
+                                 @foreach($marcas as $marca)
+                                 
+                                    <option  value="{{ $marca->id }}">{{ $marca->nombre_marca }}</option>
+
+                                 @endforeach
+                                
+                            </select>
+                        </div>           
+                    </div>
+
+
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Categorias                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="categoria" name="categoria" class="form-control select2">
+                                <option value="0">Todos</option>
+                                
+                                 @foreach($categorias as $categoria)
+                                 
+                                    <option  value="{{ $categoria->id }}">{{ $categoria->nombre_categoria }}</option>
+
+                                 @endforeach
+                                
+                            </select>
+                        </div>           
+                    </div>
+
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Tipo de Producto                                          
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="agrupar" name="agrupar" class="form-control select2">
+                                <option value="0">Normal</option>
+                                <option value="1">Combo</option>
+                            </select>
+                        </div>           
+                    </div>
 
 
                     <div class="form-group">

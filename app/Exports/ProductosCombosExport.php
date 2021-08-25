@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class ProductosExport implements FromView
+class ProductosCombosExport implements FromView
 {
     
     public function __construct(string $desde, string $hasta, string $producto, string $marca, string $categoria)
@@ -45,13 +45,14 @@ class ProductosExport implements FromView
           'users.email as email'
           )
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+          ->join('alp_combos_productos', 'alp_productos.id', '=', 'alp_combos_productos.id_producto')
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
           ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7'])
-          
+          ->groupBy('alp_ordenes_detalle.id_orden')
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta);
 
@@ -78,7 +79,7 @@ class ProductosExport implements FromView
 
           $productos=$p->get();
 
-        #  dd(json_encode($productos));
+        # dd(json_encode($productos));
 
 
           $pro = array();

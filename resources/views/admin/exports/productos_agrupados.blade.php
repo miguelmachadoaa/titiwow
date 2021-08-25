@@ -12,8 +12,6 @@
             <th><b>Numero de Pedidos</b></th>
             <th><b>Fecha</b></th>
             <th><b>Barrio</b></th>
-            <th><b>Nombre Cliente </b></th>
-            <th><b>Email</b></th>
         </tr>
     </thead>
     <tbody>
@@ -31,8 +29,6 @@
             <td>{!! $row->num_pedidos !!}</td>
             <td>{!! $row->fecha !!}</td>
             <td>{!! $row->barrio_address !!}</td>
-            <td>{!! $row->first_name.' '.$row->last_name !!}</td>
-            <td>{!! $row->email !!}</td>
           
         </tr>
         @endforeach

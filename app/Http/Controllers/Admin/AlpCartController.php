@@ -10598,6 +10598,7 @@ public function addcupon(Request $request)
                    $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
                    
                     if (isset($almacen->id)) {
+                      
                       $id_almacen=$almacen->id;
 
                     }else{
@@ -10787,20 +10788,12 @@ public function addcupon(Request $request)
 
               
               $tipo=0;
-
               
             if ($role->role_id=='14') {
-
-              
 
               $tipo=1;
 
             }
-
-            
-
-
-
 
 
                 if ($d->id_barrio==0) {

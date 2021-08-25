@@ -118,8 +118,8 @@ class VerificarPagosHora extends Command
   
               MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
-              Log::info('id ordenva verficar horas '.json_encode($ord->id));
-              Log::info('id ordenva verficar horas '.json_encode($ord->referencia_mp));
+              #Log::info('id ordenva verficar horas '.json_encode($ord->id));
+              #Log::info('id ordenva verficar horas '.json_encode($ord->referencia_mp));
   
                 try {
   
@@ -243,8 +243,8 @@ class VerificarPagosHora extends Command
 
 
                 $cancel=0;
-              $aproved=0;
-              $pending=0;
+                $aproved=0;
+                $pending=0;
 
 
 

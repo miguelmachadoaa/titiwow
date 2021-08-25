@@ -122,8 +122,8 @@ class VerificarPagos extends Command
     
                 MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
-                Log::info('id ordenva verficar  '.json_encode($ord->id));
-                Log::info('id ordenva verficar  '.json_encode($ord->referencia_mp));
+                #Log::info('id ordenva verficar  '.json_encode($ord->id));
+                #Log::info('id ordenva verficar  '.json_encode($ord->referencia_mp));
     
                   try {
     
@@ -164,23 +164,11 @@ class VerificarPagos extends Command
           }
 
 
-
-
-
-
           if($orden->id_forma_pago=='6'){
-
 
             $this->procesarEpayco($orden->id);
 
-
-
           }
-
-
-
-
-
 
 
         }//endforeach ordenes
