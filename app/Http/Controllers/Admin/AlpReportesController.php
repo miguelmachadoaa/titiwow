@@ -166,7 +166,7 @@ class AlpReportesController extends Controller
         }
 
 
-        $almacenes=AlpAlmacenes::all();
+        $almacenes=AlpAlmacenes::where('estado_registro', '=', '1')->get();
         $productos=AlpProductos::all();
         $marcas=AlpMarcas::all();
         $categorias=AlpCategorias::all();
