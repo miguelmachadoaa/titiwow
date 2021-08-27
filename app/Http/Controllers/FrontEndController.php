@@ -5750,31 +5750,27 @@ public function getApiUrl($endpoint, $jsessionid)
           ->withProperties($request->getContent())->log('FrontEndController/get360actuaizar');
 
         }
-
         
         $content = $request->all();
         
         $datos1 = json_encode($content, true);
-       // dd($content);
-      $datos = json_decode($datos1, true);
 
+        $datos = json_decode($datos1, true);
 
-      activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
+        activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 
-      $u=AlpConfiguracion::where('public_key_360', '=', $datos['key'])->first();
+        $u=AlpConfiguracion::where('public_key_360', '=', $datos['key'])->first();
 
+        if(isset($u->id)){
 
+          if($datos['hash']==md5($datos['fecha'].$u->private_key_360)){
 
-      if(isset($u->id)){
-
-        if($datos['hash']==md5($datos['fecha'].$u->private_key_360)){
-
-        }else{
+          }else{
   
             $data = array(
-                'estatus' =>false, 
-                'mensaje'=>'Credenciales Invalidas', 
-                'cod'=>'501'
+              'estatus' =>false, 
+              'mensaje'=>'Credenciales Invalidas', 
+              'cod'=>'501'
             );
   
             return json_encode($data);
@@ -5786,112 +5782,138 @@ public function getApiUrl($endpoint, $jsessionid)
           'estatus' =>false, 
           'mensaje'=>'Credenciales Invalidas', 
           'cod'=>'501'
-      );
+        );
 
-      return json_encode($data);
+        return json_encode($data);
 
       }
 
-     
+      $modificados = array();
 
-        $modificados = array();
+        if (is_array($datos)) {
 
+          if (count($datos)) {
 
-       if (is_array($datos)) {
+            if(isset($datos['fechaInicio']) && $datos['fechaFinal']){
 
-       if (count($datos)) {
-       //if (1) {
+              if(is_null($datos['fechaInicio']) || is_null($datos['fechaFinal'])){
 
-            //if (1) {
+                  $data = array(
+                    'estatus' =>false, 
+                    'mensaje'=>'Datos de fecha no deben ser nulos', 
+                    'cod'=>'501'
+                  );
+          
+                  return json_encode($data);
 
-             // dd($datos['fechaInicio']);
-              #dd($datos);
-             # $dato['fechaFinal'];
-
-              activity()->withProperties($datos)->log('FrontEndController/get 360 actualizar');
-
-              $users=User::where('updated_at', '>=', $datos['fechaInicio'])->where('updated_at', '<=', $datos['fechaFinal'])->get();
-
-            //  dd($datos['fechaInicio'].'--'.$datos['fechaFinal']);
-
-
-              foreach ($users as $u) {
-
-                   $c=AlpClientes::where('id_user_client', $u->id)->first();
-
-                   if (isset($c->id)) {
-
-                    #dd(json_encode($u));
-                     # code...
-
-                   $dir = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-                    ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-                    ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-                    ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-                    ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-                    ->where('alp_direcciones.id_client', $u->id)
-                    ->where('alp_direcciones.default_address', '=', '1')
-                    ->first();
-
-
-                    if (isset($dir->id)) {
-                      # code...
-                    }else{
-
-                      $dir = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-                      ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-                      ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-                      ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-                      ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-                      ->where('alp_direcciones.id_client', $u->id)
-                      ->first();
-
-
-                    }
+              }else{
 
 
 
 
-                    if (isset($dir->id)) {
-                      
-                       
+                activity()->withProperties($datos)->log('FrontEndController/get 360 actualizar');
 
-                       $direccion=$dir->state_name.' , '.$dir->city_name.' '.$dir->nombre_estructura.' '.$dir->principal_address .' #'. $dir->secundaria_address .'-'.$dir->edificio_address.', '.$dir->detalle_address.', '.$dir->barrio_address.' Nota:'.$dir->notas;
+                $users=User::where('updated_at', '>=', $datos['fechaInicio'])->where('updated_at', '<=', $datos['fechaFinal'])->get();
+    
+                foreach ($users as $u) {
+    
+                  $c=AlpClientes::where('id_user_client', $u->id)->first();
+    
+                  if (isset($c->id)) {
+    
+                    $dir = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                        ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                        ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                        ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                        ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                        ->where('alp_direcciones.id_client', $u->id)
+                        ->where('alp_direcciones.default_address', '=', '1')
+                        ->first();
+    
+    
+                        if (isset($dir->id)) {
+                          # code...
+                        }else{
+    
+                          $dir = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                          ->where('alp_direcciones.id_client', $u->id)
+                          ->first();
+    
+    
+                        }
+    
+    
+    
+    
+                        if (isset($dir->id)) {
+                          
+                           
+    
+                           $direccion=$dir->state_name.' , '.$dir->city_name.' '.$dir->nombre_estructura.' '.$dir->principal_address .' #'. $dir->secundaria_address .'-'.$dir->edificio_address.', '.$dir->detalle_address.', '.$dir->barrio_address.' Nota:'.$dir->notas;
+    
+    
+                        }else{
+    
+                          $direccion='';
+                        }
+    
+                        if (is_null($c->deleted_at)) {
+                          $eliminar=0;
+                        }else{
+                          $eliminar=1;
+                        }
+    
+    
+    
+                        $data = array(
+                          'first_name' =>$u->first_name,
+                          'last_name' =>$u->last_name,
+                          'dob' =>$u->dob,
+                          'genero_cliente' =>$u->gender,
+                          'doc_cliente' =>$c->doc_cliente,
+                          'telefono_cliente' =>$c->telefono_cliente,
+                          'direccion_cliente' =>$direccion,
+                          'marketing_email' =>$c->marketing_email,
+                          'marketing_sms' =>$c->marketing_sms,
+                          'eliminar_cliente' =>$eliminar,
+                          'email' =>$u->email,
+                          'fecha_creacion' =>$u->created_at->format('d-m-Y H:i:s'),
+                          'fecha_actualizacion' =>$u->updated_at->format('d-m-Y H:i:s')
+                        );
+    
+    
+                        $modificados[] = $data;
+                  }//end if es cliente
+                
+                }//End foreach 
 
 
-                    }else{
-
-                      $direccion='';
-                    }
-
-                    if (is_null($c->deleted_at)) {
-                      $eliminar=0;
-                    }else{
-                      $eliminar=1;
-                    }
 
 
 
-                    $data = array(
-                      'first_name' =>$u->first_name,
-                      'last_name' =>$u->last_name,
-                      'dob' =>$u->dob,
-                      'genero_cliente' =>$u->gender,
-                      'doc_cliente' =>$c->doc_cliente,
-                      'telefono_cliente' =>$c->telefono_cliente,
-                      'direccion_cliente' =>$direccion,
-                      'marketing_email' =>$c->marketing_email,
-                      'marketing_sms' =>$c->marketing_sms,
-                      'eliminar_cliente' =>$eliminar,
-                      'email' =>$u->email,
-                      'fecha_creacion' =>$u->created_at->format('d-m-Y H:i:s'),
-                      'fecha_actualizacion' =>$u->updated_at->format('d-m-Y H:i:s')
-                    );
-
-
-                    $modificados[] = $data;
-                }
               }
+
+
+            }else{
+
+              $data = array(
+                'estatus' =>false, 
+                'mensaje'=>'Datos Incompletos', 
+                'cod'=>'501'
+              );
+      
+              return json_encode($data);
+
+            }
+
+              
+
+           
+
 
           } //(end if hay resspuessta)
 
