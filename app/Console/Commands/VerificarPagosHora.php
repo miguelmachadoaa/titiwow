@@ -77,9 +77,9 @@ class VerificarPagosHora extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-      #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+      $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
        # $ordenes=AlpOrdenes::where('id', '15532')->where('countvp','>=', '5')->get();
-       $ordenes=AlpOrdenes::where('id', '21189')->get();
+       #$ordenes=AlpOrdenes::where('id', '21189')->get();
         
      #  echo json_encode($ordenes);         
 
@@ -995,16 +995,18 @@ class VerificarPagosHora extends Command
 
     private function procesarMercadopago($preference, $id_orden){
 
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-     // if (isset($preference['response']['results'])) {
-         if (isset($preference)) {
+      if (isset($preference['response']['results'])) {
+        # if (isset($preference)) {
 
            $cantidad=count($preference['response']['results']);
 
-           $aproved=1;
+           $aproved=0;
 
            $cancel=0;
            $pending=0;
@@ -1439,7 +1441,7 @@ class VerificarPagosHora extends Command
                'id_user' => '0' 
                  );
 
-                AlpPagos::create($data_pago);
+                #AlpPagos::create($data_pago);
              }
 
          }
