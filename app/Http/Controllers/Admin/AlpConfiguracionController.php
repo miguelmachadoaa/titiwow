@@ -183,6 +183,8 @@ class AlpConfiguracionController extends JoshController
             'popup_titulo' => $request->popup_titulo,
             'public_key_360' => $request->public_key_360,
             'private_key_360' => $request->private_key_360,
+            'public_key_ws' => $request->public_key_ws,
+            'private_key_ws' => $request->private_key_ws,
             'popup_mensaje' => $request->popup_mensaje
         );
 

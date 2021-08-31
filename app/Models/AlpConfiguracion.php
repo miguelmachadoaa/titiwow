@@ -82,6 +82,8 @@ class AlpConfiguracion extends Model
         'dias_abono',
         'public_key_360',
         'private_key_360',
+        'public_key_ws',
+        'private_key_ws',
         'id_user',
         'popup',
         'popup_titulo',

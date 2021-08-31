@@ -623,7 +623,42 @@ Editar Configuración General
 
 
 
+                                <fieldset>
 
+                                    <br />
+                                    <h4>Api Whatsapp</h4>
+                                    <hr>
+
+                                    <div class="form-group {{ $errors->first('public_key_ws', 'has-error') }}">
+                                        <label for="public_key_ws" class="col-sm-2 control-label">
+                                            Public Key Whatsapp 
+                                        </label>
+                                        <div class="col-sm-5">
+                                            <input type="text" id="public_key_ws" name="public_key_ws" class="form-control" placeholder="Public Key 360 "
+                                                value="{!! old('public_key_ws', $configuracion->public_key_ws) !!}">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            {!! $errors->first('public_key_ws', '<span class="help-block">:message</span> ') !!}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group {{ $errors->first('private_key_ws', 'has-error') }}">
+                                        <label for="private_key_ws" class="col-sm-2 control-label">
+                                            Private key Whatsapp 
+                                        </label>
+                                        <div class="col-sm-5">
+                                            <input type="text" id="private_key_ws" name="private_key_ws" class="form-control" placeholder="Private key 360  "
+                                                value="{!! old('private_key_ws', $configuracion->private_key_ws) !!}">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            {!! $errors->first('private_key_ws', '<span class="help-block">:message</span> ') !!}
+                                        </div>
+                                    </div>
+
+
+
+                                    </fieldset>
 
 
 
