@@ -1998,45 +1998,28 @@ class AlpCartController extends JoshController
 
             
            $states=State::where('config_states.country_id', '47')->get();
-
            
            $configuracion = AlpConfiguracion::where('id','1')->first();
-
            
            $envio=AlpEnvios::where('id_orden', $compra->id)->first();
 
-           
-
            $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
-           
            $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
-
            
             $aviso_pago = array(
-
             'tipo' => 'success', 
-
             'texto' => 'yellow', 
-
             'medio' => 'Tarjeta de Credito', 
-
             'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
-
           );
 
             
             if ($compra->id_forma_envio!=1) {
 
-              
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-              
-            
-
             }
-
-            
           
 
            $idc=$compra->id*1024;
@@ -4180,6 +4163,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
     }
+
+    #dd($id_pago);
     
         $cart= \Session::get('cart');
         
@@ -4202,7 +4187,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-
+            #dd($orden);
         
 
         $total=$this->total();
@@ -4349,19 +4334,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         if ($tipo=='credit_card') {
 
           $data_update = array(
-
           'estatus' =>$estatus_orden, 
-
           'estatus_pago' =>$estatus_pago,
-
           'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
-
           'retencion_fuente_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_fuente_mp,
-
           'retencion_iva_mp' =>$orden->monto_impuesto*$retencion_iva_mp,
-
           'retencion_ica_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_ica_mp
-
            );
 
           
@@ -4372,19 +4350,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           
           $data_update = array(
-
           'estatus' =>$estatus_orden, 
-
           'estatus_pago' =>$estatus_pago,
-
           'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
-
           'retencion_fuente_mp' =>0,
-
           'retencion_iva_mp' =>0,
-
           'retencion_ica_mp' =>0
-
            );
 
           
@@ -4396,25 +4367,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           
           $data_update = array(
-
           'estatus' =>$estatus_orden, 
-
           'estatus_pago' =>$estatus_pago,
-
           'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
-
           'retencion_fuente_mp' =>0,
-
           'retencion_iva_mp' =>0,
-
           'retencion_ica_mp' =>0
-
            );
 
           
         }elseif($tipo=='bono'){
-
-          
 
           $comision_mp=$almacen->comision_mp_baloto/100;
 
@@ -4426,10 +4388,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           'retencion_iva_mp' =>0,
           'retencion_ica_mp' =>0
            );
-
           
         }else{
-
           
           $data_update = array(
           'estatus' =>$estatus_orden, 
@@ -4439,10 +4399,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           'retencion_iva_mp' =>0,
           'retencion_ica_mp' =>0
            );
-
           
         }
-
 
         $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
         
@@ -4456,7 +4414,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
          $orden->update($data_update);
-
 
          if ($tipo=='epayco') {
 
@@ -4504,9 +4461,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             );
 
         }
-
-       
-
          
          AlpPagos::create($data_pago);
 
@@ -4516,11 +4470,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               'notas' => 'Orden procesada', 
              'id_user' => 1
           );
-
          
         $history=AlpOrdenesHistory::create($data_history);
 
-        
          \Session::forget('cart');
          \Session::forget('orden');
          \Session::forget('cr');
