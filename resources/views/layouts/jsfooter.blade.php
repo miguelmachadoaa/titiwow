@@ -454,12 +454,16 @@
             name=$(this).data('name');
             sku=$(this).data('sku');
             ean=$(this).data('ean');
+            categoria=$(this).data('categoria');
+            marca=$(this).data('marca');
 
 
             dataLayer.push({
             'nombre': name,
             'sku': sku,
             'ean': ean,
+            'categoria': categoria,
+            'marca': marca,
             'imagen': pimagen,
             'precio': price,
             'slug': slug,

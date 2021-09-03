@@ -278,6 +278,8 @@ class AlpCartController extends JoshController
 
             $dl_p=array();
             $dl_p['nombre_producto']=$c->nombre_producto;
+            $dl_p['nombre_categoria']=$c->nombre_categoria;
+            $dl_p['nombre_marca']=$c->nombre_marca;
             $dl_p['presentacion_producto']=$c->presentacion_producto;
             $dl_p['ean']=$c->referencia_producto;
             $dl_p['sku']=$c->referencia_producto_sap;
@@ -387,8 +389,12 @@ class AlpCartController extends JoshController
 
       if (isset($compra->id)) {
 
-        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto','alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 
+        'alp_categorias.nombre_categoria as nombre_categoria')
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+            ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+
             ->where('alp_ordenes_detalle.id_orden', $id)
             ->whereNull('alp_ordenes_detalle.deleted_at')
             ->get();
@@ -557,6 +563,8 @@ class AlpCartController extends JoshController
               $dl_p=array();
 
               $dl_p['nombre_producto']=$c->nombre_producto;
+              $dl_p['nombre_marca']=$c->nombre_marca;
+              $dl_p['nombre_categoria']=$c->nombre_categoria;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
               $dl_p['ean']=$c->referencia_producto;
               $dl_p['sku']=$c->referencia_producto_sap;
@@ -2755,6 +2763,8 @@ class AlpCartController extends JoshController
 
               $dl_p=array();
               $dl_p['nombre_producto']=$c->nombre_producto;
+              $dl_p['nombre_categoria']=$c->nombre_categoria;
+              $dl_p['nombre_marca']=$c->nombre_marca;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
               $dl_p['ean']=$c->referencia_producto;
             $dl_p['sku']=$c->referencia_producto_sap;
@@ -5377,10 +5387,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       public function addtocart( Request $request)
       {
 
-          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
-                    ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
-                    ->where('alp_productos.slug', $request->slug)
-                    ->first();
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto','alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 
+          'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+          ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
 
           //dd($producto);
 
@@ -5400,7 +5413,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $carr=AlpCarrito::create($data);
 
-        \Session::put('cr', $carr->id);
+          \Session::put('cr', $carr->id);
 
         }
 

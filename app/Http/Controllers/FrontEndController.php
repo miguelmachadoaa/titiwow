@@ -885,9 +885,12 @@ $hoy=$date->format('Y-m-d');
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
         
-        $productos = DB::table('alp_productos')->select('alp_productos.*')
+        $productos = DB::table('alp_productos')->select('alp_productos.*','alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 
+        'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+       ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+       ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
         ->where('alp_destacados_producto.id_almacen', '=', $id_almacen)
         ->where('alp_destacados_producto.id_grupo_destacado', '=', '1')
