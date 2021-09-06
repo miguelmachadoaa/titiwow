@@ -232,7 +232,7 @@ class AlpAbonosController extends JoshController
             'valor_abono'=>$abono->valor_abono,
             'fecha_final'=>$abono->fecha_final,
             'id_almacen' => $request->id_almacen,
-            'origen'=>$abono->origen,
+            'origen'=>'Creado',
             'token'=>$abono->token,
             'json'=>json_encode($abono),
             'id_user'=>$user_id
