@@ -83,9 +83,13 @@ Abono
                                     <td>Estado</td>
                                     <td>{{$abono->estado_registro}}</td>
                                 </tr>
-
+                                
                                 <tr>
-                                    <td>Creado</td>
+                                    <td>Creado por</td>
+                                    <td>{{$abono->first_name.' '.$abono->last_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha Creacioón</td>
                                     <td>{{$abono->created_at}}</td>
                                 </tr>
 

@@ -261,7 +261,7 @@ class FrontEndController extends JoshController
 
        $date = Carbon::now();
 
-$hoy=$date->format('Y-m-d');
+        $hoy=$date->format('Y-m-d');
 
         $data_almacen = array();
 

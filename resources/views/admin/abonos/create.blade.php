@@ -171,7 +171,7 @@
                                     
                                     @foreach($clientes as $c)
 
-                                    <option @if($c->id == old('id_cliente')) selected="selected" @endif     value="{{ $c->id }}">
+                                    <option @if($c->id_user_client == old('id_cliente')) selected="selected" @endif     value="{{ $c->id_user_client }}">
                                             {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
                                     @endforeach
                                     

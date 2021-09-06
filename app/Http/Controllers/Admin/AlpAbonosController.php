@@ -103,12 +103,13 @@ class AlpAbonosController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
 
-        $abono = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+        $abono = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen', 'users.first_name', 'users.last_name')
         ->join('alp_almacenes','alp_abonos.id_almacen', '=', 'alp_almacenes.id')
+        ->join('users', 'users.id', '=', 'alp_abonos.id_user')
         ->where('alp_abonos.id', $id)->first();
 
         $history = AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name', 'users.last_name')
-        ->join('users', 'users.id', '=', 'alp_abono_disponible.id_user')
+        ->join('users', 'users.id', '=', 'alp_abono_disponible.id_cliente')
         ->where('alp_abono_disponible.id_abono', $id)->get();  
 
 
@@ -140,8 +141,6 @@ class AlpAbonosController extends JoshController
 
 
         }
-
-
         $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name')
         ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
         ->orderby('alp_ordenes.id', 'desc')
@@ -151,7 +150,6 @@ class AlpAbonosController extends JoshController
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
           ->where('alp_clientes.estado_registro', '1')
           ->get();
-
 
           $almacenes = AlpAlmacenes::all();
 
@@ -188,24 +186,15 @@ class AlpAbonosController extends JoshController
 
         }
 
-
-       
-
-
          $user_id = Sentinel::getUser()->id;
 
         $input = $request->all();
-
-
-        //var_dump($input);
-
-
 
         $data = array(
             'codigo_abono' => $request->codigo_abono, 
             'valor_abono' => $request->valor_abono, 
             'fecha_final' => $request->fecha_final,
-            'origen' => $request->origen,
+            'origen'=>'Administrador',
             'motivo' => $request->motivo,
             'id_orden' => $request->id_orden,
             'id_almacen' => $request->id_almacen,
@@ -214,15 +203,12 @@ class AlpAbonosController extends JoshController
             'notas' => $request->notas,
             'id_user' =>$user_id
         );
-
-
          
         $abono=AlpAbonos::create($data);
 
         if (is_null($request->id_cliente)) {
             # code...
         }else{
-
 
             $data_abono = array(
             'id_abono'=>$abono->id,
@@ -232,7 +218,7 @@ class AlpAbonosController extends JoshController
             'valor_abono'=>$abono->valor_abono,
             'fecha_final'=>$abono->fecha_final,
             'id_almacen' => $request->id_almacen,
-            'origen'=>'Creado',
+            'origen'=>'Asignado al cliente en la creacion',
             'token'=>$abono->token,
             'json'=>json_encode($abono),
             'id_user'=>$user_id
@@ -249,7 +235,6 @@ class AlpAbonosController extends JoshController
           AlpAbonosUser::create($data_user);
 
           $abono->update(['estado_registro'=>0]);
-
 
         }
 
@@ -292,7 +277,7 @@ class AlpAbonosController extends JoshController
 
         }
 
-        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name')
         ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
         ->orderby('alp_ordenes.id', 'desc')
         ->get();

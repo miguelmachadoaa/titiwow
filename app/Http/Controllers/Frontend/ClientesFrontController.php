@@ -1914,9 +1914,9 @@ class ClientesFrontController extends Controller
           $user = Sentinel::getUser();
 
            activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())->log('ClientesFrontController/postbono ');
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->all())->log('ClientesFrontController/postbono ');
 
         }else{
 
