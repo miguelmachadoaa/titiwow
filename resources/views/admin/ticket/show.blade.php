@@ -131,7 +131,7 @@ Detalle Ticket
 
                         </div>
 
-                        @if(is_null($ticket->archivo || $ticket->archivo==''))
+                        @if(is_null($ticket->archivo ) || $ticket->archivo=='' || $ticket->archivo==0)
 
                         <div class="col-sm-12">
                             
