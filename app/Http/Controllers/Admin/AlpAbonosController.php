@@ -73,6 +73,52 @@ class AlpAbonosController extends JoshController
      *
      * @return View
      */
+
+
+     
+    public function show($id)
+    {
+        // Grab all the groups
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpAbonosController/show ');
+
+        }else{
+
+          activity()
+          ->log('AlpAbonosController/show');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['abonos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+        $abono = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+        ->join('alp_almacenes','alp_abonos.id_almacen', '=', 'alp_almacenes.id')
+        ->where('alp_abonos.id', $id)->first();
+
+        $history = AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name', 'users.last_name')
+        ->join('users', 'users.id', '=', 'alp_abono_disponible.id_user')
+        ->where('alp_abono_disponible.id_abono', $id)->get();  
+
+
+        // Show the page
+        return view('admin.abonos.show', compact('abono', 'history'));
+
+    }
+
+
+    
     public function create()
     {
         // Show the page

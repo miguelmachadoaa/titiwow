@@ -89,6 +89,14 @@ Bonos
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar abono"></i>
                                             </a>
 
+
+                                            <a href="{{ secure_url('admin/abonos/'.$row->id) }}">
+                                                <i class="livicon" data-name="eye-open" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="ver abono"></i>
+                                            </a>
+
+
+
+
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
                                             <a href="{{ secure_url('admin/abono/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">

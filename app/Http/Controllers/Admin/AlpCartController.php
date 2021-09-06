@@ -3684,7 +3684,8 @@ public function orderProcesarIcg(Request $request)
                   if ($almacen->minimo_compra<=$rr || $rr==0) {
 
 
-                    $ppa=AlpAbonosDisponible::where('id_cliente', $user_id)->first();
+                    #$ppa=AlpAbonosDisponible::where('id_cliente', $user_id)->first();
+                    $ppa=AlpAbonosUser::where('id_cliente', $user_id)->orderby('created_at','DESC')->first();
 
                 
                   $data_abono = array(
