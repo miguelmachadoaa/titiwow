@@ -179,7 +179,7 @@ Editar Bono
                                     
                                     @foreach($clientes as $c)
 
-                                    <option @if($abono->id_cliente==$c->id) {{'Selected'}} @endif value="{{ $c->id }}">  {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
+                                    <option @if($abono->id_cliente==$c->id) {{'Selected'}} @endif value="{{ $c->id_user_client }}">  {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
                                     @endforeach
                                     
                                 </select>
