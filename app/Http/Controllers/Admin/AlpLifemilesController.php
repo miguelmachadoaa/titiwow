@@ -25,6 +25,9 @@ use Redirect;
 use Sentinel;
 use View;
 
+use App\Imports\LifemileImport;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class AlpLifemilesController extends JoshController
 {
@@ -366,19 +369,93 @@ class AlpLifemilesController extends JoshController
         try {
             // Get group insedetion
            
-            $abono = AlpAbonos::find($id);
+            $lifemile = AlpLifeMiles::find($id);
 
 
             // Delete the group
-            $abono->delete();
+            $lifemile->delete();
 
             // Redirect to the group management page
-            return redirect('admin.lifemiles.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+            return redirect('admin/lifemiles/index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
         } catch (GroupNotFoundException $e) {
             // Redirect to the group management page
-            return redirect('admin.lifemiles.index')->with('error', trans('Error al eliminar el registro'));
+            return redirect('admin/lifemiles/index')->with('error', trans('Error al eliminar el registro'));
         }
     }
+
+
+
+    
+    public function upload($id)
+    {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/edit');
+
+        }
+       
+
+       $lifemile = AlpLifeMiles::where('id', $id)->first();
+
+
+        return view('admin.lifemiles.upload', compact('lifemile'));
+    }
+
+
+     public function postupload(Request $request, $id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties(['id'=>$id])->log('lifemile/postgestionar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('lifemile/postgestionar');
+
+        }
+
+        $input=$request->all();
+
+        \Session::put('lifemile', $id);
+
+        \Session::put('user_id', $user->id);
+
+         $archivo = $request->file('file_update');
+
+     #   Excel::import(new AlmacenImport, $archivo);
+
+        Excel::import(new lifemileImport, $archivo);
+       
+        return Redirect::route('admin.lifemiles.index')->with('success', trans('Se ha creado satisfactoriamente'));
+    }
+
+
+
+
+
 
     
 

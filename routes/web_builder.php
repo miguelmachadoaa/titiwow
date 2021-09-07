@@ -1329,6 +1329,12 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::resource('lifemiles', 'Admin\AlpLifemilesController');
 
 
+    Route::get('lifemiles/{id}/upload', 'Admin\AlpLifemilesController@upload');
+
+    Route::post('lifemiles/{id}/postupload', 'Admin\AlpLifemilesController@postupload');
+
+
+
 
 
 

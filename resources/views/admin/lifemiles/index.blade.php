@@ -91,7 +91,7 @@ Lifemiles
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ secure_url('admin/abono/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/lifemiles/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
