@@ -1040,9 +1040,10 @@ class ProductosFrontController extends Controller
         $precio = array();
 
 
-        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_almacenes.id as id_almacen')
+        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_almacenes.id as id_almacen', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
