@@ -11,7 +11,7 @@ class AlpLifeMiles extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_abonos';        
+    public $table = 'alp_lifemiles';        
     
 
     protected $dates = ['deleted_at'];
@@ -19,15 +19,11 @@ class AlpLifeMiles extends Model
 
     public $fillable = [
         'id',
-        'codigo_abono',
-        'valor_abono',
+        'nombre_lifemile',
+        'cantidad_millas',
+        'minimo_compra',
+        'fecha_inicio',
         'fecha_final',
-        'origen',
-        'token',
-        'id_orden',
-        'motivo',
-        'notas',
-        'tipo_abono',
         'id_almacen',
         'estado_registro',
         'id_user'
@@ -39,7 +35,7 @@ class AlpLifeMiles extends Model
      * @var array
      */
     protected $casts = [
-        'codigo_abono' => 'string'
+        'nombre_lifemile' => 'string'
     ];
 
     /**
@@ -48,6 +44,6 @@ class AlpLifeMiles extends Model
      * @var array
      */
     public static $rules = [
-        'codigo_abono' => 'required'
+        'nombre_lifemile' => 'required'
     ];
 }

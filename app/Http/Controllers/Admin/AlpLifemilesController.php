@@ -1,12 +1,10 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
-use App\Http\Requests\AbonoRequest;
-use App\Http\Requests\AbonoUpdateRequest;
-use App\Models\AlpAbonos;
-use App\Models\AlpOrdenes;
-use App\Models\AlpClientes;
-use App\Models\AlpAbonosTipo;
+
+use App\Models\AlpLifeMiles;
+
+use App\Models\AlpLifeMilesCodigos;
 
 use App\Models\AlpAlmacenes;
 
@@ -15,6 +13,10 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpAbonosDisponible;
 
 use App\Models\AlpAbonosUser;
+
+
+use App\Http\Requests\LifeMileRequest;
+
 
 
 use App\Http\Requests;
@@ -60,12 +62,12 @@ class AlpLifemilesController extends JoshController
 
 
 
-        $abonos = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
-        ->join('alp_almacenes','alp_abonos.id_almacen', '=', 'alp_almacenes.id')
+        $lifemiles = AlpLifeMiles::select('alp_lifemiles.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+        ->join('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
         ->get();
 
         // Show the page
-        return view('admin.lifemiles.index', compact('abonos'));
+        return view('admin.lifemiles.index', compact('lifemiles'));
     }
 
     /**
@@ -142,24 +144,11 @@ class AlpLifemilesController extends JoshController
         }
 
 
-        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name')
-        ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-        ->orderby('alp_ordenes.id', 'desc')
-        ->get();
-
-        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
-          ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
-          ->where('alp_clientes.estado_registro', '1')
-          ->get();
-
-
           $almacenes = AlpAlmacenes::all();
-
-          $tipobono=AlpAbonosTipo::get();
 
           $configuracion=AlpConfiguracion::where('id', 1)->first();
 
-        return view ('admin.lifemiles.create', compact('ordenes', 'clientes', 'tipobono', 'configuracion', 'almacenes'));
+        return view ('admin.lifemiles.create', compact( 'configuracion', 'almacenes'));
     }
 
     /**
@@ -167,7 +156,7 @@ class AlpLifemilesController extends JoshController
      *
      * @return Redirect
      */
-    public function store(AbonoRequest $request)
+    public function store(LifeMileRequest $request)
     {
         
 
@@ -200,65 +189,27 @@ class AlpLifemilesController extends JoshController
         //var_dump($input);
 
 
-
         $data = array(
-            'codigo_abono' => $request->codigo_abono, 
-            'valor_abono' => $request->valor_abono, 
+            'nombre_lifemile' => $request->nombre_lifemile, 
+            'cantidad_millas' => $request->cantidad_millas, 
+            'minimo_compra' => $request->minimo_compra,
+            'fecha_inicio' => $request->fecha_inicio,
             'fecha_final' => $request->fecha_final,
-            'origen' => $request->origen,
-            'motivo' => $request->motivo,
-            'id_orden' => $request->id_orden,
             'id_almacen' => $request->id_almacen,
-            'tipo_abono' => $request->tipo_abono,
-            'token' => md5(time()),
-            'notas' => $request->notas,
             'id_user' =>$user_id
         );
 
 
          
-        $abono=AlpAbonos::create($data);
-
-        if (is_null($request->id_cliente)) {
-            # code...
-        }else{
+        $lm=AlpLifemiles::create($data);
 
 
-            $data_abono = array(
-            'id_abono'=>$abono->id,
-            'id_cliente'=>$request->id_cliente,
-            'operacion'=>1,
-            'codigo_abono'=>$abono->codigo_abono,
-            'valor_abono'=>$abono->valor_abono,
-            'fecha_final'=>$abono->fecha_final,
-            'id_almacen' => $request->id_almacen,
-            'origen'=>$abono->origen,
-            'token'=>$abono->token,
-            'json'=>json_encode($abono),
-            'id_user'=>$user_id
-          );
+        if ($lm->id) {
 
-          AlpAbonosDisponible::create($data_abono);
-
-          $data_user = array(
-            'id_abono' => $abono->id, 
-            'id_cliente'=>$request->id_cliente,
-            'id_user'=>$user_id
-          );
-
-          AlpAbonosUser::create($data_user);
-
-          $abono->update(['estado_registro'=>0]);
-
-
-        }
-
-        if ($abono->id) {
-
-            return redirect('admin/abonos')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/lifemiles')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/abonos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return redirect('admin/lifemiles')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }
@@ -273,7 +224,6 @@ class AlpLifemilesController extends JoshController
     public function edit($id)
     {
        
-       $abono = AlpAbonos::find($id);
 
        if (Sentinel::check()) {
 
@@ -289,25 +239,15 @@ class AlpLifemilesController extends JoshController
           activity()
           ->withProperties(['id'=>$id])->log('AlpLifemilesController/edit');
 
-
         }
 
-        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
-        ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-        ->orderby('alp_ordenes.id', 'desc')
-        ->get();
+       $lifemile = AlpLifeMiles::find($id);
 
-        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
-          ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
-          ->where('alp_clientes.estado_registro', '1')
-          ->get();
 
-          $tipobono=AlpAbonosTipo::get();
 
           $almacenes = AlpAlmacenes::all();
 
-
-        return view('admin.lifemiles.edit', compact('abono', 'ordenes', 'clientes', 'tipobono', 'almacenes'));
+        return view('admin.lifemiles.edit', compact( 'almacenes', 'lifemile'));
     }
 
     /**
@@ -316,7 +256,7 @@ class AlpLifemilesController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(AbonoUpdateRequest $request, $id)
+    public function update(LifeMileRequest $request, $id)
     {
 
 
@@ -337,87 +277,34 @@ class AlpLifemilesController extends JoshController
 
         }
 
-        $b=AlpAbonos::where('codigo_abono', '=', $request->codigo_abono)->first();
+      
+        $user_id = Sentinel::getUser()->id;
 
-        if (isset($b->id)) {
-
-
-            if ($b->id==$id) {
-                # code...
-            }else{
-
-                return Redirect::route('admin/abonos')->withInput()->with('error', trans('El codigo que intenta usar ya esta siendo usado'));
-
-            }
-
-            
-        }
-
-
-       $data = array(
-            'codigo_abono' => $request->codigo_abono, 
-            'valor_abono' => $request->valor_abono, 
-            'fecha_final' => $request->fecha_final,
-            'origen' => $request->origen,
-            'motivo' => $request->motivo,
-            'id_orden' => $request->id_orden,
-            'id_almacen' => $request->id_almacen,
-            'tipo_abono' => $request->tipo_abono,
-            'token' => md5(time()),
-            'notas' => $request->notas,
-            'id_user' =>$user->id
-        );
+        $data = array(
+          'nombre_lifemile' => $request->nombre_lifemile, 
+          'cantidad_millas' => $request->cantidad_millas, 
+          'minimo_compra' => $request->minimo_compra,
+          'fecha_inicio' => $request->fecha_inicio,
+          'fecha_final' => $request->fecha_final,
+          'id_almacen' => $request->id_almacen,
+          'id_user' =>$user_id
+      );
 
       # dd($data);
 
          
-        $abono = AlpAbonos::find($id);
+        $lifemile = AlpLifeMiles::find($id);
     
-        $abono->update($data);
-
-        if (is_null($request->id_cliente)) {
-            # code...
-        }else{
-
-            if ($abono->estado_registro=='1') {
-                
-                 $data_abono = array(
-                'id_abono'=>$abono->id,
-                'id_cliente'=>$request->id_cliente,
-                'operacion'=>1,
-                'codigo_abono'=>$abono->codigo_abono,
-                'valor_abono'=>$abono->valor_abono,
-                'fecha_final'=>$abono->fecha_final,
-                'id_almacen' => $request->id_almacen,
-                'origen'=>$abono->origen,
-                'token'=>$abono->token,
-                'json'=>json_encode($abono),
-                'id_user'=>$user->id
-              );
-
-              AlpAbonosDisponible::create($data_abono);
-
-              $data_user = array(
-                'id_abono' => $abono->id, 
-                'id_cliente'=>$request->id_cliente,
-                'id_user'=>$user->id
-              );
-
-              AlpAbonosUser::create($data_user);
-
-              $abono->update(['estado_registro'=>0]);
-
-            }
-
-        }
+        $lifemile->update($data);
 
 
-        if ($abono->id) {
 
-            return redirect('admin/abonos')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+        if ($lifemile->id) {
+
+            return redirect('admin/lifemiles')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/abonos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return redirect('admin/lifemiles')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }
@@ -430,14 +317,14 @@ class AlpLifemilesController extends JoshController
      */
     public function getModalDelete($id = null)
     {
-        $model = 'abonos';
+        $model = 'lifemiles';
         $confirm_route = $error = null;
         try {
             // Get group insedetion
             
-            $abono = AlpAbonos::find($id);
+            $lifemile = AlpLifeMiles::find($id);
 
-            $confirm_route = route('admin.lifemiles.delete', ['id' => $abono->id]);
+            $confirm_route = route('admin.lifemiles.delete', ['id' => $lifemile->id]);
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
@@ -486,10 +373,10 @@ class AlpLifemilesController extends JoshController
             $abono->delete();
 
             // Redirect to the group management page
-            return Redirect::route('admin.lifemiles.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+            return redirect('admin.lifemiles.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
         } catch (GroupNotFoundException $e) {
             // Redirect to the group management page
-            return Redirect::route('admin.lifemiles.index')->with('error', trans('Error al eliminar el registro'));
+            return redirect('admin.lifemiles.index')->with('error', trans('Error al eliminar el registro'));
         }
     }
 

@@ -61,148 +61,77 @@
 
                         {{ csrf_field() }}
 
-                        <input type="hidden" id="dias" name="dias" value="{{$configuracion->dias_abono}}">
-
-                           
                         <div class="form-group {{ $errors->
-                            first('codigo_abono', 'has-error') }}">
+                            first('nombre_lifemile', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Codigo Bono 
+                                Nombre Campaña Lifemiles 
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="codigo_abono" name="codigo_abono" class="form-control" placeholder="Codigo Bono"
-                                       value="{!! old('codigo_abono') !!}">
+                                <input type="text" id="nombre_lifemile" name="nombre_lifemile" class="form-control" placeholder="Nombre Campaña Lifemiles "
+                                       value="{!! old('nombre_lifemile') !!}">
 
 
                             </div>
                             <div class="col-sm-4">
-                                <button type="button" class="btn btn-link btn-xs" id="codigo_abono_generar">Generar</button>
-                                {!! $errors->first('codigo_abono', '<span class="help-block">:message</span> ') !!}
+                                <button type="button" class="btn btn-link btn-xs" id="nombre_lifemile_generar">Generar</button>
+                                {!! $errors->first('nombre_lifemile', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
 
                         <div class="form-group {{ $errors->
-                            first('valor_abono', 'has-error') }}">
+                            first('cantidad_millas', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Valor Bono
+                                Cantidad Millas
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" step="1" min="0" id="valor_abono" name="valor_abono" class="form-control" placeholder="Valor del Bono"
-                                       value="{!! old('valor_abono') !!}">
+                                <input type="number" step="1" min="0" id="cantidad_millas" name="cantidad_millas" class="form-control" placeholder="Cantidad Millas"
+                                       value="{!! old('cantidad_millas') !!}">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('valor_abono', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('cantidad_millas', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('minimo_compra', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Minimo Compra
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="0" id="minimo_compra" name="minimo_compra" class="form-control" placeholder=" Minimo Compra"
+                                       value="{!! old('minimo_compra') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('minimo_compra', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
 
                         <div class="form-group {{ $errors->
-                            first('tipo_abono', 'has-error') }}">
+                            first('fecha_inicio', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Tipo de Bono
+                                Fecha Inicio
                             </label>
                             <div class="col-sm-5">
-                                
-                                 <select id="tipo_abono" name="tipo_abono" class="form-control select2">
-
-                                    <option value="">Seleccione</option>
-                                    
-                                    @foreach($tipobono as $ta)
-
-                                    <option  @if($ta->id == old('tipo_abono')) selected="selected" @endif    value="{{ $ta->id }}">  {{ $ta->nombre_tipo}}</option>
-                                    @endforeach
-                                    
-                                  
-                                </select>
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" placeholder="Fecha Inicio"  value="">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('tipo_abono', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('fecha_inicio', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
-
-
-
-
 
 
                         <div class="form-group {{ $errors->
                             first('fecha_final', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Fecha Limite
+                                Fecha Final
                             </label>
                             <div class="col-sm-5">
                                 <input type="date" id="fecha_final" name="fecha_final" class="form-control" placeholder="Fecha Final"  value="">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('fecha_final', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
-
-
-                        <div class="form-group {{ $errors->
-                            first('motivo', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Motivo
-                            </label>
-                            <div class="col-sm-5">
-                                
-
-                                <textarea class="form-control resize_vertical" id="motivo" name="motivo" placeholder="Motivo del Bono" rows="5">{!! old('motivo') !!}</textarea>
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('motivo', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
-
-
-                        <div class="form-group {{ $errors->
-                            first('id_cliente', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Asignar Bono a Cliente <small>Opcional</small>
-                            </label>
-                            <div class="col-sm-5">
-                                
-                                 <select id="id_cliente" name="id_cliente" class="form-control select2">
-
-                                    <option value="">Seleccione</option>
-                                    
-                                    @foreach($clientes as $c)
-
-                                    <option @if($c->id == old('id_cliente')) selected="selected" @endif     value="{{ $c->id }}">
-                                            {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
-                                    @endforeach
-                                    
-                                  
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('id_cliente', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
-
-                        <div class="form-group {{ $errors->
-                            first('id_orden', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Seleccionar Orden Motivo del bono <small>Opcional</small>
-                            </label>
-                            <div class="col-sm-5">
-                                
-                                 <select id="id_orden" name="id_orden" class="form-control select2">
-
-                                    <option value="">Seleccione</option>
-                                    
-                                    @foreach($ordenes as $o)
-
-                                    <option  @if($o->id == old('id_orden')) selected="selected" @endif  value=" {{ $o->id }}">
-                                            {{ $o->referencia}}</option>
-                                    @endforeach
-                                    
-                                  
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('id_orden', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
@@ -232,27 +161,6 @@
                                 {!! $errors->first('id_almacen', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
-
-
-
-
-                        <div class="form-group {{ $errors->
-                            first('notas', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Notas
-                            </label>
-                            <div class="col-sm-5">
-                                
-
-                                <textarea class="form-control resize_vertical" id="notas" name="notas" placeholder="Notas del Bono" rows="5">{!! old('notas') !!}</textarea>
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('notas', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
-
-
-
 
 
                             <!-- ubicacion de la sede   -->
@@ -295,9 +203,10 @@
                 theme:"bootstrap"
             });
 
+            var someDateInicio = new Date();
             var someDate = new Date();
 
-            var duration = $('#dias').val(); //In Days
+            var duration = '30'; //In Days
 
             someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
 
@@ -307,9 +216,10 @@
 
             year=someDate.getFullYear();
 
+            $('#fecha_inicio').val(someDateInicio.toISOString().substr(0, 10));
             $('#fecha_final').val(someDate.toISOString().substr(0, 10));
 
-            console.log($('#fecha_final').val());
+          //  console.log($('#fecha_final').val());
 
     });
 

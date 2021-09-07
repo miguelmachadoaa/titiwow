@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpLifeMiles extends Model
+class AlpLifeMilesCodigos extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_abonos';        
+    public $table = 'alp_lifemiles_codigos';        
     
 
     protected $dates = ['deleted_at'];
@@ -19,16 +19,14 @@ class AlpLifeMiles extends Model
 
     public $fillable = [
         'id',
-        'codigo_abono',
-        'valor_abono',
+        'id_lifemile',
+        'parnert',
+        'miles',
+        'fecha_inicio',
         'fecha_final',
-        'origen',
-        'token',
-        'id_orden',
-        'motivo',
-        'notas',
-        'tipo_abono',
-        'id_almacen',
+        'estatus',
+        'code',
+        'prueba',
         'estado_registro',
         'id_user'
     ];
@@ -39,7 +37,7 @@ class AlpLifeMiles extends Model
      * @var array
      */
     protected $casts = [
-        'codigo_abono' => 'string'
+        'parnert' => 'string'
     ];
 
     /**
@@ -48,6 +46,6 @@ class AlpLifeMiles extends Model
      * @var array
      */
     public static $rules = [
-        'codigo_abono' => 'required'
+        'parnert' => 'required'
     ];
 }

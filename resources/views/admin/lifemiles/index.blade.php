@@ -39,19 +39,19 @@ Lifemiles
                        Lifemiles
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/lifemiles/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Bono</a>
+                    <a href="{{ secure_url('admin/lifemiles/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Campaña Lifemiles</a>
                     </div>
                 </div>
                 <br />
                 <div class="panel-body">
-                    @if ($abonos->count() >= 1)
+                    @if ($lifemiles->count() >= 1)
                         <div class="table-responsive">
 
                         <table class="table table-bordered" id="table">
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Codigo</th>
+                                    <th>Nombre</th>
                                     <th>Valor</th>
                                     <th>Fecha Limite</th>
                                     <th>Origen</th>
@@ -63,25 +63,15 @@ Lifemiles
                             </thead>
                             <tbody>
 
-                                @foreach ($abonos as $row)
+                                @foreach ($lifemiles as $row)
                                 <tr>
                                     <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->codigo_abono!!}</td>
-                                    <td>{!! $row->valor_abono !!}</td>
-                                    <td>{!! $row->fecha_final !!}</td>
-                                    <td>{{$row->origen}}</td>
+                                    <td>{!! $row->nombre_lifemile!!}</td>
+                                    <td>{!! $row->cantidad_millas !!}</td>
+                                    <td>{!! $row->minimo_compra !!}</td>
+                                    <td>{{$row->fecha_inicio}}</td>
+                                    <td>{{$row->fecha_final}}</td>
                                     <td>{{$row->nombre_almacen}}</td>
-                                    <td>
-                                        @if($row->estado_registro==0)
-
-                                        Aplicado
-
-                                        @else
-
-                                        Sin Aplicar
-
-                                        @endif 
-                                    </td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
@@ -95,7 +85,9 @@ Lifemiles
                                             </a>
 
 
-
+                                            <a href="{{ secure_url('admin/lifemiles/'.$row->id.'/upload') }}">
+                                                <i class="livicon" data-name="upload" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="ver abono"></i>
+                                            </a>
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
