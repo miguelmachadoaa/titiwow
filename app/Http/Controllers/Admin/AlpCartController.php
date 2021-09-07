@@ -242,8 +242,10 @@ class AlpCartController extends JoshController
         
         $descuento=1;
 
-      $productos = DB::table('alp_productos')->select('alp_productos.*')
+      $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+        ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacenes.id', '=', $id_almacen)
         ->whereNull('alp_almacen_producto.deleted_at')
@@ -271,6 +273,7 @@ class AlpCartController extends JoshController
 
         $dl_productos = array();
 
+        dd($cart);
 
         foreach($cart as $c){
 
@@ -278,8 +281,8 @@ class AlpCartController extends JoshController
 
             $dl_p=array();
             $dl_p['nombre_producto']=$c->nombre_producto;
-            $dl_p['nombre_categoria']=$c->nombre_categoria;
-            $dl_p['nombre_marca']=$c->nombre_marca;
+            $dl_p['nombreCategoria']=$c->nombre_categoria;
+            $dl_p['nombreMarca']=$c->nombre_marca;
             $dl_p['presentacion_producto']=$c->presentacion_producto;
             $dl_p['ean']=$c->referencia_producto;
             $dl_p['sku']=$c->referencia_producto_sap;
@@ -563,8 +566,8 @@ class AlpCartController extends JoshController
               $dl_p=array();
 
               $dl_p['nombre_producto']=$c->nombre_producto;
-              $dl_p['nombre_marca']=$c->nombre_marca;
-              $dl_p['nombre_categoria']=$c->nombre_categoria;
+              $dl_p['nombreMarca']=$c->nombre_marca;
+              $dl_p['nombreCategoria']=$c->nombre_categoria;
               $dl_p['presentacion_producto']=$c->presentacion_producto;
               $dl_p['ean']=$c->referencia_producto;
               $dl_p['sku']=$c->referencia_producto_sap;
@@ -2198,6 +2201,8 @@ class AlpCartController extends JoshController
           $dl_p=array();
           $dl_p['nombre_producto']=$c->nombre_producto;
           $dl_p['presentacion_producto']=$c->presentacion_producto;
+          $dl_p['nombreMarca']=$c->nombreMarca;
+          $dl_p['nombreCategoria']=$c->nombreCategoria;
           $dl_p['ean']=$c->referencia_producto;
             $dl_p['sku']=$c->referencia_producto_sap;
           $dl_p['slug']=$c->slug;

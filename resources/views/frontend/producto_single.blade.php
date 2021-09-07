@@ -680,6 +680,7 @@
         'pageTitle': '{{ $producto->nombre_producto}}',
         'nombreProducto': '{{ $producto->nombre_producto}}',
         'precioProducto': '{{ $producto->precio_oferta}}',
+        'nombreCategoria': '{{ $producto->nombre_categoria}}',
         'nombreMarca': '{{ $producto->nombre_marca}}',
         'skuProducto': '{{ $producto->referencia_producto_sap}}',
         'referenciaProducto': '{{ $producto->referencia_producto}}',

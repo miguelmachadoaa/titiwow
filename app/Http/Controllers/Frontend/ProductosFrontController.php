@@ -485,7 +485,7 @@ class ProductosFrontController extends Controller
 
         $precio = array(); 
 
-            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug')
+            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug', 'alp_categorias.nombre_categoria as nombre_categoria')
 
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
             ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
@@ -493,6 +493,7 @@ class ProductosFrontController extends Controller
            ->whereNull('alp_almacen_producto.deleted_at')
            ->whereNull('alp_productos.deleted_at')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+            ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.mostrar','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
@@ -510,13 +511,14 @@ class ProductosFrontController extends Controller
            if($producto){
 
 
-            $relacionados =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug')
+            $relacionados =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
             ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
             ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
             ->whereNull('alp_almacen_producto.deleted_at')
             ->whereNull('alp_productos.deleted_at')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+            ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.id_categoria_default','=', $producto->id_categoria_default)
             ->where('alp_productos.id','<>', $producto->id)
