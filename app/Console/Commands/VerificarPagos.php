@@ -21,6 +21,10 @@ use App\Models\AlpOrdenesHistory;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpClientes;
 
+use App\Models\AlpLifeMiles;
+use App\Models\AlpLifeMilesCodigos;
+use App\Models\AlpLifeMilesOrden;
+
 use App\Models\AlpOrdenesDescuentoIcg;
 use App\Models\AlpConsultaIcg;
 use App\Exports\CronNuevosUsuarios;
@@ -77,9 +81,9 @@ class VerificarPagos extends Command
 
       #  $ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+       # $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('id', '21189')->get();
+        $ordenes=AlpOrdenes::where('id', '20817')->get();
         //
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
@@ -1005,12 +1009,12 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-      if (isset($preference['response']['results'])) {
-       #  if (isset($preference)) {
+     # if (isset($preference['response']['results'])) {
+         if (isset($preference)) {
 
            $cantidad=count($preference['response']['results']);
 
-           $aproved=0;
+           $aproved=1;
 
            $cancel=0;
            $pending=0;
@@ -1330,6 +1334,32 @@ class VerificarPagos extends Command
 
                    }
                    # code...
+                 }
+
+
+                 if($orden->lifemiles_id=='0'){
+
+                 }else{
+
+                  $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
+
+                    if(isset($codigo->id)){
+
+                        $data_lifemiles = array(
+                          'id_lifemile' => $codigo->id_lifemile, 
+                          'id_codigo' => $codigo->id, 
+                          'id_orden' => $orden->id,
+                          'id_user' => $orden->id_user
+                        );
+
+                        AlpLifeMilesOrden::create($data_lifemiles);
+
+                        $codigo->update(['estado_registro'=>'0']);
+
+                        Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
+
+                    }
+
                  }
 
               

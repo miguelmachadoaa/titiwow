@@ -4511,9 +4511,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         if(isset($lifemile->id)){
 
-            $data_lifemile = array('lifemiles_id' => $lifemile->id );
+            if($orden->total>=$lifemile->minimo_compra){
 
-            $orden->update($data_lifemile);
+              $data_lifemile = array('lifemiles_id' => $lifemile->id );
+              $orden->update($data_lifemile);
+
+            }
 
         }
 
