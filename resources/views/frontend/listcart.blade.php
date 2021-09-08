@@ -191,7 +191,29 @@
 
 
 
+                        @if(isset($lifemiles->id))
 
+                            @if($lifemiles->minimo_compra>$total)
+
+                            <hr>
+
+                                <div class="">
+                                    
+                                   <p>Te faltan solo <span>{{number_format(($total - $lifemiles->minimo_compra)*-1, 0)}}</span>  Para obtener <span>{{$lifemiles->cantidad_millas}}</span>  Lifemiles por tu Compra.
+</p>   
+                                </div>
+
+                            @else
+
+                                <div class="">
+                                    
+                                   <p>Con esta compra obtienes  {{$lifemiles->cantidad_millas}} Lifemiles por tu Compra.
+</p> 
+                                </div>
+
+                            @endif
+
+                        @endif
 
 
 
@@ -202,6 +224,7 @@
                             @if($mensaje_promocion!='')
 
                                 <div class="alert alert-info">
+
                                     {{$mensaje_promocion}}
                                 </div>
 
