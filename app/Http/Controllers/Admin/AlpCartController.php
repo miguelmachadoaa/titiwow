@@ -2178,7 +2178,7 @@ class AlpCartController extends JoshController
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-      echo $id_almacen;
+     // echo $id_almacen;
 
       if ($total<0 ){
         
