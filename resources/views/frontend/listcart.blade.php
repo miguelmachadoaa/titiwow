@@ -36,6 +36,7 @@
             <hr>
 
             @endif
+
         @endif
 
 
@@ -79,7 +80,13 @@
 
                                         <h4><a style="color: #f70072;" target="_blank"  href="{{ route('producto', [$row->slug]) }}" >Este producto no esta disponible para su dirección de envio</a></h4>
 
-                                        @endif
+                                    @endif
+
+                                    @if(isset($row->no_inventario))
+
+                                        <h4><a style="color: #f70072;" target="_blank"  href="{{ route('producto', [$row->slug]) }}" >La cantidad Agregada al carrito de este producto supera el disponible en Inventario, Cantidad disponible: {{$row->no_inventario}}</a></h4>
+
+                                    @endif
 
                                 </div>    
 

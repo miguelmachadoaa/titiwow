@@ -273,7 +273,7 @@ class AlpCartController extends JoshController
 
         $dl_productos = array();
 
-        dd($cart);
+      //  dd($cart);
 
         foreach($cart as $c){
 
@@ -2178,6 +2178,8 @@ class AlpCartController extends JoshController
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+      echo $id_almacen;
+
       if ($total<0 ){
         
         return redirect('cart/show');
@@ -2204,7 +2206,7 @@ class AlpCartController extends JoshController
           $dl_p['nombreMarca']=$c->nombreMarca;
           $dl_p['nombreCategoria']=$c->nombreCategoria;
           $dl_p['ean']=$c->referencia_producto;
-            $dl_p['sku']=$c->referencia_producto_sap;
+          $dl_p['sku']=$c->referencia_producto_sap;
           $dl_p['slug']=$c->slug;
           $dl_p['precio_base']=$c->precio_base;
           $dl_p['precio_oferta']=$c->precio_oferta;
@@ -2222,17 +2224,25 @@ class AlpCartController extends JoshController
 
             if ($vcart->disponible==0) {
               
-            if (isset($vcart->promocion)) {
+              if (isset($vcart->promocion)) {
 
-            }else{
-              
-                return redirect('cart/show');
+              }else{
+                
+                  return redirect('cart/show');
+
+              }
+
+            }
+
+            if(isset($vcart->no_inventario)){
+
+              return redirect('cart/show');
 
             }
 
           }
 
-        }
+          
       }
 
       
@@ -2412,6 +2422,7 @@ class AlpCartController extends JoshController
 
           $inv = $this->inventario();
 
+
           $pagos=AlpPagos::where('id_orden', $carrito)->get();
           
           $total_pagos=0;
@@ -2436,7 +2447,7 @@ class AlpCartController extends JoshController
             }
 
 
-             $total_descuentos_icg=0;
+            $total_descuentos_icg=0;
 
             $descuentosIcg= array();
 
@@ -6663,6 +6674,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $inventario=$this->inventario();
 
+      //echo 'reload cart <br>';
+      //echo json_encode($inventario);
+      //echo '<br>';
+
 
       $total=0;
 
@@ -6930,9 +6945,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     foreach($cart as $cc){
 
+      
+
       if(isset($inventario[$cc->id])){
 
         if($inventario[$cc->id]>0){
+
+          if($inventario[$cc->id]>=$cc->cantidad) {
+
+            
+          }else{
+
+           // dd($inventario[$cc->id]);
+
+            $cc->no_inventario=$inventario[$cc->id];
+
+          }
 
         }else{
 
@@ -6947,10 +6975,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       }
     }
 
+   // dd($cart);
+
+
 
     \Session::put('cart', $cart);
 
-     // dd($cart);
 
        return $cart;
 
