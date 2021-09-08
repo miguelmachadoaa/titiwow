@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Abono
+Lifemiles
 @parent
 @stop
 
@@ -16,7 +16,7 @@ Abono
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Bonos</h1>
+    <h1>Lifemiles</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">
@@ -24,8 +24,8 @@ Abono
                Inicio
             </a>
         </li>
-        <li><a href="#"> Bonos </a></li>
-        <li class="active">Listado</li>
+        <li><a href="#"> Lifemiles </a></li>
+        <li class="active">Detalle </li>
     </ol>
 </section>
 
@@ -36,11 +36,9 @@ Abono
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Bonos
+                    Lifemiles
                     </h4>
-                    <div class="pull-right">
-                    <a href="{{ secure_url('admin/abonos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Bono</a>
-                    </div>
+                    
                 </div>
                 <br />
                 <div class="panel-body">
@@ -51,42 +49,55 @@ Abono
 
                                 <tr>
                                     <td>Id</td>
-                                    <td>{{$abono->id}}</td>
+                                    <td>{{$lifemile->id}}</td>
                                 </tr>
 
                                 <tr>
-                                    <td>Codigo</td>
-                                    <td>{{$abono->codigo_abono}}</td>
+                                    <td>Nombre</td>
+                                    <td>{{$lifemile->nombre_lifemile}}</td>
                                 </tr>
 
                                 <tr>
-                                    <td>Valor</td>
-                                    <td>{{$abono->valor_abono}}</td>
+                                    <td>Millas</td>
+                                    <td>{{$lifemile->cantidad_millas}}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Fecha Limite</td>
-                                    <td>{{$abono->fecha_final}}</td>
+                                    <td>{{$lifemile->fecha_final}}</td>
                                 </tr>
 
                                 <tr>
-                                    <td>Origen</td>
-                                    <td>{{$abono->origen}}</td>
+                                    <td>Minimo Compra</td>
+                                    <td>{{$lifemile->minimo_compra}}</td>
                                 </tr>
+
+                                <tr>
+                                    <td>Fecha Inicio</td>
+                                    <td>{{$lifemile->fecha_inicio}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Fecha Final</td>
+                                    <td>{{$lifemile->fecha_final}}</td>
+                                </tr>
+
 
                                 <tr>
                                     <td>Nombre Almacen</td>
-                                    <td>{{$abono->nombre_almacen}}</td>
+                                    <td>{{$lifemile->nombre_almacen}}</td>
                                 </tr>
+
+
 
                                 <tr>
                                     <td>Estado</td>
-                                    <td>{{$abono->estado_registro}}</td>
+                                    <td>{{$lifemile->estado_registro}}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Creado</td>
-                                    <td>{{$abono->created_at}}</td>
+                                    <td>{{$lifemile->created_at}}</td>
                                 </tr>
 
                             </tbody>
@@ -109,7 +120,7 @@ Abono
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Bono Uso
+                       Codigos
                     </h4>
                     
                 </div>
@@ -119,25 +130,29 @@ Abono
                 <table class="table">
                     <tr>
                         <td>Id</td>
-                        <td>Monto</td>
-                        <td>Origen</td>
-                        <td>Orden</td>
+                        <td>Parnert</td>
+                        <td>Miles</td>
+                        <td>Fecha Inicio</td>
+                        <td>Fecha Final</td>
+                        <td>Estatus</td>
+                        <td>Codigo</td>
+                        <td>Prueba </td>
                         <td>Actualizado </td>
                         <td>Fecha</td>
                     </tr>
 
-                    @foreach($history as $h)
+                    @foreach($codigos as $h)
 
                         <tr>
                             <td>{{$h->id}}</td>
-                            <td>{{$h->valor_abono}}</td>
-                            <td>{{$h->origen}}</td>
-                            <td>
-                                @if(isset(json_decode($h->json)->referencia))
-                                    {{json_decode($h->json)->referencia}}
-                                @endif
-                            </td>
-                            <td>{{$h->first_name.' '.$h->last_name}}</td>
+                            <td>{{$h->parnert}}</td>
+                            <td>{{$h->miles}}</td>
+                            <td>{{$h->fecha_inicio}}</td>
+                            <td>{{$h->fecha_final}}</td>
+                            <td>{{$h->estatus}}</td>
+                            <td>{{$h->code}}</td>
+                            <td>{{$h->prueba}}</td>
+                            <td>{{$h->estatus}}</td>
                             <td>{{$h->created_at}}</td>
                         </tr>
 

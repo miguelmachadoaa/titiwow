@@ -17,8 +17,6 @@ use App\Models\AlpAbonosUser;
 
 use App\Http\Requests\LifeMileRequest;
 
-
-
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -108,17 +106,16 @@ class AlpLifemilesController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
 
-        $abono = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
-        ->join('alp_almacenes','alp_abonos.id_almacen', '=', 'alp_almacenes.id')
-        ->where('alp_abonos.id', $id)->first();
+        $lifemile = AlpLifemiles::select('alp_lifemiles.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+        ->join('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
+        ->where('alp_lifemiles.id', $id)->first();
 
-        $history = AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name', 'users.last_name')
-        ->join('users', 'users.id', '=', 'alp_abono_disponible.id_user')
-        ->where('alp_abono_disponible.id_abono', $id)->get();  
+        $codigos = AlpLifeMilesCodigos::select('alp_lifemiles_codigos.*')
+        ->where('alp_lifemiles_codigos.id_lifemile', $id)->get();  
 
 
         // Show the page
-        return view('admin.lifemiles.show', compact('abono', 'history'));
+        return view('admin.lifemiles.show', compact('lifemile', 'codigos'));
 
     }
 
