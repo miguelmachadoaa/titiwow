@@ -301,7 +301,19 @@ class AlpCartController extends JoshController
 
         }
 
-      $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->first();
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+      
+
+
+      //  echo($d);
+
+      $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '>=', $d)->first();
+
+     //echo $lifemiles->toSql();
+
+
 
       return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles'));
 
@@ -4423,6 +4435,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          $orden->update($data_update);
 
+
+         
+
+         
+
          if ($tipo=='epayco') {
 
           $data_pago = array(
@@ -4480,6 +4497,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           );
          
         $history=AlpOrdenesHistory::create($data_history);
+
+
+          
+        //actualizacion lifemile
+
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+
+        $lifemile=AlpLifeMiles::where('id_almacen', $orden->id_almacen)->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '>=', $d)->first();
+
+
+        if(isset($lifemile->id)){
+
+            $data_lifemile = array('lifemiles_id' => $lifemile->id );
+
+            $orden->update($data_lifemile);
+
+        }
+
+
+
 
          \Session::forget('cart');
          \Session::forget('orden');
