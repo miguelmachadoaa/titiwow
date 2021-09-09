@@ -311,6 +311,13 @@ class AlpCartController extends JoshController
 
       $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '>=', $d)->first();
 
+      if(isset($lifemiles->id)){
+
+      }else{
+
+        $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '>=', $d)->first();
+      }
+
      //echo $lifemiles->toSql();
 
 
@@ -4498,7 +4505,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          
         $history=AlpOrdenesHistory::create($data_history);
 
-
           
         //actualizacion lifemile
 
@@ -4518,8 +4524,32 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             }
 
-        }
+        }else{
 
+            $lifemile=AlpLifeMiles::where('id_almacen','=', '0')->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '>=', $d)->first();
+
+
+            if(isset($lifemile->id)){
+
+
+
+                if($orden->monto_total>=$lifemile->minimo_compra){
+
+
+
+                  $data_lifemile = array('lifemiles_id' => $lifemile->id );
+                  $orden->update($data_lifemile);
+
+
+                }
+
+            }
+
+     #   dd($lifemile);
+
+
+
+        }
 
 
 

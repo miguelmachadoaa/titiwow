@@ -53,10 +53,10 @@ Lifemiles
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Valor</th>
-                                    <th>Fecha Limite</th>
-                                    <th>Origen</th>
+                                    <th>Minimo Compra</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
                                     <th>Nombre Almacen</th>
-                                    <th>Estado</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -71,7 +71,14 @@ Lifemiles
                                     <td>{!! $row->minimo_compra !!}</td>
                                     <td>{{$row->fecha_inicio}}</td>
                                     <td>{{$row->fecha_final}}</td>
-                                    <td>{{$row->nombre_almacen}}</td>
+                                    <td>
+                                        @if($row->id_almacen==0)
+                                        {{'Todos'}}
+                                        @else
+                                        {{$row->nombre_almacen}}
+                                        @endif
+                                        
+                                    </td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 

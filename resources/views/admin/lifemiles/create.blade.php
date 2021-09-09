@@ -73,7 +73,7 @@
 
                             </div>
                             <div class="col-sm-4">
-                                <button type="button" class="btn btn-link btn-xs" id="nombre_lifemile_generar">Generar</button>
+                                
                                 {!! $errors->first('nombre_lifemile', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
@@ -147,6 +147,7 @@
                                  <select id="id_almacen" name="id_almacen" class="form-control select2">
 
                                     <option value="">Seleccione</option>
+                                    <option value="0">Todos</option>
                                     
                                     @foreach($almacenes as $a)
 
@@ -206,7 +207,7 @@
             var someDateInicio = new Date();
             var someDate = new Date();
 
-            var duration = '30'; //In Days
+            var duration = '360'; //In Days
 
             someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
 
@@ -223,24 +224,7 @@
 
     });
 
-    $('#codigo_abono_generar').click(function(){
-
-        caracteres = "0123456789ABCDEF";
-        longitud = 20;
-
-        code='';
-
-        for (x=0; x < longitud; x++)
-        {
-            rand = Math.floor(Math.random()*caracteres.length);
-            code += caracteres.substr(rand, 1);
-        }
-
-
-        $('#codigo_abono').val(code);
-
-
-    });
+  
 
 
     

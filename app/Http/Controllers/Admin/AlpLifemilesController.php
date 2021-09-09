@@ -64,8 +64,9 @@ class AlpLifemilesController extends JoshController
 
 
         $lifemiles = AlpLifeMiles::select('alp_lifemiles.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
-        ->join('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
+        ->leftJoin('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
         ->get();
+
 
         // Show the page
         return view('admin.lifemiles.index', compact('lifemiles'));
@@ -107,7 +108,7 @@ class AlpLifemilesController extends JoshController
         }
 
         $lifemile = AlpLifemiles::select('alp_lifemiles.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
-        ->join('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
+        ->LeftJoin('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_lifemiles.id', $id)->first();
 
         $codigos = AlpLifeMilesCodigos::select('alp_lifemiles_codigos.*', 'alp_lifemiles_orden.id_orden')
@@ -374,10 +375,10 @@ class AlpLifemilesController extends JoshController
             $lifemile->delete();
 
             // Redirect to the group management page
-            return redirect('admin/lifemiles/index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+            return redirect('admin/lifemiles')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
         } catch (GroupNotFoundException $e) {
             // Redirect to the group management page
-            return redirect('admin/lifemiles/index')->with('error', trans('Error al eliminar el registro'));
+            return redirect('admin/lifemiles')->with('error', trans('Error al eliminar el registro'));
         }
     }
 
@@ -447,7 +448,9 @@ class AlpLifemilesController extends JoshController
 
         Excel::import(new lifemileImport, $archivo);
        
-        return Redirect::route('admin.lifemiles.index')->with('success', trans('Se ha creado satisfactoriamente'));
+        
+
+        return redirect('admin/lifemiles')->with('success', trans('Se han creado los  registro satisfactoriamente'));
     }
 
 
