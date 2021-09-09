@@ -110,7 +110,8 @@ class AlpLifemilesController extends JoshController
         ->join('alp_almacenes','alp_lifemiles.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_lifemiles.id', $id)->first();
 
-        $codigos = AlpLifeMilesCodigos::select('alp_lifemiles_codigos.*')
+        $codigos = AlpLifeMilesCodigos::select('alp_lifemiles_codigos.*', 'alp_lifemiles_orden.id_orden')
+        ->LeftJoin('alp_lifemiles_orden', 'alp_lifemiles_codigos.id', '=', 'alp_lifemiles_orden.id_codigo')
         ->where('alp_lifemiles_codigos.id_lifemile', $id)->get();  
 
 

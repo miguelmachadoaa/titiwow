@@ -81,9 +81,9 @@ class VerificarPagos extends Command
 
       #  $ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-       # $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('id', '20817')->get();
+        #$ordenes=AlpOrdenes::where('id', '20817')->get();
         //
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
@@ -1009,12 +1009,12 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-     # if (isset($preference['response']['results'])) {
-         if (isset($preference)) {
+      if (isset($preference['response']['results'])) {
+         #if (isset($preference)) {
 
            $cantidad=count($preference['response']['results']);
 
-           $aproved=1;
+           $aproved=0;
 
            $cancel=0;
            $pending=0;

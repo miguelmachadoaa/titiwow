@@ -127,19 +127,25 @@ Lifemiles
                 <br />
                 <div class="panel-body">
 
-                <table class="table">
-                    <tr>
-                        <td>Id</td>
-                        <td>Parnert</td>
-                        <td>Miles</td>
-                        <td>Fecha Inicio</td>
-                        <td>Fecha Final</td>
-                        <td>Estatus</td>
-                        <td>Codigo</td>
-                        <td>Prueba </td>
-                        <td>Actualizado </td>
-                        <td>Fecha</td>
-                    </tr>
+                <table class="table table-striped" id="table-codigos">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Parnert</th>
+                            <th>Miles</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Final</th>
+                            <th>Estatus</th>
+                            <th>Codigo</th>
+                            <th>Prueba </th>
+                            <th>Actualizado </th>
+                            <th>Fecha</th>
+                            <th>Estado Registro </th>
+                            <th>Orden </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
 
                     @foreach($codigos as $h)
 
@@ -154,9 +160,20 @@ Lifemiles
                             <td>{{$h->prueba}}</td>
                             <td>{{$h->estatus}}</td>
                             <td>{{$h->created_at}}</td>
+                            <td>
+                                @if($h->estado_registro=='1')
+
+                                {{'No Asigando '}}
+                                @else
+                                {{' Asigando '}}
+                                @endif
+                            </td>
+                            <td>{{$h->id_orden}}</td>
                         </tr>
 
                     @endforeach
+
+                    </tbody>
                 </table>
                
                  
@@ -195,18 +212,31 @@ Lifemiles
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+
+
+<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
+
+<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
+
+ <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
+
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+ 
+ <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+
 
 
 <script>
 
 
      $(document).ready(function() {
-
-            $('#table').DataTable();
-            
+        
+        $('#table-codigos').dataTable({
+         responsive: true
         });
+
+    });
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 
