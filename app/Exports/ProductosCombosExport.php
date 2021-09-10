@@ -36,6 +36,7 @@ class ProductosCombosExport implements FromView
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
           // DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
           'alp_productos.nombre_producto as nombre_producto',
+          'alp_productos.tipo_producto as tipo_producto',
           'alp_productos.presentacion_producto as presentacion_producto',
           'alp_direcciones.barrio_address as barrio_address',
           'alp_productos.referencia_producto as referencia_producto',
@@ -47,15 +48,17 @@ class ProductosCombosExport implements FromView
           'users.email as email'
           )
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-          ->join('alp_combos_productos', 'alp_productos.id', '=', 'alp_combos_productos.id_producto')
+         // ->join('alp_combos_productos', 'alp_productos.id', '=', 'alp_combos_productos.id_producto')
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('alp_almacenes', 'alp_ordenes.id_almacen', '=', 'alp_almacenes.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
-          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7'])
-          ->groupBy('alp_ordenes_detalle.id_orden')
+         // ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7'])
+         // ->groupBy('alp_ordenes_detalle.id_orden')
+         ->groupBy('alp_ordenes_detalle.id')
+         ->where('alp_productos.tipo_producto', '=', '2' )
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta);
 
@@ -86,7 +89,7 @@ class ProductosCombosExport implements FromView
 
           $productos=$p->get();
 
-        # dd(json_encode($productos));
+       //  dd(json_encode($productos));
 
 
           $pro = array();
