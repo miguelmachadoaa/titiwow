@@ -36,7 +36,7 @@ class NotificacionLifemiles extends Mailable
     {
 
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Notificación Lifemile | Alpina Por un mundo delicioso')
+        ->subject('Utiliza tus millas LifeMiles | Alpina Por un mundo delicioso')
         ->markdown('emails.notificacion-lifemiles');
 
     }

@@ -16,6 +16,7 @@
             <th><b>Nombre Cliente </b></th>
             <th><b>Email</b></th>
             <th><b>Almacen</b></th>
+            <th><b>Id Combo</b></th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,14 @@
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
             <td>{!! $row->email !!}</td>
             <td>{!! $row->nombre_almacen !!}</td>
+            <td>
+                @if($row->id_combo=='0')
+                    {{'No es Combo'}}
+                @else
+
+                {{$row->id_combo}}
+                @endif
+            </td>
           
         </tr>
         @endforeach

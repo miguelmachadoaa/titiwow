@@ -1145,6 +1145,7 @@ class AlpReportesController extends Controller
         }
 
         $date = Carbon::now();
+        
 
         $hoy=$date->format('Y-m-d');
 

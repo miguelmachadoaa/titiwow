@@ -54,8 +54,8 @@ class ProductosCombosExport implements FromView
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
-          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7'])
-          ->groupBy('alp_ordenes_detalle.id_orden')
+          //->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7'])
+          ->groupBy('alp_ordenes_detalle.id')
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta);
 
