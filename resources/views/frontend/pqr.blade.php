@@ -177,10 +177,16 @@ PQR
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="text-center">
+                <h3 class="text-center">Chat</h3>
+                <a href="https://frontos.outsourcing.com.co:8203" class="botones_cat boton_cat" target="_blank">Ingresa nuestro Chat</a>            
+            </div>
+        </div>
+        <div class="col-md-6">
             <div style="padding:10px 30px; 20px 30px">
                 <h3 class="text-center">También puedes Consultar</h3>
-                <p class="text-center">Horario de atención telefónica: Lunes a viernes de 7:00 a.m. a 6:00 p.m., sábados de 8:00 a.m. a 2:00 p.m.</p>
+                <p class="text-center">Horario de atención telefónica y chat: Lunes a viernes de 7:00 a.m. a 6:00 p.m., sábados de 8:00 a.m. a 2:00 p.m.</p>
             </div>
         </div>
     </div>
