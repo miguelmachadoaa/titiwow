@@ -89,7 +89,7 @@ class ProductosExport implements FromView
 
           $productos=$p->get();
 
-         dd(json_encode($productos));
+     #    dd(json_encode($productos));
 
 
           $pro = array();

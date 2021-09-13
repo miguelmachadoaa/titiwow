@@ -200,10 +200,10 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        #dd($request->all());
+      #  dd($request->all());
         
 
-       if($request->tipo=='0'){
+       if($request->agrupar=='0'){
 
         return Excel::download(new ProductosExport($request->desde, $request->hasta, $request->producto, $request->marca, $request->categoria, $request->almacen), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
 

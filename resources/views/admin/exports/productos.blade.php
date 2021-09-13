@@ -40,7 +40,11 @@
             <td>{!! $row->nombre_almacen !!}</td>
             <td>
                 @if($row->id_combo=='0')
-                {{'No Aplica'}}
+                    @if(isset($row->contenido))
+                        {{'Combo'}}
+                    @else
+                        {{'No Aplica'}}
+                    @endif
                 @else
                 {{$row->id_combo}}
                 @endif
@@ -48,6 +52,40 @@
             </td>
           
         </tr>
+
+            @if(isset($row->contenido))
+
+                @foreach($row->contenido as $contenido)
+
+                    <tr>
+                        <td>{!! $contenido->id !!}</td>
+                        <td>{!! $contenido->id_orden!!}</td>
+                        <td>{!! $contenido->id_producto!!}</td>
+                        <td>{!! $contenido->nombre_categoria!!}</td>
+                        <td>{!! $contenido->nombre_marca!!}</td>
+                        <td>{!! $contenido->nombre_producto !!}</td>
+                        <td>{!! $contenido->precio_unitario !!}</td>
+                        <td>{!! $contenido->presentacion_producto !!}</td>
+                        <td>{!! $contenido->cantidad !!}</td>
+                        <td>{!! $row->num_pedidos !!}</td>
+                        <td>{!! $row->fecha !!}</td>
+                        <td>{!! $row->barrio_address !!}</td>
+                        <td>{!! $row->first_name.' '.$row->last_name !!}</td>
+                        <td>{!! $row->email !!}</td>
+                        <td>{!! $row->nombre_almacen !!}</td>
+                        <td>
+                            @if($contenido->id_combo=='0')
+                            {{'No Aplica'}}
+                            @else
+                            {{$contenido->id_combo}}
+                            @endif
+
+                        </td>
+                    
+                    </tr>
+
+                @endforeach
+            @endif
         @endforeach
     </tbody>
 </table>

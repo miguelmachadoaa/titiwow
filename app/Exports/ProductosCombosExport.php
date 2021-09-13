@@ -31,6 +31,7 @@ class ProductosCombosExport implements FromView
 
     public function view(): View
     {
+
          $p= AlpDetalles::select(
           'alp_ordenes_detalle.*', 
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
@@ -97,31 +98,54 @@ class ProductosCombosExport implements FromView
           foreach ($productos as $producto) {
 
             $p= AlpDetalles::select(
-           DB::raw('count(alp_ordenes_detalle.id_orden)  as num_pedidos')
-          )
-          ->groupBy('alp_ordenes_detalle.id_orden')
-          ->where('alp_ordenes_detalle.id_producto', '=', $producto->id_producto)
-          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
-          ->first();
+            DB::raw('count(alp_ordenes_detalle.id_orden)  as num_pedidos')
+            )
+            ->groupBy('alp_ordenes_detalle.id_orden')
+            ->where('alp_ordenes_detalle.id_producto', '=', $producto->id_producto)
+            ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+            ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+            ->first();
 
           //dd($p);
 
-          if (isset($p->num_pedidos)) {
+            if (isset($p->num_pedidos)) {
 
-            $producto->num_pedidos=$p->num_pedidos;
+              $producto->num_pedidos=$p->num_pedidos;
+              
+            }else{
+
+              $producto->num_pedidos=0;
+
+            }
+
+
+
+           $contenido= AlpDetalles::select(
+            'alp_ordenes_detalle.*', 
+            'alp_productos.nombre_producto as nombre_producto',
+            'alp_productos.tipo_producto as tipo_producto',
+            'alp_productos.presentacion_producto as presentacion_producto',
+            'alp_productos.referencia_producto as referencia_producto',
+            'alp_categorias.nombre_categoria as nombre_categoria',
+            'alp_marcas.nombre_marca as nombre_marca',
+            )
+            ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+            ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+            ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+            ->where('alp_ordenes_detalle.id_combo', '=', trim($producto->id_producto))
+            ->where('alp_ordenes_detalle.id_orden', '=', trim($producto->id_orden))
+            ->get();
+
+            $producto->contenido=$contenido;
+          
+            $pro[]=$producto;
+
             
-          }else{
-
-            $producto->num_pedidos=0;
-
           }
 
-          $pro[]=$producto;
-            
-          }
 
-          //dd($ordenes);
+
+          #dd($pro);
 
         return view('admin.exports.productos', [
             'productos' => $pro
