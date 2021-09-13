@@ -455,8 +455,85 @@ class AlpLifemilesController extends JoshController
 
 
 
+    public function activar($id)
+    {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['lifemiles.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
 
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('lifemiles/activar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('lifemiles/activar');
+
+        }
+       
+
+       $lifemile = AlpLifeMiles::where('id', $id)->first();
+
+       if(isset($lifemile->id)){
+
+          $lifemile->update(['estado_registro'=>0]);
+
+       }
+
+       $view= View::make('admin.lifemiles.btnactivo', compact('lifemile'));
+       $data=$view->render();
+       return $data;
+
+    }
+
+    public function desactivar($id)
+    {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['lifemiles.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('lifemiles/activar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('lifemiles/activar');
+
+        }
+       
+
+       $lifemile = AlpLifeMiles::where('id', $id)->first();
+
+       if(isset($lifemile->id)){
+
+          $lifemile->update(['estado_registro'=>1]);
+
+       }
+
+       $view= View::make('admin.lifemiles.btnactivo', compact('lifemile'));
+       $data=$view->render();
+       return $data;
+
+    }
 
     
 

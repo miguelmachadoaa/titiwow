@@ -47,7 +47,7 @@ Lifemiles
                     @if ($lifemiles->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered" id="table">
+                        <table class="table table-bordered" id="table-lifemile">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -78,6 +78,19 @@ Lifemiles
                                         {{$row->nombre_almacen}}
                                         @endif
                                         
+                                    </td>
+                                    <td>
+                                        <div class="btn-activo{{$row->id}}">
+                                        @if($row->estado_registro =='0')
+                                            <button data-id="{{$row->id}}"  class="desactivado btn btn-danger">
+                                                Desactivado
+                                            </button>
+                                        @else
+                                            <button data-id="{{$row->id}}"  class="activado btn btn-primary">
+                                                Activo
+                                            </button>
+                                        @endif 
+                                        </div>
                                     </td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
@@ -122,7 +135,7 @@ Lifemiles
     </div>    <!-- row-->
 </section>
 
-
+<input type="hidden" id="base" name="base" valeu="{{secure_url('/')}}">
 
 
 @stop
@@ -154,10 +167,44 @@ Lifemiles
 
 <script>
 
+    $(document).on('click','.desactivado', function(){
+        id=$(this).data('id');
+        base=$('#base').val();
+
+        $.ajax({
+            url: base+'/admin/lifemiles/'+id+'/desactivar',
+            type: "GET",
+            success:function(data) {
+
+                $('.btn-activo'+id+'').html(data);
+             
+
+            }
+        });
+
+    });
+
+    $(document).on('click','.activado',  function(){
+
+        id=$(this).data('id');
+
+        base=$('#base').val();
+
+        $.ajax({
+            url: base+'/admin/lifemiles/'+id+'/activar',
+            type: "GET",
+            success:function(data) {
+
+                $('.btn-activo'+id+'').html(data);
+            }
+        });
+
+    });
+
 
      $(document).ready(function() {
 
-            $('#table').DataTable();
+           // $('#table-lifemile').DataTable();
             
         });
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
