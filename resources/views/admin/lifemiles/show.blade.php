@@ -92,7 +92,20 @@ Lifemiles
 
                                 <tr>
                                     <td>Estado</td>
-                                    <td>{{$lifemile->estado_registro}}</td>
+                                    <td> 
+                                    <div class="btn-activo{{$lifemile->id}}">
+                                        @if($lifemile->estado_registro =='0')
+                                            <button data-id="{{$lifemile->id}}"  class="desactivado btn btn-danger">
+                                                Desactivado
+                                            </button>
+                                        @else
+                                            <button data-id="{{$lifemile->id}}"  class="activado btn btn-primary">
+                                                Activo
+                                            </button>
+                                        @endif 
+                                        </div>
+                                    
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -184,6 +197,7 @@ Lifemiles
 </section>
 
 
+<input type="hidden" id="base" name="base" valeu="{{secure_url('/')}}">
 
 
 
@@ -236,6 +250,42 @@ Lifemiles
         });
 
     });
+
+    $(document).on('click','.desactivado', function(){
+        id=$(this).data('id');
+        base=$('#base').val();
+
+        $.ajax({
+            url: base+'/admin/lifemiles/'+id+'/desactivar',
+            type: "GET",
+            success:function(data) {
+
+                $('.btn-activo'+id+'').html(data);
+
+            }
+        });
+
+    });
+
+    $(document).on('click','.activado',  function(){
+
+        id=$(this).data('id');
+
+        base=$('#base').val();
+
+        $.ajax({
+            url: base+'/admin/lifemiles/'+id+'/activar',
+            type: "GET",
+            success:function(data) {
+
+                $('.btn-activo'+id+'').html(data);
+            }
+        });
+
+    });
+
+
+
 
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {

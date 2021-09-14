@@ -68,7 +68,7 @@ Cargar Codigos
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Actualizar Almacen</h1>
+    <h1>Cargar Codigos </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">

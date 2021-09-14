@@ -57,6 +57,7 @@ Lifemiles
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Fin</th>
                                     <th>Nombre Almacen</th>
+                                    <th>Estado</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>

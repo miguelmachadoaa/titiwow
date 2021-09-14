@@ -43,7 +43,7 @@
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="users-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Crear Bono
+                       Crear campaña LifeMiles
                     </h4>
                 </div>
                 <div class="panel-body">
