@@ -597,7 +597,16 @@ class VerificarPagosHora extends Command
            
                                    Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
            
-                               }
+                               }else{
+
+                                $mensaje='Gracias por su compra en Alpina Go!, Por su compra usted recibira un Codigo LifeMiles, En estos momentos no tenemos disponible por favor contacte con Nuestra Area de Atencion al Cliente mendiante el Formulario pqr en Nuestra Web.';
+                                
+                                Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionMensaje($mensaje));
+          
+                                Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionMensaje($mensaje));
+          
+          
+                              }
            
                             }
 

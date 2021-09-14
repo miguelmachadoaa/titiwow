@@ -177,7 +177,6 @@ Lifemiles
             success:function(data) {
 
                 $('.btn-activo'+id+'').html(data);
-             
 
             }
         });
