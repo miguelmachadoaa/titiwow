@@ -72,7 +72,7 @@ Cargar Codigos
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">
-                <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
+                <i class="livicon" data-name="home" data-size="14" data-color="#000">git </i>
                Inicio
             </a>
         </li>
