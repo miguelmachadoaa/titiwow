@@ -166,10 +166,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
         MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Roumen\Sitemap\SitemapServiceProvider::class,
 
 
         /*
@@ -198,9 +196,6 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Cviebrock\EloquentTaggable\ServiceProvider::class,
-        \InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
-        \InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
-        \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
     ],
 
@@ -262,7 +257,6 @@ return [
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Flash' => Laracasts\Flash\Flash::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
 

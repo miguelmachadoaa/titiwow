@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\AlpConfiguracion;
-class NovedadMail extends Mailable
+class Novedad extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;public $configuracion;
