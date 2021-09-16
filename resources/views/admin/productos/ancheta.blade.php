@@ -32,7 +32,7 @@ Configuracion Ancheta
 
 <section class="content paddingleft_right15">
     <div class="row">
-     @include('flash::message')
+     
         <div class="panel panel-primary ">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left"> <i class="livicon" data-name="list-ul" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
