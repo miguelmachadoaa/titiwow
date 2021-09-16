@@ -487,10 +487,10 @@ class ProductosFrontController extends Controller
 
             $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug', 'alp_categorias.nombre_categoria as nombre_categoria')
 
-            ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-            ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-           ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
-           ->whereNull('alp_almacen_producto.deleted_at')
+           // ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+           // ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+          // ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+          // ->whereNull('alp_almacen_producto.deleted_at')
            ->whereNull('alp_productos.deleted_at')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
@@ -1213,10 +1213,17 @@ class ProductosFrontController extends Controller
        
        $id_almacen=$this->getAlmacen();
 
+       $productos_almacen=AlpAlmacenProducto::select('id_producto')->where('id_almacen', $id_almacen)->get()->toArray();
+
+     
+
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->join('alp_almacen_producto', 'alp_inventarios.id_producto', '=', 'alp_almacen_producto.id_producto')
               ->where('alp_inventarios.operacion', '1')
               ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+              ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+              ->whereNull('alp_almacen_producto.deleted_at')
               ->get();
 
               $inv = array();
@@ -1226,6 +1233,8 @@ class ProductosFrontController extends Controller
                 $inv[$row->id_producto]=$row->cantidad_total;
 
               }
+
+              
 
 
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
@@ -1246,6 +1255,8 @@ class ProductosFrontController extends Controller
                 
 
             }
+
+           // dd($inv);
 
             return $inv;
       
