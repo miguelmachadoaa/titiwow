@@ -47,7 +47,7 @@ Relacionar Productos :: @parent
 
 
 @section('content')
-  @include('core-templates::common.errors')
+  
     <section class="content-header">
      <h1>Productos Relacionados</h1>
      <ol class="breadcrumb">
