@@ -222,6 +222,13 @@
 
 
 
+                        @if(isset($inventario[$producto->id]))
+
+                        @else
+
+                        @php  $inventario[$producto->id]=0; @endphp
+
+                        @endif
 
 
 
