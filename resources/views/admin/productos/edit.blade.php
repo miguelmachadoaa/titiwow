@@ -47,7 +47,7 @@
 
 
 @section('content')
-  @include('core-templates::common.errors')
+  
     <section class="content-header">
      <h1>@lang('productos/title.edit')</h1>
      <ol class="breadcrumb">
