@@ -3938,8 +3938,11 @@ class FrontEndController extends JoshController
 
         $entradas = AlpInventario::groupBy('id_producto')
           ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+          ->join('alp_almacen_producto', 'alp_inventarios.id_producto', '=', 'alp_almacen_producto.id_producto')
           ->where('alp_inventarios.operacion', '1')
           ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+          ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+          ->whereNull('alp_almacen_producto.deleted_at')
           ->groupBy('alp_inventarios.id_almacen')
               #->whereNull('alp_inventarios.deleted_at')
           ->get();
