@@ -22,24 +22,15 @@
 
             </div>
 
-            
 
-            @if(count($productos))
 
-<table class="table table-responsive table-striped table-bordered" id="alpProductos-table" width="100%">
-    <thead>
-     <tr>
-        <th>Imagen</th>
-        <th>Nombre de Producto</th>
-        <th>Precio</th>
-        <th>Oferta</th>
-        <th>Existencia</th>
-        <th>Accion</th>
-     </tr>
-    </thead>
-    <tbody>
 
-        @foreach($productos as $p)
+
+
+@if(count($productos))
+
+   
+    @foreach($productos as $p)
 
         @if($p->tipo_producto=='1' || $p->tipo_producto=='3')
 
@@ -47,71 +38,101 @@
 
                 @if($cart['inventario'][$p->id]>0)
 
-                <tr>
-                    <td><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
-                    <td>
-                        <p><b>{{$p->nombre_producto}}</b></p>
-                        <p style="font-size: 0.8em; line-height: 1;">Presentacion : {{$p->presentacion_producto}}</p>
-                        <p style="font-size: 0.8em; line-height: 1;">Referencia: {{$p->referencia_producto}}</p>
-                        <p style="font-size: 0.8em; line-height: 1;">SKU: {{$p->referencia_producto_sap}}</p>
-                        <p style="font-size: 0.8em; line-height: 1;">Categoria: {{$p->nombre_categoria}}</p>
-                    </td>
+                    <div class="col-sm-3">
+
+                    <div class="row">
+                            <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                        </div>
+
+                        <div class="row">
+                            <p style="margin:0;"><b>{{$p->nombre_producto}}</b></p>
+                            <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}}</p>
+                            <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}} COP</p>
+                            <p style="margin:0;">
+                                <button class="btn btn-primary addproducto"  data-id="{{$p->id}}" >Agregar</button>
+
+                                <button class="btn btn-primary verProducto"  
+                                data-id="{{$p->id}}" 
+                                data-presentacion_producto="{{$p->presentacion_producto}}" 
+                                data-referencia_producto="{{$p->referencia_producto}}" 
+                                data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
+                                data-nombre_categoria="{{$p->nombre_categoria}}" 
+                                data-precio_base="{{$p->precio_base}}" 
+                                data-precio_oferta="{{$p->precio_oferta}}" 
+                                data-inventario="{{$cart['inventario'][$p->id]}}" 
+                                >Detalle</button>
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                @endif
                     
-                    <td>{{number_format($p->precio_base,0,',','.')}}</td>
-                    <td>{{number_format($p->precio_oferta,0,',','.')}}</td>
-                    <td>{{$cart['inventario'][$p->id]}}</td>
-                    <td><button class="btn btn-primary addproducto" 
-                        data-id="{{$p->id}}"
-                        >Agregar</button>
-                    </td>
-                 </tr>
+            @endif
 
-                 @endif
-                 
-             @endif
-
-             @else
+        @else
 
             @if(isset($combos[$p->id]))
 
+            <div class="col-sm-3">
 
-            <tr>
-                    <td><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
-                    <td>
-                        <p><b>{{$p->nombre_producto}}</b></p>
-                        <p style="font-size: 0.8em; line-height: 1;">Presentacion : {{$p->presentacion_producto}}</p>
-                        <p style="font-size: 0.8em; line-height: 1;">Referencia: {{$p->referencia_producto}}</p>
-                        <p style="font-size: 0.8em; line-height: 1;">SKU: {{$p->referencia_producto_sap}}</p>
-                        <p style="font-size: 0.8em; line-height: 1;">Categoria: {{$p->nombre_categoria}}</p>
-                    </td>
-                    
-                    <td>{{number_format($p->precio_base,0,',','.')}}</td>
-                    <td>{{number_format($p->precio_oferta,0,',','.')}}</td>
-                    @if(isset($cart['inventario'][$p->id]))
-                        <td>{{ $cart['inventario'][$p->id] }}</td>
-                    @else
-                        <td>{{ 0 }}</td>
-                    @endif
-                    <td><button class="btn btn-primary addproducto" 
-                        data-id="{{$p->id}}"
-                        >Agregar</button>
-                    </td>
-                 </tr>
-           
+                        <div class="row">
+                            <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                        </div>
+
+                        <div class="row detalleproducto">
+                            <p style="margin:0;"><b>{{$p->nombre_producto}}</b></p>
+                            <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}} COP</p>
+                            <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}}</p>
+                            <p style="margin:0;">
+                                <button class="btn btn-primary addproducto"  data-id="{{$p->id}}" >Agregar</button>
+
+                                <button class="btn btn-primary verProducto"  
+                                data-id="{{$p->id}}" 
+                                data-presentacion_producto="{{$p->presentacion_producto}}" 
+                                data-referencia_producto="{{$p->referencia_producto}}" 
+                                data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
+                                data-nombre_categoria="{{$p->nombre_categoria}}" 
+                                data-precio_base="{{$p->precio_base}}" 
+                                data-precio_oferta="{{$p->precio_oferta}}" 
+                                data-inventario="{{$cart['inventario'][$p->id]}}" 
+                                >Detalle</button>
+
+                            </p>
+                        </div>
+
+                    </div>
+
+            
             @endif
 
         @endif
-             
-            @endforeach
+                
+    @endforeach
 
-         
+            
 
 
-    </tbody>
-</table>
 
 @else
 
     <div class="alert alert-danger ">No hay productos disponibles</div>
 
 @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

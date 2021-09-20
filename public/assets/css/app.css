@@ -1963,3 +1963,39 @@ padding: 0.3em 0.3em 0em 1em;
 .imagenadicional__formulario, .imagenadicional__formulario--label{
     padding: 0;
 }
+
+.caja{
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 0.5em;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin-bottom: 1em;;
+
+}
+
+.sinmargen{
+    padding: 0;
+    margin: 0;
+}
+
+.pcaja{
+    line-height: 2em;
+}
+
+.pcaja span{
+    float:right;
+
+}
+
+.btn-pagar{
+    background: #418bca;
+    padding: 1em;
+    text-align: center;
+    color: #fff;
+    border-radius: 1em;
+
+}
+
+.detalleproducto p{
+    margin: 0;
+}
