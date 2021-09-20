@@ -1297,7 +1297,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/restore', 'Admin\AlpAbonosController@getRestore')->name('abonos.restore');
 
-        });
+    });
 
     
     Route::post('abonos/create', 'Admin\AlpAbonosController@store');
@@ -1307,6 +1307,38 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::get('clientes/{id}/abono', 'Admin\AlpClientesController@abono')->name('clientes.abono');
 
     Route::post('clientes/{id}/abono', 'Admin\AlpClientesController@postabono')->name('clientes.postabono');
+
+
+
+    /* Lifemiles  */
+
+
+    Route::group(['prefix' => 'lifemiles'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpLifemilesController@destroy')->name('lifemiles.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpLifemilesController@getModalDelete')->name('lifemiles.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpLifemilesController@getRestore')->name('lifemiles.restore');
+
+        });
+
+    
+    Route::post('lifemiles/create', 'Admin\AlpLifemilesController@store');
+
+    Route::resource('lifemiles', 'Admin\AlpLifemilesController');
+
+    Route::get('lifemiles/{id}/activar', 'Admin\AlpLifemilesController@activar');
+
+    Route::get('lifemiles/{id}/desactivar', 'Admin\AlpLifemilesController@desactivar');
+
+    Route::get('lifemiles/{id}/upload', 'Admin\AlpLifemilesController@upload');
+
+    Route::post('lifemiles/{id}/postupload', 'Admin\AlpLifemilesController@postupload');
+
+
+
+
 
 
     /*Inicio CMS*/

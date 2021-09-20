@@ -84,6 +84,8 @@ use App\Models\AlpCuponesUser;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpCombosProductos;
 use App\Models\AlpCuponesAlmacen;
+use App\Models\AlpLifeMiles;
+use App\Models\AlpLifeMilesCodigos;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Storage;
@@ -258,22 +260,15 @@ class AlpCartController extends JoshController
         ->orderBy('updated_at', 'desc')
         ->limit(6)->get();
 
-        
-
         $prods=$this->addOferta($productos);
 
-        
         $inventario=$this->inventario();
-
         
         $url=secure_url('cart/show');
-
         
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
         $dl_productos = array();
-
-      //  dd($cart);
 
         foreach($cart as $c){
 
@@ -308,8 +303,28 @@ class AlpCartController extends JoshController
 
         }
 
+        $date = Carbon::now();
 
-      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
+        $d=$date->format('Y-m-d');
+      
+
+
+      //  echo($d);
+
+      $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+      if(isset($lifemiles->id)){
+
+      }else{
+
+        $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+      }
+
+     //echo $lifemiles->toSql();
+
+
+
+      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles'));
 
     }
     
@@ -4442,6 +4457,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          $orden->update($data_update);
 
+
+         
+
+         
+
          if ($tipo=='epayco') {
 
           $data_pago = array(
@@ -4499,6 +4519,45 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           );
          
         $history=AlpOrdenesHistory::create($data_history);
+
+          
+        //actualizacion lifemile
+
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+
+        $lifemile=AlpLifeMiles::where('id_almacen', $orden->id_almacen)->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '<=', $d)->where('estado_registro', '1')->first();
+
+
+        if(isset($lifemile->id)){
+
+            if($orden->total>=$lifemile->minimo_compra){
+
+              $data_lifemile = array('lifemiles_id' => $lifemile->id );
+              $orden->update($data_lifemile);
+
+            }
+
+        }else{
+
+            $lifemile=AlpLifeMiles::where('id_almacen','=', '0')->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '<=', $d)->where('estado_registro', '1')->first();
+
+            if(isset($lifemile->id)){
+
+                if($orden->monto_total>=$lifemile->minimo_compra){
+
+                  $data_lifemile = array('lifemiles_id' => $lifemile->id );
+                  $orden->update($data_lifemile);
+
+                }
+
+            }
+
+
+        }
+
+
 
          \Session::forget('cart');
          \Session::forget('orden');
@@ -11989,25 +12048,17 @@ public function addcupon(Request $request)
 
 private function addpromocion(){
 
-       
-
       $cart= \Session::get('cart');
-
       
       $inventario=$this->inventario();
-
       
        $id_almacen=$this->getAlmacenCart();
-
        
       //dd($inventario);
-
        
       $date = Carbon::now();
-
       
         $hoy=$date->format('Y-m-d');
-
         
       if (!is_null($cart)) {
 
@@ -12021,115 +12072,77 @@ private function addpromocion(){
 
           }
 
-                }
+      }
 
                 
       $mensaje='';
-
       
 
       $promociones=AlpPromociones::whereDate('fecha_inicio','<=',$hoy)
-
           ->whereDate('fecha_final','>=',$hoy)
-
           ->get();
 
-          
         //dd($promociones);
 
-          
           foreach ($promociones as $promo) {
 
-            
               $disponible=1;
-
               
               $iprs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
-              
               foreach ($iprs as $ipr) {
-
                 
                 $apa=AlpAlmacenProducto::where('id_almacen', '=', $id_almacen)->where('id_producto', '=', $ipr->id_producto)->first();
 
-                
                 //dd($apa);
 
-                
                   if (isset($apa->id)) {
-
-                    
 
                       if (isset($inventario[$ipr->id_producto])) {
 
-                        
                         if ($inventario[$ipr->id_producto]>=$ipr->cantidad) {
 
-                          
                             $disponible=0;
-
                             
                         }else{
-
                           
                             $disponible=1;
-
                         }
 
-                        
 
                       }else{
-
                         
                         $disponible=1;
-
                         
                       }
 
-                      
                   }else{
 
-                    
                     $disponible=1;
-
                     
                   }
 
-                  
-
                }
 
-               
-
             if ($disponible==0) {
-
               
                 if ($promo->tipo==1) {
-
                   
                   $pcs=AlpPromocionesCategorias::where('id_promocion', $promo->id)->get();
-
                   
                   $categorias = array();
-
                   
                   $i=0;
-
                   
                   $des_categoria='';
-
                   
                     foreach ($pcs as $pc) {
-
                       
                       $cc=AlpCategorias::where('id', $pc->id_categoria)->first();
-
                       
                        if ($i==0) {
 
-                        
                         $des_categoria=$cc->nombre_categoria;
-
                         
                         $i=1;
 
@@ -12137,88 +12150,53 @@ private function addpromocion(){
 
                       }else{
 
-                        
                          $des_categoria=$des_categoria.', '.$cc->nombre_categoria;
 
                       }
 
-                      
                       $categorias[]=$pc->id_categoria;
 
                       
                     }
-
                     
                     $cc=AlpCategorias::where('id', $pc->id_categoria)->first();
-
                     
                       if ($i==0) {
-
                         
                         $des_categoria=$cc->nombre_categoria;
 
-                        
                         $i=1;
 
-                        # code...
-
                       }else{
-
                         
                          $des_categoria=$des_categoria.', '.$cc->nombre_categoria;
 
                       }
 
-                      
-
-
 
                     $categorias[]=$promo->referencia;
 
-                    
-                   // dd($categorias);
-
-                    
                   $monto=0;
-
-                  
 
                   foreach ($cart as $c) {
 
-                    
                     if (isset($c->id)) {
 
-                      
-
-                      
                       if (in_array($c->id_categoria_default, $categorias)) {
-
-                        
-                     #echo($c->id.'-1<br>');
-
-                      
 
                       $monto=$monto+($c->precio_oferta*$c->cantidad);
 
-                      
                     }else{
 
-                      
                       $cps=AlpCategoriasProductos::where('id_producto', $c->id)->get();
-
                       
                       foreach ($cps as $cp) {
 
                         #echo($cp->id_producto.'-3<br>');
 
-                        
-
                         if (in_array($cp->id_categoria, $categorias)) {
 
-                          
-                         # echo($cp->id_producto.'-4<br>');
-
-                        
+                          # echo($cp->id_producto.'-4<br>');
 
                             $monto=$monto+($c->precio_oferta*$c->cantidad);
 
@@ -12238,30 +12216,19 @@ private function addpromocion(){
                     
                    # echo($c->id.'-1<br>');
 
-                    
-                    
-
-                    
-                    
-
                   }
 
                   
                   if ($monto>$promo->monto_minimo) {
-
                     
                     $prs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
-                    
                     foreach ($prs as $pr) {
-
                       
                       $p=AlpProductos::where('id', $pr->id_producto)->first();
 
-                      
                       if (isset($p->id)) {
 
-                        
                           $p->promocion='1';
 
                           $p->cantidad=$pr->cantidad;
@@ -12269,7 +12236,6 @@ private function addpromocion(){
                           $p->precio_oferta=$pr->precio;
 
                           $p->nombre_producto=$p->nombre_producto.' x '.$pr->cantidad;
-
                           
                           $cart[$p->slug]=$p;
 
