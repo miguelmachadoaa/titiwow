@@ -207,6 +207,63 @@ div.overlay > div {
 <!--{!! Form::close() !!}-->
 
 </div>
+                    <!-- Step #2 -->
+  
+
+
+
+<!-- Modal Direccion -->
+<div class="modal fade" id="modalCreditCard" role="dialog" aria-labelledby="modalLabeldanger">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modalLabeldanger">Pago con PSE</h4>
+            </div>
+            <div class="modal-body" style="    padding: 2em;">
+
+                <form method="POST" action="{{secure_url('cart/storedir')}}" id="addPseForm" name="addPseForm" class="form-horizontal">
+
+                    <h3>Ingrese los siguientes datos para procesar su compra.</h3>
+
+                    <div class="row">
+
+
+
+                    <form id="form-checkout" >
+                        <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
+                        <input type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
+                        <input type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+                        <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
+                        <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
+                        <input type="text" name="securityCode" id="form-checkout__securityCode" />
+                        <select name="issuer" id="form-checkout__issuer"></select>
+                        <select name="identificationType" id="form-checkout__identificationType"></select>
+                        <input type="text" name="identificationNumber" id="form-checkout__identificationNumber"/>
+                        <select name="installments" id="form-checkout__installments"></select>
+                        <button type="submit" id="form-checkout__submit">Pagar</button>
+                        <progress value="0" class="progress-bar">Cargando...</progress>
+                    </form>
+
+
+                    </div>
+
+                </form>
+
+                    <div class="row resPse" ></div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn  btn-primary sendPse" >Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 
 
@@ -456,7 +513,118 @@ div.overlay > div {
 
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
 
+    <script>
+       const mp = new MercadoPago('{{$almacen->public_key_mercadopago}}');
+       // Add step #3
+
+       // Step #3
+        const cardForm = mp.cardForm({
+        amount: "{{$total}}",
+        autoMount: true,
+        form: {
+            id: "form-checkout",
+            cardholderName: {
+            id: "form-checkout__cardholderName",
+            placeholder: "Titular de la tarjeta",
+            },
+            cardholderEmail: {
+            id: "form-checkout__cardholderEmail",
+            placeholder: "E-mail",
+            },
+            cardNumber: {
+            id: "form-checkout__cardNumber",
+            placeholder: "Número de la tarjeta",
+            },
+            cardExpirationMonth: {
+            id: "form-checkout__cardExpirationMonth",
+            placeholder: "Mes de vencimiento",
+            },
+            cardExpirationYear: {
+            id: "form-checkout__cardExpirationYear",
+            placeholder: "Año de vencimiento",
+            },
+            securityCode: {
+            id: "form-checkout__securityCode",
+            placeholder: "Código de seguridad",
+            },
+            installments: {
+            id: "form-checkout__installments",
+            placeholder: "Cuotas",
+            },
+            identificationType: {
+            id: "form-checkout__identificationType",
+            placeholder: "Tipo de documento",
+            },
+            identificationNumber: {
+            id: "form-checkout__identificationNumber",
+            placeholder: "Número de documento",
+            },
+            issuer: {
+            id: "form-checkout__issuer",
+            placeholder: "Banco emisor",
+            },
+        },
+        callbacks: {
+            onFormMounted: error => {
+            if (error) return console.warn("Form Mounted handling error: ", error);
+            console.log("Form mounted");
+            },
+            onSubmit: event => {
+            event.preventDefault();
+
+            const {
+                paymentMethodId: payment_method_id,
+                issuerId: issuer_id,
+                cardholderEmail: email,
+                amount,
+                token,
+                installments,
+                identificationNumber,
+                identificationType,
+            } = cardForm.getCardFormData();
+
+            fetch("/order/creditcard", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                token,
+                issuer_id,
+                payment_method_id,
+                transaction_amount: Number(amount),
+                installments: Number(installments),
+                description: "Compra AlpinaGo",
+                payer: {
+                    email,
+                    identification: {
+                    type: identificationType,
+                    number: identificationNumber,
+                    },
+                },
+                }),
+            });
+            },
+            onFetching: (resource) => {
+            console.log("Fetching resource: ", resource);
+
+            // Animate progress bar
+            const progressBar = document.querySelector(".progress-bar");
+            progressBar.removeAttribute("value");
+
+            return () => {
+                progressBar.setAttribute("value", "0");
+            };
+            },
+        },
+        });
+
+
+   </script>
+
+    
     <script>
 
         window.dataLayer = window.dataLayer || [];

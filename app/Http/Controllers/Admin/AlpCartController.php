@@ -317,11 +317,6 @@ class AlpCartController extends JoshController
 
         $payment_methods = MercadoPago::get("/v1/payment_methods");
 
-        dd($payment_methods);
-
-
-
-
 
       return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
 
@@ -1614,7 +1609,7 @@ class AlpCartController extends JoshController
       }
 
       
-      
+      dd($request->all());
 
       
 
