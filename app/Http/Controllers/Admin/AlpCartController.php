@@ -307,18 +307,22 @@ class AlpCartController extends JoshController
 
         $d=$date->format('Y-m-d');
       
+      $lifemiles=null;
 
+      if(isset($almacen->id)){
 
-      //  echo($d);
+        $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
 
-      $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+        if(isset($lifemiles->id)){
 
-      if(isset($lifemiles->id)){
+        }else{
 
-      }else{
-
-        $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+          $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+        
+        }
+      
       }
+
 
      //echo $lifemiles->toSql();
 
