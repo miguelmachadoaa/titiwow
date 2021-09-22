@@ -424,7 +424,6 @@ class AlpCartController extends JoshController
 
                 $payment=json_decode($pago->json);
 
-                #dd($pago->json);
               }
 
             }else{
@@ -493,21 +492,23 @@ class AlpCartController extends JoshController
             
           }else{
 
-          if (isset($payment->body->payment_method_id)) {
+            echo json_encode($payment);
 
-            if ($payment->body->payment_method_id=='pse') {
+          if (isset($payment->payment_method_id)) {
+
+            if ($payment->payment_method_id=='pse') {
 
                $estatus_aviso='warning';
 
               $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
 
-              $metodo=$payment->body->payment_method_id;
+              $metodo=$payment->payment_method_id;
 
             }
 
-            if ($payment->body->payment_type_id=='ticket'  ) {
+            if ($payment->payment_type_id=='ticket'  ) {
               
-              $metodo=$payment->body->payment_method_id;
+              $metodo=$payment->payment_method_id;
 
                $estatus_aviso='warning';
 
@@ -515,13 +516,13 @@ class AlpCartController extends JoshController
 
             }
 
-            if ($payment->body->payment_type_id=='credit_card' ) {
+            if ($payment->payment_type_id=='credit_card' ) {
 
                $estatus_aviso='warnsing';
 
               $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
-              $metodo=$payment->body->payment_type_id;
+              $metodo=$payment->payment_type_id;
 
             }
 
@@ -898,7 +899,7 @@ class AlpCartController extends JoshController
               'id_user' => $user_id
             );
 
-          #  AlpPagos::create($data_pago);
+            AlpPagos::create($data_pago);
 
             \Session::put('pse', $payment->id);
 
@@ -2927,8 +2928,12 @@ class AlpCartController extends JoshController
             $payer->email = $user_cliente->email;
             $payment->payer = $payer;
     
-           
-    
+            activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($payment)
+                    ->log('paymet pago con ticket');
+            
 
             if (($orden->monto_total+$envio)>0) {
 
@@ -4338,18 +4343,36 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
               $tipo=$payment['body']['payment_type_id'];
             }
 
+            $data = array(
+              'id' => $payment['body']['id'], 
+              'operation_type' =>$payment['body']['operation_type'], 
+              'payment_method_id' =>$payment['body']['payment_method_id'], 
+              'payment_type_id' =>$payment['body']['payment_type_id'], 
+              'external_reference' => $payment['body']['external_reference'], 
+              'status' => $payment['body']['status'], 
+              'status_detail' =>$payment['body']['status_detail'], 
+              'transaction_amount' =>$payment['body']['transaction_amount'], 
+              'external_resource_url' =>$payment['body']['transaction_details']['external_resource_url'] 
+            );
+
+          }else{
+
+            
+            $data = array(
+              'id' => $payment->id, 
+              'operation_type' => $payment->operation_type, 
+              'payment_method_id' => $payment->payment_method_id, 
+              'payment_type_id' => $payment->payment_type_id, 
+              'external_reference' => $payment->external_reference, 
+              'status' => $payment->status, 
+              'status_detail' => $payment->status_detail, 
+              'transaction_amount' => $payment->transaction_amount, 
+              'external_resource_url' => $payment->transaction_details->external_resource_url, 
+            );
           }
 
 
-          $data = array(
-            'id' => $payment->id, 
-            'operation_type' => $payment->operation_type, 
-            'external_reference' => $payment->external_reference, 
-            'status' => $payment->status, 
-            'status_detail' => $payment->status_detail, 
-            'transaction_amount' => $payment->transaction_amount, 
-            'external_resource_url' => $payment->transaction_details->external_resource_url, 
-          );
+          
 
             $data_pago = array(
               'id_orden' => $orden->id, 
@@ -4359,7 +4382,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
               'referencia' => $referencia, 
               'metodo' => $metodo, 
               'tipo' => $tipo,
-              'json' => json_encode($payment), 
+              'json' => json_encode($data), 
               'id_user' => $user_id, 
             );
 
@@ -4367,7 +4390,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
         }
 
-       # dd($data_pago);
+      // dd($data_pago);
+
+        AlpPagos::where('id_orden', $orden->id)->delete();
          
          AlpPagos::create($data_pago);
 
