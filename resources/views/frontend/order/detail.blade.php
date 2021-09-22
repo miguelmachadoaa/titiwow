@@ -217,30 +217,143 @@ div.overlay > div {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h4 class="modal-title" id="modalLabeldanger">Pago con PSE</h4>
+                <h4 class="modal-title" id="modalLabeldanger">Pago con Tarjeta De Credito o  Debito</h4>
             </div>
             <div class="modal-body" style="    padding: 2em;">
 
-                <form method="POST" action="{{secure_url('cart/storedir')}}" id="addPseForm" name="addPseForm" class="form-horizontal">
+                <form id="form-checkout" class="form-horizontal">
 
                     <h3>Ingrese los siguientes datos para procesar su compra.</h3>
 
                     <div class="row">
 
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Numero de Tarjeta</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="text" name="cardNumber" id="form-checkout__cardNumber" placeholder="Número de Tarjeta" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Tipo de Tarjeta</label>
+
+                            <div class="col-sm-8">
+
+                            <select class="form-control" name="issuer" id="form-checkout__issuer"></select>
+
+                            </div>
+
+                            </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Fache Vencimiento / CVV</label>
+
+                            <div class="col-sm-3">
+
+                            <input class="form-control" type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
+
+                            </div>
+
+                            <div class="col-sm-3">
+
+                                <input class="form-control" type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
+
+                            </div>
 
 
-                    <form id="form-checkout" >
-                        <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
-                        <input type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
-                        <input type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
-                        <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
-                        <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
-                        <input type="text" name="securityCode" id="form-checkout__securityCode" />
-                        <select name="issuer" id="form-checkout__issuer"></select>
-                        <select name="identificationType" id="form-checkout__identificationType"></select>
-                        <input type="text" name="identificationNumber" id="form-checkout__identificationNumber"/>
-                        <select name="installments" id="form-checkout__installments"></select>
-                        <button type="submit" id="form-checkout__submit">Pagar</button>
+                            <div class="col-sm-2">
+
+                            <input class="form-control" type="text" name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
+
+                            </div>
+
+
+
+                        </div>
+
+
+                       
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Nombre del Titular</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="text" name="cardholderName" id="form-checkout__cardholderName" placeholder="Nombre del Titular"/>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Email del Titular</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="email" name="cardholderEmail" id="form-checkout__cardholderEmail" placeholder="Email del Titular"/>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Tipo de Documento</label>
+
+                            <div class="col-sm-8">
+
+                            <select class="form-control" name="identificationType" id="form-checkout__identificationType" placeholder="Tipo de Documento"></select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Numero de Documento</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="text" name="identificationNumber" id="form-checkout__identificationNumber" placeholder="Número de Documento"/>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Cuotas</label>
+
+                            <div class="col-sm-8">
+
+                            <select class="form-control" name="installments" id="form-checkout__installments"></select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group clearfix">
+
+                            <button class="btn btn-primary" style=" text-align: right; " type="submit" id="form-checkout__submit">Pagar</button>
+
+                        </div>
+
+
+
+
+                      
                         <progress value="0" class="progress-bar">Cargando...</progress>
                     </form>
 
@@ -350,9 +463,9 @@ div.overlay > div {
 
                                  
                                    <option value="">Selecciona Entidad Financiera *</option>
-                                   @if(isset($payment_methods['response'] ))
+                                   @if(isset($payment_methods['body'] ))
                                     
-                                    @foreach($payment_methods['response'] as $pm)
+                                    @foreach($payment_methods['body'] as $pm)
 
                                         @if($pm['id']=='pse')
 
@@ -1596,12 +1709,11 @@ $('.sendCupon').click(function () {
 
                         $('#banpago').val('0');
 
-                         
-
                            if(datos.responseText=='true'){
 
-                                $('button.mercadopago-button').trigger('click');
+                               // $('button.mercadopago-button').trigger('click');    //modalcredito
 
+                                $('#modalCreditCard').modal('show');
 
                            }else{
 
