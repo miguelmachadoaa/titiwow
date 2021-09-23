@@ -84,11 +84,11 @@ Carrito de Compras
 
             @if (isset($payment->payment_method_id)) 
 
-            <h5>Su forma de Pago fue: <b>{{$payment->payment_method_id}}</b> </h5>
+            <h5>Su forma de Pago fue: <b>{{strtoupper($payment->payment_method_id)}}</b> </h5>
 
             @else
 
-            <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+            <h5>Su forma de Pago fue: <b>{{ strtoupper($compra->nombre_forma_pago) }}</b> </h5>
 
             @endif
 

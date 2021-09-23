@@ -216,12 +216,16 @@ div.overlay > div {
 <div class="modal fade" id="modalCreditCard" role="dialog" aria-labelledby="modalLabeldanger">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+
+        <form id="form-checkout" class="form-horizontal" method="POST" action="{{secure_url('/order/creditcard')}}">
+
+
+
             <div class="modal-header bg-primary">
                 <h4 class="modal-title" id="modalLabeldanger">Pago con Tarjeta De Credito o  Debito</h4>
             </div>
             <div class="modal-body" style="    padding: 2em;">
 
-                <form id="form-checkout" class="form-horizontal">
 
                     <h3>Ingrese los siguientes datos para procesar su compra.</h3>
 
@@ -257,20 +261,20 @@ div.overlay > div {
 
                             <div class="col-sm-3">
 
-                            <input class="form-control" type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
+                            <input class="form-control" type="number" min="1" max="12" step="1" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
 
                             </div>
 
                             <div class="col-sm-3">
 
-                                <input class="form-control" type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
+                                <input class="form-control" type="number" min="1" max="31" step="1" name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
 
                             </div>
 
 
                             <div class="col-sm-2">
 
-                            <input class="form-control" type="text" name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
+                            <input class="form-control" type="number" min="1" max="9999" step="1" name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
 
                             </div>
 
@@ -346,29 +350,28 @@ div.overlay > div {
 
                         <div class="form-group clearfix">
 
-                            <button class="btn btn-primary" style=" text-align: right; " type="submit" id="form-checkout__submit">Pagar</button>
+                         
 
                         </div>
 
-
-
-
                       
                         <progress value="0" class="progress-bar">Cargando...</progress>
-                    </form>
 
 
                     </div>
 
-                </form>
 
                     <div class="row resPse" ></div>
                 
             </div>
             <div class="modal-footer">
                 <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn  btn-primary sendPse" >Continuar</button>
+                <button type="submit" id="form-checkout__submit" class="btn  btn-primary " >Continuar</button>
             </div>
+
+            </form>
+
+
         </div>
     </div>
 </div>
@@ -685,9 +688,10 @@ div.overlay > div {
             console.log("Form mounted");
             },
             onSubmit: event => {
-            event.preventDefault();
 
-            const {
+            //event.preventDefault();
+
+            /*const {
                 paymentMethodId: payment_method_id,
                 issuerId: issuer_id,
                 cardholderEmail: email,
@@ -698,38 +702,42 @@ div.overlay > div {
                 identificationType,
             } = cardForm.getCardFormData();
 
-            fetch("/order/creditcard", {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                token,
-                issuer_id,
-                payment_method_id,
-                transaction_amount: Number(amount),
-                installments: Number(installments),
-                description: "Compra AlpinaGo",
-                payer: {
-                    email,
-                    identification: {
-                    type: identificationType,
-                    number: identificationNumber,
+                fetch("/order/creditcard", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
                     },
-                },
-                }),
-            });
+                    body: JSON.stringify({
+                    token,
+                    issuer_id,
+                    payment_method_id,
+                    transaction_amount: Number(amount),
+                    installments: Number(installments),
+                    description: "Compra AlpinaGo",
+                    payer: {
+                        email,
+                        identification: {
+                        type: identificationType,
+                        number: identificationNumber,
+                        },
+                    },
+                    }),
+                }).then(function(response){return response.json}).then(data => console.log(data));*/
             },
             onFetching: (resource) => {
             console.log("Fetching resource: ", resource);
 
             // Animate progress bar
             const progressBar = document.querySelector(".progress-bar");
+
             progressBar.removeAttribute("value");
 
             return () => {
+
                 progressBar.setAttribute("value", "0");
+
             };
+
             },
         },
         });

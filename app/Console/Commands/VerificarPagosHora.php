@@ -29,8 +29,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Mail;
-use MP;
 use DB;
+use MercadoPago;
+
 use Exception;
 
 
@@ -102,28 +103,29 @@ class VerificarPagosHora extends Command
 
               if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
   
-                $mp = new MP();
+                MercadoPago::setClientId($almacen->id_mercadopago);
+                MercadoPago::setClientSecret($almacen->key_mercadopago);
             
             if ($almacen->mercadopago_sand=='1') {
   
-                $mp::sandbox_mode(TRUE);
+              MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
               
               }
           
               if ($almacen->mercadopago_sand=='2') {
   
-                $mp::sandbox_mode(FALSE);
+                MercadoPago::setPublicKey($almacen->public_key_mercadopago);
                 
               }
   
-              MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+              
 
               #Log::info('id ordenva verficar horas '.json_encode($ord->id));
               #Log::info('id ordenva verficar horas '.json_encode($ord->referencia_mp));
   
                 try {
   
-                  $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
+                  $preference = Mercadopago::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
   
                 } catch (MercadoPagoException $e) {
   
@@ -1001,17 +1003,17 @@ class VerificarPagosHora extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-      if (isset($preference['response']['results'])) {
+      if (isset($preference['body']['results'])) {
         # if (isset($preference)) {
 
-           $cantidad=count($preference['response']['results']);
+           $cantidad=count($preference['body']['results']);
 
            $aproved=0;
 
            $cancel=0;
            $pending=0;
 
-           foreach ($preference['response']['results'] as $r) {
+           foreach ($preference['body']['results'] as $r) {
 
              $idpago=$r['id'];
 
@@ -1133,12 +1135,30 @@ class VerificarPagosHora extends Command
                     $orden->update($data_update);
 
 
+                     $data_json = array(
+                      'id' => $r['id'], 
+                      'operation_type' =>$r['operation_type'], 
+                      'payment_method_id' =>$r['payment_method_id'], 
+                      'payment_type_id' =>$r['payment_type_id'], 
+                      'external_reference' => $r['external_reference'], 
+                      'status' => $r['status'], 
+                      'status_detail' =>$r['status_detail'], 
+                      'transaction_amount' =>$r['transaction_amount'], 
+                      'external_resource_url' =>$r['transaction_details']['external_resource_url'] 
+                    );
+
+
+
+
                      $data_pago = array(
                        'id_orden' => $orden->id, 
                        'id_forma_pago' => $orden->id_forma_pago, 
                        'id_estatus_pago' => '2', 
-                       'monto_pago' => $orden->monto_total, 
-                       'json' => json_encode($preference), 
+                       'monto_pago' => $orden->monto_total,
+                       'referencia' => $r['id'], 
+                       'metodo' => $r['payment_method_id'], 
+                       'tipo' => $r['payment_type_id'], 
+                       'json' => json_encode($data_json), 
                        'id_user' => '1'
                      );
 

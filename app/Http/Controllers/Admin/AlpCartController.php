@@ -512,7 +512,7 @@ class AlpCartController extends JoshController
 
                $estatus_aviso='warning';
 
-              $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4> ".$payment->body->id." </h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->body->transaction_details->external_resource_url."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
+              $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4> ".$payment->id." </h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->external_resource_url."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
 
             }
 
@@ -1560,64 +1560,35 @@ class AlpCartController extends JoshController
       }
 
       
-     # dd($request['token']);
-
-      
 
       $avisos = array(
-
         'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el numero de tarjeta.', 
-
         'cc_rejected_bad_filled_date' => 'No pudimos procesar su pago, Revisa la fecha de vencimiento.', 
-
         'cc_rejected_bad_filled_other' => 'No pudimos procesar su pago, Revisa los datos.', 
-
         'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el codigo de seguridad.', 
-
         'cc_rejected_blacklist' => 'No pudimos procesar su pago.', 
-
         'cc_rejected_call_for_authorize' => 'No pudimos procesar su pago, Debes autorizar ante el banco el pago a mercadopago.', 
-
         'cc_rejected_card_disabled' => 'No pudimos procesar su pago, Debes activar tu tarjeta.', 
-
         'cc_rejected_card_error' => 'No pudimos procesar su pago.', 
-
         'cc_rejected_duplicated_payment' => 'No pudimos procesar su pago, ya realizaste un pago por este monto', 
-
         'cc_rejected_high_risk' => 'No pudimos procesar su pago, su pago fue rechazado', 
-
         'cc_rejected_insufficient_amount' => 'No pudimos procesar su pago, no tiene fondos suficientes', 
-
         'cc_rejected_invalid_installments' => 'No pudimos procesar su pago, no puede procesar pagos por cuotas', 
-
         'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al limite de intentos permitidos', 
-
         'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazo el pago'
-
       );
 
-      
-
       $cart= \Session::get('cart');
-
       
       $carrito= \Session::get('cr');
 
-      
-
       $id_orden= \Session::get('orden');
 
-      
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
       $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-      
       $input=$request->all();
-
-      
-     //dd($input);
-
       
       if (Sentinel::check()) {
 
@@ -1739,6 +1710,8 @@ class AlpCartController extends JoshController
 
         );  
 
+       # dd($request->all());
+
 
         $payment = new MercadoPago\Payment();
         $payment->transaction_amount = (float)$orden->monto_total+$envio;
@@ -1748,11 +1721,11 @@ class AlpCartController extends JoshController
           "type"=>"IVA"]
         ];
 
-        $payment->token = $request['token'];
+        $payment->token = $request['MPHiddenInputToken'];
         $payment->description = $request['description'];
         $payment->installments = (int)$request['installments'];
-        $payment->payment_method_id = $request['paymentMethodId'];
-        $payment->issuer_id = (int)$request['issuer'];
+        $payment->payment_method_id = $request['MPHiddenInputPaymentMethod'];
+        //$payment->issuer_id = (int)$request['issuer'];
         $payment->external_reference = $orden->referencia_mp;
         $payment->binary_mode = true;
         $payment->additional_info = array(
@@ -1762,10 +1735,10 @@ class AlpCartController extends JoshController
         );
 
         $payer = new MercadoPago\Payer();
-        $payer->email = $request['payer']['email'];
+        $payer->email = $request['cardholderEmail'];
         $payer->identification = array(
-            "type" => $request['payer']['identification']['type'],
-            "number" => $request['payer']['identification']['number']
+            "type" => $request['identificationType'],
+            "number" => $request['123123123']
         );
         $payment->payer = $payer;
 
@@ -1779,9 +1752,6 @@ class AlpCartController extends JoshController
 
         //dd($payment);
 
-        #$preference = MP::post("/v1/payments",$preference_data);
-
-         
         if (isset($payment->id)) {
 
           if ($payment->status=='rejected' || $payment->status=='cancelled' || $payment->status=='cancelled/expired' )  {
@@ -1796,6 +1766,18 @@ class AlpCartController extends JoshController
                 
               }
 
+              $data_payment = array(
+                'id' => $payment->id, 
+                'operation_type' => $payment->operation_type, 
+                'payment_method_id' => $payment->payment_method_id, 
+                'payment_type_id' => $payment->payment_type_id, 
+                'external_reference' => $payment->external_reference, 
+                'status' => $payment->status, 
+                'status_detail' => $payment->status_detail, 
+                'transaction_amount' => $payment->transaction_amount, 
+                'external_resource_url' => $payment->transaction_details->external_resource_url, 
+              );
+
                 $data_pago = array(
                 'id_orden' => $orden->id, 
                 'id_forma_pago' => $orden->id_forma_pago, 
@@ -1804,12 +1786,16 @@ class AlpCartController extends JoshController
                 'referencia' => $payment->id, 
                 'metodo' => $payment->payment_method_id, 
                 'tipo' => $payment->payment_type_id, 
-                'json' => json_encode($payment), 
+                'json' => json_encode($data_payment), 
                 'id_user' => '1', 
                 );
 
                 
              AlpPagos::create($data_pago);
+
+             $response = array('estado' => 'negado', 'mensaje'=>$aviso);
+
+             #return json_encode($response);
 
             return redirect('order/detail')->with('aviso', $aviso);
 
@@ -1831,26 +1817,20 @@ class AlpCartController extends JoshController
             
               if ($data==0) {
 
-            
+                $response = array('estado' => 'negado', 'mensaje'=>'Error al procesar su orden, por favor intente nuevamente.');
+
+                 # return json_encode($response);
 
                 return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
-
                 
               }
-
               
           }
 
-          
             $id_orden=$data['id_orden'];
-
             
             $fecha_entrega=$data['fecha_entrega'];
 
-            
-            //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
-
-            
             $compra =  DB::table('alp_ordenes')->select(
               'alp_ordenes.*',
               'users.first_name as first_name',
@@ -1873,11 +1853,9 @@ class AlpCartController extends JoshController
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
 
           ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
-
           
             $cart= \Session::forget('cart');
 
-            
            $states=State::where('config_states.country_id', '47')->get();
            
            $configuracion = AlpConfiguracion::where('id','1')->first();
@@ -1895,27 +1873,30 @@ class AlpCartController extends JoshController
             'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
           );
 
-            
             if ($compra->id_forma_envio!=1) {
 
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
             }
-          
 
            $idc=$compra->id*1024;
 
-           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
+          $response = array('estado' => 'aprobado', 'mensaje'=> secure_url('cart/'.$idc.'/gracias?pago=aprobado'));
 
-           
-         #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+        #  return json_encode($response);
 
+          return redirect('cart/'.$idc.'/gracias?pago=aprobado');
         
 
         }else{
 
+
           
-          return redirect('order/detail');
+         # $response = array('estado' => 'negado', 'mensaje'=> 'No Hubo respuesta de su banco');
+
+         # return json_encode($response);
+          
+          return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
 
           
         }
