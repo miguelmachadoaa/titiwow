@@ -1782,6 +1782,93 @@ $('.sendCupon').click(function () {
 
      <script type="text/javascript">
 
+
+
+
+
+
+     $("#form-checkout").bootstrapValidator({
+    fields: {
+        cardNumber: {
+            validators: {
+                notEmpty: {
+                    message: 'Numero de Tarjeta es Requerido'
+                }
+            },
+            required: true
+        },
+
+        
+        cardExpirationMonth: {
+            validators: {
+                notEmpty: {
+                    message: 'Mes en Formato MM es Requerido'
+                }
+            },
+            required: true
+        },
+        cardExpirationYear: {
+            validators: {
+                notEmpty: {
+                    message: 'Año en formato YY es Requerido'
+                }
+            },
+            required: true
+        },
+        securityCode: {
+            validators: {
+                notEmpty: {
+                    message: 'CVV es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+
+        cardholderName: {
+            validators: {
+                notEmpty: {
+                    message: 'Nombre es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        identificationType: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar un tipo de documento'
+                }
+            }
+        },
+        identificationNumber: {
+            validators: {
+                notEmpty: {
+                    message: 'Numero de Documento  es requerido'
+                    
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        
+        cardholderEmail: {
+            validators: {
+                notEmpty: {
+                    message: 'Email no puede esta vacio'
+                },
+                emailAddress: {
+                        message: 'No es un email valido'
+                }
+            },
+        }
+
+       
+    }
+});
+
+
+
 $("#addCuponForm").bootstrapValidator({
     fields: {
         codigo_cupon: {
