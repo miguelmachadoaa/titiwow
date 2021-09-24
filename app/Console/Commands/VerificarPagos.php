@@ -1437,7 +1437,6 @@ class VerificarPagos extends Command
                      }
 
                      $this->cancelarMercadopago($orden->id);
-
               }
 
            }
