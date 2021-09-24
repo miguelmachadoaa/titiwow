@@ -1727,7 +1727,7 @@ class AlpCartController extends JoshController
         $payment->payment_method_id = $request['MPHiddenInputPaymentMethod'];
         //$payment->issuer_id = (int)$request['issuer'];
         $payment->external_reference = $orden->referencia_mp;
-        $payment->binary_mode = true;
+        $payment->binary_mode = false;
         $payment->additional_info = array(
           "ip_address"=>"190.29.168.5",
           "items"=>$det_array,
