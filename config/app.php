@@ -166,7 +166,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
+      //  MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
@@ -245,7 +245,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'MP' => MercadoPagoLaravel\Facades\MP::class,
+        //'MP' => MercadoPagoLaravel\Facades\MP::class,
+        'MercadoPago' => MercadoPago\SDK::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         /*
