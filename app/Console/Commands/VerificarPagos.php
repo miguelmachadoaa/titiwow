@@ -28,7 +28,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Mail;
-use MP;
+
 use MercadoPago;
 use DB;
 use Exception;
@@ -112,7 +112,6 @@ class VerificarPagos extends Command
               
               if ($almacen->mercadopago_sand=='1') {
     
-                  $mp::sandbox_mode(TRUE);
 
                   MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
 
@@ -122,8 +121,6 @@ class VerificarPagos extends Command
             
                 if ($almacen->mercadopago_sand=='2') {
     
-                  #$mp::sandbox_mode(FALSE);
-
                   MercadoPago::setPublicKey($almacen->public_key_mercadopago);
                   
                 }
@@ -3188,23 +3185,24 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
       $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-       if ($configuracion->mercadopago_sand=='1') {
-          
-          MP::sandbox_mode(TRUE);
+      MercadoPago::setClientId($almacen->id_mercadopago);
+      MercadoPago::setClientSecret($almacen->key_mercadopago);
+                  
+      if ($almacen->mercadopago_sand=='1') {
 
+          MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
+        
+        }
+    
+        if ($almacen->mercadopago_sand=='2') {
+
+          MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+          
         }
 
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          MP::sandbox_mode(FALSE);
+         $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
-        }
-
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
-         $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
-
-          foreach ($preference['response']['results'] as $r) {
+          foreach ($preference['body']['results'] as $r) {
 
               if ($r['status']=='in_process' || $r['status']=='pending') {
                   
@@ -3212,7 +3210,7 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
                 $preference_data_cancelar = '{"status": "cancelled"}';
 
-                $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+                $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
 
                 $data_cancelar = array(
                   'id_orden' => $orden->id, 

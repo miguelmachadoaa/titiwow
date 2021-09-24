@@ -72,7 +72,6 @@ use Carbon\Carbon;
 use DOMDocument;
 use DB;
 use View;
-use MP;
 use Mail;
 use MercadoPago;
 
@@ -776,20 +775,7 @@ class AlpCartController extends JoshController
 
       $orden->update($data_update);
 
-          $mp = new MP();
-
-        if ($almacen->mercadopago_sand=='1') {
-
-          $mp::sandbox_mode(TRUE);
-
-        }
-
         
-        if ($almacen->mercadopago_sand=='2') {
-
-          $mp::sandbox_mode(FALSE);
-
-        }
 
         
         
@@ -811,7 +797,8 @@ class AlpCartController extends JoshController
               
             }
 
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+        
+            
 
 
 
@@ -875,7 +862,8 @@ class AlpCartController extends JoshController
 
         try {
           
-        //  $pse = MP::post("/v1/payments",$preference_data);
+       
+          
 
         } catch (\Exception $e) {
 
@@ -987,7 +975,8 @@ class AlpCartController extends JoshController
 
           #  dd($pago);
 
-            #$input = MP::get("/v1/payments/".$id_pago);
+           
+          
 
           }
 
@@ -1190,7 +1179,8 @@ class AlpCartController extends JoshController
             
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-        $mp = new MP();
+        
+      
 
         if ($configuracion->mercadopago_sand=='1') {
 
@@ -1205,7 +1195,8 @@ class AlpCartController extends JoshController
         }
 
         
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+       
+        
 
         $pago=AlpPagos::where('json', 'like', '%'.$input['data_id'].'%')->first();
 
@@ -1215,7 +1206,8 @@ class AlpCartController extends JoshController
         
           try {
 
-            $pse = MP::get("/v1/payments/".$input['data_id']);
+           
+            
 
 
           } catch (MercadoPagoException $e) {
@@ -1425,7 +1417,8 @@ class AlpCartController extends JoshController
           }
 
           
-         // $pse = MP::get("/v1/payments/".$input['data_id']);
+
+
 
           
           $data_pago = array(
@@ -1614,7 +1607,8 @@ class AlpCartController extends JoshController
 
 
         
-       // MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+     
+        
 
         MercadoPago::setClientId($almacen->id_mercadopago);
         MercadoPago::setClientSecret($almacen->key_mercadopago);
@@ -2392,24 +2386,8 @@ class AlpCartController extends JoshController
           if (isset($afe_mp->id)) {
 
             if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
-
-
-
-              $mp = new MP();
-           
-           if ($almacen->mercadopago_sand=='1') {
-
-              $mp::sandbox_mode(TRUE);
-            
-            }
-        
-            if ($almacen->mercadopago_sand=='2') {
-
-              $mp::sandbox_mode(FALSE);
-              
-            }
-
-            #MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+  
+                        
 
             MercadoPago::setClientId($almacen->id_mercadopago);
             MercadoPago::setClientSecret($almacen->key_mercadopago);
@@ -2419,11 +2397,12 @@ class AlpCartController extends JoshController
 
             try {
 
-              #$preference = MP::post("/checkout/preferences",$preference_data);
+            
+              
 
               $preference = array();
 
-              #$payment_methods = MP::get("/v1/payment_methods");
+              
 
               $payment_methods = MercadoPago::get("/v1/payment_methods");
 
@@ -2920,7 +2899,8 @@ class AlpCartController extends JoshController
 
               $payment->save();
 
-              #$payment = MP::post("/v1/payments",$preference_data);
+            
+              
                
             }else{
               
@@ -3217,7 +3197,8 @@ class AlpCartController extends JoshController
 
          $configuracion = AlpConfiguracion::where('id', '1')->first();
          
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+         
+         
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
@@ -3523,7 +3504,8 @@ public function orderProcesarIcg(Request $request)
 
          $configuracion = AlpConfiguracion::where('id', '1')->first();
          
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+        
+         
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
