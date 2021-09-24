@@ -166,7 +166,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
+      //  MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
