@@ -7008,20 +7008,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     foreach($cart as $cc){
 
-      
+      if(isset($cc->id)){
 
-      if(isset($inventario[$cc->id])){
+        if(isset($inventario[$cc->id])){
 
-        if($inventario[$cc->id]>0){
+          if($inventario[$cc->id]>0){
 
-          if($inventario[$cc->id]>=$cc->cantidad) {
+            if($inventario[$cc->id]>=$cc->cantidad) {
 
-            
+            }else{
+
+              $cc->no_inventario=$inventario[$cc->id];
+
+            }
+
           }else{
 
-           // dd($inventario[$cc->id]);
-
-            $cc->no_inventario=$inventario[$cc->id];
+            $cc->disponible=0;
 
           }
 
@@ -7031,11 +7034,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
-      }else{
-
-        $cc->disponible=0;
-
       }
+
     }
 
    // dd($cart);
