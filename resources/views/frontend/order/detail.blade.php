@@ -259,13 +259,13 @@ div.overlay > div {
 
                             <label class="col-md-3 control-label" for="nombre_producto">Fache Vencimiento / CVV</label>
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
 
                             <input class="form-control" type="number" min="1" max="12" step="1" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
 
                             </div>
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
 
                                 <input class="form-control" type="number" min="1" max="31" step="1" name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
 
@@ -275,6 +275,12 @@ div.overlay > div {
                             <div class="col-sm-2">
 
                             <input class="form-control" type="number" min="1" max="9999" step="1" name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
+
+                            </div>
+
+                            <div class="col-sm-2">
+
+                            <select class="form-control" name="installments" id="form-checkout__installments"></select>
 
                             </div>
 
@@ -313,39 +319,26 @@ div.overlay > div {
 
                         <div class="form-group clearfix">
 
-                            <label class="col-md-3 control-label" for="nombre_producto">Tipo de Documento</label>
+                            <label class="col-md-3 control-label" for="nombre_producto"> Documento</label>
 
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">
 
                             <select class="form-control" name="identificationType" id="form-checkout__identificationType" placeholder="Tipo de Documento"></select>
 
                             </div>
 
-                        </div>
+                            <div class="col-sm-6">
 
-                        <div class="form-group clearfix">
-
-                            <label class="col-md-3 control-label" for="nombre_producto">Numero de Documento</label>
-
-                            <div class="col-sm-8">
-
-                            <input class="form-control" type="text" name="identificationNumber" id="form-checkout__identificationNumber" placeholder="Número de Documento"/>
+                                <input class="form-control" type="text" name="identificationNumber" id="form-checkout__identificationNumber" placeholder="Número de Documento"/>
 
                             </div>
 
-                        </div>
-
-                        <div class="form-group clearfix">
-
-                            <label class="col-md-3 control-label" for="nombre_producto">Cuotas</label>
-
-                            <div class="col-sm-8">
-
-                            <select class="form-control" name="installments" id="form-checkout__installments"></select>
-
-                            </div>
 
                         </div>
+
+                      
+
+                        
 
 
                         <div class="form-group clearfix">
