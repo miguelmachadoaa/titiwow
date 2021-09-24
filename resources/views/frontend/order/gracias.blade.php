@@ -1,4 +1,3 @@
-
 @extends('layouts/default')
 
 {{-- Page title --}}
@@ -318,8 +317,6 @@ Carrito de Compras
     'forma_pago': '{{ $compra->nombre_forma_pago }}',
     'productos':{!!json_encode($dl_productos)!!}
     });
-
-
 
 </script>
 

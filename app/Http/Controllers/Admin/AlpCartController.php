@@ -491,7 +491,7 @@ class AlpCartController extends JoshController
             
           }else{
 
-            echo json_encode($payment);
+          //  echo json_encode($payment);
 
           if (isset($payment->payment_method_id)) {
 
@@ -2393,12 +2393,8 @@ class AlpCartController extends JoshController
             MercadoPago::setClientSecret($almacen->key_mercadopago);
             MercadoPago::setPublicKey($almacen->public_key_mercadopago);
     
-            
 
             try {
-
-            
-              
 
               $preference = array();
 
