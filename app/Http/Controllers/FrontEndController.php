@@ -813,7 +813,7 @@ class FrontEndController extends JoshController
 
             Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input, $archivo));
             
-            Mail::to('servicioalcliente.asesor3@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
+            Mail::to('servicioalcliente.asesor16@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
             Mail::to('servicioalcliente.coordinador@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
             Mail::to('rumi.torres@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
 
