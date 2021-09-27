@@ -327,13 +327,6 @@ class AlpCartController extends JoshController
 
 
 
-        MercadoPago::setClientId($almacen->id_mercadopago);
-        MercadoPago::setClientSecret($almacen->key_mercadopago);
-        MercadoPago::setPublicKey($almacen->public_key_mercadopago);
-
-        $payment_methods = MercadoPago::get("/v1/payment_methods");
-
-
       return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
 
     }
