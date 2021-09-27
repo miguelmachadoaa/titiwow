@@ -1832,9 +1832,9 @@ class FrontEndController extends JoshController
 
         }else{
 
-          return secure_url('login');
+          return redirect('login');
 
-          
+
         }
 
        
