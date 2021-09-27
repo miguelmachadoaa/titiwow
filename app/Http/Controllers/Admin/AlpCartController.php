@@ -166,8 +166,10 @@ class AlpCartController extends JoshController
      */
 
     public function show()
-
     {
+
+
+      $ip=\Request::ip();
 
 
       \Session::forget('aviso');
@@ -828,6 +830,8 @@ class AlpCartController extends JoshController
                 );
       }
 
+      $ip=\Request::ip();
+
        MercadoPago::setClientId($almacen->id_mercadopago);
         MercadoPago::setClientSecret($almacen->key_mercadopago);
         MercadoPago::setPublicKey($almacen->public_key_mercadopago);
@@ -848,7 +852,7 @@ class AlpCartController extends JoshController
         $payment->callback_url=secure_url('/order/pse');
         $payment->external_reference = $orden->referencia_mp;
         $payment->additional_info = array(
-          "ip_address"=>"190.29.168.5",
+          "ip_address"=>$ip,
           "items"=>$det_array,
         );
         $payment->transaction_details=array(
@@ -1621,10 +1625,6 @@ class AlpCartController extends JoshController
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
 
-        
-     
-        
-
         MercadoPago::setClientId($almacen->id_mercadopago);
         MercadoPago::setClientSecret($almacen->key_mercadopago);
         MercadoPago::setPublicKey($almacen->public_key_mercadopago);
@@ -1720,7 +1720,7 @@ class AlpCartController extends JoshController
         );  
 
        # dd($request->all());
-
+       $ip=\Request::ip();
 
         $payment = new MercadoPago\Payment();
         $payment->transaction_amount = (float)$orden->monto_total+$envio;
@@ -1736,9 +1736,9 @@ class AlpCartController extends JoshController
         $payment->payment_method_id = $request['MPHiddenInputPaymentMethod'];
         //$payment->issuer_id = (int)$request['issuer'];
         $payment->external_reference = $orden->referencia_mp;
-        $payment->binary_mode = false;
+        $payment->binary_mode = true;
         $payment->additional_info = array(
-          "ip_address"=>"190.29.168.5",
+          "ip_address"=>$ip,
           "items"=>$det_array,
           "payer"=>$payer,
         );
@@ -1892,7 +1892,7 @@ class AlpCartController extends JoshController
 
           $response = array('estado' => 'aprobado', 'mensaje'=> secure_url('cart/'.$idc.'/gracias?pago=aprobado'));
 
-        #  return json_encode($response);
+          #  return json_encode($response);
 
           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
         
@@ -2858,7 +2858,7 @@ class AlpCartController extends JoshController
               }
 
               
-               $preference_data = [
+              /* $preference_data = [
                 "transaction_amount" => doubleval($orden->monto_total+$envio-$total_tarjetas),
                 "external_reference" =>"".$orden->referencia_mp."",
                 "description" => 'Pago de orden: '.$orden->id,
@@ -2873,7 +2873,9 @@ class AlpCartController extends JoshController
                 "taxes"=>[[
                   "value"=>(float)number_format($impuesto, 2, '.', ''),
                   "type"=>"IVA"]]
-              ];
+              ];*/
+
+            $ip=\Request::ip();
 
             MercadoPago::setClientId($almacen->id_mercadopago);
             MercadoPago::setClientSecret($almacen->key_mercadopago);
@@ -2892,7 +2894,7 @@ class AlpCartController extends JoshController
             $payment->payment_method_id = $request->idpago;
             $payment->external_reference = $orden->referencia_mp;
             $payment->additional_info = array(
-              "ip_address"=>"190.29.168.5",
+              "ip_address"=>$ip,
               "items"=>$det_array,
             );
             $payer = new MercadoPago\Payer();
