@@ -1819,13 +1819,25 @@ class FrontEndController extends JoshController
 
         $user = Sentinel::getUser();
 
-        $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
+        if(isset($user->id)){
+
+           $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
 
         $countries = $this->countries;
 
         $cart= \Session::get('cart');
 
         return view('user_account', compact('user', 'countries', 'cart', 'cliente'));
+
+
+        }else{
+
+          return secure_url('login');
+
+          
+        }
+
+       
 
     }
 
