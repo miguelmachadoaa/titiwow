@@ -1799,7 +1799,9 @@ class AlpCartController extends JoshController
 
              #return json_encode($response);
 
-            return redirect('order/detail')->with('aviso', $aviso);
+             dd(1);
+
+            return redirect('order/detail')->withInput()->with('aviso', $aviso);
 
             
           }
@@ -1823,7 +1825,7 @@ class AlpCartController extends JoshController
 
                  # return json_encode($response);
 
-                return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+                return redirect('order/detail')->withInput()->with('aviso', trans('Error al procesar su orden, por favor intente nuevamente.'));
                 
               }
               
@@ -1887,6 +1889,7 @@ class AlpCartController extends JoshController
 
           #  return json_encode($response);
 
+
           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
         
 
@@ -1897,13 +1900,13 @@ class AlpCartController extends JoshController
          # $response = array('estado' => 'negado', 'mensaje'=> 'No Hubo respuesta de su banco');
 
          # return json_encode($response);
+
           
-          return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+          return redirect('order/detail')->with('aviso', trans('Error al procesar su orden, por favor intente nuevamente.'));
 
           
         }
 
-        
 
       }else{
 
