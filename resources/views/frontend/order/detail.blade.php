@@ -1786,6 +1786,9 @@ $('.sendCupon').click(function () {
             validators: {
                 notEmpty: {
                     message: 'Numero de Tarjeta es Requerido'
+                },
+                creditCard: {
+                    message: 'El número de tarjeta es invalido'
                 }
             },
             required: true
@@ -1822,6 +1825,10 @@ $('.sendCupon').click(function () {
             validators: {
                 notEmpty: {
                     message: 'Nombre es Requerido'
+                },
+                regexp: {
+                    regexp: /^[a-zs]+$/i,
+                    message: 'Solo debe contener letras y espacio'
                 }
             },
             required: true,

@@ -1752,7 +1752,7 @@ class AlpCartController extends JoshController
             'id' => $payment->id
         );
 
-        //dd($payment);
+        #dd($payment);
 
         if (isset($payment->id)) {
 
@@ -1902,7 +1902,7 @@ class AlpCartController extends JoshController
          # return json_encode($response);
 
           
-          return redirect('order/detail')->with('aviso', trans('Error al procesar su orden, por favor intente nuevamente.'));
+          return redirect('order/detail')->with('aviso', trans('Error al procesar su orden, por favor Verifique sus datos e intente nuevamente.'));
 
           
         }
