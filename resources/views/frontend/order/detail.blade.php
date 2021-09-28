@@ -261,20 +261,20 @@ div.overlay > div {
 
                             <div class="col-sm-2">
 
-                            <input class="form-control" type="number" min="1" max="12" step="1" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
+                            <input class="form-control" type="text"  name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
 
                             </div>
 
                             <div class="col-sm-2">
 
-                                <input class="form-control" type="number" min="1" max="31" step="1" name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
+                                <input class="form-control" type="text"  name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
 
                             </div>
 
 
                             <div class="col-sm-2">
 
-                            <input class="form-control" type="number" min="1" max="9999" step="1" name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
+                            <input class="form-control" type="text" " name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
 
                             </div>
 
@@ -1799,6 +1799,9 @@ $('.sendCupon').click(function () {
             validators: {
                 notEmpty: {
                     message: 'Mes en Formato MM es Requerido'
+                },
+                digits:{
+                    message: 'Solo debe contener números'
                 }
             },
             required: true
@@ -1807,6 +1810,9 @@ $('.sendCupon').click(function () {
             validators: {
                 notEmpty: {
                     message: 'Año en formato YY es Requerido'
+                }, 
+                digits:{
+                    message: 'Solo debe contener números'
                 }
             },
             required: true
@@ -1827,7 +1833,7 @@ $('.sendCupon').click(function () {
                     message: 'Nombre es Requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zs]+$/i,
+                    regexp: /^[a-zs ]+$/i,
                     message: 'Solo debe contener letras y espacio'
                 }
             },
