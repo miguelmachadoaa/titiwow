@@ -1799,8 +1799,6 @@ class AlpCartController extends JoshController
 
              #return json_encode($response);
 
-             dd(1);
-
             return redirect('order/detail')->withInput()->with('aviso', $aviso);
 
             
