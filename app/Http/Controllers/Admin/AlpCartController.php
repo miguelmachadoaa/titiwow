@@ -1567,10 +1567,10 @@ class AlpCartController extends JoshController
       
 
       $avisos = array(
-        'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el numero de tarjeta.', 
+        'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el número de tarjeta.', 
         'cc_rejected_bad_filled_date' => 'No pudimos procesar su pago, Revisa la fecha de vencimiento.', 
         'cc_rejected_bad_filled_other' => 'No pudimos procesar su pago, Revisa los datos.', 
-        'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el codigo de seguridad.', 
+        'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el código  de seguridad.', 
         'cc_rejected_blacklist' => 'No pudimos procesar su pago.', 
         'cc_rejected_call_for_authorize' => 'No pudimos procesar su pago, Debes autorizar ante el banco el pago a mercadopago.', 
         'cc_rejected_card_disabled' => 'No pudimos procesar su pago, Debes activar tu tarjeta.', 
@@ -1579,8 +1579,8 @@ class AlpCartController extends JoshController
         'cc_rejected_high_risk' => 'No pudimos procesar su pago, su pago fue rechazado', 
         'cc_rejected_insufficient_amount' => 'No pudimos procesar su pago, no tiene fondos suficientes', 
         'cc_rejected_invalid_installments' => 'No pudimos procesar su pago, no puede procesar pagos por cuotas', 
-        'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al limite de intentos permitidos', 
-        'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazo el pago'
+        'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al límite  de intentos permitidos', 
+        'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazó el pago'
       );
 
       $cart= \Session::get('cart');
