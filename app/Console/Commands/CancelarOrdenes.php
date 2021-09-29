@@ -90,7 +90,7 @@ class CancelarOrdenes extends Command
 
                 $arrayName = array('estatus' => 4, 'estatus_pago'=>3 );
 
-               # $ord->update($arrayName);
+                $ord->update($arrayName);
 
                 $detalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -148,7 +148,7 @@ class CancelarOrdenes extends Command
 
                        $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
-                       echo json_encode($preference);
+                      # echo json_encode($preference);
 
 
                       if(isset($preference['body']['results'])){
@@ -159,16 +159,40 @@ class CancelarOrdenes extends Command
 
                               $idpago=$r['id'];
 
-                              echo $idpago,
+                             # echo $idpago,
 
                             //Aqui se cancela mercadopago 
                             
-                              $preference_data_cancelar = '{"status": "cancelled"}';
-                              #$preference_data_cancelar = array('status'=>'cancelled');
+                              #$preference_data_cancelar = '{"status": "cancelled"}';
+                              $preference_data_cancelar = array("statuses"=>"cancelled");
 
-                              $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+                              MercadoPago::setClientId($almacen->id_mercadopago);
+                              MercadoPago::setClientSecret($almacen->key_mercadopago);
 
-                              echo json_encode($pre);
+                              $at=MercadoPago::getAccessToken();
+
+                            $ch = curl_init();
+
+                            curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments/'.$idpago);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"status\": \"cancelled\"}");
+
+                            $headers = array();
+                            $headers[] = 'Authorization: Bearer '.$at;
+                            $headers[] = 'Content-Type: application/json';
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                            $result = curl_exec($ch);
+                            if (curl_errno($ch)) {
+                                echo 'Error:' . curl_error($ch);
+                            }
+                            curl_close($ch);
+
+                            activity()->withProperties($result)->log('respuesta cancelar pago de orden   '.$orden->id);
+
+                           #   echo json_encode($pre);
 
                             }
 
