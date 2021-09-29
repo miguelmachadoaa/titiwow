@@ -987,9 +987,9 @@ class AlpCartController extends JoshController
 
           #  dd($pago);
 
-           
-          
+          }else{
 
+            $pago=null;
           }
 
 
@@ -997,7 +997,7 @@ class AlpCartController extends JoshController
 
         }else{
 
-          $input=null;
+          $pago=null;
         }
 
         
@@ -4032,11 +4032,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
       }else{
 
-         if (\Session::has('pse')) {
+        if (\Session::has('pse')) {
 
                 $id_pago=\Session::get('pse');
 
-            }
+        }
 
       }
 
