@@ -1206,6 +1206,8 @@ public function departamento(Request $request)
 
         }
 
+        dd($request->all());
+
 
         $ticket = AlpTicket::where('id', $request->id)->first();
 

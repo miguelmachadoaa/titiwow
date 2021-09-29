@@ -2905,9 +2905,6 @@ class AlpCartController extends JoshController
             if (($orden->monto_total+$envio)>0) {
 
               $payment->save();
-
-            
-              
                
             }else{
               
@@ -2977,16 +2974,11 @@ class AlpCartController extends JoshController
                 
                $states=State::where('config_states.country_id', '47')->get();
 
-               
                $configuracion = AlpConfiguracion::where('id','1')->first();
 
-               
                 $user_cliente=User::where('id', $user_id)->first();
 
-                
                 $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
-
-                
 
                 if ($compra->id_forma_envio!=1) {
 
@@ -3012,8 +3004,6 @@ class AlpCartController extends JoshController
 
 
 
-
-
                 foreach ($detalles as $d ) {
 
                     if ($d->tipo_producto=='4') {
@@ -3030,11 +3020,9 @@ class AlpCartController extends JoshController
                     }
                     # code...
                   }
-
            
                 $estatus_aviso='success';
 
-                
                 $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment->id."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->transaction_details->external_resource_url."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
                 
                 $metodo=$payment->payment_method_id;

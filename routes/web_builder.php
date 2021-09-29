@@ -1909,8 +1909,6 @@ Route::get('ibm-teextranamos', function() {
   
 });
 
-
-
 Route::get('ibm-pagos', function() {
     $exitCode = Artisan::call('verificar:pagos');
   
@@ -1920,10 +1918,6 @@ Route::get('ibm-pagoshora', function() {
     $exitCode = Artisan::call('verificar:pagoshora');
   
 });
-
-
-
-
 
 Route::get('pedidos-enviados', function() {
     $exitCode = Artisan::call('pedidos:enviados');
@@ -1937,5 +1931,11 @@ Route::get('borrar-productos', function() {
 
 Route::get('cron-pruebas', function() {
     $exitCode = Artisan::call('cron:pruebas');
+  
+});
+
+
+Route::get('cron-cancelar', function() {
+    $exitCode = Artisan::call('cancelar:ordenes');
   
 });
