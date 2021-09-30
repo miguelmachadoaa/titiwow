@@ -1727,7 +1727,7 @@ class AlpCartController extends JoshController
         ];
 
         $payment->token = $request['MPHiddenInputToken'];
-        $payment->description = $request['description'];
+        $payment->description = 'Pago de Orden '. $orden->id;
         $payment->installments = (int)$request['installments'];
         $payment->payment_method_id = $request['MPHiddenInputPaymentMethod'];
         //$payment->issuer_id = (int)$request['issuer'];
