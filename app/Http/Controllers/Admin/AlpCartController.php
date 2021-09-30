@@ -313,8 +313,10 @@ class AlpCartController extends JoshController
 
       if(isset($almacen->id)){
 
+
         $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
 
+       
         if(isset($lifemiles->id)){
 
         }else{
@@ -327,7 +329,8 @@ class AlpCartController extends JoshController
 
 
 
-      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
+
+      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles'));
 
     }
     
@@ -4375,7 +4378,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
         $d=$date->format('Y-m-d');
 
-        $lifemile=AlpLifeMiles::where('id_almacen', $orden->id_almacen)->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '<=', $d)->where('estado_registro', '1')->first();
+        $lifemile=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
 
 
         if(isset($lifemile->id)){
@@ -4389,13 +4392,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
         }else{
 
-            $lifemile=AlpLifeMiles::where('id_almacen','=', '0')->whereDate('fecha_inicio', '>=', $d)->whereDate('fecha_final', '<=', $d)->where('estado_registro', '1')->first();
+          $lifemile=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
 
             if(isset($lifemile->id)){
 
                 if($orden->monto_total>=$lifemile->minimo_compra){
 
                   $data_lifemile = array('lifemiles_id' => $lifemile->id );
+
                   $orden->update($data_lifemile);
 
                 }
@@ -4404,6 +4408,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
 
         }
+
+
+
+
+
+
+
+        
 
 
 
@@ -7168,9 +7180,33 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
         }
 
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+        $lifemiles=null;
+
+      if(isset($almacen->id)){
 
 
-      $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen', 'mensaje_promocion'));
+        $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+       
+        if(isset($lifemiles->id)){
+
+        }else{
+
+          $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+        
+        }
+      
+      }
+
+
+
+
+
+
+      $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen', 'mensaje_promocion', 'lifemiles'));
 
         $data=$view->render();
 

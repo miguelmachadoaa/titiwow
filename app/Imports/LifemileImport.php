@@ -30,6 +30,8 @@ class LifemileImport implements ToCollection
 
                 if ($row[1]!="MILES" || $row[1]!="") {
 
+                   # dd($row);
+
                     $data = array(
                         'id_lifemile' => $lifemile, 
                         'parnert' => $row[0], 
