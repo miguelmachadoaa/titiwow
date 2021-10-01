@@ -1,47 +1,45 @@
-@component('mail::message')
+@include('emails.header')
 
-Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->last_name }}
-
-
-<b>Datos Del Cliente</b>
+<p>Se ha registrado un pedido por el usuario <b>{{ $compra->first_name.' '.$compra->last_name }}</b> </p>
 
 
-<b>Nombre: </b> {{ $compra->first_name.' '.$compra->last_name }}<br>
+<p><b>Datos Del Cliente</b></p>
 
-<b>Documento: </b> {{ $cliente->doc_cliente }}<br>
 
-<b>Teléfono</b> {{$cliente->telefono_cliente}}<br>
+<p><b>Nombre: </b> {{ $compra->first_name.' '.$compra->last_name }}</p><br>
 
-<b>Direccion de Envio</b>
+<p><b>Documento: </b> {{ $cliente->doc_cliente }}</p><br>
 
- <p>{{ $direccion->titulo   }} </p>
+<p><b>Teléfono</b> {{$cliente->telefono_cliente}}</p><br>
+
+<p><b>Direccion de Envio</b></p>
+
+<p>{{ $direccion->titulo   }} </p>
 <p>{{ $direccion->state_name.' , '.$direccion->city_name   }}</p>
 <p>{{ $direccion->nombre_estructura.' '.$direccion->principal_address .' #'. $direccion->secundaria_address .'-'.$direccion->edificio_address.', '.$direccion->detalle_address.', '.$direccion->barrio_address }}</p>
 <p>{{ $direccion->notas }}</p>
 
-<b></b>
 
+<p><b>Detalles del Pedido </b></p>
 
-<b>Detalles del Pedido </b>
-
-<b>Forma de Envio: </b> {{$formaenvio->nombre_forma_envios}}
+<p><b>Forma de Envio: </b> {{$formaenvio->nombre_forma_envios}}</p>
 
 @if($compra->estatus_pago==1)
 
-<h3>Este pedido aún no ha sido pagado, debes esperar la confirmación</h3>
+<p><h3>Este pedido aún no ha sido pagado, debes esperar la confirmación</h3></p>
 
 
 @elseif($compra->estatus_pago==2)
 
-<h3>Este pedido ya ha sido pagado.</h3>
+<p><h3>Este pedido ya ha sido pagado.</h3></p>
 
 @elseif($compra->estatus_pago==3)
 
-<h3>El pago del pedido ha sido cancelado, Esperar un nuevo pago </h3>
+<p><h3>El pago del pedido ha sido cancelado, Esperar un nuevo pago </h3></p>
 
 @elseif($compra->estatus_pago==4)
 
-<h3>Este pedido aún no ha sido pagado, debes esperar la confirmación</h3>
+<p><h3>Este pedido aún no ha sido pagado, debes esperar la confirmación</h3></p>
 
 @endif
 
@@ -49,28 +47,28 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 
 @if($envio->costo>0)
 
-<b>ID pedido:</b> {{ $compra->id }}<br>
-<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}<br>
-<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}<br>
-<b>Valor Pagado:</b> {{ $compra->monto_total+$envio->costo }}<br>
-<b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}<br>
-<b>Valor Iva:</b> {{ $compra->monto_impuesto+$envio->costo_impuesto }}<br>
+<p><b>ID pedido:</b> {{ $compra->id }}</p><br>
+<p><b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}<p><br>
+<p><b>Documento:</b> {{ 'E'.$compra->doc_cliente }}</p><br>
+<p><b>Valor Pagado:</b> {{ $compra->monto_total+$envio->costo }}</p><br>
+<p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}<p><br>
+<p><b>Valor Iva:</b> {{ $compra->monto_impuesto+$envio->costo_impuesto }}</p><br>
 
 
 @else
 
-<b>ID pedido:</b> {{ $compra->id }}<br>
-<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}<br>
-<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}<br>
-<b>Valor Pagado:</b> {{ $compra->monto_total}}<br>
-<b>Base Impuesto:</b> {{ $compra->base_impuesto/(1+$compra->valor_impuesto) }} <br>
-<b>Valor Iva:</b> {{ $compra->monto_impuesto }}<br>
+<p><b>ID pedido:</b> {{ $compra->id }}</p><br>
+<p><b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}</p><br>
+<p><b>Documento:</b> {{ 'E'.$compra->doc_cliente }}</p><br>
+<p><b>Valor Pagado:</b> {{ $compra->monto_total}}</p><br>
+<p><b>Base Impuesto:</b> {{ $compra->base_impuesto/(1+$compra->valor_impuesto) }} </p><br>
+<p><b>Valor Iva:</b> {{ $compra->monto_impuesto }}</p><br>
 
 @endif
 
 <br>
 
-<h3>Detalle de cada producto</h3>
+<p><h3>Detalle de cada producto</h3></p>
 
 <table width="100%" style="border-collapse: collapse;border: solid 2px #e9e9e9;" cellpadding="10px">
 	<tr>
@@ -106,27 +104,26 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 <br>
 @if($envio->costo>0)
 
-<b></b>El Costo del envio fue de <b>{{ number_format($envio->costo, 0,",",".") }}</b> <br>
+<p>El Costo del envio fue de <b>{{ number_format($envio->costo, 0,",",".") }}</b> <br>
 El total de la compra fue de <b>{{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}</b><br>
-El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</b><br>
+El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</b><br></p>
 
 @else
 
-El Costo del envio fue <b>Gratis</b><br>
+<p>El Costo del envio fue <b>Gratis</b><br>
 El total de la compra fue de <b>{{ number_format($compra->monto_total, 0,",",".") }}</b><br>
-El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</b><br>
+El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</b><br></p>
 
 
 @endif
 
-Ip: {{$compra->ip}}
+<p>Ip: {{$compra->ip}}</p>
+
+<p style="text-aling:center">
+    <a  href="{{ secure_url(/admin) }}" class="button button-blue " target="_blank">Visitar Página Admin</a>
+</p>
 
 
-@component('mail::button', ['url' => secure_url('/admin')])
-Visitar página
-@endcomponent
-
-
-Gracias,<br>
+<p>Gracias,</p><br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')
