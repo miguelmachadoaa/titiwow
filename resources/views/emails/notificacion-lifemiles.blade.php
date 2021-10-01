@@ -1,12 +1,12 @@
-@component('mail::message')
+@include('emails.header')
 
-    Gracias por comprar en Alpina Go! Por tu compra has obtenido un Codigo de LifeMiles por {{$lifemile->miles}}
+<p>Gracias por comprar en Alpina Go! Por tu compra has obtenido un Codigo de LifeMiles por <b>{{$lifemile->miles}}</b> </p>
 
-    <p>Codigo : {{ $lifemile->code }}</p>
-   
-    <br>
+<p>Codigo : <b>{{ $lifemile->code }}</b></p>
 
-    Gracias,<br>
-    {{  config('app.name') }}
-    
-@endcomponent
+<br>
+
+Gracias,<br>
+{{  config('app.name') }}
+
+@include('emails.footer')
