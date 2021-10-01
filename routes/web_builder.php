@@ -1871,6 +1871,24 @@ Route::get('compra', function(){
 });
 
 
+Route::get('notificacionticket', function(){
+    return new \App\Mail\NotificacionTicket(App\Models\AlpTicket::first());
+});
+
+Route::get('notificacionorden', function(){
+
+    $orden=App\Models\AlpOrdenes::where('id', 20817)->first();
+
+    $detalles = App\Models\AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.tipo_producto as tipo_producto')
+        ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+        ->where('alp_ordenes_detalle.id_orden', 20817)
+        ->whereNull('alp_ordenes_detalle.deleted_at')
+        ->get();
+
+        Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021'));
+
+    return new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021');
+});
 
 
 Route::get('clear-cache', function() {

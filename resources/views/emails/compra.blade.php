@@ -1,38 +1,38 @@
-@component('mail::message')
+@include('emails.header')
 
-Gracias por su compra <b>{{ $compra->first_name.' '.$compra->last_name }}</b>
 
+<p>Gracias por su compra <b>{{ $compra->first_name.' '.$compra->last_name }}</b></p>
 @if($compra->id_forma_envio==1)
 
-Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b>.
 
+<p>Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b>.</p>
 @else
 
-Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado pronto. 
 
+<p>Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado pronto. </p>
 
 @endif
+<p>Datos de la compra</p>
 
-Datos de la compra
 
 
 @if($envio->costo>0)
-
-
-	IdPedido: {{ $compra->id }}
-	Documento: {{ $compra->doc_cliente }}
-	Valor Pagado: {{ number_format($compra->monto_total+$envio->costo,0,",",".") }}
-	Base Impuesto: {{ number_format($compra->base_impuesto+$envio->costo_base,0,",",".")}}
-	Valor Iva: {{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}
+<p>IdPedido: {{ $compra->id }}</p>
+<p>Documento: {{ $compra->doc_cliente }}</p>
+<p>Valor Pagado: {{ number_format($compra->monto_total+$envio->costo,0,",",".") }}</p>
+<p>Base Impuesto: {{ number_format($compra->base_impuesto+$envio->costo_base,0,",",".")}}</p>	
+<p>Valor Iva: {{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}</p>	
+	
+	
 
 @else
-
-
-	IdPedido: {{ $compra->id }}
-	Documento: {{ $compra->doc_cliente }}
-	Valor Pagado: {{ number_format($compra->monto_total,0,",",".") }}
-	Base Impuesto: {{ number_format($compra->base_impuesto,0,",",".")}}
-	Valor Iva: {{ number_format($compra->monto_impuesto,0,",",".")}}
+<p>IdPedido: {{ $compra->id }}</p>
+<p>Documento: {{ $compra->doc_cliente }}</p>
+<p>Valor Pagado: {{ number_format($compra->monto_total,0,",",".") }}</p>	
+<p>Base Impuesto: {{ number_format($compra->base_impuesto,0,",",".")}}</p>
+<p>Valor Iva: {{ number_format($compra->monto_impuesto,0,",",".")}}</p>	
+	
+	
 
 @endif
 
@@ -76,20 +76,24 @@ Datos de la compra
 
 
 @if($envio->costo>0)
+<p>El Costo del envio fue de {{ number_format($envio->costo, 0,",",".") }}</p>
+<p>El total de la compra fue de {{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}</p>
 
-El Costo del envio fue de {{ number_format($envio->costo, 0,",",".") }}
-El total de la compra fue de {{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}
 
 	@if($role->oferta==0)
-		El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+	<p>El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</p>
+		
 	@endif
 @else
 
-El Costo del envio fue Gratis
-El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
+<p>El Costo del envio fue Gratis</p>
+<p>El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}</p>
+
+
 
 	@if($role->oferta==0)
-		El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+	<p>El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</p>
+		
 	@endif
 
 @endif
@@ -99,13 +103,16 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
 
 @else
 
-@component('mail::button', ['url' =>  secure_url('/tracking/'.$compra->token)])
-	Rastrea tu Pedido
-@endcomponent
+<p style="text-aling:center">
+<a  href="{{ secure_url('/tracking/'.$compra->token) }}" class="button button-blue " target="_blank">Rastrea tu Pedido</a>
+
+</p>
+
+
 
 @endif
 
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')
