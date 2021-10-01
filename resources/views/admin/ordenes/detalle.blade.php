@@ -331,7 +331,7 @@ Orden {{$orden->id}}
                          <td>{{ date("d/m/Y H:i:s", strtotime($orden->created_at)) }}</td>
                      </tr>
 
-                     @if(is_null($p_a))
+                     @if(is_null($pago_aprobado))
 
                         <tr>
                              <td>Fecha de pago Aprobado </td>
