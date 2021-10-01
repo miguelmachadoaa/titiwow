@@ -206,7 +206,7 @@
 
                                 <div class="">
                                     
-                                   <p style="font-size: 2em;    width: 100%;    text-align: center;">Te faltan solo <span  style="color: #241F48; font-weight: 600;">{{number_format(($total - $lifemiles->minimo_compra)*-1, 0)}}</span>  Para obtener <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>  Lifemiles por tu Compra.
+                                   <p style="font-size: 2em;    width: 100%;    text-align: center;">Te faltan solo <span  style="color: #241F48; font-weight: 600;">{{number_format(($total - $lifemiles->minimo_compra)*-1, 0)}}</span>  Para obtener <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>  LifeMiles por tu Compra.
 </p>   
                                 </div>
 
@@ -214,7 +214,7 @@
 
                                 <div class="">
                                     
-                                   <p style="font-size: 2em;    width: 100%;    text-align: center;">Con esta compra obtienes  <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>     Lifemiles por tu Compra.
+                                   <p style="font-size: 2em;    width: 100%;    text-align: center;">Con esta compra obtienes  <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>     LifeMiles por tu Compra.
 </p> 
                                 </div>
 
