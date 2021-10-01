@@ -231,7 +231,12 @@
                                         data-sku="{{ $producto->referencia_producto_sap }}" 
                                         data-ean="{{ $producto->referencia_producto }}"
                                          data-id="{{ $producto->id }}" 
+                                         @if(isset($producto->nombre_categoria))
                                          data-categoria="{{ $producto->nombre_categoria }}" 
+                                         @else
+                                         data-categoria="" 
+                                         @endif
+                                        
                                         data-marca="{{ $producto->nombre_marca }}" 
                                          data-name="{{ $producto->nombre_producto }}" 
                                          data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
@@ -291,7 +296,12 @@
                                         data-ean="{{ $producto->referencia_producto }}" 
                                         data-price="{{ intval($producto->precio_oferta) }}" 
                                         data-id="{{ $producto->id }}" 
-                                        data-categoria="{{ $producto->nombre_categoria }}" 
+                                        @if(isset($producto->nombre_categoria))
+                                             data-categoria="{{ $producto->nombre_categoria }}" 
+                                         @else
+                                             data-categoria="" 
+                                         @endif
+                                        
                                         data-marca="{{ $producto->nombre_marca }}" 
                                         data-name="{{ $producto->nombre_producto }}" 
                                         data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
