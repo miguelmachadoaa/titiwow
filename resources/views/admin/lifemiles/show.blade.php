@@ -176,9 +176,9 @@ Lifemiles
                             <td>
                                 @if($h->estado_registro=='1')
 
-                                {{'No Asigando '}}
+                                {{'No Asignado '}}
                                 @else
-                                {{' Asigando '}}
+                                {{' Asignado '}}
                                 @endif
                             </td>
                             <td>{{$h->id_orden}}</td>

@@ -120,7 +120,7 @@ El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compr
 <p>Ip: {{$compra->ip}}</p>
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url(/admin) }}" class="button button-blue " target="_blank">Visitar Página Admin</a>
+    <a  href="{{ secure_url('/admin') }}" class="button button-blue " target="_blank">Visitar Página Admin</a>
 </p>
 
 
