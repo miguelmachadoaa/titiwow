@@ -84,7 +84,7 @@ class VerificarPagos extends Command
 
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('id', '20817')->get();
+        #$ordenes=AlpOrdenes::where('id', '22357')->get();
         //
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
@@ -999,8 +999,8 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-     if (isset($preference['body']['results'])) {
-       # if (isset($preference)) {
+      if (isset($preference['body']['results'])) {
+        #if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
@@ -1013,7 +1013,7 @@ class VerificarPagos extends Command
 
              $idpago=$r['id'];
 
-            // dd($idpago);
+            #d($idpago);
 
                    
                  if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
@@ -1351,6 +1351,7 @@ class VerificarPagos extends Command
                  }else{
 
                   $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
+                  $fecha_lm = Carbon::now()->format('m/d/Y');
 
                     if(isset($codigo->id)){
 
@@ -1365,9 +1366,14 @@ class VerificarPagos extends Command
 
                         $codigo->update(['estado_registro'=>'0']);
 
-                        Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
+                        //envio Lifemiles a IBM
 
-                        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionLifemiles($codigo));
+                        $this->addlifemiles($user_cliente, $codigo, $fecha_lm);
+
+
+                        //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
+
+                        //Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionLifemiles($codigo));
 
 
                     }else{
@@ -2644,7 +2650,75 @@ private function registrarOrdenNuevo($id_orden)
     }
 
 
+    private function addlifemiles($user, $cupon, $fecha_lm)
+    {
+        
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
 
+        $pod = 0;
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = $configuracion->endpoint_ibm;
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+            //$xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Codigo_cupon_ecommerce</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Fecha_cupon_ecommerce</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
+            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient></Body></Envelope>';
+            //dd($xml);
+
+
+           activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result)->log('ibm_lifemiles respuesta');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+             // activity()->withProperties($result)->log('codigo-descuento-xml_ibm_result2');
+
+            // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
 
 
      private function ibmConfirmarCompra($user, $orden)
