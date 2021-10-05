@@ -814,28 +814,28 @@ Editar Almacen {{$almacen->nombre_almacen}}
     
 
       $('select[name="state_id"]').on('change', function() {
-                    var stateID = $(this).val();
-                var base = $('#base').val();
+        var stateID = $(this).val();
+        var base = $('#base').val();
 
-                    if(stateID) {
-                        $.ajax({
-                            url: base+'/configuracion/citiestodos/'+stateID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(data) {
+        if(stateID) {
+            $.ajax({
+                url: base+'/configuracion/citiestodos/'+stateID,
+                type: "GET",
+                dataType: "json",
+                success:function(data) {
 
-                                
-                                $('select[name="city_id"]').empty();
-                                $.each(data, function(key, value) {
-                                    $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
-                                });
+                    
+                    $('select[name="city_id"]').empty();
+                    $.each(data, function(key, value) {
+                        $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                    });
 
-                            }
-                        });
-                    }else{
-                        $('select[name="city_id"]').empty();
-                    }
-                });
+                }
+            });
+        }else{
+            $('select[name="city_id"]').empty();
+        }
+    });
 
 
          $("#hora").datetimepicker({

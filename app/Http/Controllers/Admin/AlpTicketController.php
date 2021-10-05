@@ -351,8 +351,6 @@ class AlpTicketController extends JoshController
         $file->move($destinationPath,$archivo);
         
       }
-
-
       
 
         $data = array(
@@ -1205,8 +1203,6 @@ public function departamento(Request $request)
           ->withProperties($request->all())->log('ticket/estatus');
 
         }
-
-        dd($request->all());
 
 
         $ticket = AlpTicket::where('id', $request->id)->first();

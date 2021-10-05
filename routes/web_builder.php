@@ -1885,7 +1885,7 @@ Route::get('notificacionorden', function(){
         ->whereNull('alp_ordenes_detalle.deleted_at')
         ->get();
 
-        Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021'));
+       # Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021'));
 
     return new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021');
 });
