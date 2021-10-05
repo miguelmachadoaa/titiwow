@@ -1946,7 +1946,7 @@ private function registrarOrdenNuevo($id_orden)
             'tipoServicio' => 1, 
             'retorno' => "false", 
             'totalFactura' => $orden->monto_total, 
-            'subTotal' => $orden->base_impuesto, 
+            'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
             'iva' => $orden->monto_impuesto, 
             'descuento' => $descuento_total, 
             'peso' => $peso, 
