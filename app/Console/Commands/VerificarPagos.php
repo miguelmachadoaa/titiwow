@@ -80,12 +80,11 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
 
-      #  $ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('id', '22357')->get();
-        //
+       # $ordenes=AlpOrdenes::where('id', '20856')->get();
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
@@ -503,7 +502,7 @@ class VerificarPagos extends Command
                             'tipoServicio' => 1, 
                             'retorno' => "false", 
                             'totalFactura' => $orden->monto_total, 
-                            'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                            'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''), 
                             'iva' => $orden->monto_impuesto, 
                             'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                             'horaMinPedido' => "00:00", 
@@ -899,7 +898,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),  
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1000,7 +999,7 @@ class VerificarPagos extends Command
       $user_cliente=User::where('id', $orden->id_user)->first();
 
       if (isset($preference['body']['results'])) {
-        #if (isset($preference)) {
+       # if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
@@ -1258,7 +1257,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1272,7 +1271,7 @@ class VerificarPagos extends Command
               $dataraw=json_encode($o);
 
 
-
+              #dd($dataraw);
 
               if ($compra->id_forma_envio!=1) {
 
@@ -1613,7 +1612,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1942,7 +1941,7 @@ private function registrarOrdenNuevo($id_orden)
             'tipoServicio' => 1, 
             'retorno' => "false", 
             'totalFactura' => $orden->monto_total, 
-            'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+            'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
             'iva' => $orden->monto_impuesto, 
             'descuento' => $descuento_total, 
             'peso' => $peso, 
