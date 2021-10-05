@@ -1,8 +1,6 @@
 <?php namespace App;
 use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Cviebrock\EloquentTaggable\Taggable;
-
 
 class User extends EloquentUser {
 
@@ -21,7 +19,6 @@ class User extends EloquentUser {
 	 *
 	 * @var array
 	 */
-    use Taggable;
 
 	protected $fillable = [];
 

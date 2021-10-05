@@ -194,8 +194,6 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
-        Cviebrock\EloquentSluggable\ServiceProvider::class,
-        Cviebrock\EloquentTaggable\ServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
     ],
 
