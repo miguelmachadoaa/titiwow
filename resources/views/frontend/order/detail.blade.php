@@ -207,6 +207,172 @@ div.overlay > div {
 <!--{!! Form::close() !!}-->
 
 </div>
+                    <!-- Step #2 -->
+  
+
+
+
+<!-- Modal Direccion -->
+<div class="modal fade" id="modalCreditCard" role="dialog" aria-labelledby="modalLabeldanger">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+        <form id="form-checkout" class="form-horizontal" method="POST" action="{{secure_url('/order/creditcard')}}">
+
+
+
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modalLabeldanger">Pago con Tarjeta De Credito o  Debito</h4>
+            </div>
+            <div class="modal-body" style="    padding: 2em;">
+
+
+                    <h3>Ingrese los siguientes datos para procesar su compra.</h3>
+
+                    <div class="row">
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Numero de Tarjeta</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="text" name="cardNumber" id="form-checkout__cardNumber" placeholder="Número de Tarjeta" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Tipo de Tarjeta</label>
+
+                            <div class="col-sm-8">
+
+                            <select class="form-control" name="issuer" id="form-checkout__issuer"></select>
+
+                            </div>
+
+                            </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Fache Vencimiento / CVV</label>
+
+                            <div class="col-sm-2">
+
+                            <input class="form-control" type="text"  name="cardExpirationMonth" id="form-checkout__cardExpirationMonth"  placeholder="MM"/>    
+
+                            </div>
+
+                            <div class="col-sm-2">
+
+                                <input class="form-control" type="text"  name="cardExpirationYear" id="form-checkout__cardExpirationYear" placeholder="AA" />  
+
+                            </div>
+
+
+                            <div class="col-sm-2">
+
+                            <input class="form-control" type="text" " name="securityCode" id="form-checkout__securityCode" placeholder="CVV" />
+
+                            </div>
+
+                            <div class="col-sm-2">
+
+                            <select class="form-control" name="installments" id="form-checkout__installments"></select>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                       
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Nombre del Titular</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="text" name="cardholderName" id="form-checkout__cardholderName" placeholder="Nombre del Titular"/>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Email del Titular</label>
+
+                            <div class="col-sm-8">
+
+                            <input class="form-control" type="email" name="cardholderEmail" id="form-checkout__cardholderEmail" placeholder="Email del Titular"/>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto"> Documento</label>
+
+                            <div class="col-sm-2">
+
+                            <select class="form-control" name="identificationType" id="form-checkout__identificationType" placeholder="Tipo de Documento"></select>
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <input class="form-control" type="text" name="identificationNumber" id="form-checkout__identificationNumber" placeholder="Número de Documento"/>
+
+                            </div>
+
+
+                        </div>
+
+                      
+
+                        
+
+
+                        <div class="form-group clearfix">
+
+                         
+
+                        </div>
+
+                      
+                        <progress value="0" class="progress-bar">Cargando...</progress>
+
+
+                    </div>
+
+
+                    <div class="row resPse" ></div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="form-checkout__submit" class="btn  btn-primary " >Continuar</button>
+            </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 
 
@@ -293,9 +459,9 @@ div.overlay > div {
 
                                  
                                    <option value="">Selecciona Entidad Financiera *</option>
-                                   @if(isset($payment_methods['response'] ))
+                                   @if(isset($payment_methods['body'] ))
                                     
-                                    @foreach($payment_methods['response'] as $pm)
+                                    @foreach($payment_methods['body'] as $pm)
 
                                         @if($pm['id']=='pse')
 
@@ -456,7 +622,123 @@ div.overlay > div {
 
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
 
+    <script>
+       const mp = new MercadoPago('{{$almacen->public_key_mercadopago}}');
+       // Add step #3
+
+       // Step #3
+        const cardForm = mp.cardForm({
+        amount: "{{$total}}",
+        autoMount: true,
+        form: {
+            id: "form-checkout",
+            cardholderName: {
+            id: "form-checkout__cardholderName",
+            placeholder: "Titular de la tarjeta",
+            },
+            cardholderEmail: {
+            id: "form-checkout__cardholderEmail",
+            placeholder: "E-mail",
+            },
+            cardNumber: {
+            id: "form-checkout__cardNumber",
+            placeholder: "Número de la tarjeta",
+            },
+            cardExpirationMonth: {
+            id: "form-checkout__cardExpirationMonth",
+            placeholder: "Mes de vencimiento",
+            },
+            cardExpirationYear: {
+            id: "form-checkout__cardExpirationYear",
+            placeholder: "Año de vencimiento",
+            },
+            securityCode: {
+            id: "form-checkout__securityCode",
+            placeholder: "Código de seguridad",
+            },
+            installments: {
+            id: "form-checkout__installments",
+            placeholder: "Cuotas",
+            },
+            identificationType: {
+            id: "form-checkout__identificationType",
+            placeholder: "Tipo de documento",
+            },
+            identificationNumber: {
+            id: "form-checkout__identificationNumber",
+            placeholder: "Número de documento",
+            },
+            issuer: {
+            id: "form-checkout__issuer",
+            placeholder: "Banco emisor",
+            },
+        },
+        callbacks: {
+            onFormMounted: error => {
+            if (error) return console.warn("Form Mounted handling error: ", error);
+            console.log("Form mounted");
+            },
+            onSubmit: event => {
+
+            //event.preventDefault();
+
+            /*const {
+                paymentMethodId: payment_method_id,
+                issuerId: issuer_id,
+                cardholderEmail: email,
+                amount,
+                token,
+                installments,
+                identificationNumber,
+                identificationType,
+            } = cardForm.getCardFormData();
+
+                fetch("/order/creditcard", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                    token,
+                    issuer_id,
+                    payment_method_id,
+                    transaction_amount: Number(amount),
+                    installments: Number(installments),
+                    description: "Compra AlpinaGo",
+                    payer: {
+                        email,
+                        identification: {
+                        type: identificationType,
+                        number: identificationNumber,
+                        },
+                    },
+                    }),
+                }).then(function(response){return response.json}).then(data => console.log(data));*/
+            },
+            onFetching: (resource) => {
+            console.log("Fetching resource: ", resource);
+
+            // Animate progress bar
+            const progressBar = document.querySelector(".progress-bar");
+
+            progressBar.removeAttribute("value");
+
+            return () => {
+
+                progressBar.setAttribute("value", "0");
+
+            };
+
+            },
+        },
+        });
+
+
+   </script>
+
+    
     <script>
 
         window.dataLayer = window.dataLayer || [];
@@ -1428,12 +1710,11 @@ $('.sendCupon').click(function () {
 
                         $('#banpago').val('0');
 
-                         
-
                            if(datos.responseText=='true'){
 
-                                $('button.mercadopago-button').trigger('click');
+                               // $('button.mercadopago-button').trigger('click');    //modalcredito
 
+                                $('#modalCreditCard').modal('show');
 
                            }else{
 
@@ -1493,6 +1774,106 @@ $('.sendCupon').click(function () {
     </script>
 
      <script type="text/javascript">
+
+
+
+
+
+
+     $("#form-checkout").bootstrapValidator({
+    fields: {
+        cardNumber: {
+            validators: {
+                notEmpty: {
+                    message: 'Numero de Tarjeta es Requerido'
+                },
+                creditCard: {
+                    message: 'El número de tarjeta es invalido'
+                }
+            },
+            required: true
+        },
+
+        
+        cardExpirationMonth: {
+            validators: {
+                notEmpty: {
+                    message: 'Mes en Formato MM es Requerido'
+                },
+                digits:{
+                    message: 'Solo debe contener números'
+                }
+            },
+            required: true
+        },
+        cardExpirationYear: {
+            validators: {
+                notEmpty: {
+                    message: 'Año en formato YY es Requerido'
+                }, 
+                digits:{
+                    message: 'Solo debe contener números'
+                }
+            },
+            required: true
+        },
+        securityCode: {
+            validators: {
+                notEmpty: {
+                    message: 'CVV es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+
+        cardholderName: {
+            validators: {
+                notEmpty: {
+                    message: 'Nombre es Requerido'
+                },
+                regexp: {
+                    regexp: /^[a-zs ]+$/i,
+                    message: 'Solo debe contener letras y espacio'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        identificationType: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar un tipo de documento'
+                }
+            }
+        },
+        identificationNumber: {
+            validators: {
+                notEmpty: {
+                    message: 'Numero de Documento  es requerido'
+                    
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        
+        cardholderEmail: {
+            validators: {
+                notEmpty: {
+                    message: 'Email no puede esta vacio'
+                },
+                emailAddress: {
+                        message: 'No es un email valido'
+                }
+            },
+        }
+
+       
+    }
+});
+
+
 
 $("#addCuponForm").bootstrapValidator({
     fields: {

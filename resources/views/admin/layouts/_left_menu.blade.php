@@ -9,7 +9,7 @@
     </li>
     <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
         <a target="_blank" href="{{  secure_url('/') }}">
-            <i class="livicon" data-name="web" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+            <i class="livicon" data-name="angle-wide-right-alt" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             Ver Pagina
         </a>
@@ -26,9 +26,22 @@
     </li>
     @endif
 
+
+    @if (Sentinel::getUser()->hasAnyAccess(['lifemiles.*']))
+        <li {!! (Request::is('admin/lifemiles*') ? 'class="active"' : '') !!}>
+            <a href="{!! secure_url('admin/lifemiles') !!}">
+            <i class="livicon" data-name="rocket" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
+               data-loop="true"></i>
+             Lifemiles
+            </a>
+    </li>
+    @endif
+
+
+
     <li {!! (Request::is('admin/ticket*') ? 'class="active"' : '') !!}>
             <a href="{!! secure_url('admin/ticket') !!}">
-            <i class="livicon" data-name="ticket" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
+            <i class="livicon" data-name="help" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
              Mesa de Soporte
              <span class="fa arrow"></span>

@@ -1,4 +1,3 @@
-
 @extends('layouts/default')
 
 {{-- Page title --}}
@@ -52,6 +51,7 @@ Carrito de Compras
                 <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
 
                 <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+                
 
                 <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y se programará la entrega una vez se realice el pago.</h5>
 
@@ -81,7 +81,16 @@ Carrito de Compras
 
             <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
 
-                <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+            @if (isset($payment->payment_method_id)) 
+
+            <h5>Su forma de Pago fue: <b>{{strtoupper($payment->payment_method_id)}}</b> </h5>
+
+            @else
+
+            <h5>Su forma de Pago fue: <b>{{ strtoupper($compra->nombre_forma_pago) }}</b> </h5>
+
+            @endif
+
 
                 <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }} y se programará la entrega una vez el pago sea efectivo</b></h5>
 
@@ -308,8 +317,6 @@ Carrito de Compras
     'forma_pago': '{{ $compra->nombre_forma_pago }}',
     'productos':{!!json_encode($dl_productos)!!}
     });
-
-
 
 </script>
 

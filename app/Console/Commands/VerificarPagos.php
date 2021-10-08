@@ -21,6 +21,10 @@ use App\Models\AlpOrdenesHistory;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpClientes;
 
+use App\Models\AlpLifeMiles;
+use App\Models\AlpLifeMilesCodigos;
+use App\Models\AlpLifeMilesOrden;
+
 use App\Models\AlpOrdenesDescuentoIcg;
 use App\Models\AlpConsultaIcg;
 use App\Exports\CronNuevosUsuarios;
@@ -28,7 +32,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Mail;
-use MP;
+
+use MercadoPago;
 use DB;
 use Exception;
 
@@ -75,12 +80,11 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
 
-      #  $ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('id', '21189')->get();
-        //
+       # $ordenes=AlpOrdenes::where('id', '20856')->get();
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
@@ -105,28 +109,33 @@ class VerificarPagos extends Command
 
                 if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
     
-                  $mp = new MP();
+                  MercadoPago::setClientId($almacen->id_mercadopago);
+                  MercadoPago::setClientSecret($almacen->key_mercadopago);
+                  
               
               if ($almacen->mercadopago_sand=='1') {
     
-                  $mp::sandbox_mode(TRUE);
+
+                  MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
+
+                  
                 
                 }
             
                 if ($almacen->mercadopago_sand=='2') {
     
-                  $mp::sandbox_mode(FALSE);
+                  MercadoPago::setPublicKey($almacen->public_key_mercadopago);
                   
                 }
     
-                MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+                
 
                 #Log::info('id ordenva verficar  '.json_encode($ord->id));
                 #Log::info('id ordenva verficar  '.json_encode($ord->referencia_mp));
     
                   try {
     
-                    $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
+                    $preference = Mercadopago::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
     
                   } catch (MercadoPagoException $e) {
     
@@ -144,6 +153,10 @@ class VerificarPagos extends Command
     
               $preference = array('3');
             }
+
+            
+
+           // dd(json_encode($preference));
     
             #Log::info('Respuesta mercadopago  '.json_encode($preference));
 
@@ -169,18 +182,11 @@ class VerificarPagos extends Command
 
           }
 
-
         }//endforeach ordenes
 
       }//endifhay ordenes 
 
     }//endhadle
-
-
-
-
-
-
 
 
 
@@ -198,7 +204,6 @@ class VerificarPagos extends Command
            $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
             $pago=AlpPagos::where('id_orden', $id_orden)->first();
-
 
             Log::info('pago epayco   '.json_encode($pago));
 
@@ -489,7 +494,7 @@ class VerificarPagos extends Command
                             'tipoServicio' => 1, 
                             'retorno' => "false", 
                             'totalFactura' => $orden->monto_total, 
-                            'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                            'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''), 
                             'iva' => $orden->monto_impuesto, 
                             'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                             'horaMinPedido' => "00:00", 
@@ -659,37 +664,17 @@ class VerificarPagos extends Command
                                 }
 
 
-
-
-
-
-
-
                           }
 
                       }
-
-
-
 
                   }
                   
                 }
             
             }
-              
-
-
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -905,7 +890,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),  
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1005,21 +990,21 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-      if (isset($preference['response']['results'])) {
-       #  if (isset($preference)) {
+      if (isset($preference['body']['results'])) {
+       # if (isset($preference)) {
 
-           $cantidad=count($preference['response']['results']);
+           $cantidad=count($preference['body']['results']);
 
            $aproved=0;
 
            $cancel=0;
            $pending=0;
 
-           foreach ($preference['response']['results'] as $r) {
+           foreach ($preference['body']['results'] as $r) {
 
              $idpago=$r['id'];
 
-            // dd($idpago);
+            #d($idpago);
 
                    
                  if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
@@ -1137,12 +1122,31 @@ class VerificarPagos extends Command
                     $orden->update($data_update);
 
 
+
+                    $data_json = array(
+                      'id' => $r['id'], 
+                      'operation_type' =>$r['operation_type'], 
+                      'payment_method_id' =>$r['payment_method_id'], 
+                      'payment_type_id' =>$r['payment_type_id'], 
+                      'external_reference' => $r['external_reference'], 
+                      'status' => $r['status'], 
+                      'status_detail' =>$r['status_detail'], 
+                      'transaction_amount' =>$r['transaction_amount'], 
+                      'external_resource_url' =>$r['transaction_details']['external_resource_url'] 
+                    );
+
+
+
+
                      $data_pago = array(
                        'id_orden' => $orden->id, 
                        'id_forma_pago' => $orden->id_forma_pago, 
                        'id_estatus_pago' => '2', 
-                       'monto_pago' => $orden->monto_total, 
-                       'json' => json_encode($preference), 
+                       'monto_pago' => $orden->monto_total,
+                       'referencia' => $r['id'], 
+                       'metodo' => $r['payment_method_id'], 
+                       'tipo' => $r['payment_type_id'], 
+                       'json' => json_encode($data_json), 
                        'id_user' => '1'
                      );
 
@@ -1245,7 +1249,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1259,7 +1263,7 @@ class VerificarPagos extends Command
               $dataraw=json_encode($o);
 
 
-
+              #dd($dataraw);
 
               if ($compra->id_forma_envio!=1) {
 
@@ -1330,6 +1334,50 @@ class VerificarPagos extends Command
 
                    }
                    # code...
+                 }
+
+
+                 if($orden->lifemiles_id=='0'){
+
+                 }else{
+
+                  $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
+                  $fecha_lm = Carbon::now()->format('m/d/Y');
+
+                    if(isset($codigo->id)){
+
+                        $data_lifemiles = array(
+                          'id_lifemile' => $codigo->id_lifemile, 
+                          'id_codigo' => $codigo->id, 
+                          'id_orden' => $orden->id,
+                          'id_user' => $orden->id_user
+                        );
+
+                        AlpLifeMilesOrden::create($data_lifemiles);
+
+                        $codigo->update(['estado_registro'=>'0']);
+
+                        //envio Lifemiles a IBM
+
+                        $this->addlifemiles($user_cliente, $codigo, $fecha_lm);
+
+
+                        //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
+
+                        //Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionLifemiles($codigo));
+
+
+                    }else{
+
+                      $mensaje='Gracias por su compra en Alpina Go!, Por su compra usted recibira un Codigo LifeMiles, En estos momentos no tenemos disponible por favor contacte con Nuestra Area de Atencion al Cliente mendiante el Formulario pqr en Nuestra Web.';
+                      
+                      Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionMensaje($mensaje));
+
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionMensaje($mensaje));
+
+
+                    }
+
                  }
 
               
@@ -1414,14 +1462,7 @@ class VerificarPagos extends Command
 
                      }
 
-
-
                      $this->cancelarMercadopago($orden->id);
-
-
-
-
-
               }
 
            }
@@ -1563,7 +1604,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->base_impuesto, 
+                'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1892,7 +1933,7 @@ private function registrarOrdenNuevo($id_orden)
             'tipoServicio' => 1, 
             'retorno' => "false", 
             'totalFactura' => $orden->monto_total, 
-            'subTotal' => $orden->base_impuesto, 
+            'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
             'iva' => $orden->monto_impuesto, 
             'descuento' => $descuento_total, 
             'peso' => $peso, 
@@ -2600,7 +2641,74 @@ private function registrarOrdenNuevo($id_orden)
     }
 
 
+    private function addlifemiles($user, $cupon, $fecha_lm)
+    {
+        
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
 
+        $pod = 0;
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = $configuracion->endpoint_ibm;
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient></Body></Envelope>';
+            //dd($xml);
+
+
+           activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result)->log('ibm_lifemiles respuesta');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+             // activity()->withProperties($result)->log('codigo-descuento-xml_ibm_result2');
+
+            // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
 
 
      private function ibmConfirmarCompra($user, $orden)
@@ -3156,23 +3264,24 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
       $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-       if ($configuracion->mercadopago_sand=='1') {
-          
-          MP::sandbox_mode(TRUE);
+      MercadoPago::setClientId($almacen->id_mercadopago);
+      MercadoPago::setClientSecret($almacen->key_mercadopago);
+                  
+      if ($almacen->mercadopago_sand=='1') {
 
+          MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
+        
+        }
+    
+        if ($almacen->mercadopago_sand=='2') {
+
+          MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+          
         }
 
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          MP::sandbox_mode(FALSE);
+         $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
-        }
-
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
-         $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
-
-          foreach ($preference['response']['results'] as $r) {
+          foreach ($preference['body']['results'] as $r) {
 
               if ($r['status']=='in_process' || $r['status']=='pending') {
                   
@@ -3180,7 +3289,7 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
                 $preference_data_cancelar = '{"status": "cancelled"}';
 
-                $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+                $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
 
                 $data_cancelar = array(
                   'id_orden' => $orden->id, 

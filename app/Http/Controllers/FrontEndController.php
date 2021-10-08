@@ -813,7 +813,7 @@ class FrontEndController extends JoshController
 
             Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input, $archivo));
             
-            Mail::to('servicioalcliente.asesor3@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
+            Mail::to('servicioalcliente.asesor16@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
             Mail::to('servicioalcliente.coordinador@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
             Mail::to('rumi.torres@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
 
@@ -1819,13 +1819,25 @@ class FrontEndController extends JoshController
 
         $user = Sentinel::getUser();
 
-        $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
+        if(isset($user->id)){
+
+           $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
 
         $countries = $this->countries;
 
         $cart= \Session::get('cart');
 
         return view('user_account', compact('user', 'countries', 'cart', 'cliente'));
+
+
+        }else{
+
+          return redirect('login');
+
+
+        }
+
+       
 
     }
 

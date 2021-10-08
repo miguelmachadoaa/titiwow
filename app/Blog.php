@@ -2,9 +2,6 @@
 
 namespace App;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
-use Cviebrock\EloquentTaggable\Taggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,9 +9,6 @@ class Blog extends Model {
 
     use SoftDeletes;
 
-    use Sluggable;
-    use SluggableScopeHelpers;
-    use Taggable;
 
     protected $dates = ['deleted_at'];
 
@@ -23,14 +17,7 @@ class Blog extends Model {
      *
      * @return array
      */
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
+
 
     protected $table = 'blogs';
 

@@ -1297,7 +1297,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/restore', 'Admin\AlpAbonosController@getRestore')->name('abonos.restore');
 
-        });
+    });
 
     
     Route::post('abonos/create', 'Admin\AlpAbonosController@store');
@@ -1307,6 +1307,38 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::get('clientes/{id}/abono', 'Admin\AlpClientesController@abono')->name('clientes.abono');
 
     Route::post('clientes/{id}/abono', 'Admin\AlpClientesController@postabono')->name('clientes.postabono');
+
+
+
+    /* Lifemiles  */
+
+
+    Route::group(['prefix' => 'lifemiles'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpLifemilesController@destroy')->name('lifemiles.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpLifemilesController@getModalDelete')->name('lifemiles.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpLifemilesController@getRestore')->name('lifemiles.restore');
+
+        });
+
+    
+    Route::post('lifemiles/create', 'Admin\AlpLifemilesController@store');
+
+    Route::resource('lifemiles', 'Admin\AlpLifemilesController');
+
+    Route::get('lifemiles/{id}/activar', 'Admin\AlpLifemilesController@activar');
+
+    Route::get('lifemiles/{id}/desactivar', 'Admin\AlpLifemilesController@desactivar');
+
+    Route::get('lifemiles/{id}/upload', 'Admin\AlpLifemilesController@upload');
+
+    Route::post('lifemiles/{id}/postupload', 'Admin\AlpLifemilesController@postupload');
+
+
+
+
 
 
     /*Inicio CMS*/
@@ -1839,6 +1871,24 @@ Route::get('compra', function(){
 });
 
 
+Route::get('notificacionticket', function(){
+    return new \App\Mail\NotificacionTicket(App\Models\AlpTicket::first());
+});
+
+Route::get('notificacionorden', function(){
+
+    $orden=App\Models\AlpOrdenes::where('id', 20817)->first();
+
+    $detalles = App\Models\AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.tipo_producto as tipo_producto')
+        ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+        ->where('alp_ordenes_detalle.id_orden', 20817)
+        ->whereNull('alp_ordenes_detalle.deleted_at')
+        ->get();
+
+       # Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021'));
+
+    return new \App\Mail\CompraRealizada($orden, $detalles, '1-10-2021');
+});
 
 
 Route::get('clear-cache', function() {
@@ -1877,8 +1927,6 @@ Route::get('ibm-teextranamos', function() {
   
 });
 
-
-
 Route::get('ibm-pagos', function() {
     $exitCode = Artisan::call('verificar:pagos');
   
@@ -1888,10 +1936,6 @@ Route::get('ibm-pagoshora', function() {
     $exitCode = Artisan::call('verificar:pagoshora');
   
 });
-
-
-
-
 
 Route::get('pedidos-enviados', function() {
     $exitCode = Artisan::call('pedidos:enviados');
@@ -1905,5 +1949,11 @@ Route::get('borrar-productos', function() {
 
 Route::get('cron-pruebas', function() {
     $exitCode = Artisan::call('cron:pruebas');
+  
+});
+
+
+Route::get('cron-cancelar', function() {
+    $exitCode = Artisan::call('cancelar:ordenes');
   
 });

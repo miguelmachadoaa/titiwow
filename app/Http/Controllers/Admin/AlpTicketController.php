@@ -351,8 +351,6 @@ class AlpTicketController extends JoshController
         $file->move($destinationPath,$archivo);
         
       }
-
-
       
 
         $data = array(

@@ -10,7 +10,6 @@ use View;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
-use Charts;
 use App\Datatable;
 use App\User;
 use App\Models\AlpOrdenes;
@@ -570,7 +569,7 @@ class JoshController extends Controller {
         $productos = AlpProductos::count();
 
 
-        $chart_data = User::select(DB::raw( "COUNT(*) as count_row"))
+        /*$chart_data = User::select(DB::raw( "COUNT(*) as count_row"))
             ->orderBy("created_at")
             ->groupBy(DB::raw("month(created_at)"))
             ->get();
@@ -580,24 +579,24 @@ class JoshController extends Controller {
             ->dimensions(0, 250)
             ->responsive(true)
             ->groupByMonth( 2017, true);
-
+*/
 
         $countries = DB::table('users')->where('users.deleted_at', null)
             ->leftJoin('config_countries', 'config_countries.sortname', '=', 'users.country')
             ->select('config_countries.country_name')
             ->get();
-        $geo = Charts::database($countries, 'geo', 'google')
+      /*  $geo = Charts::database($countries, 'geo', 'google')
             ->dimensions(0,250)
             ->responsive(true)
 
             ->groupBy('country_name');
-
+*/
         $roles = DB::table('role_users')
             ->join('users','users.id','=','role_users.user_id')->wherenull('deleted_at')
             ->leftJoin('roles', 'role_users.role_id', '=', 'roles.id')
             ->select('roles.name')
             ->get();
-        $user_roles = Charts::database($roles, 'pie', 'google')
+     /*   $user_roles = Charts::database($roles, 'pie', 'google')
             ->dimensions(0, 200)
             ->responsive(true)
             ->groupBy('name');
@@ -605,14 +604,14 @@ class JoshController extends Controller {
             ->elementLabel("Users")
             ->dimensions(0, 150)
             ->responsive(true)
-            ->groupByMonth( 2017, true);
+            ->groupByMonth( 2017, true);*/
 
         if(Sentinel::check())
            // return view('admin.index1');
 
            
 
-            return view('admin.index1',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy, 'usuarios'=>$usuarios, 'clientes'=>$clientes, 'productos'=>$productos, 'data_info'=>$data_info] );
+            return view('admin.index1',[ 'analytics_error'=>$analytics_error,'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy, 'usuarios'=>$usuarios, 'clientes'=>$clientes, 'productos'=>$productos, 'data_info'=>$data_info] );
         
         else
             return redirect('admin/signin')->with('error', 'Debes Iniciar Sesión');

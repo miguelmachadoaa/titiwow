@@ -1,5 +1,5 @@
 
-<tr style="background:#d9c1ea;">
+<tr style="background:#d9c1ea;" class="footer">
     <td>
         <table width="90%" class="" align="center" width=""  cellpadding="0" cellspacing="0">
             <tr>

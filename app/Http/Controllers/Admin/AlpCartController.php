@@ -72,8 +72,8 @@ use Carbon\Carbon;
 use DOMDocument;
 use DB;
 use View;
-use MP;
 use Mail;
+use MercadoPago;
 
 use App\Models\AlpCuponesCategorias;
 use App\Models\AlpCuponesEmpresa;
@@ -84,6 +84,8 @@ use App\Models\AlpCuponesUser;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpCombosProductos;
 use App\Models\AlpCuponesAlmacen;
+use App\Models\AlpLifeMiles;
+use App\Models\AlpLifeMilesCodigos;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Storage;
@@ -164,8 +166,10 @@ class AlpCartController extends JoshController
      */
 
     public function show()
-
     {
+
+
+      $ip=\Request::ip();
 
 
       \Session::forget('aviso');
@@ -258,22 +262,15 @@ class AlpCartController extends JoshController
         ->orderBy('updated_at', 'desc')
         ->limit(6)->get();
 
-        
-
         $prods=$this->addOferta($productos);
 
-        
         $inventario=$this->inventario();
-
         
         $url=secure_url('cart/show');
-
         
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
         $dl_productos = array();
-
-      //  dd($cart);
 
         foreach($cart as $c){
 
@@ -308,8 +305,32 @@ class AlpCartController extends JoshController
 
         }
 
+        $date = Carbon::now();
 
-      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos'));
+        $d=$date->format('Y-m-d');
+      
+      $lifemiles=null;
+
+      if(isset($almacen->id)){
+
+
+        $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+       
+        if(isset($lifemiles->id)){
+
+        }else{
+
+          $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+        
+        }
+      
+      }
+
+
+
+
+      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles'));
 
     }
     
@@ -414,6 +435,7 @@ class AlpCartController extends JoshController
               }else{
 
                 $payment=json_decode($pago->json);
+
               }
 
             }else{
@@ -421,6 +443,8 @@ class AlpCartController extends JoshController
               $payment=null;
 
             }
+
+          
 
           $envio=AlpEnvios::where('id_orden', $id)->first();
 
@@ -480,35 +504,37 @@ class AlpCartController extends JoshController
             
           }else{
 
-          if (isset($payment->response->payment_method_id)) {
+          //  echo json_encode($payment);
 
-            if ($payment->response->payment_method_id=='pse') {
+          if (isset($payment->payment_method_id)) {
+
+            if ($payment->payment_method_id=='pse') {
 
                $estatus_aviso='warning';
 
               $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
 
-              $metodo=$payment->response->payment_method_id;
+              $metodo=$payment->payment_method_id;
 
             }
 
-            if ($payment->response->payment_type_id=='ticket'  ) {
+            if ($payment->payment_type_id=='ticket'  ) {
               
-              $metodo=$payment->response->payment_method_id;
+              $metodo=$payment->payment_method_id;
 
                $estatus_aviso='warning';
 
-              $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4> ".$payment->response->id." </h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->response->transaction_details->external_resource_url."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
+              $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4> ".$payment->id." </h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->external_resource_url."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
 
             }
 
-            if ($payment->response->payment_type_id=='credit_card' ) {
+            if ($payment->payment_type_id=='credit_card' ) {
 
                $estatus_aviso='warnsing';
 
               $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
-              $metodo=$payment->response->payment_type_id;
+              $metodo=$payment->payment_type_id;
 
             }
 
@@ -681,6 +707,7 @@ class AlpCartController extends JoshController
     public function getPse(Request $request)
     {
 
+
       $carrito= \Session::get('cr');
       
       $id_orden= \Session::get('orden');
@@ -761,23 +788,9 @@ class AlpCartController extends JoshController
 
       $orden->update($data_update);
 
-          $mp = new MP();
-
-        if ($almacen->mercadopago_sand=='1') {
-
-          $mp::sandbox_mode(TRUE);
-
-        }
+        
 
         
-        if ($almacen->mercadopago_sand=='2') {
-
-          $mp::sandbox_mode(FALSE);
-
-        }
-
-        
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
         
         $net_amount=$total-$impuesto;
 
@@ -797,95 +810,74 @@ class AlpCartController extends JoshController
               
             }
 
+        
+            
+
+
 
       foreach ($detalles as $d ) {
 
         $det_array[]= array(
-
-          
                 "id"          => $d->id_producto,
-
                 "title"       => $d->nombre_producto,
-
                 "description" => $d->descripcion_corta,
-
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-
                 "unit_price"  => intval($d->precio_unitario),
-
                 );
-
-        
-       
-
       }
 
-      
-        $preference_data = '{
+      $ip=\Request::ip();
 
-           "payer": {
+       MercadoPago::setClientId($almacen->id_mercadopago);
+        MercadoPago::setClientSecret($almacen->key_mercadopago);
+        MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
-               "email": "'.$request->email.'",
 
-               "entity_type": "individual",
 
-               "identification": {
+        $payment = new MercadoPago\Payment();
+        $payment->transaction_amount = (float)$total;
+        $payment->net_amount =(float)number_format($net_amount, 2, '.', '');
+        $payment->taxes = [[
+          "value"=>(float)number_format($impuesto, 2, '.', ''),
+          "type"=>"IVA"]
+        ];
 
-                   "type": "'.$request->id_type_doc.'",
+      //  $payment->token = $request['token'];
+        $payment->description = 'Pago de Orden '. $orden->id;
+        $payment->payment_method_id = 'pse';
+        $payment->callback_url=secure_url('/order/pse');
+        $payment->external_reference = $orden->referencia_mp;
+        $payment->additional_info = array(
+          "ip_address"=>$ip,
+          "items"=>$det_array,
+        );
+        $payment->transaction_details=array(
+          'financial_institution'=>$request->id_fi
+        );
 
-                   "number": "'.$request->doc_cliente.'"
 
-               }
+        $payer = new MercadoPago\Payer();
+        $payer->email = $request->email;
+        $payer->entity_type = 'individual';
+        $payer->identification = array(
+            "type" => $request->id_type_doc,
+            "number" => $request->doc_cliente
+        );
+        $payment->payer = $payer;
 
-           },
+        $payment->save();
 
-           "description": "Pago de orden Nro. '.$orden->id.'",
+        $response = array(
+            'status' => $payment->status,
+            'status_detail' => $payment->status_detail,
+            'id' => $payment->id
+        );
 
-           "external_reference": "'.$orden->referencia_mp.'",
-
-           "callback_url": "'.secure_url('/order/pse').'",
-
-           "additional_info": {
-
-               "ip_address": "'.request()->ip().'",
-
-               "items":'.json_encode($det_array).'
-
-           },
-
-           "payment_method_id": "pse",
-
-           "transaction_amount": '.(float)number_format($total, 2, '.', '').',
-
-           "transaction_details": {
-
-               "financial_institution": '.$request->id_fi.'
-
-           },
-
-           "net_amount": '.(float)number_format($net_amount, 2, '.', '').',
-
-           "taxes":[{
-
-                               "value": '.(float)number_format($impuesto, 2, '.', '').',
-
-                               "type": "IVA"
-
-                       }]
-
-       }' ;
-
-       
        $pse=[];
 
-       
-       
-
         try {
-
           
-          $pse = MP::post("/v1/payments",$preference_data);
-
+       
           
 
         } catch (\Exception $e) {
@@ -895,48 +887,31 @@ class AlpCartController extends JoshController
 
         }
 
-        
-          
-
-          
-          //$user_id = Sentinel::getUser()->id;
-
          
-
-         
-          if (isset($pse['response']['id'])) {
-
+          if (isset($payment->id)) {
             
              $data_pago = array(
-
               'id_orden' => $orden->id, 
-
               'id_forma_pago' => $orden->id_forma_pago, 
-
               'id_estatus_pago' => '4', 
-
               'monto_pago' => '0', 
-
-              'json' => json_encode($pse), 
-
+              'referencia' => $payment->id, 
+              'metodo' => $payment->payment_method_id, 
+              'tipo' => $payment->payment_type_id, 
+              'json' => json_encode($payment), 
               'id_user' => $user_id
-
             );
 
             AlpPagos::create($data_pago);
 
-            \Session::put('pse', $pse['response']['id']);
+            \Session::put('pse', $payment->id);
 
-
+           // dd($payment->transaction_details->external_resource_url);
             
-            return $pse['response']['transaction_details']['external_resource_url'];
-
+            return $payment->transaction_details->external_resource_url;
             
           }else{
-
-            
             return 'false';
-
             
           }
 
@@ -999,34 +974,25 @@ class AlpCartController extends JoshController
 
           $id_orden= \Session::get('orden');
       
-        $orden=AlpOrdenes::where('id', $id_orden)->first();
+          $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        if(isset($orden->id)){
+          if(isset($orden->id)){
 
-          $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+            $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-        $configuracion = AlpConfiguracion::where('id', '1')->first();
+            $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-            $mp = new MP();
+            MercadoPago::setClientId($almacen->id_mercadopago);
+            MercadoPago::setClientSecret($almacen->key_mercadopago);
+            MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
-            if ($almacen->mercadopago_sand=='1') {
+            $pago=Mercadopago::get('/v1/payments/'.$id_pago);
 
-              $mp::sandbox_mode(TRUE);
+          #  dd($pago);
 
-            }
+          }else{
 
-            
-            if ($almacen->mercadopago_sand=='2') {
-
-              $mp::sandbox_mode(FALSE);
-
-            }
-
-            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
-            
-            $input = MP::get("/v1/payments/".$id_pago);
-
+            $pago=null;
           }
 
 
@@ -1034,7 +1000,7 @@ class AlpCartController extends JoshController
 
         }else{
 
-          $input=null;
+          $pago=null;
         }
 
         
@@ -1052,7 +1018,7 @@ class AlpCartController extends JoshController
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
-          $data=$this->generarPedido('8', '4', $input, 'pse');
+          $data=$this->generarPedido('8', '4', $pago, 'pse');
 
 
           if (isset($data['id_orden'])) {
@@ -1228,7 +1194,8 @@ class AlpCartController extends JoshController
             
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-        $mp = new MP();
+        
+      
 
         if ($configuracion->mercadopago_sand=='1') {
 
@@ -1243,7 +1210,8 @@ class AlpCartController extends JoshController
         }
 
         
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+       
+        
 
         $pago=AlpPagos::where('json', 'like', '%'.$input['data_id'].'%')->first();
 
@@ -1253,7 +1221,8 @@ class AlpCartController extends JoshController
         
           try {
 
-            $pse = MP::get("/v1/payments/".$input['data_id']);
+           
+            
 
 
           } catch (MercadoPagoException $e) {
@@ -1463,7 +1432,8 @@ class AlpCartController extends JoshController
           }
 
           
-         // $pse = MP::get("/v1/payments/".$input['data_id']);
+
+
 
           
           $data_pago = array(
@@ -1570,11 +1540,9 @@ class AlpCartController extends JoshController
      */
 
   public function orderCreditcard(Request $request)
-
     {
 
       
-
       $user = Sentinel::getUser();
 
       
@@ -1600,146 +1568,82 @@ class AlpCartController extends JoshController
       }
 
       
-      
-
-      
 
       $avisos = array(
-
-        'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el numero de tarjeta.', 
-
+        'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el número de tarjeta.', 
         'cc_rejected_bad_filled_date' => 'No pudimos procesar su pago, Revisa la fecha de vencimiento.', 
-
         'cc_rejected_bad_filled_other' => 'No pudimos procesar su pago, Revisa los datos.', 
-
-        'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el codigo de seguridad.', 
-
+        'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el código  de seguridad.', 
         'cc_rejected_blacklist' => 'No pudimos procesar su pago.', 
-
         'cc_rejected_call_for_authorize' => 'No pudimos procesar su pago, Debes autorizar ante el banco el pago a mercadopago.', 
-
         'cc_rejected_card_disabled' => 'No pudimos procesar su pago, Debes activar tu tarjeta.', 
-
         'cc_rejected_card_error' => 'No pudimos procesar su pago.', 
-
         'cc_rejected_duplicated_payment' => 'No pudimos procesar su pago, ya realizaste un pago por este monto', 
-
         'cc_rejected_high_risk' => 'No pudimos procesar su pago, su pago fue rechazado', 
-
         'cc_rejected_insufficient_amount' => 'No pudimos procesar su pago, no tiene fondos suficientes', 
-
         'cc_rejected_invalid_installments' => 'No pudimos procesar su pago, no puede procesar pagos por cuotas', 
-
-        'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al limite de intentos permitidos', 
-
-        'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazo el pago'
-
+        'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al límite  de intentos permitidos', 
+        'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazó el pago'
       );
 
-      
-
       $cart= \Session::get('cart');
-
       
       $carrito= \Session::get('cr');
 
-      
-
       $id_orden= \Session::get('orden');
 
-      
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
       $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-      
       $input=$request->all();
-
-      
-     //dd($input);
-
       
       if (Sentinel::check()) {
 
-        
         $user_id = Sentinel::getUser()->id;
 
-        
-       
-
-       
-
       }else{
-
         
         $user_id= \Session::get('iduser');
-
-        
-       
-
        
       }
 
       
       if ($user_id) {
 
-        # code...
-
-        
 
         $user_id = Sentinel::getUser()->id;
-
         
         $user_cliente=User::where('id', $user_id)->first();
-
         
         $datos_cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
-        
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-        
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+
+        MercadoPago::setClientId($almacen->id_mercadopago);
+        MercadoPago::setClientSecret($almacen->key_mercadopago);
+        MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
         
 
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
-
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-          
           $envio=$this->envio();
-
-          
 
             $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
-            
             if ($envio>0) {
 
-             
-
                $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
-
-               
-            $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
-
-            
+              $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
             }else{
-
-              
               $envio_base=0;
-
-              
               $envio_impuesto=0;
-
-              
             }
-
-            
 
             $total=$orden->monto_total+$envio;
             
@@ -1751,197 +1655,154 @@ class AlpCartController extends JoshController
             
             foreach ($detalles as $d ) {
 
-              
               $det_array[]= array(
-
-                
                     "id"          => $d->id_producto,
-
                     "title"       => $d->nombre_producto,
-
                     "description" => $d->descripcion_corta,
-
                     "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-
                     "unit_price"  => intval($d->precio_unitario),
-
                     );
 
             }
 
             
             $phone= array(
-
               'area_code' =>'+57' , 
-
               'number' => $datos_cliente->telefono_cliente, 
-
             );
 
             
 
         $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
           ->where('alp_direcciones.id', $orden->id)->first();
 
-          
-
-      
-
-      
 
           if (isset($direccion->id)) {
 
-           
-
            $address = array( 
-
               'street_name' => $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address, 
-
               'street_number' => $direccion->principal_address
-
             );
 
            
           }else{
-
             
             $address = array( 
-
               'street_name' => '', 
-
               'street_number' => ''
-
             );
-
             
           }
-
           
         $fecha = Carbon::now()->format('c');
-
         
         $payer = array(
-
           'first_name' => $user_cliente->first_name, 
-
           'last_name' => $user_cliente->last_name, 
-
           'registration_date' => $fecha, 
-
           'phone' => $phone, 
-
           'address' => $address
-
         );
 
         
         $additional_info = array(
-
           'items' => $det_array, 
-
           'payer' => $payer, 
 
         );  
 
-        
-        $preference_data = [
+       # dd($request->all());
+       $ip=\Request::ip();
 
-        "transaction_amount" => doubleval($orden->monto_total+$envio),
-
-        "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
-
-            "taxes"=>[[
-
-              "value"=>(float)number_format($impuesto, 2, '.', ''),
-
-              "type"=>"IVA"]],
-
-          "token" => $request->token,
-
-          "binary_mode" => true,
-
-          "description" => 'Pago de orden: '.$orden->id,
-
-          "installments" => intval($request->installments),
-
-          "external_reference"=> "".$orden->referencia_mp."",
-
-          "payment_method_id" => $request->payment_method_id,
-
-          "additional_info" => $additional_info,
-
-          
-
-          "issuer_id" => $request->issuer_id,
-
-          "payer" => [
-
-            "email"=>$user_cliente->email]
-
+        $payment = new MercadoPago\Payment();
+        $payment->transaction_amount = (float)$orden->monto_total+$envio;
+        $payment->net_amount =(float)number_format($net_amount, 2, '.', '');
+        $payment->taxes = [[
+          "value"=>(float)number_format($impuesto, 2, '.', ''),
+          "type"=>"IVA"]
         ];
 
-        
-        //dd($preference_data);
+        $payment->token = $request['MPHiddenInputToken'];
+        $payment->description = 'Pago de Orden '. $orden->id;
+        $payment->installments = (int)$request['installments'];
+        $payment->payment_method_id = $request['MPHiddenInputPaymentMethod'];
+        //$payment->issuer_id = (int)$request['issuer'];
+        $payment->external_reference = $orden->referencia_mp;
+        $payment->binary_mode = true;
+        $payment->additional_info = array(
+          "ip_address"=>$ip,
+          "items"=>$det_array,
+          "payer"=>$payer,
+        );
 
-        
-        $preference = MP::post("/v1/payments",$preference_data);
+        $payer = new MercadoPago\Payer();
+        $payer->email = $request['cardholderEmail'];
+        $payer->identification = array(
+            "type" => $request['identificationType'],
+            "number" => $request['123123123']
+        );
+        $payment->payer = $payer;
 
-        
-         
+        $payment->save();
 
-         
-        if (isset($preference['response']['id'])) {
+        $response = array(
+            'status' => $payment->status,
+            'status_detail' => $payment->status_detail,
+            'id' => $payment->id
+        );
 
-          
+        #dd($payment);
 
-          if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired' )  {
+        if (isset($payment->id)) {
 
+          if ($payment->status=='rejected' || $payment->status=='cancelled' || $payment->status=='cancelled/expired' )  {
             
-              if (isset($avisos[$preference['response']['status_detail']])) {
-
+              if (isset($avisos[$payment->status_detail])) {
                 
-                $aviso=$avisos[$preference['response']['status_detail']];
-
-                
+                $aviso=$avisos[$payment->status_detail];
 
               }else{
 
-                
                 $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
-
                 
               }
 
+              $data_payment = array(
+                'id' => $payment->id, 
+                'operation_type' => $payment->operation_type, 
+                'payment_method_id' => $payment->payment_method_id, 
+                'payment_type_id' => $payment->payment_type_id, 
+                'external_reference' => $payment->external_reference, 
+                'status' => $payment->status, 
+                'status_detail' => $payment->status_detail, 
+                'transaction_amount' => $payment->transaction_amount, 
+                'external_resource_url' => $payment->transaction_details->external_resource_url, 
+              );
+
                 $data_pago = array(
-
                 'id_orden' => $orden->id, 
-
                 'id_forma_pago' => $orden->id_forma_pago, 
-
                 'id_estatus_pago' => '3', 
-
                 'monto_pago' => 0, 
-
-                'json' => json_encode($preference), 
-
+                'referencia' => $payment->id, 
+                'metodo' => $payment->payment_method_id, 
+                'tipo' => $payment->payment_type_id, 
+                'json' => json_encode($data_payment), 
                 'id_user' => '1', 
-
                 );
 
                 
              AlpPagos::create($data_pago);
 
-             
-            return redirect('order/detail')->with('aviso', $aviso);
+             $response = array('estado' => 'negado', 'mensaje'=>$aviso);
+
+             #return json_encode($response);
+
+            return redirect('order/detail')->withInput()->with('aviso', $aviso);
 
             
           }
@@ -1949,7 +1810,7 @@ class AlpCartController extends JoshController
           
            /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
 
-           $data=$this->generarPedido('8', '4', $preference, 'credit_card');
+           $data=$this->generarPedido('8', '4', $payment, 'credit_card');
 
            
             if (isset($data['id_orden'])) {
@@ -1961,53 +1822,45 @@ class AlpCartController extends JoshController
             
               if ($data==0) {
 
-            
+                $response = array('estado' => 'negado', 'mensaje'=>'Error al procesar su orden, por favor intente nuevamente.');
 
-                return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+                 # return json_encode($response);
 
+                return redirect('order/detail')->withInput()->with('aviso', trans('Error al procesar su orden, por favor intente nuevamente.'));
                 
               }
-
               
           }
 
-          
             $id_orden=$data['id_orden'];
-
             
             $fecha_entrega=$data['fecha_entrega'];
 
-            
-            //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
-
-            
             $compra =  DB::table('alp_ordenes')->select(
-
               'alp_ordenes.*',
-
-              'users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-
+              'users.first_name as first_name',
+              'users.last_name as last_name' ,
+              'users.email as email',
+              'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',
+              'alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios',
+              'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago',
+              'alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago',
+              'alp_clientes.cod_oracle_cliente as cod_oracle_cliente',
+              'alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-
             ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-
             ->where('alp_ordenes.id', $id_orden)->first();
-
             
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
 
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
 
           ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
-
           
             $cart= \Session::forget('cart');
 
-            
            $states=State::where('config_states.country_id', '47')->get();
            
            $configuracion = AlpConfiguracion::where('id','1')->first();
@@ -2025,40 +1878,36 @@ class AlpCartController extends JoshController
             'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
           );
 
-            
             if ($compra->id_forma_envio!=1) {
 
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
             }
-          
 
            $idc=$compra->id*1024;
 
-           
+          $response = array('estado' => 'aprobado', 'mensaje'=> secure_url('cart/'.$idc.'/gracias?pago=aprobado'));
+
+          #  return json_encode($response);
 
 
-
-
-
-
-
-           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
-
-           
-         #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-
+          return redirect('cart/'.$idc.'/gracias?pago=aprobado');
         
 
         }else{
 
+
           
-          return redirect('order/detail');
+         # $response = array('estado' => 'negado', 'mensaje'=> 'No Hubo respuesta de su banco');
+
+         # return json_encode($response);
+
+          
+          return redirect('order/detail')->with('aviso', trans('Error al procesar su orden, por favor Verifique sus datos e intente nuevamente.'));
 
           
         }
 
-        
 
       }else{
 
@@ -2549,34 +2398,23 @@ class AlpCartController extends JoshController
           if (isset($afe_mp->id)) {
 
             if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
+  
+                        
 
-
-
-              $mp = new MP();
-           
-           if ($almacen->mercadopago_sand=='1') {
-
-              $mp::sandbox_mode(TRUE);
-            
-            }
-        
-            if ($almacen->mercadopago_sand=='2') {
-
-              $mp::sandbox_mode(FALSE);
-              
-            }
-
-            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+            MercadoPago::setClientId($almacen->id_mercadopago);
+            MercadoPago::setClientSecret($almacen->key_mercadopago);
+            MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+    
 
             try {
 
-             // $preference = MP::post("/checkout/preferences",$preference_data);
-
               $preference = array();
 
-              $payment_methods = MP::get("/v1/payment_methods");
+              
 
-                 $this->saveOrden($preference);
+              $payment_methods = MercadoPago::get("/v1/payment_methods");
+
+              $this->saveOrden($preference);
               
             } catch (MercadoPagoException $e) {
 
@@ -2604,6 +2442,8 @@ class AlpCartController extends JoshController
           $payment_methods = array();
 
         }
+
+      #  dd($payment_methods);
 
           
           $net_amount=$total-$impuesto;
@@ -2914,6 +2754,8 @@ class AlpCartController extends JoshController
                     
       }
 
+     # dd($request->all());
+
         
       $cart= \Session::get('cart');
 
@@ -2927,7 +2769,6 @@ class AlpCartController extends JoshController
       
       if ($envio>0) {
 
-
          $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
          
         $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
@@ -2939,7 +2780,6 @@ class AlpCartController extends JoshController
         $envio_impuesto=0;
         
       }
-
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -2969,7 +2809,7 @@ class AlpCartController extends JoshController
 
          $configuracion = AlpConfiguracion::where('id', '1')->first();
          
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+         
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
 
@@ -3006,17 +2846,16 @@ class AlpCartController extends JoshController
             foreach ($detalles as $d ) {
 
               $det_array[]= array(
-                        "id"          => $d->id_producto,
-                        "title"       => $d->nombre_producto,
-                        "description" => $d->descripcion_corta,
-                        "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-                        "unit_price"  => intval($d->precio_unitario),
-                        );
-
+                "id"          => $d->id_producto,
+                "title"       => $d->nombre_producto,
+                "description" => $d->descripcion_corta,
+                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                "unit_price"  => intval($d->precio_unitario),
+                );
               }
 
               
-               $preference_data = [
+              /* $preference_data = [
                 "transaction_amount" => doubleval($orden->monto_total+$envio-$total_tarjetas),
                 "external_reference" =>"".$orden->referencia_mp."",
                 "description" => 'Pago de orden: '.$orden->id,
@@ -3031,21 +2870,44 @@ class AlpCartController extends JoshController
                 "taxes"=>[[
                   "value"=>(float)number_format($impuesto, 2, '.', ''),
                   "type"=>"IVA"]]
-              ];
+              ];*/
 
+            $ip=\Request::ip();
 
-             // dd($preference_data);
+            MercadoPago::setClientId($almacen->id_mercadopago);
+            MercadoPago::setClientSecret($almacen->key_mercadopago);
+            MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
-            //Log::info($preference_data);
-              
-            //$payment = MP::post("/v1/payments",$preference_data);
-              
-            //activity()->withProperties($preference_data)->log('intento de pago pse ');
+            $payment = new MercadoPago\Payment();
+            $payment->transaction_amount = (float)$orden->monto_total+$envio-$total_tarjetas;
+            $payment->net_amount =(float)number_format($net_amount-$total_tarjetas, 2, '.', '');
+            $payment->taxes = [[
+              "value"=>(float)number_format($impuesto, 2, '.', ''),
+              "type"=>"IVA"]
+            ];
+    
+          //  $payment->token = $request['token'];
+            $payment->description = 'Pago de Orden '. $orden->id;
+            $payment->payment_method_id = $request->idpago;
+            $payment->external_reference = $orden->referencia_mp;
+            $payment->additional_info = array(
+              "ip_address"=>$ip,
+              "items"=>$det_array,
+            );
+            $payer = new MercadoPago\Payer();
+            $payer->email = $user_cliente->email;
+            $payment->payer = $payer;
+    
+            activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($payment)
+                    ->log('paymet pago con ticket');
             
 
             if (($orden->monto_total+$envio)>0) {
 
-               $payment = MP::post("/v1/payments",$preference_data);
+              $payment->save();
                
             }else{
               
@@ -3056,7 +2918,7 @@ class AlpCartController extends JoshController
 
             //Log::info($payment);
 
-            if (isset($payment['response']['id'])) {
+            if (isset($payment->id)) {
 
               // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
@@ -3115,16 +2977,11 @@ class AlpCartController extends JoshController
                 
                $states=State::where('config_states.country_id', '47')->get();
 
-               
                $configuracion = AlpConfiguracion::where('id','1')->first();
 
-               
                 $user_cliente=User::where('id', $user_id)->first();
 
-                
                 $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
-
-                
 
                 if ($compra->id_forma_envio!=1) {
 
@@ -3150,8 +3007,6 @@ class AlpCartController extends JoshController
 
 
 
-
-
                 foreach ($detalles as $d ) {
 
                     if ($d->tipo_producto=='4') {
@@ -3168,24 +3023,16 @@ class AlpCartController extends JoshController
                     }
                     # code...
                   }
-
            
                 $estatus_aviso='success';
 
+                $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment->id."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->transaction_details->external_resource_url."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
                 
-                $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
-
-                
-                $metodo=$payment['response']['payment_method_id'];
-
+                $metodo=$payment->payment_method_id;
                 
                 $idc=$compra->id*1024;
 
-                
-
                 return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
-
-                
 
                 \Session::forget('pagando');
 
@@ -3195,18 +3042,13 @@ class AlpCartController extends JoshController
           
           \Session::forget('pagando');
 
-          
           return redirect('order/detail');
 
-          
         }
-
-        
 
         
       }else{
 
-        
           return redirect('login');
 
       }
@@ -3353,7 +3195,8 @@ class AlpCartController extends JoshController
 
          $configuracion = AlpConfiguracion::where('id', '1')->first();
          
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+         
+         
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
@@ -3659,7 +3502,8 @@ public function orderProcesarIcg(Request $request)
 
          $configuracion = AlpConfiguracion::where('id', '1')->first();
          
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+        
+         
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
@@ -4153,46 +3997,43 @@ public function orderProcesarIcg(Request $request)
      * @return View
      */
 
-public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
+public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
   
     $id_pago='0';
 
     
     //dd($tipo);
-
+   // $data=$this->generarPedido('8', '4', $payment, 'credit_card');
     
     if ($tipo=='epayco') {
 
-      if (isset($json_pago->data->x_ref_payco)) {
+      if (isset($payment->data->x_ref_payco)) {
         
-        $id_pago=$json_pago->data->x_ref_payco;
+        $id_pago=$payment->data->x_ref_payco;
 
       }
 
-      
 
     }else{
 
-       if(isset($json_pago['response']['id'])){
+       if(isset($payment->id)){
 
-        $id_pago=$json_pago['response']['id'];
+        $id_pago=$payment->id;
 
       }else{
 
-         if (\Session::has('pse')) {
+        if (\Session::has('pse')) {
 
                 $id_pago=\Session::get('pse');
 
-            }
+        }
 
       }
 
 
     }
 
-    #dd($id_pago);
-    
         $cart= \Session::get('cart');
         
         $carrito= \Session::get('cr');
@@ -4264,17 +4105,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           if ($cliente->id_embajador!=0) {
 
               $data_puntos = array(
-
                   'id_orden' => $orden->id,
-
                   'id_cliente' => $cliente->id_embajador,
-
                   'tipo' => '1',//agregar
-
                   'cantidad' =>$total ,
-
                   'id_user' =>$user_id                   
-
               );
               
               AlpPuntos::create($data_puntos);
@@ -4305,46 +4140,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       
         $data_envio = array(
-
           'id_orden' => $orden->id, 
-
-         // 'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
-
           'fecha_envio' => $fecha_envio,
-
           'costo' => $envio, 
-
           'costo_base' => $envio_base, 
-
           'costo_impuesto' => $envio_impuesto, 
-
           'estatus' => 1, 
-
           'id_user' =>$user_id                   
-
-          
         );
 
         
         $envio=AlpEnvios::create($data_envio);
-
         
         $data_envio_history = array(
-
           'id_envio' => $envio->id, 
-
           'estatus_envio' => 1, 
-
           'nota' => 'Envio Generar Pedido', 
-
           'id_user' =>$user_id                   
-
-          
         );
 
         
         AlpEnviosHistory::create($data_envio_history);
-
         
         $comision_mp=$almacen->comision_mp/100;
 
@@ -4442,6 +4258,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          $orden->update($data_update);
 
+
+         
+
+         
+
          if ($tipo=='epayco') {
 
           $data_pago = array(
@@ -4462,17 +4283,62 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $metodo='';
           $tipo='';
 
-          if(isset($json_pago['response']['id'])){
-            $referencia=$json_pago['response']['id'];
+          if(isset($payment->id)){
+            $referencia=$payment->id;
           }
 
-          if(isset($json_pago['response']['payment_method_id'])){
-            $metodo=$json_pago['response']['payment_method_id'];
+          if(isset($payment->payment_method_id)){
+            $metodo=$payment->payment_method_id;
           }
 
-          if(isset($json_pago['response']['payment_type_id'])){
-            $tipo=$json_pago['response']['payment_type_id'];
+          if(isset($payment->payment_type_id)){
+            $tipo=$payment->payment_type_id;
           }
+
+          if(is_array($payment)){
+
+            if(isset($payment['body']['id'])){
+              $referencia=$payment['body']['id'];
+            }
+  
+            if(isset($payment['body']['payment_method_id'])){
+              $metodo=$payment['body']['payment_method_id'];
+            }
+  
+            if(isset($payment['body']['payment_type_id'])){
+              $tipo=$payment['body']['payment_type_id'];
+            }
+
+            $data = array(
+              'id' => $payment['body']['id'], 
+              'operation_type' =>$payment['body']['operation_type'], 
+              'payment_method_id' =>$payment['body']['payment_method_id'], 
+              'payment_type_id' =>$payment['body']['payment_type_id'], 
+              'external_reference' => $payment['body']['external_reference'], 
+              'status' => $payment['body']['status'], 
+              'status_detail' =>$payment['body']['status_detail'], 
+              'transaction_amount' =>$payment['body']['transaction_amount'], 
+              'external_resource_url' =>$payment['body']['transaction_details']['external_resource_url'] 
+            );
+
+          }else{
+
+            
+            $data = array(
+              'id' => $payment->id, 
+              'operation_type' => $payment->operation_type, 
+              'payment_method_id' => $payment->payment_method_id, 
+              'payment_type_id' => $payment->payment_type_id, 
+              'external_reference' => $payment->external_reference, 
+              'status' => $payment->status, 
+              'status_detail' => $payment->status_detail, 
+              'transaction_amount' => $payment->transaction_amount, 
+              'external_resource_url' => $payment->transaction_details->external_resource_url, 
+            );
+          }
+
+
+          
 
             $data_pago = array(
               'id_orden' => $orden->id, 
@@ -4481,13 +4347,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               'monto_pago' => $orden->monto_total-$total_tarjetas, 
               'referencia' => $referencia, 
               'metodo' => $metodo, 
-             'tipo' => $tipo,
-              'json' => json_encode($json_pago), 
+              'tipo' => $tipo,
+              'json' => json_encode($data), 
               'id_user' => $user_id, 
-    
             );
 
+
+
         }
+
+      // dd($data_pago);
+
+        AlpPagos::where('id_orden', $orden->id)->delete();
          
          AlpPagos::create($data_pago);
 
@@ -4499,6 +4370,54 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           );
          
         $history=AlpOrdenesHistory::create($data_history);
+
+          
+        //actualizacion lifemile
+
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+
+        $lifemile=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+
+        if(isset($lifemile->id)){
+
+            if($orden->total>=$lifemile->minimo_compra){
+
+              $data_lifemile = array('lifemiles_id' => $lifemile->id );
+              $orden->update($data_lifemile);
+
+            }
+
+        }else{
+
+          $lifemile=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+            if(isset($lifemile->id)){
+
+                if($orden->monto_total>=$lifemile->minimo_compra){
+
+                  $data_lifemile = array('lifemiles_id' => $lifemile->id );
+
+                  $orden->update($data_lifemile);
+
+                }
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+        
+
+
 
          \Session::forget('cart');
          \Session::forget('orden');
@@ -6945,20 +6864,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     foreach($cart as $cc){
 
-      
+      if(isset($cc->id)){
 
-      if(isset($inventario[$cc->id])){
+        if(isset($inventario[$cc->id])){
 
-        if($inventario[$cc->id]>0){
+          if($inventario[$cc->id]>0){
 
-          if($inventario[$cc->id]>=$cc->cantidad) {
+            if($inventario[$cc->id]>=$cc->cantidad) {
 
-            
+            }else{
+
+              $cc->no_inventario=$inventario[$cc->id];
+
+            }
+
           }else{
 
-           // dd($inventario[$cc->id]);
-
-            $cc->no_inventario=$inventario[$cc->id];
+            $cc->disponible=0;
 
           }
 
@@ -6968,11 +6890,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
-      }else{
-
-        $cc->disponible=0;
-
       }
+
     }
 
    // dd($cart);
@@ -7261,9 +7180,33 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+        $lifemiles=null;
+
+      if(isset($almacen->id)){
 
 
-      $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen', 'mensaje_promocion'));
+        $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+       
+        if(isset($lifemiles->id)){
+
+        }else{
+
+          $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+        
+        }
+      
+      }
+
+
+
+
+
+
+      $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen', 'mensaje_promocion', 'lifemiles'));
 
         $data=$view->render();
 
@@ -11989,25 +11932,17 @@ public function addcupon(Request $request)
 
 private function addpromocion(){
 
-       
-
       $cart= \Session::get('cart');
-
       
       $inventario=$this->inventario();
-
       
        $id_almacen=$this->getAlmacenCart();
-
        
       //dd($inventario);
-
        
       $date = Carbon::now();
-
       
         $hoy=$date->format('Y-m-d');
-
         
       if (!is_null($cart)) {
 
@@ -12021,115 +11956,77 @@ private function addpromocion(){
 
           }
 
-                }
+      }
 
                 
       $mensaje='';
-
       
 
       $promociones=AlpPromociones::whereDate('fecha_inicio','<=',$hoy)
-
           ->whereDate('fecha_final','>=',$hoy)
-
           ->get();
 
-          
         //dd($promociones);
 
-          
           foreach ($promociones as $promo) {
 
-            
               $disponible=1;
-
               
               $iprs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
-              
               foreach ($iprs as $ipr) {
-
                 
                 $apa=AlpAlmacenProducto::where('id_almacen', '=', $id_almacen)->where('id_producto', '=', $ipr->id_producto)->first();
 
-                
                 //dd($apa);
 
-                
                   if (isset($apa->id)) {
-
-                    
 
                       if (isset($inventario[$ipr->id_producto])) {
 
-                        
                         if ($inventario[$ipr->id_producto]>=$ipr->cantidad) {
 
-                          
                             $disponible=0;
-
                             
                         }else{
-
                           
                             $disponible=1;
-
                         }
 
-                        
 
                       }else{
-
                         
                         $disponible=1;
-
                         
                       }
 
-                      
                   }else{
 
-                    
                     $disponible=1;
-
                     
                   }
 
-                  
-
                }
 
-               
-
             if ($disponible==0) {
-
               
                 if ($promo->tipo==1) {
-
                   
                   $pcs=AlpPromocionesCategorias::where('id_promocion', $promo->id)->get();
-
                   
                   $categorias = array();
-
                   
                   $i=0;
-
                   
                   $des_categoria='';
-
                   
                     foreach ($pcs as $pc) {
-
                       
                       $cc=AlpCategorias::where('id', $pc->id_categoria)->first();
-
                       
                        if ($i==0) {
 
-                        
                         $des_categoria=$cc->nombre_categoria;
-
                         
                         $i=1;
 
@@ -12137,88 +12034,53 @@ private function addpromocion(){
 
                       }else{
 
-                        
                          $des_categoria=$des_categoria.', '.$cc->nombre_categoria;
 
                       }
 
-                      
                       $categorias[]=$pc->id_categoria;
 
                       
                     }
-
                     
                     $cc=AlpCategorias::where('id', $pc->id_categoria)->first();
-
                     
                       if ($i==0) {
-
                         
                         $des_categoria=$cc->nombre_categoria;
 
-                        
                         $i=1;
 
-                        # code...
-
                       }else{
-
                         
                          $des_categoria=$des_categoria.', '.$cc->nombre_categoria;
 
                       }
 
-                      
-
-
 
                     $categorias[]=$promo->referencia;
 
-                    
-                   // dd($categorias);
-
-                    
                   $monto=0;
-
-                  
 
                   foreach ($cart as $c) {
 
-                    
                     if (isset($c->id)) {
 
-                      
-
-                      
                       if (in_array($c->id_categoria_default, $categorias)) {
-
-                        
-                     #echo($c->id.'-1<br>');
-
-                      
 
                       $monto=$monto+($c->precio_oferta*$c->cantidad);
 
-                      
                     }else{
 
-                      
                       $cps=AlpCategoriasProductos::where('id_producto', $c->id)->get();
-
                       
                       foreach ($cps as $cp) {
 
                         #echo($cp->id_producto.'-3<br>');
 
-                        
-
                         if (in_array($cp->id_categoria, $categorias)) {
 
-                          
-                         # echo($cp->id_producto.'-4<br>');
-
-                        
+                          # echo($cp->id_producto.'-4<br>');
 
                             $monto=$monto+($c->precio_oferta*$c->cantidad);
 
@@ -12238,30 +12100,19 @@ private function addpromocion(){
                     
                    # echo($c->id.'-1<br>');
 
-                    
-                    
-
-                    
-                    
-
                   }
 
                   
                   if ($monto>$promo->monto_minimo) {
-
                     
                     $prs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
-                    
                     foreach ($prs as $pr) {
-
                       
                       $p=AlpProductos::where('id', $pr->id_producto)->first();
 
-                      
                       if (isset($p->id)) {
 
-                        
                           $p->promocion='1';
 
                           $p->cantidad=$pr->cantidad;
@@ -12269,7 +12120,6 @@ private function addpromocion(){
                           $p->precio_oferta=$pr->precio;
 
                           $p->nombre_producto=$p->nombre_producto.' x '.$pr->cantidad;
-
                           
                           $cart[$p->slug]=$p;
 

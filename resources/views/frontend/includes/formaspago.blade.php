@@ -29,6 +29,9 @@ $total_descuentos_icg=0;
                         </div>
                     @endif</div>
 
+
+
+
                       
 
 
@@ -121,40 +124,40 @@ $total_descuentos_icg=0;
         
                         @if($fp->id==2)
 
-                        @if(isset($payment_methods['response']))
+                        @if(isset($payment_methods['body']))
 
-                        @foreach($payment_methods['response'] as $pm)
+                          @foreach($payment_methods['body'] as $pm)
 
-                            @if($pm['id']=='pse')
+                              @if($pm['id']=='pse')
 
-                                <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingPSE">
-                                  <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
-                                    PSE - Transferencia Bancaria<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapsePSE" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPSE">
-                                  <div class="panel-body">
+                                  <div class="panel panel-default">
+                                  <div class="panel-heading" role="tab" id="headingPSE">
+                                    <h4 class="panel-title">
+                                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
+                                      PSE - Transferencia Bancaria<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                      </a>
+                                    </h4>
+                                  </div>
+                                  <div id="collapsePSE" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPSE">
+                                    <div class="panel-body">
 
-                                    <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
-                                    </p>
+                                      <p class=" col-sm-6 col-xs-12">
+                                          <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
+                                      </p>
 
-                                    <div data-id="2" class="pse col-sm-6 col-xs-12  btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+                                      <div data-id="2" class="pse col-sm-6 col-xs-12  btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
-                                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+                                          <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                      </div>
 
                                     </div>
-
                                   </div>
-                                </div>
-                            </div>
+                              </div>
 
-                            @endif
+                              @endif
 
-                        @endforeach
+                          @endforeach
 
                         @endif
 
@@ -162,86 +165,42 @@ $total_descuentos_icg=0;
 
                             <br>
 
-                             @if(isset($payment_methods['response']))
+                             @if(isset($payment_methods['body']))
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingTDC">
-                                  <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTDC" aria-expanded="true" aria-controls="collapseTDC">
-                                    Tarjetas de Crédito y Débito <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapseTDC" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTDC">
-                                  <div class="panel-body">
+                              <div class="panel panel-default">
+                                  <div class="panel-heading" role="tab" id="headingTDC">
+                                    <h4 class="panel-title">
+                                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTDC" aria-expanded="true" aria-controls="collapseTDC">
+                                      Tarjetas de Crédito y Débito <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                      </a>
+                                    </h4>
+                                  </div>
+                                  <div id="collapseTDC" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTDC">
+                                    <div class="panel-body">
 
-                                       <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
-                                        </p> 
+                                        <p class=" col-sm-6 col-xs-12">
+                                          <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
+                                          </p> 
 
-                                     <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12 btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+                                      <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12 btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
-                                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+                                          <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                      </div>
 
                                     </div>
-
                                   </div>
-                                </div>
-                            </div>
-
+                              </div>
 
                             <br>
 
-                         @if($almacen->mercadopago_sand=='1')
+                            @endif
 
 
-                                <form action="../order/creditcard" method="POST" class="form_creditcard">
-
-                                  <script
-                                   src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
-
-                                    data-public-key="{{ $almacen->public_key_mercadopago_test }}"
-                                    data-button-label="Pagar"
-                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto-$total_descuentos_icg, 2, '.', '')}}"
-                                  
-                                    data-summary-product="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto-$total_descuentos_icg, 2, '.', '') }}"
-                                    data-summary-taxes="{{ (float)number_format($impuesto+$envio_impuesto, 2, '.', '') }}"
-                                    >
-                                  </script>
-                                </form>
+                           @if(isset($payment_methods['body'])) 
 
 
-                                @endif
-
-                                @if($almacen->mercadopago_sand=='2')
-
-
-                                <form action="../order/creditcard" method="POST" class="form_creditcard">
-
-                                  <script
-                                    
-                                    src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
-
-                                    data-public-key="{{ $almacen->public_key_mercadopago }}"
-                                    data-button-label="Pagar"
-                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto-$total_descuentos_icg, 2, '.', '')}}"
-                                  
-                                    data-summary-product="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto-$total_descuentos_icg, 2, '.', '') }}"
-                                    data-summary-taxes="{{ (float)number_format($impuesto+$envio_impuesto, 2, '.', '') }}"
-                                    >
-                                  </script>
-                                </form>
-
-                                @endif
-
-
-                                @endif
-
-
-                           @if(isset($payment_methods['response'])) 
-
-
-                        @foreach($payment_methods['response'] as $pm)
+                          @foreach($payment_methods['body'] as $pm)
 
                             @if($pm['payment_type_id']=='ticket')
 
@@ -286,11 +245,6 @@ $total_descuentos_icg=0;
                         <br>
 
                     @elseif($fp->id==4)
-
-                   
-
-
-
 
 
                     @elseif($fp->id==5)
