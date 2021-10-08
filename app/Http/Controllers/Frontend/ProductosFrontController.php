@@ -1126,8 +1126,9 @@ class ProductosFrontController extends Controller
         
 //dd($banner);
         $productos = AlpProductos::
-        search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order')
+        search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)

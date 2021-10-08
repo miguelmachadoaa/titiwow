@@ -182,18 +182,11 @@ class VerificarPagos extends Command
 
           }
 
-
         }//endforeach ordenes
 
       }//endifhay ordenes 
 
     }//endhadle
-
-
-
-
-
-
 
 
 
@@ -211,7 +204,6 @@ class VerificarPagos extends Command
            $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
             $pago=AlpPagos::where('id_orden', $id_orden)->first();
-
 
             Log::info('pago epayco   '.json_encode($pago));
 
