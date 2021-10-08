@@ -1206,9 +1206,6 @@ class ProductosFrontController extends Controller
     /*Fin CMS */
 
 
-    
-
-
     private function inventario()
     {
        
@@ -1234,9 +1231,6 @@ class ProductosFrontController extends Controller
                 $inv[$row->id_producto]=$row->cantidad_total;
 
               }
-
-              
-
 
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
