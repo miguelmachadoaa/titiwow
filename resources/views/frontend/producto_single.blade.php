@@ -231,11 +231,6 @@
                         @endif
 
 
-
-
-
-
-
                              @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')
 
                                 @if(isset($inventario[$producto->id]))
@@ -250,7 +245,7 @@
 
                             @else
 
-                                @if(isset($combos[$producto->id]) )
+                                @if(isset($combos[$producto->id]) && isset($inventario[$producto->id]) )
 
                                     @if( $combos[$producto->id]=='0' || $inventario[$producto->id]==0)
 
