@@ -250,7 +250,7 @@
 
                             @else
 
-                                @if(isset($combos[$producto->id]) )
+                                @if(isset($combos[$producto->id]) && isset($inventario[$producto->id]) )
 
                                     @if( $combos[$producto->id]=='0' || $inventario[$producto->id]==0)
 
