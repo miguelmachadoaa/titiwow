@@ -281,7 +281,7 @@ class FrontEndController extends JoshController
 
             $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
 
-              if ($dato['stock']>0) {
+              if ($dato['stock']>=0) {
 
                   if (isset($p->id)) {
 
@@ -352,11 +352,10 @@ class FrontEndController extends JoshController
 
        } //(end if hay resspuessta)
 
-       activity()->withProperties($resp)->log('FrontEndController/getCompramasInventario Data Respuesta ');
+      activity()->withProperties($resp)->log('FrontEndController/getCompramasInventario Data Respuesta ');
 
-    return response(json_encode($resp), 200) ->header('Content-Type', 'application/json');
+      return response(json_encode($resp), 200) ->header('Content-Type', 'application/json');
 
-   
 
   }
 
