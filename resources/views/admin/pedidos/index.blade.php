@@ -1102,7 +1102,10 @@ Pedidos
     </div>
 </div>
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom_checkout.js') }}"></script>
 
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
@@ -1439,6 +1442,324 @@ Pedidos
         }
 
     });
+
+
+
+       //inicio select ciudad
+
+       $('select[name="state_id"]').on('change', function() {
+
+var stateID = $(this).val();
+
+var base = $('#base').val();
+
+
+
+    if(stateID) {
+
+        $.ajax({
+
+            url: base+'/registro/cities/'+stateID,
+
+            type: "GET",
+
+            dataType: "json",
+
+            success:function(data) {
+
+
+
+                
+
+                $('select[name="city_id"]').empty();
+
+                $.each(data, function(key, value) {
+
+                    $('select[name="city_id"]').append('<option value="'+ key+'">'+ value +'</option>');
+
+                });
+
+
+
+            }
+
+        });
+
+    }else{
+
+        $('select[name="city_id"]').empty();
+
+    }
+
+});
+
+
+
+
+
+
+
+$('select[name="state_id_dir"]').on('change', function() {
+
+var stateID = $(this).val();
+
+var base = $('#base').val();
+
+
+
+    if(stateID) {
+
+        $.ajax({
+
+            url: base+'/registro/cities/'+stateID,
+
+            type: "GET",
+
+            dataType: "json",
+
+            success:function(data) {
+
+
+
+                
+
+                $('select[name="city_id_dir"]').empty();
+
+                $.each(data, function(key, value) {
+
+                    $('select[name="city_id_dir"]').append('<option value="'+ key+'">'+ value +'</option>');
+
+                });
+
+
+
+            }
+
+        });
+
+    }else{
+
+        $('select[name="city_id_dir"]').empty();
+
+    }
+
+});
+
+
+
+
+
+
+
+$('select[name="city_id"]').on('change', function() {
+
+var stateID = $(this).val();
+
+var base = $('#base').val();
+
+
+
+    if(stateID) {
+
+
+
+        $.ajax({
+
+            url: base+'/configuracion/barrios/'+stateID,
+
+            type: "GET",
+
+            dataType: "json",
+
+            success:function(data) {
+
+
+
+                
+
+                $('select[name="id_barrio"]').empty();
+
+
+
+                console.log(JSON.stringify(data).length);
+
+
+
+                if (JSON.stringify(data).length>25) {
+
+
+                    $('.barrio_address').addClass('hidden');
+
+                    $('·barrio_address').val(' ');
+
+                    $('.id_barrio').removeClass('hidden');
+
+
+                }else{
+
+
+                    $('.barrio_address').removeClass('hidden');
+
+                    $('#id_barrio').val(0);
+
+                    $('.id_barrio').addClass('hidden');
+
+
+                }
+
+
+                $.each(data, function(key, value) {
+
+                    $('select[name="id_barrio"]').append('<option value="'+ key+'">'+ value +'</option>');
+
+                });
+
+
+
+            }
+
+        });
+
+    }else{
+
+
+
+        $('select[name="id_barrio"]').empty();
+
+
+    }
+
+});
+
+
+
+
+        $(document).on('click','#btnsubmit', function(e){
+
+            codigo=0;
+
+            $('.errorregistrocliente').html('');
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            _token=$('input[name="_token"]').val();
+
+            email=$('#Email').val();
+
+            if (email!='' && email!=undefined) {
+
+                $.post(base+'/postemailregistro', { email, _token}, function(data) {
+
+                    if (data==1) {
+
+                        $('.res_cod_alpinista').html('');
+
+                        var $validator = $('#reg_form').data('bootstrapValidator').validate();
+
+                        if( $('#chkalpinista').is(':checked') ) {
+
+
+                            if ($('#cod_alpinista').val()!='') {
+
+
+                                if ($validator.isValid()) {
+
+                                    $("#reg_form")[0].submit();
+
+                                }
+
+
+                            }else{
+
+
+                                $('.errorregistrocliente').html('<span class="help-block">Código de Alpinista es requerido</span>');
+
+                            }
+
+                        }else{
+
+                            if ($validator.isValid()) {
+
+                               $("#reg_form")[0].submit();
+
+                            }
+
+                        }   
+
+                    }else{
+
+                        $('.errorregistrocliente').html('<span class="danger">El Email ya se encuentra registrado </span>');
+
+                    }
+
+
+                });
+
+            }else{
+
+                $('.res_cod_alpinista').html('');
+
+                var $validator = $('#reg_form').data('bootstrapValidator').validate();
+
+                if( $('#chkalpinista').is(':checked') ) {
+
+                    if ($('#cod_alpinista').val()!='') {
+
+                        if ($validator.isValid()) {
+
+                            $("#reg_form")[0].submit();
+
+                        }
+
+                    }else{
+
+                        $('.errorregistrocliente').html('<span class="help-block">Código de Alpinista es requerido</span>');
+
+                        //$('#btnsubmit').attr('disabled', '1');
+                    }
+
+                }else{
+
+                    if ($validator.isValid()) {
+
+                       $("#reg_form")[0].submit();
+
+                    }
+
+                }
+
+            }
+
+            //alert(codigo);
+
+        });
+
+
+
+
+
+
+//fin select ciudad
+$(document).on('click','#btnsubmitdir', function(e){
+
+codigo=0;
+
+e.preventDefault();
+
+base=$('#base').val();
+
+_token=$('input[name="_token"]').val();
+
+var $validator = $('#dir_form').data('bootstrapValidator').validate();
+
+if ($validator.isValid()) {
+
+    $("#dir_form")[0].submit();
+}
+
+});
 
 
 
