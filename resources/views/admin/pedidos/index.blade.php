@@ -31,6 +31,8 @@ Pedidos
         <li><a href="#"> Pedidos </a></li>
         <li class="active">Listado</li>
     </ol>
+
+    <p>{{json_encode($cart)}}</p>
 </section>
 
 <!-- Main content -->
@@ -65,9 +67,16 @@ Pedidos
 
 
         <div class="col-sm-8" style="padding:0;">
+
+
+
             <div class="panel panel-primary ">
                
                 <div class="panel-body" style="padding-top: 0;">
+
+                    @if(isset($cart['id_cliente']))
+
+
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                      <div class="row" style="padding-top: 0;">
@@ -163,9 +172,20 @@ Pedidos
                          
                      </div> 
 
+                     @else
+
+                     <div class="alert alert-danger mt-1">Debe Seleccionar Un Cliente para continuar con el proceso de compra </div>
+
+
+                     @endif
+
                     
-                </div>
+                </div><!-- End panel body  -->
+
+
             </div>
+
+
         </div>
 
         
@@ -203,23 +223,13 @@ Pedidos
 
                     <div class="modal-body">
 
-
-
                          <form action="{{ secure_url('admin/tomapedidos/postdireccion') }}" method="POST" id="dir_form" name="dir_form">
-
-
 
                         <div class="row">
 
-
-
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-
-
                 <div class="col-sm-6 col-sm-offset-3">
-
-
 
                 <h4 class="text-primary">Dirección</h4>
 
@@ -407,21 +417,9 @@ Pedidos
 
                 <div class="clearfix"></div>
 
-                
-
-                
-
                 </div>
 
-
-
                 <div class="col-sm-6 col-sm-offset-3">
-
-                    
-
-
-
-                
 
                 <div class="form-group">
 
@@ -1127,6 +1125,20 @@ Pedidos
           e.preventDefault();
         }
       }))
+    });
+
+
+    $(document).ready(function(){
+
+
+        if($('.wrapper').hasClass('hide_menu')){
+
+        }else{
+
+            $('.wrapper').addClass('hide_menu');
+
+        }
+
     });
 
 

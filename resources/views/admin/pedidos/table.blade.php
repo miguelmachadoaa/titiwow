@@ -25,103 +25,103 @@
 
 
 
+@if(isset($cart['id_cliente']))
 
+    @if(count($productos))
+    
+        @foreach($productos as $p)
 
-@if(count($productos))
+            @if($p->tipo_producto=='1' || $p->tipo_producto=='3')
 
-   
-    @foreach($productos as $p)
+                @if(isset($cart['inventario'][$p->id]))
 
-        @if($p->tipo_producto=='1' || $p->tipo_producto=='3')
+                    @if($cart['inventario'][$p->id]>0)
 
-            @if(isset($cart['inventario'][$p->id]))
-
-                @if($cart['inventario'][$p->id]>0)
-
-                    <div class="col-sm-3">
-
-                    <div class="row">
-                            <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
-                        </div>
+                        <div class="col-sm-3">
 
                         <div class="row">
-                            <p style="margin:0;"><b>{{$p->nombre_producto}}</b></p>
-                            <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}}</p>
-                            <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}} COP</p>
-                            <p style="margin:0;">
-                                <button class="btn btn-primary addproducto"  data-id="{{$p->id}}" >Agregar</button>
+                                <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                            </div>
 
-                                <button class="btn btn-primary verProducto"  
-                                data-id="{{$p->id}}" 
-                                data-presentacion_producto="{{$p->presentacion_producto}}" 
-                                data-referencia_producto="{{$p->referencia_producto}}" 
-                                data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
-                                data-nombre_categoria="{{$p->nombre_categoria}}" 
-                                data-precio_base="{{$p->precio_base}}" 
-                                data-precio_oferta="{{$p->precio_oferta}}" 
-                                data-inventario="{{$cart['inventario'][$p->id]}}" 
-                                >Detalle</button>
+                            <div class="row">
+                                <p style="margin:0;"><b>{{$p->nombre_producto}}</b></p>
+                                <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}}</p>
+                                <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}} COP</p>
+                                <p style="margin:0;">
+                                    <button class="btn btn-primary addproducto"  data-id="{{$p->id}}" >Agregar</button>
 
-                            </p>
+                                    <button class="btn btn-primary verProducto"  
+                                    data-id="{{$p->id}}" 
+                                    data-presentacion_producto="{{$p->presentacion_producto}}" 
+                                    data-referencia_producto="{{$p->referencia_producto}}" 
+                                    data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
+                                    data-nombre_categoria="{{$p->nombre_categoria}}" 
+                                    data-precio_base="{{$p->precio_base}}" 
+                                    data-precio_oferta="{{$p->precio_oferta}}" 
+                                    data-inventario="{{$cart['inventario'][$p->id]}}" 
+                                    >Detalle</button>
+
+                                </p>
+                            </div>
+
                         </div>
 
-                    </div>
-
+                    @endif
+                        
                 @endif
-                    
-            @endif
 
-        @else
+            @else
 
-            @if(isset($combos[$p->id]))
+                @if(isset($combos[$p->id]))
 
-            <div class="col-sm-3">
+                <div class="col-sm-3">
 
-                        <div class="row">
-                            <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                            <div class="row">
+                                <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                            </div>
+
+                            <div class="row detalleproducto">
+                                <p style="margin:0;"><b>{{$p->nombre_producto}}</b></p>
+                                <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}} COP</p>
+                                <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}}</p>
+                                <p style="margin:0;">
+                                    <button class="btn btn-primary addproducto"  data-id="{{$p->id}}" >Agregar</button>
+
+                                    <button class="btn btn-primary verProducto"  
+                                    data-id="{{$p->id}}" 
+                                    data-presentacion_producto="{{$p->presentacion_producto}}" 
+                                    data-referencia_producto="{{$p->referencia_producto}}" 
+                                    data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
+                                    data-nombre_categoria="{{$p->nombre_categoria}}" 
+                                    data-precio_base="{{$p->precio_base}}" 
+                                    data-precio_oferta="{{$p->precio_oferta}}" 
+                                    data-inventario="{{$cart['inventario'][$p->id]}}" 
+                                    >Detalle</button>
+
+                                </p>
+                            </div>
+
                         </div>
 
-                        <div class="row detalleproducto">
-                            <p style="margin:0;"><b>{{$p->nombre_producto}}</b></p>
-                            <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}} COP</p>
-                            <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}}</p>
-                            <p style="margin:0;">
-                                <button class="btn btn-primary addproducto"  data-id="{{$p->id}}" >Agregar</button>
-
-                                <button class="btn btn-primary verProducto"  
-                                data-id="{{$p->id}}" 
-                                data-presentacion_producto="{{$p->presentacion_producto}}" 
-                                data-referencia_producto="{{$p->referencia_producto}}" 
-                                data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
-                                data-nombre_categoria="{{$p->nombre_categoria}}" 
-                                data-precio_base="{{$p->precio_base}}" 
-                                data-precio_oferta="{{$p->precio_oferta}}" 
-                                data-inventario="{{$cart['inventario'][$p->id]}}" 
-                                >Detalle</button>
-
-                            </p>
-                        </div>
-
-                    </div>
-
-            
-            @endif
-
-        @endif
                 
-    @endforeach
+                @endif
 
-            
+            @endif
+                    
+        @endforeach
 
 
+    @else
+
+        <div class="alert alert-danger ">No hay productos disponibles</div>
+
+    @endif
 
 @else
 
-    <div class="alert alert-danger ">No hay productos disponibles</div>
+<div class="alert alert-danger ">Debe Seleccionar Un Cliente para continuar con el proceso de compra </div>
 
 @endif
-
-
 
 
 
