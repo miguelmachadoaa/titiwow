@@ -1282,7 +1282,7 @@ class ProductosFrontController extends Controller
 
         $ban=0;
         
-        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto', 'alp_productos.estado_registro as estado_producto','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto', 'alp_productos.estado_registro as estado_producto', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
         ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
