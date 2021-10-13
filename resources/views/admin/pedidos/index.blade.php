@@ -93,10 +93,23 @@ Pedidos
 
                             <input type="hidden"  name="almacen" id="almacen" value="{{$cart['id_almacen']}}">
 
+                            <div class="col-sm-12 mb-1">
 
-                                <div class="col-sm-4">
 
-                                   <h4>Categorias</h4> 
+                                <div class="input-group">
+                                
+                                <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar...">
+
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-default btn_buscar" type="button">Buscar!</button>
+                                </span>
+                                </div><!-- /input-group -->
+
+                                </div>
+
+                                <div class="col-sm-6">
+
+                                   <p class="pb-0 mb-0">Categorias</p> 
 
                                    <select class="form-control" name="categoria" id="categoria">
 
@@ -112,9 +125,9 @@ Pedidos
                                 </div>
 
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
 
-                                   <h4>Marcas</h4> 
+                                   <p class="pb-0 mb-0">Marcas</p> 
 
                                    <select class="form-control" name="marca" id="marca">
 
@@ -130,21 +143,7 @@ Pedidos
                                     </select>
                                 </div>
 
-                                <div class="col-sm-4">
-
-                                   <h4>Buscar</h4> 
-
-                                   
-                                   <div class="input-group">
-                                     
-                                      <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar...">
-
-                                       <span class="input-group-btn">
-                                        <button class="btn btn-default btn_buscar" type="button">Buscar!</button>
-                                      </span>
-                                    </div><!-- /input-group -->
-
-                                </div>
+                                
 
                             </div>
 
@@ -1210,6 +1209,8 @@ Pedidos
             });
     });
 
+  
+
 
  $(document).on('click','.vaciarCarrito', function(){
 
@@ -1224,34 +1225,29 @@ Pedidos
 
 
 
-    $(document).on('change','.cantidadcarrito', function(){
+    $(document).on('click','.updatecart', function(){
 
         base=$('#base').val();
 
         id=$(this).data('id');
 
-        cantidad=$(this).val();
+        cantidad=$(this).data('cantidad');
 
-        if (cantidad==0) {
+        tipo=$(this).data('tipo');
 
-            $('#idproducto_modal').val(id);
+        if(tipo=='suma'){
+            cantidad=cantidad+1;
+        }
 
-            $('#confirmarOrdenModal').modal('show');
-
-
-        }else{
-
+        if(tipo=='resta'){
+        cantidad=cantidad11;
+        }
+        
             $.get(base+'/admin/tomapedidos/'+id+'/updatecart/'+cantidad, function(data) {
 
                     $('.listaorden').html(data);
             });
 
-
-        }
-
-
-
-         
 
     });
 
@@ -1413,6 +1409,9 @@ Pedidos
         }
 
     });
+
+
+    
 
 
 

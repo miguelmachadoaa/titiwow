@@ -48,9 +48,9 @@
                                 <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}}</p>
                                 <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}} COP</p>
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch " class="">
-                                    <button style="flex-grow: 1;" class="btn btn-primary addproducto"  data-id="{{$p->id}}" ><i class="fa fa-plus"></i></button>
+                                    <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
 
-                                    <button style="flex-grow: 1;" class="btn btn-success verProducto"  
+                                    <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 
                                     data-presentacion_producto="{{$p->presentacion_producto}}" 
                                     data-referencia_producto="{{$p->referencia_producto}}" 
@@ -59,7 +59,7 @@
                                     data-precio_base="{{$p->precio_base}}" 
                                     data-precio_oferta="{{$p->precio_oferta}}" 
                                     data-inventario="{{$cart['inventario'][$p->id]}}" 
-                                    ><i class="fa fa-eye"></i>  </button>
+                                    ><img style="width: 32px; " src="{{secure_url('assets/images/visible.png')}}" alt="">  </button>
 
                                 </p>
                             </div>
@@ -85,9 +85,9 @@
                                 <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}} COP</p>
                                 <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}}</p>
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch">
-                                    <button style="flex-grow: 1;" class="btn btn-primary addproducto"  data-id="{{$p->id}}" ><i class="fa fa-plus"></i></button>
+                                    <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
 
-                                    <button style="flex-grow: 1;" class="btn btn-success verProducto"  
+                                    <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 
                                     data-presentacion_producto="{{$p->presentacion_producto}}" 
                                     data-referencia_producto="{{$p->referencia_producto}}" 
@@ -96,7 +96,7 @@
                                     data-precio_base="{{$p->precio_base}}" 
                                     data-precio_oferta="{{$p->precio_oferta}}" 
                                     data-inventario="{{$cart['inventario'][$p->id]}}" 
-                                    ><i class="fa fa-eye"></i></button>
+                                    ><img  style="width: 32px; " src="{{secure_url('assets/images/visible.png')}}" alt=""></button>
 
                                 </p>
                             </div>

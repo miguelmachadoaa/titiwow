@@ -1307,8 +1307,6 @@ class AlpPedidosController extends JoshController
           ->where('alp_productos.id', $id)
           ->first();
 
-          //dd($producto);
-
        $cart= \Session::get('cart');
 
        $descuento='1'; 
@@ -1325,18 +1323,13 @@ class AlpPedidosController extends JoshController
 
        if (isset($producto->id)) {
 
-       // $producto->precio_oferta=$request->price;
-
         $producto->cantidad=$cantidad;
-
-       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
         if (isset($inv[$producto->id])) {
 
-
           if($inv[$producto->id]>=$producto->cantidad){
 
-            $cart[$producto->slug]=$producto;
+            $cart[$producto->slug]->cantidad=$cantidad;
 
           }else{
 
@@ -1357,7 +1350,15 @@ class AlpPedidosController extends JoshController
 
        }
 
+       if($cantidad==0){
 
+          if(isset($cart[$producto->slug])){
+
+            unset($cart[$producto->slug]);
+
+          }
+
+       }
 
 
       \Session::put('cart', $cart);
@@ -1380,7 +1381,7 @@ class AlpPedidosController extends JoshController
 
 
 
-      public function deletecart($slug)
+    public function deletecart($slug)
     {
 
 
@@ -1420,6 +1421,11 @@ class AlpPedidosController extends JoshController
       return $data;
       
     }
+
+
+    
+
+
 
 
 
