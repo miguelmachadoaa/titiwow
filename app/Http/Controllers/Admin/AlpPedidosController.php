@@ -129,7 +129,7 @@ class AlpPedidosController extends JoshController
             # code...
             }else{
 
-            $cart['id_almacen']='1';
+            $cart['id_almacen']=null;
           }
 
         $almacenes = AlpAlmacenes::where('estado_registro', '=', '1')->get();
@@ -952,29 +952,26 @@ class AlpPedidosController extends JoshController
     {
         $cart= \Session::get('cart');
 
-         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
-          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-          ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
-          ->where('alp_productos.id_categoria_default', $id)
-          ->whereNull('alp_almacen_producto.deleted_at')
-          ->orderBy('alp_productos.nombre_producto')
+          ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+         ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
+         ->whereNull('alp_almacen_producto.deleted_at')
+         ->whereNull('alp_productos.deleted_at')
+          ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+          ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+          ->where('alp_productos_category.id_categoria','=', $id)
+          ->whereNull('alp_productos_category.deleted_at')
+          ->where('alp_productos.estado_registro','=',1)
+          ->where('alp_productos.mostrar','=',1)
           ->groupBy('alp_productos.id')
-         // ->limit(12)
-          ->get();
+          ->orderBy('alp_marcas.order') 
+          ->orderBy('alp_productos.updated_at', 'desc')
+          ->get(); 
 
 
           $productos=$this->addOferta($productos);
-
-          $cart= \Session::get('cart');
-
-           if (isset($cart['id_almacen'])) {
-            # code...
-          }else{
-
-            $cart['id_almacen']='1';
-
-          }
 
           $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
 
@@ -982,13 +979,13 @@ class AlpPedidosController extends JoshController
 
           $descripcion='Listado de productos de la Categoria: '.$categoria->nombre_categoria;
 
-           $combos=$this->combos();
+          $combos=$this->combos();
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion', 'combos'));
+          $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion', 'combos'));
 
-            $data=$view->render();
+          $data=$view->render();
 
-            return $data;
+          return $data;
           
     }
 
@@ -1148,8 +1145,8 @@ class AlpPedidosController extends JoshController
 
 
 
-      public function addtocart($id)
-    {
+  public function addtocart($id)
+  {
 
       if (!\Session::has('cart')) {
           \Session::put('cart', array());
@@ -1161,6 +1158,7 @@ class AlpPedidosController extends JoshController
           ->first();
 
           $producto=$this->addOfertaUn($producto);
+          
 
        $cart= \Session::get('cart');
 
@@ -1185,15 +1183,15 @@ class AlpPedidosController extends JoshController
        }
 
 
-       if (isset($cart['id_almacen'])) {
+     //  if (isset($cart['id_almacen'])) {
 
         $almacen=$cart['id_almacen'];
          
-       }else{
+      // }else{
 
-        $almacen='1';
+      //  $almacen='1';
         
-       }
+    //   }
 
        
 
@@ -1213,10 +1211,6 @@ class AlpPedidosController extends JoshController
 
 
           if($inv[$producto->id]>=$producto->cantidad){
-
-
-
-
 
 
              if ($producto->tipo_producto=='2') {
@@ -1249,11 +1243,11 @@ class AlpPedidosController extends JoshController
 
               }
 
+              
 
               if ($ban_disponible==0) {
 
                     $cart[$producto->slug]=$producto;
-
               }
 
           }else{
@@ -1282,6 +1276,8 @@ class AlpPedidosController extends JoshController
       \Session::put('cart', $cart);
 
       $cart=$this->reloadCart();
+
+   #   dd($cart);
 
       \Session::put('cart', $cart);
 
@@ -2277,7 +2273,23 @@ public function postdireccion(DireccionModalRequest $request)
 
         if (isset($cart['id_cliente'])) {
 
-            $user_id = Sentinel::getUser()->id;
+            $user_id = $cart['id_cliente'];
+
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                ->where('alp_direcciones.id_client', $user_id)
+                ->first();
+
+                $ciudad= null;
+
+                if (isset($d->id)) {
+
+                    $ciudad=$d->city_id;
+
+                }
 
             //if ($user_id!=$s_user) {
             if (1) {
@@ -2306,9 +2318,9 @@ public function postdireccion(DireccionModalRequest $request)
 
                   if (isset($producto->nombre_producto)) {
 
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
 
-                  $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
-
+                  
                   if (isset($pregiogrupo->id)) {
                      
                       $precio[$producto->id]['precio']=$pregiogrupo->precio;
@@ -2330,15 +2342,18 @@ public function postdireccion(DireccionModalRequest $request)
           $role = array( );
 
             $r='9';
-                foreach ($cart as  $producto) {
+              
+            foreach ($cart as  $producto) {
 
-                  if (isset($producto->nombre_producto)) {
-                    # code...
-                    
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+                if (isset($producto->nombre_producto)) {
+                  # code...
+                  
+                    $ciudad= null;
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', '=', $ciudad)->first();
 
                     if (isset($pregiogrupo->id)) {
-                       
+                      
                         $precio[$producto->id]['precio']=$pregiogrupo->precio;
                         $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$producto->id]['pum']=$pregiogrupo->pum;
@@ -2346,7 +2361,7 @@ public function postdireccion(DireccionModalRequest $request)
                     }
 
                 }
-                }
+            }
                 
         } //end sentinel check
 
@@ -2671,7 +2686,7 @@ public function postdireccion(DireccionModalRequest $request)
 
         $cart= \Session::get('cart');
 
-        $ciudad= \Session::get('ciudad');
+        $ciudad= null;
 
         if (isset($cart['id_cliente'])) {
 
@@ -2681,7 +2696,6 @@ public function postdireccion(DireccionModalRequest $request)
 
             $rol=$role->role_id;
 
-            if(isset($cart['id_direccion'])){
 
               $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
               ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -2691,43 +2705,15 @@ public function postdireccion(DireccionModalRequest $request)
               ->where('alp_direcciones.id', $cart['id_direccion'])
               ->first();
 
-
-            }else{
-
-              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-              ->where('alp_direcciones.id_client', $user_id)
-              ->where('alp_direcciones.default_address', '=', '1')
-              ->first();
-
-
-
-            }
-
-            
              
 
-            if (isset($d->id)) {
-
-            }else{
-
-                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-                ->where('alp_direcciones.id_client', $user_id)
-                ->first();
-            }
+         
 
             if (isset($d->id)) {
               $ciudad=$d->city_id;
             }
 
-
+            #dd($ciudad);
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -2755,7 +2741,7 @@ public function postdireccion(DireccionModalRequest $request)
 
                     }else{
 
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', '=', 0)->first();
 
                       if (isset($pregiogrupo->id)) {
                          
@@ -2773,44 +2759,6 @@ public function postdireccion(DireccionModalRequest $request)
                 
             }
 
-        }else{
-
-          $role = array( );
-
-            $r='9';
-
-                foreach ($productos as  $row) {
-
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
-
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$row->id]['precio']=$pregiogrupo->precio;
-                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
-                        $precio[$row->id]['pum']=$pregiogrupo->pum;
-                        $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
-
-
-                    }else{
-
-                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', '62')->first();
-
-                      if (isset($pregiogrupo->id)) {
-                       
-                          $precio[$row->id]['precio']=$pregiogrupo->precio;
-                          $precio[$row->id]['operacion']=$pregiogrupo->operacion;
-                          $precio[$row->id]['pum']=$pregiogrupo->pum;
-                          $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
-
-
-                      }
-
-                      
-
-                    }
-
-                }
-                
         }
 
 
@@ -3777,6 +3725,8 @@ public function postdireccion(DireccionModalRequest $request)
 
       $cart['id_direccion']=$id;
 
+      \Session::put('cart', $cart);
+
 
       $id_almacen=$this->getAlmacen();
 
@@ -3784,7 +3734,7 @@ public function postdireccion(DireccionModalRequest $request)
 
      // \Session::put('cart', $cart);
 
-    \Session::put('cart', $cart);
+     \Session::put('cart', $cart);
 
       return $cart;
       
@@ -5507,8 +5457,14 @@ public function marketingcliente()
     private function getAlmacen(){
 
       $tipo=0;
+
+      $id_almacen=null;
+
+      $cart=\Session::get('cart');
   
           if (isset($cart['id_cliente'])) {
+
+         #   dd($cart['id_cliente']);
   
               $user_id = $cart['id_cliente'];
               
@@ -5524,7 +5480,7 @@ public function marketingcliente()
                 ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
                 ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
                 ->where('alp_direcciones.id_client', $user_id)
-                ->where('alp_direcciones.default_address', '=', '1')
+                ->where('alp_direcciones.id', '=', $cart['id_direccion'])
                 ->first();
   
                 
@@ -5555,6 +5511,7 @@ public function marketingcliente()
   
   
                   if ($d->id_barrio==0) {
+
                        $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                       ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                       ->where('alp_almacenes.tipo_almacen', '=', $tipo)
@@ -5635,7 +5592,7 @@ public function marketingcliente()
                   }else{
   
                     
-                     $almacen=AlpAlmacenes::where('defecto', '1')->first();
+                     /*$almacen=AlpAlmacenes::where('defecto', '1')->first();
   
                      
                       if (isset($almacen->id)) {
@@ -5646,7 +5603,7 @@ public function marketingcliente()
   
                         $id_almacen='1';
   
-                      }
+                      }*/
   
                       
                   }
@@ -5690,164 +5647,6 @@ public function marketingcliente()
               }
   
               
-          }else{ //no esta logueado 
-  
-            
-  
-              $ciudad= \Session::get('ciudad');
-  
-              
-  
-  
-              if (isset($ciudad)) {
-  
-                
-  
-  
-  
-                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-  
-                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-  
-                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-  
-                  ->where('alp_almacen_despacho.id_city', $ciudad)
-  
-                  ->where('alp_almacenes.estado_registro', '=', '1')
-  
-                  ->first();
-  
-                  
-                  if (isset($ad->id)) {
-  
-                  # code...
-  
-                  }else{
-  
-                    
-                    $c=City::where('id', $ciudad)->first();
-  
-                    
-                    if (isset($c->id)) {
-  
-                       $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-  
-                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-  
-                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-  
-                  ->where('alp_almacen_despacho.id_city', '0')
-  
-                  ->where('alp_almacen_despacho.id_state', $c->state_id)
-  
-                  ->where('alp_almacenes.estado_registro', '=', '1')
-  
-                  ->first();
-  
-                    
-  
-                      # code...
-  
-                    }
-  
-                    
-                   
-  
-                   
-                    if (isset($ad->id)) {
-  
-                      
-  
-                    }else{
-  
-                      
-                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-  
-                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-  
-                    ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-  
-                    ->where('alp_almacen_despacho.id_city', '0')
-  
-                    ->where('alp_almacenes.estado_registro', '=', '1')
-  
-                    ->where('alp_almacen_despacho.id_state', '0')->first();
-  
-                    
-                    }
-  
-                    
-                  }
-  
-                  
-                  if (isset($ad->id)) {
-  
-                    
-                    $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
-  
-                    
-                    $id_almacen=$almacen->id;
-  
-                    # code...
-  
-                  }else{
-  
-                    
-                     $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-  
-                     
-                      if (isset($almacen->id)) {
-  
-                        
-                        $id_almacen=$almacen->id;
-  
-                        
-                      }else{
-  
-                        
-                        $id_almacen='1';
-  
-                        
-                      }
-  
-                      
-                  }
-  
-                  
-  
-  
-  
-  
-  
-  
-  
-                
-  
-              }else{
-  
-                
-  
-                 $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-  
-                 
-                if (isset($almacen->id)) {
-  
-                    $id_almacen=$almacen->id;
-  
-                  }else{
-  
-                    $id_almacen='1';
-  
-                  }
-  
-                  
-  
-  
-              }
-  
-              
-          
-  
           }
   
           
@@ -5855,8 +5654,6 @@ public function marketingcliente()
          # echo  json_encode('id_almacen : '.$id_almacen);
           
         return $id_almacen;
-
-        
   
         
       }

@@ -32,7 +32,7 @@ Pedidos
         <li class="active">Listado</li>
     </ol>
 
-    <p>{{json_encode($cart)}}</p>
+    <div data-cart="{{json_encode($cart)}}" ></div>
 </section>
 
 <!-- Main content -->
@@ -91,22 +91,7 @@ Pedidos
 
                             <div class="row">
 
-                              <div class="col-sm-12">
-
-                                   <h4>Almacenes</h4> 
-
-                                   <select style="width: 100%;" class="form-control select2" name="almacen" id="almacen">
-
-                                    <option @if($cart['id_almacen']=='') {{'selected'}} @endif  value="">Seleccione</option>
-
-                                        @foreach($almacenes as $a)
-
-                                            <option @if($cart['id_almacen']==$a->id) {{'selected'}} @endif value="{{$a->id}}">{{$a->nombre_almacen}}</option>
-                                           
-                                        @endforeach
-
-                                    </select>
-                                </div>
+                            <input type="hidden"  name="almacen" id="almacen" value="{{$cart['id_almacen']}}">
 
 
                                 <div class="col-sm-4">
@@ -188,13 +173,8 @@ Pedidos
 
         </div>
 
-        
-
-
-       
-
-
     </div>    <!-- row-->
+
 </section>
 
 <input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
@@ -204,9 +184,6 @@ Pedidos
 
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
-
-
-
 
 
 <div class="modal fade" id="AddDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
@@ -949,14 +926,6 @@ Pedidos
 
         </div>
 
-
-
-
-
-
-
-
-
         
 
 <div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
@@ -1152,22 +1121,23 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
-      $('.lista_de_productos').html('');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>')
 
-             base=$('#base').val();
+        base=$('#base').val();
 
-             categoria=$('#categoria').val();
+        categoria=$('#categoria').val();
 
-            $.get(base+'/admin/tomapedidos/'+categoria+'/datacategorias', function(data) {
+        $.get(base+'/admin/tomapedidos/'+categoria+'/datacategorias', function(data) {
 
-                    $('.lista_de_productos').html(data);
-            });
+                $('.lista_de_productos').html(data);
+        });
+
     });
 
 
-      $('#marca').on('change', function(){
+    $('#marca').on('change', function(){
 
-        $('.lista_de_productos').html('');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>');
 
              base=$('#base').val();
 
@@ -1175,7 +1145,8 @@ Pedidos
 
             $.get(base+'/admin/tomapedidos/'+marca+'/datamarcas', function(data) {
 
-                    $('.lista_de_productos').html(data);
+                $('.lista_de_productos').html(data);
+
             });
     });
 
@@ -1198,18 +1169,18 @@ Pedidos
 
 
 
-      $('.btn_buscar').on('click', function(){
+    $('.btn_buscar').on('click', function(){
 
-        $('.lista_de_productos').html('');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>');
 
-             base=$('#base').val();
+        base=$('#base').val();
 
-             buscar=$('#buscar').val();
+        buscar=$('#buscar').val();
 
-            $.get(base+'/admin/tomapedidos/'+buscar+'/databuscar', function(data) {
+        $.get(base+'/admin/tomapedidos/'+buscar+'/databuscar', function(data) {
 
-                    $('.lista_de_productos').html(data);
-            });
+                $('.lista_de_productos').html(data);
+        });
 
     });
 
