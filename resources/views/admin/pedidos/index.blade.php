@@ -369,27 +369,7 @@ Pedidos
 
                 <div class="clearfix"></div>
 
-                <!--div class="form-group checkbox">
-
-                    <label>
-
-                        <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista! <small>(Opcional)</small> </a>
-
-                    </label>
-
-                </div-->
-
-                <!--div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
-
-                    <input type="text" class="form-control" value="{!! old('cod_alpinista') !!}" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista" value="{!! old('cod_alpinista') !!}" >
-
-                    <div class="res_cod_alpinista"></div>
-
-
-
-                    {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
-
-                </div-->
+               
 
                 <div class="clearfix"></div>
 

@@ -93,20 +93,22 @@
 
         @if($total_venta>0)
 
-            <a  href="{{secure_url('admin/tomapedidos/checkout')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
-
+            <a style="width:100%"  href="{{secure_url('admin/tomapedidos/checkout')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
         
         @endif
 
         <div class="row">
-            <div class="col-sm-4">
-                <button type="button" class="btn btn-danger vaciarCarrito"> <i class="fa fa-cart-arrow-down"></i></button>
+            <div class="col-sm-4 p-0 ">
+                <button style="width:100%" type="button" class="btn btn-warning vaciarCarrito">Vaciar</button>
             </div>      
-            <div class="col-sm-4">
-                    cupon
+            <div  class="col-sm-4 p-0 ">
+            <button style="width:100%" type="button" class="btn btn-info aplicarCupon"> Cupon</button>
+
+                    
             </div>
-            <div class="col-sm-4">
-                    procesar
+            <div  class="col-sm-4 p-0 ">
+            <button style="width:100%" type="button" class="btn btn-danger cancelarPedido"> Cancelar</button>
+
             </div>
         </div>
 

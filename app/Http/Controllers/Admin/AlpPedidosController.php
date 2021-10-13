@@ -1432,14 +1432,24 @@ class AlpPedidosController extends JoshController
       public function vaciarCarrito()
     {
 
-        \Session::forget('cart');
+       # \Session::forget('cart');
 
-        \Session::put('cart', array());
+      #  \Session::put('cart', array());
 
         $error='';
 
         $cart= \Session::get('cart');
 
+        foreach($cart as $c){
+
+          if(isset($c->id)){
+
+            unset($c[$c->slug]);
+          }
+        }
+
+
+        \Session::put('cart', $cart);
 
       $total_venta=$this->totalcart($cart);
 
