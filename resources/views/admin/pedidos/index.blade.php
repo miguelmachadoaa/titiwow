@@ -1215,12 +1215,14 @@ Pedidos
 
         tipo=$(this).data('tipo');
 
+        alert(tipo);
+
         if(tipo=='suma'){
             cantidad=cantidad+1;
         }
 
         if(tipo=='resta'){
-        cantidad=cantidad11;
+        cantidad=cantidad-1;
         }
         
             $.get(base+'/admin/tomapedidos/'+id+'/updatecart/'+cantidad, function(data) {

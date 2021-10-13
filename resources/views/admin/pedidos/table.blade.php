@@ -39,7 +39,7 @@
 
                         <div class="col-sm-3" style="display: flex;    flex-direction: column;">
 
-                        <div class="row" style="flex-grow: 1; height: 10em;">
+                        <div class="row" style="flex-grow: 1; ">
                                 <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
                             </div>
 
@@ -76,7 +76,7 @@
 
                 <div class="col-sm-3">
 
-                <div class="row" style="flex-grow: 1; height: 10em;">
+                <div class="row" style="flex-grow: 1; ">
                                 <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
                             </div>
 

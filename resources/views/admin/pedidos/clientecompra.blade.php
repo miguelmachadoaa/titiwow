@@ -5,7 +5,7 @@
 
    <div class="col-sm-12">
 
-                            <p class="pcaja">Paso 1. Seleccionar Cliente
+                            <p class="pcaja"><b>Paso 1. Seleccionar Cliente</b>  
 
                             <span >
                                 <button class="btn btn-primary seleccionarCliente" type="button" ><i class="fa fa-search"></i></button>
@@ -56,7 +56,7 @@
 
                         <div class="col-sm-12">
 
-                            <p class="pcaja">Paso 2. Seleccionar Dirección
+                            <p class="pcaja"><b>Paso 2. Seleccionar Dirección</b>
 
 
                             <span >
@@ -105,7 +105,7 @@
 
                             <div class="col-sm-6">
 
-                                <p class="pcaja" >Paso 3. Forma de Pago</p>
+                                <p class="pcaja" > <b>Paso 3. Forma de Pago</b></p>
 
                                 <div class="caja">
                                     <select class="form-control" name="id_forma_pago" id="id_forma_pago">
@@ -124,7 +124,7 @@
 
                             <div class="col-sm-6">
 
-                                <p class="pcaja">Paso 4. Forma de Envio</p>
+                                <p class="pcaja"><b>Paso 4. Forma de Envio</b></p>
 
                                 <div class="caja">
 
