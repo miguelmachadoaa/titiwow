@@ -470,10 +470,11 @@ class AlpPedidosController extends JoshController
           
         }else{
 
-          return redirect('admin/tomapedidos/checkout')->withInput()->with('error', trans('Su dirección no esta disponible para despacho en este almacen.'));
+          return redirect('admin/tomapedidos/')->withInput()->with('error', trans('Su dirección no esta disponible para despacho en este almacen.'));
 
         }
-
+        
+        
 
         $clientIP = \Request::getClientIp(true);
 
@@ -709,7 +710,7 @@ class AlpPedidosController extends JoshController
              try {
 
 
-             Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionTomapedidos($compra, ''));
+            # Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionTomapedidos($compra, ''));
                
              } catch (Exception $e) {
 
@@ -1442,9 +1443,10 @@ class AlpPedidosController extends JoshController
 
         foreach($cart as $c){
 
-          if(isset($c->id)){
+          if(isset($c->slug)){
 
-            unset($c[$c->slug]);
+            unset($cart[$c->slug]);
+            
           }
         }
 
@@ -1466,6 +1468,31 @@ class AlpPedidosController extends JoshController
 
 
 
+
+
+    public function cancelarpedido()
+    {
+
+       \Session::forget('cart');
+
+       \Session::put('cart', array());
+
+        $error='';
+
+        $cart= \Session::get('cart');
+
+
+      $total_venta=$this->totalcart($cart);
+
+      $view= View::make('admin.pedidos.listaorden', compact('cart', 'error', 'total_venta'));
+
+      $data=$view->render();
+
+      $res = array('data' => $data);
+
+      return $data;
+      
+    }
 
 
 

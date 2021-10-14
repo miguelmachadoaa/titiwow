@@ -37,7 +37,7 @@
 
                     @if($cart['inventario'][$p->id]>0)
 
-                        <div class="col-sm-3" style="display: flex;    flex-direction: column;">
+                        <div class="col-sm-4 col-md-3 col-xs-6" style="display: flex;    flex-direction: column;">
 
                         <div class="row" style="flex-grow: 1; ">
                                 <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
@@ -52,6 +52,7 @@
 
                                     <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 
+                                    data-nombre_producto="{{$p->nombre_producto}}" 
                                     data-presentacion_producto="{{$p->presentacion_producto}}" 
                                     data-referencia_producto="{{$p->referencia_producto}}" 
                                     data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
@@ -59,6 +60,7 @@
                                     data-precio_base="{{$p->precio_base}}" 
                                     data-precio_oferta="{{$p->precio_oferta}}" 
                                     data-inventario="{{$cart['inventario'][$p->id]}}" 
+                                    data-imagen="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" 
                                     ><img style="width: 32px; " src="{{secure_url('assets/images/visible.png')}}" alt="">  </button>
 
                                 </p>
@@ -72,9 +74,11 @@
 
             @else
 
+            
+
                 @if(isset($combos[$p->id]))
 
-                <div class="col-sm-3">
+                <div class="col-sm-4 col-md-3    col-xs-6">
 
                 <div class="row" style="flex-grow: 1; ">
                                 <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
@@ -89,6 +93,7 @@
 
                                     <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 
+                                    data-nombre_producto="{{$p->nombre_producto}}" 
                                     data-presentacion_producto="{{$p->presentacion_producto}}" 
                                     data-referencia_producto="{{$p->referencia_producto}}" 
                                     data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
@@ -96,6 +101,7 @@
                                     data-precio_base="{{$p->precio_base}}" 
                                     data-precio_oferta="{{$p->precio_oferta}}" 
                                     data-inventario="{{$cart['inventario'][$p->id]}}" 
+                                    data-imagen="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" 
                                     ><img  style="width: 32px; " src="{{secure_url('assets/images/visible.png')}}" alt=""></button>
 
                                 </p>

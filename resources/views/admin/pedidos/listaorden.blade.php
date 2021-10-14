@@ -87,13 +87,30 @@
 
         </div>
 
+        <div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
 
-        <h4>Total Venta {{number_format($total_venta,0,',','.')}}</h4>
+            <div><h4>Total Venta </h4></div>
+            <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
+        </div>
+
+        <div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
+
+            <div><h4>IVA </h4></div>
+            <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
+        </div>
+
+        <div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
+
+            <div><h4>Total  </h4></div>
+            <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
+        </div>
+
+
 
 
         @if($total_venta>0)
 
-            <a style="width:100%"  href="{{secure_url('admin/tomapedidos/checkout')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
+            <a style="width:100%"  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
         
         @endif
 
@@ -107,7 +124,7 @@
                     
             </div>
             <div  class="col-sm-4 p-0 ">
-            <button style="width:100%" type="button" class="btn btn-danger cancelarPedido"> Cancelar</button>
+            <button style="width:100%" type="button" class="btn btn-danger cancelarpedido"> Cancelar</button>
 
             </div>
         </div>

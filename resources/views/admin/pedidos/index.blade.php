@@ -176,6 +176,9 @@ Pedidos
 
 </section>
 
+
+
+
 <input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
 
 
@@ -1026,7 +1029,37 @@ Pedidos
   
 
 
+<div class="modal fade" id="verProductoModal" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+    <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Detalle de Producto</h4>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+            <div class="col-sm-6">
+                <img id="img-producto-modal" src="" alt="">
+            </div>
+
+            <div class="col-sm-6">
+                <h3 id="nombre-producto-modal"><span></span>  </h3>
+                <p id="referencia-producto-modal">Referencia: <span></span></p>
+                <p id="presentacion-producto-modal"> Presentacion: <span></span></p>
+                <p id="categoria-producto-modal">Categoria: <span></span></p>
+                <p id="precio-producto-modal"> Precio: <span></span></p>
+                <p id="oferta-producto-modal">Oferta: <span></span></p>
+                <p id="inventario-producto-modal">Inventario: <span></span></p>
+            </div>
+        </div>
+                
+            </div>
+
+       
+    </div>
+  </div>
+</div>
 
 
 
@@ -1036,6 +1069,8 @@ Pedidos
     </div>
   </div>
 </div>
+
+
 <div class="modal fade" id="users_exists" tabindex="-2" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1059,6 +1094,12 @@ Pedidos
 
 
 <script>
+
+
+
+
+
+
 
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -1177,9 +1218,35 @@ Pedidos
     });
 
 
+    $(document).on('click','.verProducto', function(){
+
+        nombre_producto=$(this).data('nombre_producto');
+        presentacion_producto=$(this).data('presentacion_producto');
+        referencia_producto=$(this).data('referencia_producto');
+        referencia_producto_sap=$(this).data('referencia_producto_sap');
+        nombre_categoria=$(this).data('nombre_categoria');
+        precio_base=$(this).data('precio_base');
+        precio_oferta=$(this).data('precio_oferta');
+        inventario=$(this).data('inventario');
+        imagen=$(this).data('imagen');
+
+
+        $('#nombre-producto-modal span').html(nombre_producto);
+        $('#presentacion-producto-modal span').html(presentacion_producto);
+        $('#precio-producto-modal span').html(precio_base);
+        $('#oferta-producto-modal span').html(precio_oferta);
+        $('#inventario-producto-modal span').html(inventario);
+        $('#categoria-producto-modal span').html(nombre_categoria);
+        $('#img-producto-modal').attr('src', imagen);
+
+        $('#verProductoModal').modal('show');
+
+    });
+
+
         $(document).on('click','.delcar', function(){
 
-             base=$('#base').val();
+             base=$('#base').html();
 
              slug=$(this).data('slug');
 
@@ -1203,6 +1270,15 @@ Pedidos
     });
 
 
+    $(document).on('click','.cancelarpedido', function(){
+
+    base=$('#base').val();
+
+        $.get(base+'/admin/tomapedidos/cancelarpedido', function(data) {
+
+            location.reload();
+        });
+    });
 
 
     $(document).on('click','.updatecart', function(){
@@ -1214,8 +1290,6 @@ Pedidos
         cantidad=$(this).data('cantidad');
 
         tipo=$(this).data('tipo');
-
-        alert(tipo);
 
         if(tipo=='suma'){
             cantidad=cantidad+1;
