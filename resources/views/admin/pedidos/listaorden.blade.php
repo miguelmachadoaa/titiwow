@@ -93,17 +93,17 @@
             <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
         </div>
 
-        <div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
+        <!--div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
 
             <div><h4>IVA </h4></div>
             <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
-        </div>
+        </div-->
 
-        <div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
+        <!--div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
 
             <div><h4>Total  </h4></div>
             <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
-        </div>
+        </div-->
 
 
 
@@ -115,15 +115,15 @@
         @endif
 
         <div class="row">
-            <div class="col-sm-4 p-0 ">
+            <div class="col-sm-6 p-0 ">
                 <button style="width:100%" type="button" class="btn btn-warning vaciarCarrito">Vaciar</button>
             </div>      
-            <div  class="col-sm-4 p-0 ">
+            <!--div  class="col-sm-4 p-0 ">
             <button style="width:100%" type="button" class="btn btn-info aplicarCupon"> Cupon</button>
 
                     
-            </div>
-            <div  class="col-sm-4 p-0 ">
+            </div-->
+            <div  class="col-sm-6 p-0 ">
             <button style="width:100%" type="button" class="btn btn-danger cancelarpedido"> Cancelar</button>
 
             </div>
