@@ -83,7 +83,7 @@ use Sentinel;
 use View;
 use DB;
 
-use MP;
+use MercadoPago;
 
 use Carbon\Carbon;
 
@@ -3029,24 +3029,12 @@ public function postdireccion(DireccionModalRequest $request)
 
            // dd($total_descuentos);
 
+           MercadoPago::setClientId($almacen->id_mercadopago);
+           MercadoPago::setClientSecret($almacen->key_mercadopago);
+           MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+            
 
-             $mp = new MP();
-
-           if ($configuracion->mercadopago_sand=='1') {
-          
-              $mp::sandbox_mode(TRUE);
-
-            }
-
-            if ($configuracion->mercadopago_sand=='2') {
-              
-              $mp::sandbox_mode(FALSE);
-
-            }
-
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
-            $payment_methods = MP::get("/v1/payment_methods");
+           $payment_methods = MercadoPago::get("/v1/payment_methods");
 
 
          //   $preference = array();
