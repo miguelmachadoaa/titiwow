@@ -77,6 +77,8 @@
                 data-price="{{ intval($producto->precio_base) }}" 
                 data-id="{{ $producto->id }}" 
                 data-name="{{ $producto->nombre_producto }}" 
+                data-categoria="{{ $producto->nombre_categoria }}" 
+                data-marca="{{ $producto->nombre_marca }}" 
                 data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
                 class="btn btn-md btn-cart addtocart" 
                 href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito</a>
@@ -87,6 +89,8 @@
                 data-price="{{ intval($producto->precio_base) }}" 
                 data-id="{{ $producto->id }}" 
                 data-name="{{ $producto->nombre_producto }}" 
+                data-categoria="{{ $producto->nombre_categoria }}" 
+                data-marca="{{ $producto->nombre_marca }}" 
                 data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
                 class="btn btn-md btn-cart addtocart" 
                 href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>

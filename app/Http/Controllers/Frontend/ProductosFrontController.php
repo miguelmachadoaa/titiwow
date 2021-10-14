@@ -539,11 +539,8 @@ class ProductosFrontController extends Controller
 
 
             $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
-
-
             ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
             ->whereNull('alp_productos_category.deleted_at')
-
             ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
             
             $catprincipal = DB::table('alp_productos')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
@@ -802,7 +799,9 @@ class ProductosFrontController extends Controller
 
         foreach ($anchetas_categorias as $c) {
 
-          $productos=AlpProductos::select('alp_productos.*')
+          $productos=AlpProductos::select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+          ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
           ->join('alp_ancheta_productos', 'alp_productos.id', '=', 'alp_ancheta_productos.id_producto')
           ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
@@ -1222,8 +1221,6 @@ class ProductosFrontController extends Controller
 
        $productos_almacen=AlpAlmacenProducto::select('id_producto')->where('id_almacen', $id_almacen)->get()->toArray();
 
-     
-
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->join('alp_almacen_producto', 'alp_inventarios.id_producto', '=', 'alp_almacen_producto.id_producto')
@@ -1327,11 +1324,7 @@ class ProductosFrontController extends Controller
 
  private function getAlmacen(){
 
-
-
-    $tipo=0;
-
-
+  $tipo=0;
         //if (isset(Sentinel::getUser()->id)) {
         if (1==0) {
 
@@ -1375,7 +1368,6 @@ class ProductosFrontController extends Controller
               $tipo=1;
             }
 
-
                 if ($d->id_barrio==0) {
                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                     ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
@@ -1396,8 +1388,6 @@ class ProductosFrontController extends Controller
                     if (isset($ad->id)) {
                         # code...
                     }else{
-
-
                         $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                         ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                         ->where('alp_almacenes.tipo_almacen', '=', $tipo)
@@ -1406,11 +1396,7 @@ class ProductosFrontController extends Controller
                         ->first();
                     }
 
-
                 }
-
-
-
                
 
                 if (isset($ad->id)) {
@@ -1459,23 +1445,6 @@ class ProductosFrontController extends Controller
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }else{
 
               $almacen=AlpAlmacenes::where('defecto', '1')->first();
@@ -1490,15 +1459,9 @@ class ProductosFrontController extends Controller
 
         }else{ //no esta logueado 
 
-
             $ciudad= \Session::get('ciudad');
 
-
-
             if (isset($ciudad)) {
-
-
-
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
@@ -1522,8 +1485,6 @@ class ProductosFrontController extends Controller
                   ->where('alp_almacenes.estado_registro', '=', '1')
                   ->first();
                   }
-
-                  
 
                   if (isset($ad->id)) {
                     
@@ -1562,21 +1523,7 @@ class ProductosFrontController extends Controller
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-              
             }else{
-
 
                $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
@@ -1586,17 +1533,7 @@ class ProductosFrontController extends Controller
                   $id_almacen='1';
                 }
 
-
-
             }
-
-
-
-
-
-
-
-           
         
         }
 
@@ -1605,10 +1542,5 @@ class ProductosFrontController extends Controller
       return $id_almacen;
 
     }
-
-    
-
-
-
 
 }
