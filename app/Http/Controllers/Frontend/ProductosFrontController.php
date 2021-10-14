@@ -269,9 +269,10 @@ class ProductosFrontController extends Controller
 
         $precio = array();
 
-        $leche =  DB::table('alp_productos')->select('alp_productos.*')
+        $leche =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -287,9 +288,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $lacteos =  DB::table('alp_productos')->select('alp_productos.*')
+        $lacteos =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -304,9 +306,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $quesos =  DB::table('alp_productos')->select('alp_productos.*')
+        $quesos =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -321,9 +324,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $postres =  DB::table('alp_productos')->select('alp_productos.*')
+        $postres =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -338,9 +342,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $esparcibles =  DB::table('alp_productos')->select('alp_productos.*')
+        $esparcibles =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -355,9 +360,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $bebidas =  DB::table('alp_productos')->select('alp_productos.*')
+        $bebidas =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -371,9 +377,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $finess =  DB::table('alp_productos')->select('alp_productos.*')
+        $finess =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -388,9 +395,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $baby =  DB::table('alp_productos')->select('alp_productos.*')
+        $baby =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -406,9 +414,10 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $nolacteos =  DB::table('alp_productos')->select('alp_productos.*')
+        $nolacteos =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -530,11 +539,8 @@ class ProductosFrontController extends Controller
 
 
             $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
-
-
             ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
             ->whereNull('alp_productos_category.deleted_at')
-
             ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
             
             $catprincipal = DB::table('alp_productos')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
@@ -793,7 +799,9 @@ class ProductosFrontController extends Controller
 
         foreach ($anchetas_categorias as $c) {
 
-          $productos=AlpProductos::select('alp_productos.*')
+          $productos=AlpProductos::select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+          ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
           ->join('alp_ancheta_productos', 'alp_productos.id', '=', 'alp_ancheta_productos.id_producto')
           ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
@@ -1040,7 +1048,7 @@ class ProductosFrontController extends Controller
         $precio = array();
 
 
-        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_almacenes.id as id_almacen', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_almacenes.id as id_almacen', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
         ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
@@ -1126,8 +1134,9 @@ class ProductosFrontController extends Controller
         
 //dd($banner);
         $productos = AlpProductos::
-        search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order')
+        search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
@@ -1205,17 +1214,12 @@ class ProductosFrontController extends Controller
     /*Fin CMS */
 
 
-    
-
-
     private function inventario()
     {
        
        $id_almacen=$this->getAlmacen();
 
        $productos_almacen=AlpAlmacenProducto::select('id_producto')->where('id_almacen', $id_almacen)->get()->toArray();
-
-     
 
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
@@ -1233,9 +1237,6 @@ class ProductosFrontController extends Controller
                 $inv[$row->id_producto]=$row->cantidad_total;
 
               }
-
-              
-
 
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
@@ -1278,8 +1279,10 @@ class ProductosFrontController extends Controller
 
         $ban=0;
         
-        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto', 'alp_productos.estado_registro as estado_producto')
+        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto', 'alp_productos.estado_registro as estado_producto', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->whereNull('alp_productos.deleted_at')
         ->where('id_combo', $co->id)
         ->get();
@@ -1321,11 +1324,7 @@ class ProductosFrontController extends Controller
 
  private function getAlmacen(){
 
-
-
-    $tipo=0;
-
-
+  $tipo=0;
         //if (isset(Sentinel::getUser()->id)) {
         if (1==0) {
 
@@ -1369,7 +1368,6 @@ class ProductosFrontController extends Controller
               $tipo=1;
             }
 
-
                 if ($d->id_barrio==0) {
                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                     ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
@@ -1390,8 +1388,6 @@ class ProductosFrontController extends Controller
                     if (isset($ad->id)) {
                         # code...
                     }else{
-
-
                         $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                         ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                         ->where('alp_almacenes.tipo_almacen', '=', $tipo)
@@ -1400,11 +1396,7 @@ class ProductosFrontController extends Controller
                         ->first();
                     }
 
-
                 }
-
-
-
                
 
                 if (isset($ad->id)) {
@@ -1453,23 +1445,6 @@ class ProductosFrontController extends Controller
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }else{
 
               $almacen=AlpAlmacenes::where('defecto', '1')->first();
@@ -1484,15 +1459,9 @@ class ProductosFrontController extends Controller
 
         }else{ //no esta logueado 
 
-
             $ciudad= \Session::get('ciudad');
 
-
-
             if (isset($ciudad)) {
-
-
-
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
@@ -1516,8 +1485,6 @@ class ProductosFrontController extends Controller
                   ->where('alp_almacenes.estado_registro', '=', '1')
                   ->first();
                   }
-
-                  
 
                   if (isset($ad->id)) {
                     
@@ -1556,21 +1523,7 @@ class ProductosFrontController extends Controller
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-              
             }else{
-
 
                $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
@@ -1580,17 +1533,7 @@ class ProductosFrontController extends Controller
                   $id_almacen='1';
                 }
 
-
-
             }
-
-
-
-
-
-
-
-           
         
         }
 
@@ -1599,10 +1542,5 @@ class ProductosFrontController extends Controller
       return $id_almacen;
 
     }
-
-    
-
-
-
 
 }

@@ -198,7 +198,29 @@
 
 
 
+                        @if(isset($lifemiles->id))
 
+                            @if($lifemiles->minimo_compra>$total)
+
+                            <hr>
+
+                                <div class="">
+                                    
+                                   <p style="font-size: 2em;    width: 100%;    text-align: center;">Te faltan solo <span  style="color: #241F48; font-weight: 600;">{{number_format(($total - $lifemiles->minimo_compra)*-1, 0)}}</span>  Para obtener <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>  LifeMiles por tu Compra.
+</p>   
+                                </div>
+
+                            @else
+
+                                <div class="">
+                                    
+                                   <p style="font-size: 2em;    width: 100%;    text-align: center;">Con esta compra obtienes  <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>     LifeMiles por tu Compra.
+</p> 
+                                </div>
+
+                            @endif
+
+                        @endif
 
 
 
@@ -209,6 +231,7 @@
                             @if($mensaje_promocion!='')
 
                                 <div class="alert alert-info">
+
                                     {{$mensaje_promocion}}
                                 </div>
 

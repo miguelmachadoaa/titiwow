@@ -1,11 +1,11 @@
-@component('mail::message')
+@include('emails.header')
 
- Mensaje Enviado por el formulario PQR:<br>
+ <p>Mensaje Enviado por el formulario PQR:</p><br>
 
- Tipo: {{ $data['tipo_pqr'] }} 
+ <p>Tipo: {{ $data['tipo_pqr'] }} </p>
 
- Datos enviados: <br>
-
+ <p>Datos enviados: </p><br>
+<p>
  <b>Nombre:</b> {{ $data['nombre_pqr'] }} <br>
  <b>Apellido:</b> {{ $data['apellido_pqr'] }} <br>
  <b>Tipo de Documento:</b> {{ $data['tdocume_pqr'] }} <br>
@@ -19,9 +19,9 @@
 
  <b>Términos:</b> {{ $data['habeas_cliente'] }} <br>
 
-
+</p>
  {{ $archivo }}
 
 {{ config('app.name') }}
 
-@endcomponent
+@include('emails.footer')

@@ -3,23 +3,26 @@
 namespace App\Console\Commands;
 
 use App\User;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpConsultaIcg;
+use App\Models\AlpClientes;
+use App\Models\AlpConfiguracion;
+use App\Models\AlpDetalles;
+use App\Models\AlpInventario;
 use App\Models\AlpOrdenes;
-use App\Models\AlpPagos;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpOrdenesDescuentoIcg;
-use App\Models\AlpConsultaIcg;
-use App\Models\AlpClientes;
-use App\Models\AlpDetalles;
-use App\Models\AlpInventario;
-use App\Models\AlpConfiguracion;
+use App\Models\AlpPagos;
+
+
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
 use DB;
 use Illuminate\Support\Facades\Log;
 
-use MP;
+use MercadoPago;
 
 use Exception;
 
@@ -65,6 +68,7 @@ class CancelarOrdenes extends Command
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
+
         $ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
 
        # $ordenes=AlpOrdenes::where('id', '11039')->get();
@@ -124,51 +128,77 @@ class CancelarOrdenes extends Command
 
                      $configuracion = AlpConfiguracion::where('id', '1')->first();
 
+                     $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
+                    MercadoPago::setClientId($almacen->id_mercadopago);
+                    MercadoPago::setClientSecret($almacen->key_mercadopago);
+
                      if ($configuracion->mercadopago_sand=='1') {
                         
-                        MP::sandbox_mode(TRUE);
+                      MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
 
                       }
 
                       if ($configuracion->mercadopago_sand=='2') {
                         
-                        MP::sandbox_mode(FALSE);
+                        MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
                       }
 
-                      MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-                       $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
+                       $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
-                      // dd($preference);
+                      # echo json_encode($preference);
 
-                        foreach ($preference['response']['results'] as $r) {
 
-                            $idpago=$r['id'];
+                      if(isset($preference['body']['results'])){
 
-                           //Aqui se cancela mercadopago 
-                           
-                             $preference_data_cancelar = '{"status": "cancelled"}';
+                        foreach ($preference['body']['results'] as $r) {
 
-                            $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+                            if(isset($r['id'])){
 
-                          }
+                              $idpago=$r['id'];
 
-                          /*$descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+                             # echo $idpago,
 
-                          $total_descuentos_icg=0;
+                            //Aqui se cancela mercadopago 
+                            
+                              #$preference_data_cancelar = '{"status": "cancelled"}';
+                              $preference_data_cancelar = array("statuses"=>"cancelled");
 
-                          foreach ($descuentosIcg as $pagoi) {
+                              MercadoPago::setClientId($almacen->id_mercadopago);
+                              MercadoPago::setClientSecret($almacen->key_mercadopago);
 
-                            $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+                              $at=MercadoPago::getAccessToken();
 
-                          }*/
+                            $ch = curl_init();
 
-                 /*   if ($total_descuentos_icg>0) {
+                            curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments/'.$idpago);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 
-                        $this->registroIcgCancelar($orden->id);
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"status\": \"cancelled\"}");
 
-                    }*/
+                            $headers = array();
+                            $headers[] = 'Authorization: Bearer '.$at;
+                            $headers[] = 'Content-Type: application/json';
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                            $result = curl_exec($ch);
+                            if (curl_errno($ch)) {
+                                echo 'Error:' . curl_error($ch);
+                            }
+                            curl_close($ch);
+
+                            activity()->withProperties($result)->log('respuesta cancelar pago de orden   '.$orden->id);
+
+                           #   echo json_encode($pre);
+
+                            }
+
+                        }
+
+                      }
 
 
 

@@ -14,7 +14,7 @@
     <!-- javascript para verificar y validar la ubicacion para la venta-->
 
     <!--Chatbot-->
-    <script type="application/javascript" charset="UTF-8" src="https://cdn.agentbot.net/core/0421146a608cb85197f732accafb785a.js"></script>
+    <!--script type="application/javascript" charset="UTF-8" src="https://cdn.agentbot.net/core/0421146a608cb85197f732accafb785a.js"></script-->
     <!--Fin chatbot-->
     
     <script type="text/javascript">
@@ -121,7 +121,7 @@
             $('.btnpg').fadeIn();
              //$('#banpago').val('0');
 
-        },1000);
+        },15000);
 
     });
 

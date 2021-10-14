@@ -22,12 +22,33 @@
             }
         }
     </style>
-    <center style="width: 100%; background-color: #e9e9e9;">
+    <center style="width: 100%; background-color: #fff;">
     <table align="center" class="wrapper" width="710px" cellpadding="0" cellspacing="0">
         <tr>
             <td align="center">
                 <table class="content" width="710px" cellpadding="0" cellspacing="0">
-                    {{ $header or '' }}
+                    
+                
+
+
+
+                <tr class="header" >
+                    <td class="header" style="margin-bottom: 0 !important;" width="710px">
+                        <span style="text-align: center;"><img style="text-aling: center" src="https://www.alpinago.com/assets/images/logo_go.png" height="80px" alt="Alpina Go!" title="Alpina Go!"></p>
+
+                        
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="header2" align="center" style="background-color:#f4f4f4;" width="710px">
+                        <p style="  text-align: center;    margin: 0;    padding: 1em;    font-family: Avenir,Helvetica,sans-serif;    color: #241f48;    font-size: 16px;    font-weight: 600;">Tienda virtual de productos Alpina</p>
+                    </td>
+                </tr>
+
+
+                
+
 
                     <!-- Email Body -->
                     <tr>
@@ -36,19 +57,3 @@
                                 <!-- Body content -->
                                 <tr>
                                     <td class="content-cell">
-                                        {{ Illuminate\Mail\Markdown::parse($slot) }}
-                                        {{ $subcopy or '' }}
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-
-                    {{ $footer or '' }}
-                </table>
-            </td>
-        </tr>
-    </table>
-    </center>
-</body>
-</html>

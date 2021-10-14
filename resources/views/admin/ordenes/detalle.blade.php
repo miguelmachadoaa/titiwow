@@ -203,11 +203,6 @@ Orden {{$orden->id}}
 
 
 
-
-
-
-
-
                              @if($cliente->origen=='1')
 
                                      <tr>
@@ -336,7 +331,7 @@ Orden {{$orden->id}}
                          <td>{{ date("d/m/Y H:i:s", strtotime($orden->created_at)) }}</td>
                      </tr>
 
-                     @if(is_null($p_a))
+                     @if(is_null($pago_aprobado))
 
                         <tr>
                              <td>Fecha de pago Aprobado </td>
@@ -1156,7 +1151,7 @@ Orden {{$orden->id}}
 
                         @endif
 
-                           @if(isset(json_decode($pago->json)->response->transaction_details->verification_code) )
+                        @if(isset(json_decode($pago->json)->response->transaction_details->verification_code) )
 
                           <tr>
                               <td>verification_code</td>
@@ -1165,6 +1160,82 @@ Orden {{$orden->id}}
                           </tr>
 
                         @endif
+
+
+
+                        @if(isset(json_decode($pago->json)->id) )
+
+                          <tr>
+                              <td>Id Pago </td>
+                              <td>{{json_decode($pago->json)->id}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                        @if(isset(json_decode($pago->json)->operation_type) )
+
+                          <tr>
+                              <td>Tipo </td>
+                              <td>{{json_decode($pago->json)->operation_type}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+
+                        @if(isset(json_decode($pago->json)->payment_method_id) )
+
+                          <tr>
+                              <td>Metodo  </td>
+                              <td>{{json_decode($pago->json)->payment_method_id}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                        @if(isset(json_decode($pago->json)->payment_type_id) )
+
+                        <tr>
+                            <td>Tipo de Operación  </td>
+                            <td>{{json_decode($pago->json)->payment_type_id}}</td>
+                            
+                        </tr>
+
+                        @endif
+
+                        @if(isset(json_decode($pago->json)->status) )
+
+                        <tr>
+                            <td>Estatus </td>
+                            <td>{{json_decode($pago->json)->status}}</td>
+                            
+                        </tr>
+
+                        @endif
+
+                        @if(isset(json_decode($pago->json)->status_detail) )
+
+                        <tr>
+                            <td>Estatus Detalle </td>
+                            <td>{{json_decode($pago->json)->status_detail}}</td>
+                            
+                        </tr>
+
+                        @endif
+
+
+                        
+                        @if(isset(json_decode($pago->json)->external_resource_url) )
+
+                        <tr>
+                            <td>Enlace Externo <small>(Para pagos con PSE y Ticket )</small> </td>
+                            <td><a target="_blank" href="{{json_decode($pago->json)->external_resource_url}}">Ver Contenido</a></td>
+                            
+                        </tr>
+
+                        @endif
+                        
                     
 
                  </tbody>

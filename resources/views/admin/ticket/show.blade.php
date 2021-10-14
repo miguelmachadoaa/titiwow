@@ -325,7 +325,7 @@ Detalle Ticket
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Actualiar ticket</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Actualizar ticket</h4>
                     </div>
                      <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
                     <div class="modal-body">
@@ -347,7 +347,7 @@ Detalle Ticket
                                 Titulo Ticket 
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="titulo_ticket_respuesta" name="titulo_ticket_respuesta" class="form-control" placeholder="Titulo ticket"
+                                <input type="text" id="titulo_ticket_respuesta" name="titulo_ticket_respuesta" class="form-control" required placeholder="Titulo ticket"
                                        value="{!! old('titulo_ticket_respuesta') !!}">
                             </div>
                             <div class="col-sm-7">
@@ -371,7 +371,7 @@ Detalle Ticket
                                 Contenido
                             </label>
                             <div class="col-sm-5">
-                                 <textarea class="textarea form-control" name="texto_ticket_respuesta" id="texto_ticket_respuesta" placeholder="Contenido Ticket" rows="5" cols="10"></textarea>
+                                 <textarea class="textarea form-control" name="texto_ticket_respuesta" id="texto_ticket_respuesta" required placeholder="Contenido Ticket" rows="5" cols="10"></textarea>
                             </div>
                             <div class="col-sm-7">
                                 {!! $errors->first('texto_ticket_respuesta', '<span class="help-block">:message</span> ') !!}
@@ -462,6 +462,8 @@ Detalle Ticket
                                
                                 </div>
 
+                                <div class="resp_estatus" style="color:red"></div>
+
 
                                 </div>
 
@@ -513,7 +515,7 @@ Detalle Ticket
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title" id="modalLabeldanger">Reasignar Ticket</h4>
                     </div>
-                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
+                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="departamentoForm" name="departamentoForm" class="form-horizontal">
                     <div class="modal-body">
                         
                        
@@ -543,17 +545,16 @@ Detalle Ticket
 
                                            
                                     </select>
-                                    <div class="col-sm-4">
-                                        {!! $errors->first('departamento', '<span class="help-block">:message</span> ') !!}
+                                    <div class="col-sm-4 ">
+                                        {!! $errors->first('departamento', '<span class="help-block ">:message</span> ') !!}
                                     </div>
+
+                                    <div style="color:red;" class="resp_departamento"></div>
                                       
                                     </div>
+
                                
                                 </div>
-
-
-
-
 
 
                                 </div>
@@ -581,7 +582,7 @@ Detalle Ticket
 @stop
 @section('footer_scripts')
 
-
+<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
 <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
@@ -589,10 +590,12 @@ Detalle Ticket
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
  <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
 
-
 <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
+
+
 
 <script>
 
@@ -602,31 +605,40 @@ Detalle Ticket
 
         $('#departamentoModal').modal('show');
 
-
     });
 
 
     $('.senddepartamento').on('click', function(){
 
-        base = $('#base').val();
 
-        id = $('#id_ticket_departamento').val();
+        console.log($('#departamento_modal').val());
 
-        departamento = $('#departamento_modal').val();
+        if ($('#departamento_modal').val() == null || $('#departamento_modal').val()==undefined || $('#departamento_modal').val()=='' || $('#departamento_modal').val()== '0') {
 
-        _token = $('#_token').val();
+            $('.resp_departamento').html('<small>Debe seleccionar un Departamento</small>');
 
+        }else{
 
-         $.ajax({
-            type: "POST",
-            data:{ id, departamento, _token},
-            url: base+"/admin/ticket/departamento",
-                
-            complete: function(datos){     
+            base = $('#base').val();
 
-                location.reload();
-            }
-        });
+            id = $('#id_ticket_departamento').val();
+
+            departamento = $('#departamento_modal').val();
+
+            _token = $('#_token').val();
+
+            $.ajax({
+                type: "POST",
+                data:{ id, departamento, _token},
+                url: base+"/admin/ticket/departamento",
+                    
+                complete: function(datos){     
+
+                   location.reload();
+                }
+            });
+
+        }
 
     });
 
@@ -657,16 +669,27 @@ Detalle Ticket
         _token = $('#_token').val();
 
 
-         $.ajax({
-            type: "POST",
-            data:{ id, estatus, _token, notas},
-            url: base+"/admin/ticket/estatus",
-                
-            complete: function(datos){     
+        if($('#estatus_modal').val()=='' || $('#estatus_modal').val()==undefined || $('#estatus_modal').val()==null){
 
-               location.reload();
-            }
-        });
+            $('.resp_estatus').html('Debe seleccionar un estatus');
+
+        }else{
+
+            $.ajax({
+                type: "POST",
+                data:{ id, estatus, _token, notas},
+                url: base+"/admin/ticket/estatus",
+                    
+                complete: function(datos){     
+
+                location.reload();
+                }
+            });
+
+        }
+
+
+        
 
     });
 
@@ -820,10 +843,6 @@ Detalle Ticket
 
     });
 
-
-
-
-
      $('.addDespacho').on('click', function(){
 
         base = $('#base').val();
@@ -940,6 +959,17 @@ Detalle Ticket
 
 
 
+
+$("#departamentoForm").bootstrapValidator({
+    fields: {
+        id_ticket_departamento: {
+            required: true
+        },
+        departamento_modal: {
+            required: true
+        }
+    }
+});
 
 
 

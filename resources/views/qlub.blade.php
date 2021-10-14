@@ -379,17 +379,17 @@ Conoce el QLUB del Queso Alpina |  @parent
                                         @if($producto->cantidad==null)
                                             
                                             <a href="{{ route('producto', [$producto->slug]) }}" >
-                                                                        <h6 class="pum c9">{{ $producto->pum }}</h6>
-                                                                    </a>
+                                                <h6 class="pum c9">{{ $producto->pum }}</h6>
+                                            </a>
                                         @else
 
                                             <a href="{{ route('producto', [$producto->slug]) }}" >
-                                                                        <h6 class="pum c10">
-                                                                            {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
-                                                                        </h6>
-                                                                    </a>
+                                                <h6 class="pum c10">
+                                                    {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
+                                                </h6>
+                                            </a>
 
-                                                                    @endif
+                                        @endif
 
                                                                     
 
@@ -520,7 +520,17 @@ Conoce el QLUB del Queso Alpina |  @parent
 
                                                                          @if($producto->tipo_producto=='1')
 
-                                                                         <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                                                         <a 
+                                                                         data-slug="{{ $producto->slug }}" 
+                                                                         data-price="{{ intval($producto->precio_oferta) }}" 
+                                                                         data-id="{{ $producto->id }}" 
+                                                                         data-name="{{ $producto->nombre_producto }}" 
+                                                                         
+                                                                         data-categoria="{{ $producto->nombre_categoria }}" 
+                    
+                                                                         data-marca="{{ $producto->nombre_marca }}"     
+                                                                         
+                                                                         data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
 
                                                                          @endif
@@ -810,7 +820,11 @@ Conoce el QLUB del Queso Alpina |  @parent
 
                                                                     @else
                                                                          <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                                         <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                                                         <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}"
+                                                                         data-categoria="{{ $producto->nombre_categoria }}" 
+                    
+                    data-marca="{{ $producto->nombre_marca }}" 
+                     data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                                                     @endif
 
