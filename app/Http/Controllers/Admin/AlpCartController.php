@@ -2796,20 +2796,21 @@ class AlpCartController extends JoshController
         $user_id = Sentinel::getUser()->id;
         
         $user_cliente=User::where('id', $user_id)->first();
+        $user=User::where('id', $user_id)->first();
 
       }else{
 
         $user_id= \Session::get('iduser');
 
          $user_cliente=User::where('id', $user_id)->first();
+         $user=User::where('id', $user_id)->first();
 
       }
 
       if ($user_id) {
 
          $configuracion = AlpConfiguracion::where('id', '1')->first();
-         
-         
+
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
 

@@ -83,7 +83,7 @@ use Sentinel;
 use View;
 use DB;
 
-use MP;
+use MercadoPago;
 
 use Carbon\Carbon;
 
@@ -3139,30 +3139,14 @@ public function postdireccion(DireccionModalRequest $request)
            // dd($total_descuentos);
 
 
-             $mp = new MP();
+          #   $mp = new MP();
 
-           if ($configuracion->mercadopago_sand=='1') {
-          
-              $mp::sandbox_mode(TRUE);
+             MercadoPago::setClientId($almacen->id_mercadopago);
+             MercadoPago::setClientSecret($almacen->key_mercadopago);
+             MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+    
+            $payment_methods = MercadoPago::get("/v1/payment_methods");
 
-            }
-
-            if ($configuracion->mercadopago_sand=='2') {
-              
-              $mp::sandbox_mode(FALSE);
-
-            }
-
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
-            $payment_methods = MP::get("/v1/payment_methods");
-
-
-         //   $preference = array();
-
-           //   $payment_methods = array();
-
-            
         // Show the page
         return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods', 'orden', 'detalles', 'user', 'almacen'));
 
