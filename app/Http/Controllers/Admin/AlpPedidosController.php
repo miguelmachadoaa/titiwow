@@ -3370,7 +3370,9 @@ public function postdireccion(DireccionModalRequest $request)
 
         $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+        MercadoPago::setClientId($almacen->id_mercadopago);
+        MercadoPago::setClientSecret($almacen->key_mercadopago);
+        MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
 
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
