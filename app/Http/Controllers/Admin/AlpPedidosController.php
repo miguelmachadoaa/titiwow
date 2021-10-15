@@ -3147,6 +3147,8 @@ public function postdireccion(DireccionModalRequest $request)
     
             $payment_methods = MercadoPago::get("/v1/payment_methods");
 
+            echo json_encode($payment_methods);
+
         // Show the page
         return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods', 'orden', 'detalles', 'user', 'almacen'));
 
