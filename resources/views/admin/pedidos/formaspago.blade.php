@@ -30,7 +30,7 @@
 
         </div>
 
-
+@if($total-$total_pagos>0)
 
     @if(count($formaspago))
 
@@ -310,5 +310,15 @@
 
         @endif 
 
+
+@else
+
+<div class=" col-sm-12 col-xs-12">
+
+    <h3>Ya esta orden Fue Pagada</h3>
+
+</div> 
+
+@endif 
 
        

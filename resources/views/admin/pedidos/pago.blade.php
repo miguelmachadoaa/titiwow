@@ -1634,12 +1634,12 @@ $('#addDireccionForm').keypress(
         }
     });
 
-    $(document).ready(function(){
-        $('.select2').select2({
+    /* $(document).ready(function(){
+       $('.select2').select2({
             placeholder: "select",
             theme:"bootstrap"
         });
-    })
+    })*/
 
     </script>
 
