@@ -61,7 +61,11 @@ Pedidos
                             
                             <h3>Enlace para pago </h3>
 
-                            <p>{{secure_url('pedidos/'.$compra->token.'/pago')}}</p>
+                            <p>{{secure_url('pedidos/'.$compra->token.'/pago')}} 
+                                <button type="button" class="btn btn-info btnCopiar">Copiar </button>
+                            </p>
+
+                            <input type="hidden" id="copy_url" name="copy_url" value="{{secure_url('pedidos/'.$compra->token.'/pago')}}">
 
                         </div>
 
@@ -253,6 +257,24 @@ Pedidos
 
 
 <script>
+
+    $('.btnCopiar').click(function(){
+
+        var $temp = $("<input>");
+       //lo agregamos a nuestro body
+       $("body").append($temp);
+       //agregamos en el atributo value del input el contenido html encontrado
+       //en el td que se dio click
+       //y seleccionamos el input temporal
+       $temp.val($('#copy_url').val()).select();
+       //ejecutamos la funcion de copiado
+       document.execCommand("copy");
+       //eliminamos el input temporal
+       $temp.remove();
+
+        $('.btnCopiar').html('Copiado!');
+
+    });
 
     $('#categoria').on('change', function(){
 
