@@ -125,7 +125,7 @@
 
 @else
 
-<div class="alert alert-danger ">Debe Seleccionar Un Cliente para continuar con el proceso de compra </div>
+<div class="alert alert-danger ">Debe Seleccionar Un Cliente para ver el Catalogo de productos </div>
 
 @endif
 

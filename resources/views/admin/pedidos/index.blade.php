@@ -772,7 +772,7 @@ Pedidos
 
                 <div class="col-sm-12">
 
-                    <div class="errorregistrocliente"></div>
+                    <div class="errorregistrocliente" style="    border-radius: 5px;    padding: 0.5em;    color: #fff;"></div>
 
 
 
