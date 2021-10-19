@@ -2652,6 +2652,173 @@ public function bono()
 
 
 
+    
+public function lifemiles() 
+{
+
+    
+      if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('AlpReportesController/precio ');
+
+    }else{
+
+      activity()
+      ->log('AlpReportesController/precio');
+
+
+    }
+
+    if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+       return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+    }
+
+     $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+      ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+      ->get();
+
+      // Show the page
+    return view('admin.reportes.lifemiles', compact('cliente'));
+
+
+}
+
+
+
+ public function exportlifemiles(Request $request) 
+{
+
+     if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())->log('AlpReportesController/exporterroriva  ');
+
+    }else{
+
+      activity()
+      ->withProperties($request->all())->log('AlpReportesController/exporterroriva ');
+
+
+    }
+
+     $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+      ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+      ->where('users.id', '=', $request->clientes)
+      ->first();
+
+
+    $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+          ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+          ->where('alp_abono_disponible.id_cliente', $request->clientes)
+          ->first();
+
+         $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $request->clientes)->get();
+
+
+         $data = array('cliente' => $cliente, 'disponible'=>$disponible, 'history'=>$history );
+
+
+
+    return Excel::download(new BonoExport($cliente, $disponible, $history), 'bono'.time().'.xlsx');
+
+}
+
+
+
+
+    
+public function abandonado() 
+{
+
+    
+      if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('AlpReportesController/precio ');
+
+    }else{
+
+      activity()
+      ->log('AlpReportesController/precio');
+
+
+    }
+
+    if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+       return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+    }
+
+     $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+      ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+      ->get();
+
+      // Show the page
+    return view('admin.reportes.abandonado', compact('cliente'));
+
+
+}
+
+
+
+ public function exportabandonado(Request $request) 
+{
+
+     if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())->log('AlpReportesController/exporterroriva  ');
+
+    }else{
+
+      activity()
+      ->withProperties($request->all())->log('AlpReportesController/exporterroriva ');
+
+
+    }
+
+     $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+      ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+      ->where('users.id', '=', $request->clientes)
+      ->first();
+
+
+    $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+          ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+          ->where('alp_abono_disponible.id_cliente', $request->clientes)
+          ->first();
+
+         $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $request->clientes)->get();
+
+
+         $data = array('cliente' => $cliente, 'disponible'=>$disponible, 'history'=>$history );
+
+
+
+    return Excel::download(new BonoExport($cliente, $disponible, $history), 'bono'.time().'.xlsx');
+
+}
+
+
+
 
 
 
