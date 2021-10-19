@@ -7023,7 +7023,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
       $inv=$this->inventario();
 
-      $producto=AlpProductos::where('id', $request->id)->first();
+      $producto=AlpProductos::select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+      ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+      ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+      ->where('alp_productos.id', $request->id)->first();
 
       $error='0';
 
@@ -7258,7 +7261,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
        $inv=$this->inventario();
 
-       $producto=AlpProductos::where('id', $request->id)->first();
+       $producto=AlpProductos::select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+       ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+       ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+       ->where('alp_productos.id', $request->id)->first();
 
        //dd(print_r($producto));
 
@@ -7452,7 +7458,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
        $inv=$this->inventario();
 
-       $producto=AlpProductos::where('id', $request->id)->first();
+       $producto=AlpProductos::select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+       ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+       ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+       ->where('alp_productos.id', $request->id)->first();
 
        //dd(print_r($producto));
 

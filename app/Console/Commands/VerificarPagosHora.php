@@ -1892,6 +1892,7 @@ private function registrarOrdenNuevo($id_orden)
                     'url_img' => $d->imagen_producto, 
                     'value' => $d->precio_unitario, 
                     'value_prom' => $d->precio_unitario, 
+                    'iva' => intval($d->valor_impuesto*100),  
                     'quantity' => $d->cantidad
                   );
 
@@ -1906,6 +1907,7 @@ private function registrarOrdenNuevo($id_orden)
                       'url_img' => $d->imagen_producto, 
                       'value' => $d->precio_unitario, 
                       'value_prom' => $d->precio_unitario, 
+                      'iva' => intval($d->valor_impuesto*100),   
                       'quantity' => $d->cantidad
                     );
 
@@ -1926,6 +1928,7 @@ private function registrarOrdenNuevo($id_orden)
                           'url_img' => $d->imagen_producto, 
                           'value' => $d->precio_unitario, 
                           'value_prom' => $d->precio_unitario, 
+                          'iva' => intval($d->valor_impuesto*100), 
                           'quantity' => $d->cantidad
                         );
 

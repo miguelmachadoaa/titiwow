@@ -130,15 +130,10 @@ use Intervention\Image\Facades\Image;
 class FrontEndController extends JoshController
 {
 
-
-
-
   public function getCompramas(Request $request)
   {
 
-
         if (Sentinel::check()) {
-
 
           $user = Sentinel::getUser();
 
@@ -182,15 +177,10 @@ class FrontEndController extends JoshController
         if (isset($status->id)) {
 
           $data_histroy = array(
-
             'id_envio' => $envio->id, 
-
             'estatus_envio' => $status->id, 
-
             'nota' => 'Actualizado por compramas', 
-
             'id_user' => '1', 
-
             'json' => json_encode($input) 
 
           );
@@ -214,16 +204,9 @@ class FrontEndController extends JoshController
     }
 
 
-
     return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
 
-   
-
   }
-
-
-
-
 
 
 
@@ -281,7 +264,7 @@ class FrontEndController extends JoshController
 
             $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
 
-              if ($dato['stock']>0) {
+              if ($dato['stock']>=0) {
 
                   if (isset($p->id)) {
 
@@ -352,17 +335,12 @@ class FrontEndController extends JoshController
 
        } //(end if hay resspuessta)
 
-       activity()->withProperties($resp)->log('FrontEndController/getCompramasInventario Data Respuesta ');
+      activity()->withProperties($resp)->log('FrontEndController/getCompramasInventario Data Respuesta ');
 
-    return response(json_encode($resp), 200) ->header('Content-Type', 'application/json');
+      return response(json_encode($resp), 200) ->header('Content-Type', 'application/json');
 
-   
 
   }
-
-
-
-
 
 
 
@@ -372,25 +350,16 @@ class FrontEndController extends JoshController
         $id='1';
 
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
-
       ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
 
      // ->join('alp_xml', 'alp_productos.id', '=','alp_xml.id_producto')
-
       ->join('alp_almacen_producto', 'alp_productos.id', '=','alp_almacen_producto.id_producto')
-
       ->where('alp_productos.estado_registro','=',1)
-
       ->where('alp_almacen_producto.id_almacen','=','1')
-
       ->whereNull('alp_almacen_producto.deleted_at')
-
       //->whereNull('alp_xml.deleted_at')
-
       ->whereNull('alp_productos.deleted_at')
-
       ->groupBy('alp_productos.id')
-
       ->get();
 
 
@@ -489,32 +458,21 @@ class FrontEndController extends JoshController
     {
 
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
-
       ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
-
      // ->join('alp_xml', 'alp_productos.id', '=','alp_xml.id_producto')
-
       ->join('alp_almacen_producto', 'alp_productos.id', '=','alp_almacen_producto.id_producto')
-
       ->where('alp_productos.estado_registro','=',1)
-
       ->where('alp_almacen_producto.id_almacen', '=', $id)
-
       ->whereNull('alp_almacen_producto.deleted_at')
-
       //->whereNull('alp_xml.deleted_at')
-
       ->whereNull('alp_productos.deleted_at')
-
       ->groupBy('alp_productos.id')
-
       ->get();
 
       #dd($productos);
 
 
       $cs1=AlpXml::first();
-
 
           $precio = array();
 
@@ -853,10 +811,7 @@ class FrontEndController extends JoshController
     public function home()
     {
 
-
        $cart= \Session::get('cart');
-
-
 
        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
 
@@ -885,8 +840,7 @@ class FrontEndController extends JoshController
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
         
-        $productos = DB::table('alp_productos')->select('alp_productos.*','alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 
-        'alp_categorias.nombre_categoria as nombre_categoria')
+        $productos = DB::table('alp_productos')->select('alp_productos.*','alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
@@ -923,43 +877,27 @@ class FrontEndController extends JoshController
             $rol=$role->role_id;
 
             $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
               ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
               ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
               ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
               ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
               ->where('alp_direcciones.id_client', $user_id)
-
               ->where('alp_direcciones.default_address', '=', '1')
-
               ->first();
 
 
-
             if (isset($d->id)) {
-
-
 
             }else{
 
 
 
                   $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
                 ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
                 ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
                 ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
                 ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
                 ->where('alp_direcciones.id_client', $user_id)
-
                 ->first();
 
             }
@@ -1147,48 +1085,20 @@ class FrontEndController extends JoshController
 
 
         $sliders=AlpSliders::select('alp_slider.*')
-
         ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
-
         ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
-
         ->where('alp_slider.grupo_slider', '=', 1)
-
         ->whereNull('alp_slider.deleted_at')
-
         ->whereNull('alp_almacen_slider.deleted_at')
-
         ->orderBy("order")->get();
 
-
-
-       // $sliders=AlpSliders::get();
-
-
-
-        //dd($sliders);
-
-
-
-
-
-      // dd($inventario);
-
-      // 
-
-      
 
       $cart= \Session::get('cart');
 
 
-
        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
 
-         
-
           $cart= \Session::forget('cart');
-
-
 
           $cart = array();
 
@@ -1196,7 +1106,6 @@ class FrontEndController extends JoshController
 
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
-
 
 
     }
@@ -1218,34 +1127,19 @@ class FrontEndController extends JoshController
         $configuracion=AlpConfiguracion::where('id', '1')->first();
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
         
-
-        $productos = DB::table('alp_productos')->select('alp_productos.*')
-
-       # ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-
-        #->join('alp_almacenes', 'alp_destacados_producto.id_almacen', '=', 'alp_almacenes.id')
-
+        $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
-
         ->where('alp_destacados_producto.id_grupo_destacado', '=', '2')
-
         ->where('alp_destacados_producto.id_almacen', '=', $id_almacen)
-
-        #->whereNull('alp_almacen_producto.deleted_at')
         ->whereNull('alp_destacados_producto.deleted_at')
-
         ->whereNull('alp_productos.deleted_at')
-
         ->where('alp_productos.estado_registro','=',1)
-
         ->where('alp_productos.mostrar','=',1)
-
         ->groupBy('alp_productos.id')
-
         ->orderBy('alp_productos.order', 'asc')
-
         ->orderBy('alp_productos.updated_at', 'desc')
-
         ->get();
         
         //dd($productos);
@@ -1476,30 +1370,14 @@ class FrontEndController extends JoshController
        $url=secure_url('/');
 
         $sliders=AlpSliders::select('alp_slider.*')
-
         ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
-
         ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
-
         ->where('alp_slider.grupo_slider', '=', 2)
-
         ->whereNull('alp_slider.deleted_at')
-
         ->whereNull('alp_almacen_slider.deleted_at')
-
         ->orderBy("order")->get();
 
-       // $sliders=AlpSliders::get();
-
-        //dd($sliders);
-
-      // dd($inventario);
-
-      // 
-
       $cart= \Session::get('cart');
-
-
 
        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
 
@@ -1517,69 +1395,40 @@ class FrontEndController extends JoshController
     private $user_activation = false;
 
 
-
-
-
     public function getLogin()
-
     {
 
-
-
         if (Sentinel::check()) {
-
-            
 
             return Redirect::route('clientes');
 
         }
 
-        // Show the login page
-
         return view('login');
 
     }
 
-
-
      public function desactivado()
-
     {
-
-        // Is the user logged in?
-
-        
-
-        // Show the login page
 
         return view('desactivado');
 
     }
 
 
-
     /**
-
      * Account sign in form processing.
-
      *
-
      * @return Redirect
-
      */
 
     public function postLogin(Request $request)
     {
 
-
       $email=base64_decode($request->email);
-
       $password=base64_decode($request->password);
-
       $password=strip_tags($password);
-
       $email=strip_tags($email);
-
 
         try {
 

@@ -82,9 +82,9 @@ class VerificarPagos extends Command
 
         #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+       # $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-       # $ordenes=AlpOrdenes::where('id', '20856')->get();
+        $ordenes=AlpOrdenes::where('id', '20860')->get();
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
@@ -453,6 +453,7 @@ class VerificarPagos extends Command
                                     'url_img' => $d->imagen_producto, 
                                     'value' => $d->precio_unitario, 
                                     'value_prom' => $d->precio_unitario, 
+                                    
                                     'quantity' => $d->cantidad
                                   );
 
@@ -991,7 +992,7 @@ class VerificarPagos extends Command
       $user_cliente=User::where('id', $orden->id_user)->first();
 
       if (isset($preference['body']['results'])) {
-       # if (isset($preference)) {
+     #  if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
@@ -1834,6 +1835,7 @@ private function registrarOrdenNuevo($id_orden)
                     'url_img' => $d->imagen_producto, 
                     'value' => $d->precio_unitario, 
                     'value_prom' => $d->precio_unitario, 
+                    'iva' => intval($d->valor_impuesto*100), 
                     'quantity' => $d->cantidad
                   );
 
@@ -1848,6 +1850,7 @@ private function registrarOrdenNuevo($id_orden)
                       'url_img' => $d->imagen_producto, 
                       'value' => $d->precio_unitario, 
                       'value_prom' => $d->precio_unitario, 
+                      'iva' => intval($d->valor_impuesto*100), 
                       'quantity' => $d->cantidad
                     );
 
@@ -1868,6 +1871,7 @@ private function registrarOrdenNuevo($id_orden)
                           'url_img' => $d->imagen_producto, 
                           'value' => $d->precio_unitario, 
                           'value_prom' => $d->precio_unitario, 
+                          'iva' => intval($d->valor_impuesto*100),  
                           'quantity' => $d->cantidad
                         );
 
@@ -1945,8 +1949,12 @@ private function registrarOrdenNuevo($id_orden)
             'products' => $productos, 
           );
 
+         # dd($o);
+
 
     $dataraw=json_encode($o);
+
+    #dd($dataraw);
 
     $orden->update(['send_json_masc'=>$dataraw]);
 
