@@ -1045,12 +1045,12 @@ Pedidos
 
             <div class="col-sm-6">
                 <h3 id="nombre-producto-modal"><span></span>  </h3>
-                <p id="referencia-producto-modal">Referencia: <span></span></p>
-                <p id="presentacion-producto-modal"> Presentacion: <span></span></p>
-                <p id="categoria-producto-modal">Categoria: <span></span></p>
-                <p id="precio-producto-modal"> Precio: <span></span></p>
-                <p id="oferta-producto-modal">Oferta: <span></span></p>
-                <p id="inventario-producto-modal">Inventario: <span></span></p>
+                <p id="referencia-producto-modal"> <b>Referencia:</b>  <span></span></p>
+                <p id="presentacion-producto-modal"> <b>Presentacion:</b>  <span></span></p>
+                <p id="categoria-producto-modal"> <b>Categoria:</b>  <span></span></p>
+                <p id="precio-producto-modal"> <b>Precio:</b>   <span></span></p>
+                <p id="oferta-producto-modal"> <b> Oferta</b>: <span></span></p>
+                <p id="inventario-producto-modal"> <b>Inventario:</b>  <span></span></p>
             </div>
         </div>
                 
@@ -1141,7 +1141,7 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>')
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>');
 
         base=$('#base').val();
 
@@ -1449,6 +1449,8 @@ Pedidos
     }); 
 
     $('.btn_buscar_cliente').on('click', function(){
+
+        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>')
 
         base=$('#base').val();
 

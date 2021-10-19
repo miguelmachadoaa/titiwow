@@ -89,7 +89,7 @@
 
         <div style="display:flex; justify-content: space-between; align-items: center; flex-direction: row">  
 
-            <div><h4>Total Venta </h4></div>
+            <div><h4> <b>Total Venta:</b>     </h4></div>
             <div><h4>{{number_format($total_venta,0,',','.')}}</h4></div>
         </div>
 
@@ -110,12 +110,12 @@
 
         @if($total_venta>0)
 
-            <a style="width:100%"  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
+            <a style="width:100%"  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg" >Hacer Pedido</a>
         
         @endif
 
         <div class="row">
-            <div class="col-sm-6 p-0 ">
+            <div class="col-sm-6  " style="padding-left:0;">
                 <button style="width:100%" type="button" class="btn btn-warning vaciarCarrito">Vaciar</button>
             </div>      
             <!--div  class="col-sm-4 p-0 ">
@@ -123,7 +123,7 @@
 
                     
             </div-->
-            <div  class="col-sm-6 p-0 ">
+            <div  class="col-sm-6  " style="padding-right:0">
             <button style="width:100%" type="button" class="btn btn-danger cancelarpedido"> Cancelar</button>
 
             </div>

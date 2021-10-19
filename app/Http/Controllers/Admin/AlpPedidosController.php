@@ -1123,9 +1123,11 @@ class AlpPedidosController extends JoshController
      public function databuscarcliente($buscar)
     {
 
-         $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email',  'role_users.role_id  as role_id')
+         $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email',  'role_users.role_id  as role_id',  'config_cities.city_name  as city_name')
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
           ->join('role_users', 'users.id', '=', 'role_users.user_id')
+          ->join('alp_direcciones', 'users.id', '=', 'alp_direcciones.id_client')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
          // ->where('role_users.role_id', '<>', 1)
           ->orWhere('users.first_name','like',  '%'.$buscar.'%')
@@ -1134,6 +1136,7 @@ class AlpPedidosController extends JoshController
           ->orWhere('alp_clientes.doc_cliente','like',  '%'.$buscar.'%')
           ->orWhere('alp_clientes.telefono_cliente','like',  '%'.$buscar.'%')
           ->orderBy('users.first_name')
+          ->limit(10)
           ->get();
 
            $view= View::make('admin.pedidos.listaclientes', compact('clientes'));

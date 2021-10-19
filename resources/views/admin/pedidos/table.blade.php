@@ -46,7 +46,7 @@
                             <div class="row" style="flex-grow: 1;">
                                 <p style="margin:0; height: 3em;"><b>{{$p->nombre_producto}}</b></p>
                                 <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}}</p>
-                                <p style="margin:0;">{{number_format($p->precio_oferta,0,',','.')}} COP</p>
+                                <p style="margin:0;"> <b>Precio: {{number_format($p->precio_oferta,0,',','.')}} COP</b> </p>
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch " class="">
                                     <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
 
@@ -57,8 +57,8 @@
                                     data-referencia_producto="{{$p->referencia_producto}}" 
                                     data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
                                     data-nombre_categoria="{{$p->nombre_categoria}}" 
-                                    data-precio_base="{{$p->precio_base}}" 
-                                    data-precio_oferta="{{$p->precio_oferta}}" 
+                                    data-precio_base="{{number_format($p->precio_base,2,',','.')}}" 
+                                    data-precio_oferta="{{number_format($p->precio_oferta,2,',','.')}}" 
                                     data-inventario="{{$cart['inventario'][$p->id]}}" 
                                     data-imagen="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" 
                                     ><img style="width: 32px; " src="{{secure_url('assets/images/visible.png')}}" alt="">  </button>
@@ -98,8 +98,8 @@
                                     data-referencia_producto="{{$p->referencia_producto}}" 
                                     data-referencia_producto_sap="{{$p->referencia_producto_sap}}" 
                                     data-nombre_categoria="{{$p->nombre_categoria}}" 
-                                    data-precio_base="{{$p->precio_base}}" 
-                                    data-precio_oferta="{{$p->precio_oferta}}" 
+                                    data-precio_base="{{number_format($p->precio_base,2,',','.')}}" 
+                                    data-precio_oferta="{{number_format($p->precio_oferta,2,',','.')}}" 
                                     data-inventario="{{$cart['inventario'][$p->id]}}" 
                                     data-imagen="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" 
                                     ><img  style="width: 32px; " src="{{secure_url('assets/images/visible.png')}}" alt=""></button>

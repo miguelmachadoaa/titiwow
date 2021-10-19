@@ -52,17 +52,17 @@ Pedidos
 
                             <h3>Datos de la compra  </h3>
 
-                            <p>Nombre: {{$compra->first_name.' '.$compra->last_name}}</p>
-                            <p>Forma de Pago: {{$compra->nombre_forma_envios}}</p>
-                            <p>Forma de Envio: {{$compra->nombre_forma_pago}}</p>
-                            <p>Dirección:  {{ $direccion->state_name.' '.$direccion->city_name.' '.$direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</p>
+                            <p> <b>Nombre:</b>  {{$compra->first_name.' '.$compra->last_name}}</p>
+                            <p> <b>Forma de Pago:</b>  {{$compra->nombre_forma_envios}}</p>
+                            <p> <b>Forma de Envio:</b>  {{$compra->nombre_forma_pago}}</p>
+                            <p> <b>Dirección:</b>   {{ $direccion->state_name.' '.$direccion->city_name.' '.$direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</p>
 
-                            <p>Notas: {{$compra->notas}}</p>
+                            <p> <b> Notas:</b> {{$compra->notas}}</p>
                             
-                            <h3>Enlace para pago </h3>
+                            <h3 > <b>Enlace para pago</b>  </h3>
 
                             <p>{{secure_url('pedidos/'.$compra->token.'/pago')}} 
-                                <button type="button" class="btn btn-info btnCopiar">Copiar </button>
+                                <button type="button" class="btn btn-info btnCopiar" style="margin-left: 1em;">Copiar </button>
                             </p>
 
                             <input type="hidden" id="copy_url" name="copy_url" value="{{secure_url('pedidos/'.$compra->token.'/pago')}}">
