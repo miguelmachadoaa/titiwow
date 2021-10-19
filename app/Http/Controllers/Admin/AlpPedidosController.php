@@ -3147,7 +3147,7 @@ public function postdireccion(DireccionModalRequest $request)
     
             $payment_methods = MercadoPago::get("/v1/payment_methods");
 
-            echo json_encode($payment_methods);
+          //  echo json_encode($payment_methods);
 
         // Show the page
         return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods', 'orden', 'detalles', 'user', 'almacen'));
@@ -3477,7 +3477,6 @@ public function postdireccion(DireccionModalRequest $request)
 
         $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
 
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
@@ -3592,9 +3591,55 @@ public function postdireccion(DireccionModalRequest $request)
             "email"=>$user_cliente->email]
         ];
 
+
+        MercadoPago::setClientId($almacen->id_mercadopago);
+        MercadoPago::setClientSecret($almacen->key_mercadopago);
+        MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+
+
+        $ip=\Request::ip();
+
+        $payment = new MercadoPago\Payment();
+        $payment->transaction_amount = (float)$orden->monto_total+$envio;
+        $payment->net_amount =(float)number_format($net_amount, 2, '.', '');
+        $payment->taxes = [[
+          "value"=>(float)number_format($impuesto, 2, '.', ''),
+          "type"=>"IVA"]
+        ];
+
+        $payment->token = $request['MPHiddenInputToken'];
+        $payment->description = 'Pago de Orden '. $orden->id;
+        $payment->installments = (int)$request['installments'];
+        $payment->payment_method_id = $request['MPHiddenInputPaymentMethod'];
+        //$payment->issuer_id = (int)$request['issuer'];
+        $payment->external_reference = $orden->referencia_mp;
+        $payment->binary_mode = true;
+        $payment->additional_info = array(
+          "ip_address"=>$ip,
+          "items"=>$det_array,
+          "payer"=>$payer,
+        );
+
+        $payer = new MercadoPago\Payer();
+        $payer->email = $request['cardholderEmail'];
+        $payer->identification = array(
+            "type" => $request['identificationType'],
+            "number" => $request['123123123']
+        );
+        $payment->payer = $payer;
+
+        $payment->save();
+
+        $response = array(
+            'status' => $payment->status,
+            'status_detail' => $payment->status_detail,
+            'id' => $payment->id
+        );
+
+
         //dd($preference_data);
 
-        $preference = MP::post("/v1/payments",$preference_data);
+       # $preference = MP::post("/v1/payments",$preference_data);
 
 
          $data_pago = array(
@@ -3610,20 +3655,47 @@ public function postdireccion(DireccionModalRequest $request)
 
          
 
-        if (isset($preference['response']['id'])) {
+             if (isset($payment->id)) {
 
 
-          if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired' )  {
+              if ($payment->status=='rejected' || $payment->status=='cancelled' || $payment->status=='cancelled/expired' )  {
 
-              if (isset($avisos[$preference['response']['status_detail']])) {
+                if (isset($avisos[$payment->status_detail])) {
 
-                $aviso=$avisos[$preference['response']['status_detail']];
+                  $aviso=$avisos[$payment->status_detail];
                 
               }else{
 
                 $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
 
               }
+
+              $data_payment = array(
+                'id' => $payment->id, 
+                'operation_type' => $payment->operation_type, 
+                'payment_method_id' => $payment->payment_method_id, 
+                'payment_type_id' => $payment->payment_type_id, 
+                'external_reference' => $payment->external_reference, 
+                'status' => $payment->status, 
+                'status_detail' => $payment->status_detail, 
+                'transaction_amount' => $payment->transaction_amount, 
+                'external_resource_url' => $payment->transaction_details->external_resource_url, 
+              );
+
+                $data_pago = array(
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => '3', 
+                'monto_pago' => 0, 
+                'referencia' => $payment->id, 
+                'metodo' => $payment->payment_method_id, 
+                'tipo' => $payment->payment_type_id, 
+                'json' => json_encode($data_payment), 
+                'id_user' => '1', 
+                );
+
+                
+             AlpPagos::create($data_pago);
 
             return redirect('pedidos/'.$orden->token.'/pago')->with('aviso', $aviso);
 
@@ -3632,7 +3704,7 @@ public function postdireccion(DireccionModalRequest $request)
 
 
            /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
-           $data=$this->generarPedido('8', '4', $preference, 'credit_card');
+           $data=$this->generarPedido('8', '4', $payment, 'credit_card');
 
             $id_orden=$data['id_orden'];
 

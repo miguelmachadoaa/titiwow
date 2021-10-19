@@ -1612,8 +1612,9 @@ class AlpCartController extends JoshController
       if ($user_id) {
 
 
-        $user_id = Sentinel::getUser()->id;
-        
+       # $user_id = Sentinel::getUser()->id;
+
+
         $user_cliente=User::where('id', $user_id)->first();
         
         $datos_cliente=AlpClientes::where('id_user_client', $user_id)->first();
@@ -2094,12 +2095,25 @@ class AlpCartController extends JoshController
           
       }
 
-      
 
       if (Sentinel::check()) {
 
+        $user_id = Sentinel::getUser()->id;
+
+      }else{
         
-        $user = Sentinel::getUser();
+        $user_id= \Session::get('iduser');
+       
+      }
+
+      
+
+      if ($user_id) {
+
+        
+      #  $user = Sentinel::getUser();
+
+        $user=User::where('id', $user_id)->first();
 
         
         activity($user->full_name)
@@ -2114,7 +2128,7 @@ class AlpCartController extends JoshController
 
                     
 
-        $user_id = Sentinel::getUser()->id;
+        #$user_id = Sentinel::getUser()->id;
         
         $usuario=User::where('id', $user_id)->first();
         
