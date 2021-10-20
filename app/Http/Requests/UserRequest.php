@@ -86,7 +86,7 @@ class UserRequest extends FormRequest
                     'id_estructura_address' => 'required',
                     'principal_address' => 'required',
                     'secundaria_address' => 'required',
-                    'edificio_address' => 'required',
+                    'edificio_address' => 'required', 
                     'g-recaptcha-response' => new Captcha(),
                 ];
             }

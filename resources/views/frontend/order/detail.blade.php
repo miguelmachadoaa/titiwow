@@ -459,21 +459,22 @@ div.overlay > div {
 
                                  
                                    <option value="">Selecciona Entidad Financiera *</option>
-                                   @if(isset($payment_methods['body'] ))
+
+                                    @if(isset($payment_methods['body'] ))
                                     
-                                    @foreach($payment_methods['body'] as $pm)
+                                        @foreach($payment_methods['body'] as $pm)
 
-                                        @if($pm['id']=='pse')
+                                            @if($pm['id']=='pse')
 
-                                            @foreach($pm['financial_institutions'] as $fi)
+                                                @foreach($pm['financial_institutions'] as $fi)
 
-                                                <option value="{{ $fi['id'] }}">{{ $fi['description'] }}</option>
+                                                    <option value="{{ $fi['id'] }}">{{ $fi['description'] }}</option>
 
-                                            @endforeach
+                                                @endforeach
 
-                                        @endif
+                                            @endif
 
-                                    @endforeach
+                                        @endforeach
 
                                     @endif
                                 </select>

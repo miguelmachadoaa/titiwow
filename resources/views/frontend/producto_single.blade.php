@@ -231,11 +231,6 @@
                         @endif
 
 
-
-
-
-
-
                              @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')
 
                                 @if(isset($inventario[$producto->id]))

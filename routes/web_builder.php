@@ -1172,6 +1172,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::get('tomapedidos/vaciarcarrito', 'Admin\AlpPedidosController@vaciarcarrito');
 
+    Route::get('tomapedidos/cancelarpedido', 'Admin\AlpPedidosController@cancelarpedido');
+
 
      Route::get('tomapedidos/{id}/asignaalmacen', 'Admin\AlpPedidosController@asignaalmacen');
      

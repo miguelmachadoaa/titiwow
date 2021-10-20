@@ -16,23 +16,13 @@ Pedidos
 
 @section('header_styles')
 
-
-
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-
-
 
     <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 
-
-
     <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
 
-<link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
-
-
-
-
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -106,19 +96,11 @@ Pedidos
 
                 <div class="panel-body" style="padding-top: 0;">
 
-
-
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
-
-
 
                      <div class="row clientecompra table-responsive" style="padding-top: 0;">
 
-                         
-
                         @include('admin.pedidos.clientecompra')
-
-
 
                      </div> 
 
@@ -1178,35 +1160,23 @@ Pedidos
 
 
 
-       $('.btn_buscar_cliente').on('click', function(){
-
-
+        $('.btn_buscar_cliente').on('click', function(){
 
              base=$('#base').val();
 
-
-
              buscar=$('#buscar_cliente').val();
-
-
 
              if (buscar.length>2) {
 
+                $.get(base+'/admin/tomapedidos/'+buscar+'/databuscarcliente', function(data) {
 
+                        $('.lista_clientes').html(data);
 
-            $.get(base+'/admin/tomapedidos/'+buscar+'/databuscarcliente', function(data) {
-
-
-
-                    $('.lista_clientes').html(data);
-
-            });
-
-
+                });
 
             }
 
-    });
+        });
 
 
 
