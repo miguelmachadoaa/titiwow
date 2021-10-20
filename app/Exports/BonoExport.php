@@ -16,7 +16,7 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class BonoExport implements FromView
+class LifemilesExport implements FromView
 {
     
     public function __construct(object $cliente, object $disponible, object $history)
