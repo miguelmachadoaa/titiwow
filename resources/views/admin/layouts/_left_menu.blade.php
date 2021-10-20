@@ -1045,6 +1045,38 @@
         </a>
         <ul class="sub-menu">
 
+        @if (Sentinel::getUser()->hasAnyAccess(['reportes.lifemiles']))
+
+            <li {!! (Request::is('admin/reportes/lifemiles') ? 'class="active" id="active"' : '') !!}>
+            <a href="{{ secure_url('admin/reportes/lifemiles') }}">
+                <i class="fa fa-angle-double-right"></i>
+                Reporte Cupones Lifemiles
+            </a>
+            </li>
+        @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.abandonado']))
+
+            <li {!! (Request::is('admin/reportes/abandonado') ? 'class="active" id="active"' : '') !!}>
+            <a href="{{ secure_url('admin/reportes/abandonado') }}">
+                <i class="fa fa-angle-double-right"></i>
+                Reporte Abandonados
+            </a>
+            </li>
+            @endif
+
+
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.acceso']))
+
+            <li {!! (Request::is('admin/reportes/acceso') ? 'class="active" id="active"' : '') !!}>
+            <a href="{{ secure_url('admin/reportes/acceso') }}">
+                <i class="fa fa-angle-double-right"></i>
+                Reporte Acceso de Usuarios
+            </a>
+            </li>
+            @endif
+
+
            
 
 
