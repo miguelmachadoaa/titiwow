@@ -32,6 +32,7 @@ use App\Exports\InventarioAlmacenExport;
 use App\Exports\ProductosCombosExport;
 use App\Exports\LifemilesExport;
 use App\Exports\AbandonadosExport;
+use App\Exports\AccesoExport;
 
 
 
@@ -61,6 +62,7 @@ use App\Models\AlpInventario;
 use App\Models\AlpClientes;
 use App\Models\AlpAbonosDisponible;
 use App\Models\AlpMarcas;
+use App\Models\AlpLog;
 use App\Models\AlpCategorias;
 use App\Imports\UsersImport;
 use App\Http\Requests;
@@ -2789,6 +2791,65 @@ public function abandonado()
 }
 
 
+public function acceso() 
+{
+
+    
+      if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('AlpReportesController/acceso ');
+
+    }else{
+
+      activity()
+      ->log('AlpReportesController/acceso');
+
+
+    }
+
+    if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+       return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+    }
+
+     $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+      ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+      ->get();
+
+      // Show the page
+    return view('admin.reportes.acceso', compact('cliente'));
+
+
+}
+
+
+
+ public function exportacceso(Request $request) 
+{
+
+     if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())->log('AlpReportesController/accesoexport  ');
+
+    }else{
+
+      activity()
+      ->withProperties($request->all())->log('AlpReportesController/accesoexport ');
+    }
+
+    return Excel::download(new AccesoExport($request->desde, $request->hasta), 'acceso'.time().'.xlsx');
+
+}
 
 
 
