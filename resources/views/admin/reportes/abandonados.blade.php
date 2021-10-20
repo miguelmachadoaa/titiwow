@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reporte Carritos Abandonados
+Reporte Pedidos Incompletos
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Reporte Carritos Abandonados
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte Carritos Abandonados
+    <h1>Reporte Pedidos Incompletos
  </h1>
     <ol class="breadcrumb">
         <li>
@@ -35,7 +35,7 @@ Reporte Carritos Abandonados
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Carritos Abandonados</li>
+        <li class="active">Pedidos Incompletos</li>
     </ol>
 </section>
 
@@ -46,7 +46,7 @@ Reporte Carritos Abandonados
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Reporte Carritos Abandonados
+                    Reporte Pedidos Incompletos
 
                     </h4>
                 </div>
