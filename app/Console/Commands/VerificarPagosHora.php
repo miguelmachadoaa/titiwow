@@ -82,7 +82,7 @@ class VerificarPagosHora extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-      $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+      $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->where('countvp','>=', '5')->get();
        # $ordenes=AlpOrdenes::where('id', '15532')->where('countvp','>=', '5')->get();
        #$ordenes=AlpOrdenes::where('id', '21189')->get();
         
@@ -1882,6 +1882,15 @@ private function registrarOrdenNuevo($id_orden)
 
               foreach ($detalles as $d) {
 
+                $iva=0;
+
+                if($d->monto_impuesto>0){
+
+                  $iva=19;
+
+                }
+
+
                 $peso=$peso+$d->cantidad_producto;
 
                 if ($d->precio_unitario>0) {
@@ -1892,7 +1901,7 @@ private function registrarOrdenNuevo($id_orden)
                     'url_img' => $d->imagen_producto, 
                     'value' => $d->precio_unitario, 
                     'value_prom' => $d->precio_unitario, 
-                    'iva' => intval($d->valor_impuesto*100),  
+                    'iva' => intval($iva),  
                     'quantity' => $d->cantidad
                   );
 
@@ -1907,7 +1916,7 @@ private function registrarOrdenNuevo($id_orden)
                       'url_img' => $d->imagen_producto, 
                       'value' => $d->precio_unitario, 
                       'value_prom' => $d->precio_unitario, 
-                      'iva' => intval($d->valor_impuesto*100),   
+                      'iva' => intval($iva),  
                       'quantity' => $d->cantidad
                     );
 
@@ -1928,7 +1937,7 @@ private function registrarOrdenNuevo($id_orden)
                           'url_img' => $d->imagen_producto, 
                           'value' => $d->precio_unitario, 
                           'value_prom' => $d->precio_unitario, 
-                          'iva' => intval($d->valor_impuesto*100), 
+                          'iva' => intval($iva),   
                           'quantity' => $d->cantidad
                         );
 

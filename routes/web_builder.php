@@ -673,9 +673,23 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
    Route::post('reportes/exportventas', 'Admin\AlpReportesController@exportventas')->name('reportes.exportventas');
 
-    Route::get('reportes/bono', 'Admin\AlpReportesController@bono')->name('reportes.bono');
+Route::get('reportes/bono', 'Admin\AlpReportesController@bono')->name('reportes.bono');
 
-   Route::post('reportes/exportbono', 'Admin\AlpReportesController@exportbono')->name('reportes.exportventas');
+Route::post('reportes/exportbono', 'Admin\AlpReportesController@exportbono')->name('reportes.exportventas');
+
+
+
+Route::get('reportes/lifemiles', 'Admin\AlpReportesController@lifemiles')->name('reportes.lifemiles');
+
+Route::post('reportes/exportlifemiles', 'Admin\AlpReportesController@exportlifemiles')->name('reportes.lifemiles');
+
+Route::get('reportes/abandonado', 'Admin\AlpReportesController@abandonado')->name('reportes.abandonado');
+
+Route::post('reportes/exportabandonado', 'Admin\AlpReportesController@exportabandonado')->name('reportes.abandonado');
+
+Route::get('reportes/acceso', 'Admin\AlpReportesController@acceso')->name('reportes.acceso');
+
+Route::post('reportes/exportacceso', 'Admin\AlpReportesController@exportacceso')->name('reportes.acceso');
 
 
     Route::get('reportes/productos', 'Admin\AlpReportesController@productos')->name('reportes.productos');
