@@ -31,6 +31,7 @@ use App\Exports\Usuarios360Export;
 use App\Exports\InventarioAlmacenExport;
 use App\Exports\ProductosCombosExport;
 use App\Exports\LifemilesExport;
+use App\Exports\AbandonadosExport;
 
 
 
@@ -2754,7 +2755,7 @@ public function abandonado()
       ->get();
 
       // Show the page
-    return view('admin.reportes.abandonado', compact('cliente'));
+    return view('admin.reportes.abandonados', compact('cliente'));
 
 
 }
@@ -2781,25 +2782,9 @@ public function abandonado()
 
     }
 
-     $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
-      ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
-      ->where('users.id', '=', $request->clientes)
-      ->first();
+    
 
-
-    $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
-          ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
-          ->where('alp_abono_disponible.id_cliente', $request->clientes)
-          ->first();
-
-         $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $request->clientes)->get();
-
-
-         $data = array('cliente' => $cliente, 'disponible'=>$disponible, 'history'=>$history );
-
-
-
-    return Excel::download(new BonoExport($cliente, $disponible, $history), 'bono'.time().'.xlsx');
+    return Excel::download(new AbandonadosExport($request->desde, $request->hasta), 'carritosabandonados'.time().'.xlsx');
 
 }
 
