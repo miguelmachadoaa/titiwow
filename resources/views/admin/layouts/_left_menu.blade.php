@@ -1060,7 +1060,7 @@
             <li {!! (Request::is('admin/reportes/abandonado') ? 'class="active" id="active"' : '') !!}>
             <a href="{{ secure_url('admin/reportes/abandonado') }}">
                 <i class="fa fa-angle-double-right"></i>
-                Reporte Abandonados
+                Reporte de Pedidos Incompletos
             </a>
             </li>
             @endif

@@ -158,7 +158,7 @@ Pedidos
 
                      @else
 
-                     <div class="alert alert-danger mt-1">Debe Seleccionar Un Cliente para continuar con el proceso de compra </div>
+                     <div class="alert alert-danger mt-1">Debe Seleccionar Un Cliente para ver el Catalogo de productos  </div>
 
 
                      @endif
@@ -1141,7 +1141,7 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
 
@@ -1157,7 +1157,7 @@ Pedidos
 
     $('#marca').on('change', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
              base=$('#base').val();
 
@@ -1191,7 +1191,7 @@ Pedidos
 
     $('.btn_buscar').on('click', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
 
@@ -1450,7 +1450,7 @@ Pedidos
 
     $('.btn_buscar_cliente').on('click', function(){
 
-        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="/assets/images/loader.gif"></p>')
+        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>')
 
         base=$('#base').val();
 
