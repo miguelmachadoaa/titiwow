@@ -1,9 +1,9 @@
 <table class="" id="categoriastable">
     <thead>
         <tr>
-            <th><b>Nombre Cliente</b></th>
-            <th ><b>Rol Cliente</b></th>
-            <th><b>Email Cliente</b></th>
+            <th><b>Nombre Admin</b></th>
+            <th ><b>Rol Admin</b></th>
+            <th><b>Email Admin</b></th>
             <th><b>Fecha Creación</b></th>
         </tr>
     </thead>

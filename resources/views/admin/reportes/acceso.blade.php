@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reporte Carritos Acceso
+Reporte  Acceso
 @parent
 @stop
 
