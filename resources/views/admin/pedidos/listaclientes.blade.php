@@ -13,7 +13,7 @@
                 <div class="col-sm-10">
                     <p><b>{{$c->first_name.' '.$c->last_name}}</b></p>
                     <p class="">{{$c->email}}  | {{$c->telefono_cliente}} </p>
-                    <p><b>Ubicación: </b>{{$c->city_name}}</p>
+                    <!--p><b>Ubicación: </b>{{$c->city_name}}</p-->
                     @if($c->origen=='1')
                         <p class=""> <b>Origen:</b> Tomapedidos  </p>
                     @else

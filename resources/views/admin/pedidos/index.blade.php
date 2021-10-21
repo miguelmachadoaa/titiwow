@@ -1364,6 +1364,9 @@ Pedidos
 
     $('#id_address').on('change', function(){
 
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+
+
         base=$('#base').val();
 
         id_address=$('#id_address').val();

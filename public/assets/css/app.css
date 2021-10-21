@@ -2097,3 +2097,9 @@ padding: 0.3em 0.3em 0em 1em;
     padding: 0.5em;
     color: #fff;
 }
+
+.agotado{
+    position: absolute;
+    left: 0;
+    width: 50%;
+}

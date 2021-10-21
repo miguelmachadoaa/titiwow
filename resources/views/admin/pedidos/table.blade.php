@@ -35,18 +35,25 @@
 
                 @if(isset($cart['inventario'][$p->id]))
 
-                    @if($cart['inventario'][$p->id]>0)
 
                         <div class="col-sm-4 col-md-3 col-xs-6" style="display: flex;    flex-direction: column;">
 
                         <div class="row" style="flex-grow: 1; ">
                                 <img style="width: 100%;" src="{{secure_url('uploads/productos/250/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                                
+                                @if($cart['inventario'][$p->id]<=0)
+
+                                    <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+
+                                @endif
                             </div>
 
                             <div class="row" style="flex-grow: 1;">
                                 <p style="margin:0; height: 3em;"><b>{{$p->nombre_producto}}</b></p>
                                 <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}}</p>
                                 <p style="margin:0;"> <b>Precio: {{number_format($p->precio_oferta,0,',','.')}} COP</b> </p>
+                                <p style="margin:0;"> <b>Inventario: {{$cart['inventario'][$p->id]}}</b> </p>
+
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch " class="">
                                     <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
 
@@ -68,7 +75,6 @@
 
                         </div>
 
-                    @endif
                         
                 @endif
 
@@ -88,7 +94,8 @@
                                 <p style="margin:0; height: 3em;"><b>{{$p->nombre_producto}}</b></p>
                                 <p style="margin:0;" style="font-size: 0.8em; line-height: 1;">{{$p->nombre_categoria}} COP</p>
                                 <p style="margin:0;"> <b>Precio: {{number_format($p->precio_oferta,0,',','.')}} COP</b> </p>
-
+                                <p style="margin:0;"> <b>Inventario: {{$cart['inventario'][$p->id]}}</b> </p>
+                                
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch">
                                     <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
 
