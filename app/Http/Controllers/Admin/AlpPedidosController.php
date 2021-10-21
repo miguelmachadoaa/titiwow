@@ -1613,6 +1613,16 @@ class AlpPedidosController extends JoshController
         }
 
 
+        foreach($cart as $c){
+
+          if(isset($c->slug)){
+
+            unset($cart[$c->slug]);
+            
+          }
+        }
+
+
          \Session::put('cart', $cart);
 
            $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
@@ -3842,6 +3852,15 @@ public function postdireccion(DireccionModalRequest $request)
       $cart=\Session::get('cart');
 
       $cart['id_direccion']=$id;
+
+      foreach($cart as $c){
+
+        if(isset($c->slug)){
+
+          unset($cart[$c->slug]);
+          
+        }
+      }
 
       \Session::put('cart', $cart);
 
