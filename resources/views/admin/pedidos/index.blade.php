@@ -1046,6 +1046,7 @@ Pedidos
             <div class="col-sm-6">
                 <h3 id="nombre-producto-modal"><span></span>  </h3>
                 <p id="referencia-producto-modal"> <b>Referencia:</b>  <span></span></p>
+                <p id="referencia-producto-sap-modal"> <b>Referencia Sap:</b>  <span></span></p>
                 <p id="presentacion-producto-modal"> <b>Presentacion:</b>  <span></span></p>
                 <p id="categoria-producto-modal"> <b>Categoria:</b>  <span></span></p>
                 <p id="precio-producto-modal"> <b>Precio:</b>   <span></span></p>
@@ -1231,6 +1232,8 @@ Pedidos
         imagen=$(this).data('imagen');
 
 
+        $('#referencia-producto-modal span').html(referencia_producto);
+        $('#referencia-producto-sap-modal span').html(referencia_producto_sap);
         $('#nombre-producto-modal span').html(nombre_producto);
         $('#presentacion-producto-modal span').html(presentacion_producto);
         $('#precio-producto-modal span').html(precio_base);
