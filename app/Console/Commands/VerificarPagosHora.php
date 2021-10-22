@@ -2747,8 +2747,8 @@ private function registrarOrdenNuevo($id_orden)
 
       //  echo $jsessionid.'<br>';
 
-            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient></Body></Envelope>';
-            //dd($xml);
+      $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><CREATED_FROM>2</CREATED_FROM><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.' '.$user->last_name.'</VALUE></COLUMN><COLUMN><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient><SendMailing><MailingId>19348098</MailingId><RecipientEmail>'.$user->email.'</RecipientEmail></SendMailing></Body></Envelope>';
+      //dd($xml);
 
 
            activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
