@@ -9,7 +9,7 @@
                 
                         <h4 style="margin-top:0px !important;">Usted se Encuentra en el Almacén <strong>{{$almacen->nombre_almacen}}</strong></h4>
 
-                        <h4 style="margin-top:0px !important;">{{$descripcion}}</h4>
+                        <h4 style="margin-top:0px !important;">{{$descripcion}} <button class="btn btn-link reset_buscar">Limpiar Filtros</button></h4>
 
                     @else
 
@@ -55,7 +55,12 @@
                                 <p style="margin:0;"> <b>Inventario: {{$cart['inventario'][$p->id]}}</b> </p>
 
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch " class="">
+                                   
+                                @if($cart['inventario'][$p->id]>0)
                                     <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
+                                @endif
+
+                                
 
                                     <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 
@@ -97,7 +102,13 @@
                                 <p style="margin:0;"> <b>Inventario: {{$cart['inventario'][$p->id]}}</b> </p>
                                 
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch">
+                                @if($cart['inventario'][$p->id]>0)
                                     <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
+
+                                @endif
+
+                                
+                                
 
                                     <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 
