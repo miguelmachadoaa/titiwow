@@ -1142,6 +1142,9 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
+        $('#buscar').val('');
+        $('#marca').val('').select2();
+
         $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
@@ -1157,6 +1160,10 @@ Pedidos
 
 
     $('#marca').on('change', function(){
+
+        $('#buscar').val('');
+        $('#categoria').val('').select2();
+
 
         $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
@@ -1194,11 +1201,37 @@ Pedidos
 
         $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
+        $('#categoria').val('').select2();
+        $('#marca').val('').select2();
+        
         base=$('#base').val();
 
         buscar=$('#buscar').val();
 
+        if(buscar==''){
+            buscar='leche';
+        }
+
         $.get(base+'/admin/tomapedidos/'+buscar+'/databuscar', function(data) {
+
+                $('.lista_de_productos').html(data);
+        });
+
+    });
+
+
+    $('.reset_buscar').on('click', function(){
+
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+
+        base=$('#base').val();
+
+        $('#buscar').val('');
+        $('#marca').val('').select2();
+        $('#categoria').val('').select2();
+
+
+        $.get(base+'/admin/tomapedidos/leche/databuscar', function(data) {
 
                 $('.lista_de_productos').html(data);
         });
