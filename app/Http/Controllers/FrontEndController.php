@@ -1468,6 +1468,20 @@ class FrontEndController extends JoshController
 
                   if (isset($d->id)) {
 
+                    $b=Barrio::where('city_id', $d->city_id)->first();
+
+                      if(isset($b->id)){
+
+                          if($d->id_barrio=='0'){
+
+                        return secure_url('clientes');
+
+                      }
+
+
+                    }
+
+
                   }else{
 
                     # return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
@@ -2096,25 +2110,16 @@ class FrontEndController extends JoshController
                     $data = array(
 
                     'id_user_client' => $user->id, 
-
                     'id_type_doc' => $request->id_type_doc, 
-
                     'doc_cliente' =>$request->doc_cliente, 
-
                     'telefono_cliente' => $request->telefono_cliente,
-
                     'habeas_cliente' => $request->habeas_cliente,
-
                     'cod_oracle_cliente' =>$request->telefono_cliente,
                     'marketing_email'=> '1',
                     'marketing_sms'=> '1',
-
                     'estado_masterfile' =>'1',
-
                     'id_empresa' =>$id_empresa,               
-
                     'id_embajador' =>'0',               
-
                     'id_user' =>0,               
 
                     );
@@ -2126,15 +2131,10 @@ class FrontEndController extends JoshController
                     $role = Sentinel::findRoleById(9);
 
                         $user_history = array(
-
                         'id_cliente' => $user->id,
-
                         'estatus_cliente' => "Activado",
-
                         'notas' => "Ha sido registrado satisfactoriamente",
-
                         'id_user'=>$user->id
-
                          );
 
 
@@ -2145,15 +2145,10 @@ class FrontEndController extends JoshController
                       $role = Sentinel::findRoleById(12);
 
                        $user_history = array(
-
                         'id_cliente' => $user->id,
-
                         'estatus_cliente' => "Activado",
-
                         'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
-
                         'id_user'=>$user->id
-
                          );
 
                         AlpClientesHistory::create($user_history);

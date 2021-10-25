@@ -273,9 +273,12 @@
         });
 
 
-         $('select[name="state_id_ubicacion"]').on('change', function() {
+        // $('select[name="state_id_ubicacion"]').on('change', function() {
+
+            $(document).ready(function(){
         
-            var stateID = $(this).val();
+            //var stateID = $(this).val();
+            var stateID = 47;
 
             var base = $('#base').val();
 
@@ -383,7 +386,7 @@
                 if (ubicacion==null) {}else{
 
                     $.ajax({
-                            url: base+'/configuracion/cities/'+ubicacion.id_state,
+                            url: base+'/configuracion/citiesModal/'+ubicacion.id_state,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {

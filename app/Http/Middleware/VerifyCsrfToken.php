@@ -54,6 +54,7 @@ class VerifyCsrfToken extends Middleware
        'cart/verificarancheta', //
        'formasenvio/storecity', //
        'formasenvio/delcity', //
+       'configuracion/setbarrio', //
        'configuracion/storecity', //
        'configuracion/delcity', //
        'configuracion/verificarciudad', //

@@ -167,7 +167,23 @@ class ClientesFrontController extends Controller
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id_client', $user_id)->first();
 
-            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion'));
+
+          $b=Barrio::where('city_id', $direccion->city_id)->first();
+
+             if(isset($b->id)){
+
+                if($direccion->id_barrio=='0'){
+
+                    $direccion->barriomodal='true';
+
+                }
+
+
+            }
+
+            $barrios=Barrio::where('city_id', $direccion->city_id)->get();
+
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios'));
     
             }else{
 
