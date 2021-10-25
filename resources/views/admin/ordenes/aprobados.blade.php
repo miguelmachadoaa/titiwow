@@ -37,38 +37,7 @@ Ordenes Aprobadas
                 </div>
                 <br />
                 <div class="panel-body">
-                    @if ($ordenes->count() >= 1)
-                        <div class="table-responsive">
-
-                         <table class="table table-bordered" id="tbOrdenes">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Referencia</th>
-                                    <th>Cliente</th>
-                                    <th>Teléfono</th>
-                                    <th>Forma de Envio</th>
-                                    <th>Forma de Pago</th>
-                                    <th>Total</th>
-                                    <!--th>Codigo Oracle</th-->
-                                    <th>Cupón</th>
-                                    <th>Factura</th>
-                                    <th>Almacen</th>
-                                    <th>Ciudad</th>
-                                    <th>Origen</th>
-                                    <!--th>Tracking</th-->
-                                    <th>Creado</th>
-                                    <th>Accion</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                        </div>
-                    @else
-                        No se encontraron registros
-                    @endif   
+                     @livewire('aprobados-list')
                 </div>
             </div>
         </div>
@@ -198,24 +167,13 @@ Ordenes Aprobadas
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
 
-
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
-
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
-
- <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
-
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
- 
- <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
-
   <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
     <script>
 
 
 
-        $("#enviarOrdenForm").bootstrapValidator({
+$("#enviarOrdenForm").bootstrapValidator({
     fields: {
         tracking: {
             validators: {
@@ -240,27 +198,7 @@ Ordenes Aprobadas
 
 
             $("#enviarOrdenModal").modal('show');
-        });
-
-
-
-       $(document).ready(function() {
-
-
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/dataaprobados'
-        }
-    } );
-
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
+});
 
 
 
@@ -401,12 +339,6 @@ $("#facturarOrdenForm").bootstrapValidator({
 
 });
 
-
-
-
-
-
-} );
 
        </script>
 

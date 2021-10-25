@@ -26,6 +26,7 @@
     <!-- end of global css -->
     <!--page level css-->
     @yield('header_styles')
+    @livewireStyles
             <!--end of page level css-->
 
 <body class="skin-josh">
@@ -185,6 +186,7 @@
 </a-->
 <!-- global js -->
 <script src="{{ secure_asset('assets/js/app.js') }}" type="text/javascript"></script>
+@livewireScripts
 <!-- end of global js -->
 <!-- begin page level js -->
 @yield('footer_scripts')

@@ -7,36 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Notifications\Notifiable;
-use Nicolaslopezj\Searchable\SearchableTrait;
 
 
 class AlpOrdenes extends Model
 {
     use SoftDeletes;
     use Notifiable;
-    use SearchableTrait;
-
-    protected $searchable = [
-        'columns' => [
-            'alp_ordenes.id' => 10,
-            'alp_ordenes.referencia' => 5,
-            'alp_ordenes.origen' => 4,
-            'users.first_name' => 4,
-            'users.last_name' => 4,
-            'users.email' => 4,
-            'alp_clientes.telefono_cliente' => 4,
-            'alp_almacenes.nombre_almacen' => 4,
-
-           // 'alp_productos.descripcion_corta' => 3,
-        ],
-        'joins' => [
-            'users' => ['alp_ordenes.id_cliente', 'users.id'],
-            'alp_clientes' => ['alp_ordenes.id_cliente','alp_clientes.id_user_client'],
-            'alp_almacenes' => ['alp_ordenes.id_almacen','alp_almacenes.id']
-
-        ]
-    ];
-
 
 
     public $table = 'alp_ordenes';
@@ -103,4 +79,10 @@ class AlpOrdenes extends Model
     public static $rules = [
         'referencia' => 'required'
     ];
+
+    
+    public function scopeActive($query)
+    {
+        return $query->where('status',1);
+    }
 }

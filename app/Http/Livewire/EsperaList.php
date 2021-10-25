@@ -9,5 +9,5 @@ class EsperaList extends Component
     public function render()
     {
         return view('livewire.espera-list');
-    }
+    } 
 }
