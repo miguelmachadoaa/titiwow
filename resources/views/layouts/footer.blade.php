@@ -105,7 +105,7 @@
 
                         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
-                            <div class="form-group col-sm-12">
+                            <!--div class="form-group col-sm-12">
                                 <label for="select21" class="col-md-3 control-label">
                                     Departamento
                                 </label>
@@ -114,7 +114,7 @@
                                         <option value="">Seleccione Departamento</option>       
                                     </select>
                                 </div>
-                            </div>
+                            </div-->
                             <div class="form-group col-sm-12">
                                 <label for="select21" class="col-md-3 control-label">
                                     Ciudad

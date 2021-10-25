@@ -497,6 +497,53 @@ class AlpConfiguracionController extends JoshController
       if (isset($ad->id)) {
 
         $cities = DB::table("config_cities")
+                  //  ->where("state_id",$id)
+                    ->pluck("city_name","id")->all();
+
+        
+      }else{
+
+     //   $ad=AlpAlmacenDespacho::where('id_state', $id)->where('id_city', 0)->first();
+     $ad=AlpAlmacenDespacho::where('id_state', 0)->where('id_city', 0)->first();
+
+        if (isset($ad->id)) {
+
+          $cities = DB::table("config_cities")
+           // ->where("state_id",$id)
+            ->pluck("city_name","id")->all();
+
+        }else{
+
+          $cities = DB::table("config_cities")
+            ->join('alp_almacen_despacho', 'config_cities.id', '=', 'alp_almacen_despacho.id_city')
+            ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+           // ->where("config_cities.state_id",'=', $id)
+            ->where("alp_almacenes.estado_registro",'=', '1')
+            ->pluck("config_cities.city_name","config_cities.id")->all();
+
+
+        }
+
+
+      }
+        
+        $cities['0'] = 'Seleccione';
+        return json_encode($cities);
+    }
+
+
+
+
+    public function selectCityModalOld($id)
+    {
+
+
+      $ad=AlpAlmacenDespacho::where('id_state', 0)->where('id_city', 0)->first();
+
+
+      if (isset($ad->id)) {
+
+        $cities = DB::table("config_cities")
                     ->where("state_id",$id)
                     ->pluck("city_name","id")->all();
 
@@ -529,6 +576,8 @@ class AlpConfiguracionController extends JoshController
         $cities['0'] = 'Seleccione';
         return json_encode($cities);
     }
+
+
 
     /**
      * Get Ajax Request and restun Data
