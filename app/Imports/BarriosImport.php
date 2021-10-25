@@ -28,8 +28,8 @@ class BarriosImport implements ToCollection
             }else{
 
                     $data = array(
-                        'barrio_name' => $row[1], 
-                        'city_id' => $row[2], 
+                        'barrio_name' => $row[0], 
+                        'city_id' => $row[1], 
                         'id_user' => $user_id
                     );
 

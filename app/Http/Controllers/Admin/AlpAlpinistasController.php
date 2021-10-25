@@ -194,7 +194,7 @@ class AlpAlpinistasController extends Controller
     }
 
     public function import(Request $request) 
-    {
+    { 
 
         $archivo = $request->file('file_alpinistas');
 
