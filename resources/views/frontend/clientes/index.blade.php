@@ -280,7 +280,69 @@ Area clientes
 
 
 
+@if(isset($direccion->barriomodal))
 
+       <!-- Modal Direccion -->
+       <div class="modal fade" id="barrioModal" role="dialog" aria-labelledby="modalLabeldanger" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-sucess">
+                            <h4 class="modal-title" id="modalLabeldanger">Seleccione el barrio Para su Dirección</h4>
+                    </div>
+                    
+                    <div class="modal-body cartcontenido">
+
+                        <div class="row">
+
+                        <div class="form-group col-sm-12">
+
+                             <p> <b>Dirección: {{ $direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name }} | {{ $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</b>    </p>
+                       
+                        </div>
+
+                       
+
+                    <input type="hidden" id="modal_id_dir" name="modal_id_dir" value="{{$direccion->id}}">
+
+                    <div class="form-group {{ $errors->
+                            first('modal_id_barrio', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Barrios 
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="modal_id_barrio" name="modal_id_barrio" class="form-control select2">
+
+                                    @foreach($barrios as $b)
+
+                                    <option  @if($b->id == old('modal_id_barrio')) selected="selected" @endif    value="{{ $b->id }}">  {{ $b->barrio_name}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4 errorBarrio">
+                                {!! $errors->first('modal_id_barrio', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        </div>
+                  
+                   
+                            
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-primary updateBarrio" data-dismiss="modal">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+@endif
+
+<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
 
   
 @endsection
@@ -296,7 +358,49 @@ Area clientes
         });
 
 
+        $(document).ready(function(){
+            
+            $('#barrioModal').modal('show', {backdrop: 'static', keyboard: false});
+        });
 
+
+        $('.updateBarrio').on('click', function(){
+
+            id_barrio=$('#modal_id_barrio').val();
+            id_dir=$('#modal_id_dir').val();
+            base=$('#base').val();
+
+            console.log('id barrio '+id_barrio);
+
+            if(id_barrio==null || id_barrio==undefined || id_barrio==''){
+
+                $('.errorBarrio').html('Todos los campos son obligatorios')
+
+
+            }else{
+
+                $.ajax({
+                    type: "POST",
+                    data:{  id_barrio, id_dir },
+
+                    url: base+"/configuracion/setbarrio",
+                        
+                    complete: function(datos){     
+
+                      //  $('#barrioModal').modal('hide');
+
+                        //location.reload();
+
+                    }
+
+                });
+
+
+            }
+
+          
+
+        });
 
 
     </script>

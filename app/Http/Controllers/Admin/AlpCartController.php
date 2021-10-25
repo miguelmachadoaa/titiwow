@@ -2232,6 +2232,23 @@ class AlpCartController extends JoshController
 
           }
 
+
+          if (isset($d->id)) {
+
+            $b=Barrio::where('city_id', $d->city_id)->first();
+
+              if(isset($b->id)){
+
+                  if($d->id_barrio=='0'){
+
+                    return redirect('clientes');
+
+              }
+
+            }
+
+          }
+
           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
           
           if (isset($afe->id)) {
