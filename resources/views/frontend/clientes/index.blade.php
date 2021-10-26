@@ -30,8 +30,6 @@ Area clientes
         }
 
 
-
-
         .btn-medium {
             text-decoration: none;
             color: #000;
@@ -42,11 +40,9 @@ Area clientes
             cursor: pointer;
         }
 
-
         .btn-medium i {
             font-size: 3.6rem;
         }
-
 
         h4 span {
     color: #007add;
@@ -147,6 +143,9 @@ Area clientes
 
 
         </div>
+
+
+        {{json_encode($cart)}}
 
          @if(isset($direccion->id))
 
@@ -311,7 +310,7 @@ Area clientes
                             </label>
                             <div class="col-sm-5">
                                 
-                                 <select id="modal_id_barrio" name="modal_id_barrio" class="form-control select2">
+                                 <select id="modal_id_barrio" name="modal_id_barrio" class="form-control select2 js-example-responsive">
 
                                     @foreach($barrios as $b)
 
@@ -356,6 +355,14 @@ Area clientes
         jQuery(document).ready(function () {
             new WOW().init();
         });
+
+
+        $('#modal_id_barrio').select2();
+
+        $(".js-example-responsive").select2({
+                                width: 'resolve'
+                            });
+
 
 
         $(document).ready(function(){

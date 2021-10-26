@@ -293,12 +293,7 @@
 
                             $('select[name="city_id_ubicacion"]').empty();
 
-                            $("#city_id_ubicacion").select2();
-
-                            $(".js-example-responsive").select2({
-                                width: 'resolve'
-                            });
-
+                          
                             $.each(data, function(key, value) {
 
                                 $('select[name="city_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
@@ -311,7 +306,7 @@
                             $(".js-example-responsive").select2({
                                 width: 'resolve'
                             });
-                            
+                        
                            
 
                         }
@@ -395,11 +390,7 @@
 
                                 $('select[name="city_id_ubicacion"]').empty();
 
-                                $("#city_id_ubicacion").select2();
-
-                                $(".js-example-responsive").select2({
-                                    width: 'resolve'
-                                });
+                               
 
 
                                 $.each(data, function(key, value) {
@@ -415,6 +406,13 @@
 
 
                                     }
+                                });
+
+
+                                $("#city_id_ubicacion").select2();
+
+                                $(".js-example-responsive").select2({
+                                    width: 'resolve'
                                 });
 
 
@@ -473,7 +471,6 @@
             'event': 'addtocart'
             });
 
-
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
             $.post(base+'/cart/agregar', {price, slug, datasingle}, function(data) {
@@ -491,12 +488,7 @@
 
                         $('.addtocartTrigger').trigger('click');
 
-
-
                     }
-
-
-
 
                        if (single==1) {
 
@@ -506,10 +498,6 @@
             });
 
         });
-
-
-        
-
 
          $(document).on('click','.addtocartsingle', function(e){
 

@@ -498,7 +498,8 @@ class AlpConfiguracionController extends JoshController
 
         $cities = DB::table("config_cities")
                   //  ->where("state_id",$id)
-                    ->pluck("city_name","id")->all();
+                  ->orderBy('config_cities.city_name', 'desc')
+                  ->pluck("city_name","id")->all();
 
         
       }else{
@@ -510,6 +511,7 @@ class AlpConfiguracionController extends JoshController
 
           $cities = DB::table("config_cities")
            // ->where("state_id",$id)
+           ->orderBy('config_cities.city_name', 'desc')
             ->pluck("city_name","id")->all();
 
         }else{
@@ -518,6 +520,7 @@ class AlpConfiguracionController extends JoshController
             ->join('alp_almacen_despacho', 'config_cities.id', '=', 'alp_almacen_despacho.id_city')
             ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
            // ->where("config_cities.state_id",'=', $id)
+           ->orderBy('config_cities.city_name', 'desc')
             ->where("alp_almacenes.estado_registro",'=', '1')
             ->pluck("config_cities.city_name","config_cities.id")->all();
 
@@ -526,6 +529,8 @@ class AlpConfiguracionController extends JoshController
 
 
       }
+
+      asort($cities);
         
         $cities['0'] = 'Seleccione';
         return json_encode($cities);
@@ -624,6 +629,7 @@ class AlpConfiguracionController extends JoshController
     {
         $barrios = DB::table("config_barrios")
                     ->where("city_id",$id)
+                    ->orderBy('config_barrios.barrio_name', 'desc')
                     ->pluck("barrio_name","id")->all();
         $barrios['0'] = 'Todas';
         return json_encode($barrios);
@@ -634,6 +640,7 @@ class AlpConfiguracionController extends JoshController
     {
         $barrios = DB::table("config_barrios")
                     ->where("city_id",$id)
+                    ->orderBy('config_barrios.barrio_name', 'asc')
                     ->pluck("barrio_name","id")->all();
         $barrios['0'] = 'Seleccione Barrio';
         return json_encode($barrios);

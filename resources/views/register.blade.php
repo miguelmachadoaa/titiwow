@@ -653,11 +653,12 @@ $(document).ready(function(){
                                 
                                 $('select[name="id_barrio"]').empty();
 
-                                console.log(JSON.stringify(data).length);
+                              //  console.log(JSON.stringify(data).length);
 
                                 if (JSON.stringify(data).length>25) {
 
                                     $('.barrio_address').addClass('hidden');
+
                                     $('·barrio_address').val(' ');
 
                                     $('.id_barrio').removeClass('hidden');
@@ -675,6 +676,13 @@ $(document).ready(function(){
                                 $.each(data, function(key, value) {
                                     $('select[name="id_barrio"]').append('<option value="'+ key+'">'+ value +'</option>');
                                 });
+
+
+                                $("#id_barrio").select2({
+                                    sortResults: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+                                });
+
+
 
                             }
                         });
