@@ -145,7 +145,7 @@ Area clientes
         </div>
 
 
-        {{json_encode($cart)}}
+     
 
          @if(isset($direccion->id))
 

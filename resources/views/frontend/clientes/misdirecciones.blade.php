@@ -156,7 +156,7 @@
 
                     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('cod_alpinista', 'has-error') }}">
 
-                        <select id="state_id" name="state_id" class="form-control">
+                        <select id="state_id" name="state_id" class="form-control select2 js-example-responsive">
                             <option value="">Seleccione Departamento</option>   
 
                             @foreach($states as $state)
@@ -174,7 +174,7 @@
 
                     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
 
-                            <select id="city_id" name="city_id" class="form-control">
+                            <select id="city_id" name="city_id" class="form-control select2 js-example-responsive">
 
                                 <option value="">Seleccione Ciudad</option>
 
@@ -258,7 +258,7 @@
 
                      <div style="margin-left: 8%;" class="form-group col-sm-10 col-sm-offset-1 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
                         <div class="" >
-                            <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
+                            <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control select2 js-example-responsive">
                                 <option value="">Seleccione Barrio</option>
                             </select>
                         </div>
@@ -564,7 +564,7 @@
 
                                     <select id="edit_barrio_id" name="edit_barrio_id" class="form-control">
 
-                                        <option value="">Seleccione Ciudad</option>
+                                        <option value="">Seleccione Barrio</option>
 
                                         @foreach($listabarrios as $barrio)
 
@@ -630,6 +630,24 @@
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
     <script>
+
+        $('#state_id').select2({
+                                width: 'resolve'
+                            });
+        $('#city_id').select2({
+                                width: 'resolve'
+                            });
+        $('#id_barrio').select2({  width: 'resolve' });
+
+
+    $('#edit_state_id').select2({  width: 'resolve' });
+
+    $('#edit_city_id').select2({  width: 'resolve' });
+
+    $('#edit_barrio_id').select2({  width: 'resolve' });
+
+      
+
 
     $('.showAddAddress').on('click', function(){
 

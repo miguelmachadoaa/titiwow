@@ -2226,4 +2226,11 @@ padding: 0.3em 0.3em 0em 1em;
     z-index: 1;
  }
 
- 
+ .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    width: 100% !important;
+}
