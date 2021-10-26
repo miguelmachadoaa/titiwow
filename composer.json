@@ -25,6 +25,7 @@
         "laravel/helpers": "^1.4",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.2",
+        "livewire/livewire": "^2.7",
         "maatwebsite/excel": "^3.1",
         "mercadopago/dx-php": "2.4.2",
         "nicolaslopezj/searchable": "^1.10",
