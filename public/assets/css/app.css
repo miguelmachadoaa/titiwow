@@ -914,6 +914,26 @@ li.dropdown-footer {
 .message .ol:hover {
     color : #090;
 }
+button.page-link {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+button.page-link{
+    z-index:2;color:#337ab7;cursor:default;background-color:#ffffff;border-color:#ddd;
+}
+button.page-link:focus, button.page-link:hover, button.page-link:active {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
 .dropdown-menu:after {
     -moz-border-bottom-colors : none;
     -moz-border-left-colors   : none;

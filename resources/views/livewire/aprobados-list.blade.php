@@ -38,12 +38,8 @@
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Cliente</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
-                                <span wire:click="sortBy('referencia')">Teléfono</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('first_name')">Cliente</span>
+                                <x-sort-icon sortField="first_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
                                 <span wire:click="sortBy('referencia')">Forma de Envio</span>
@@ -62,10 +58,6 @@
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Factura</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
                                 <span wire:click="sortBy('referencia')">Almacen</span>
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
@@ -78,9 +70,14 @@
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
+                                <span wire:click="sortBy('estatus')">Estado</span>
+                                <x-sort-icon sortField="estatus" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                            </th>
+                            <th>
                                 <span wire:click="sortBy('created_at')">Creado</span>
                                 <x-sort-icon sortField="created_at" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,18 +85,22 @@
                         @foreach($aprobados as $aprobado)
                             <tr>
                                 <td>{{ $aprobado->id}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia == 1 ? 'Si':'No'}}</td>
-                                <td>{{ $aprobado->referencia}}</td>
-                                <td>{{ $aprobado->referencia == 1 ? 'Si':'No'}}</td>
-                                <td>{{ $aprobado->referencia ? 'Activo':'Inactivo'}}</td>
+                                <td>{{ $aprobado->referencia }}</td>
+                                <td>{{ $aprobado->cliente }}</td>
+                                <td>{{ $aprobado->forma_envio}}</td>
+                                <td>{{ $aprobado->forma_pago}}</td>
+                                <td>{{ $aprobado->monto_total}}</td>
+                                <td>N/A</td>
+                                <td>{{ $aprobado->nombre_almacen}}</td>
+                                <td>{{ $aprobado->city_name }}</td>
+                                <td>{{ $aprobado->origen == 1 ? 'POS':'Web'}}</td>
+                                <td><span class='badge badge-default' >{{ $aprobado->estatus_nombre }}</span></td>
                                 <td>{{ date('d-m-Y', strtotime($aprobado->created_at )) }}</td>
+                                <td>                  
+                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$aprobado->id}}/detalle" target='_blank'>
+                                    ver detalles
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     @else
