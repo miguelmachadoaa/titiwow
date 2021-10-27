@@ -84,7 +84,7 @@ class VerificarPagos extends Command
 
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-       # $ordenes=AlpOrdenes::where('id', '20865')->get();
+       # $ordenes=AlpOrdenes::where('id', '20870')->get();
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
@@ -93,6 +93,8 @@ class VerificarPagos extends Command
         if (count($ordenes)) {
        
         foreach ($ordenes as $ord) {
+
+        #  echo $ord->id.' /';
 
           $almacen=AlpAlmacenes::where('id', $ord->id_almacen)->first();
 
@@ -162,6 +164,8 @@ class VerificarPagos extends Command
 
             //se procesa por mercadopago 
             //toda la logica se paso a esta funcion 
+
+            #echo $ord->id.' /';
                 
             $this->procesarMercadopago($preference, $ord->id);
 
@@ -1124,7 +1128,7 @@ class VerificarPagos extends Command
 
 
 
-                    $data_json = array(
+                   $data_json = array(
                       'id' => $r['id'], 
                       'operation_type' =>$r['operation_type'], 
                       'payment_method_id' =>$r['payment_method_id'], 
@@ -1337,47 +1341,57 @@ class VerificarPagos extends Command
                    # code...
                  }
 
+                # echo $orden->id;
+
 
                  if($orden->lifemiles_id=='0'){
 
                  }else{
 
-                  $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
-                  $fecha_lm = Carbon::now()->format('m/d/Y');
+                  $life=AlpLifemiles::where('id', $orden->lifemiles_id)->first();
 
-                    if(isset($codigo->id)){
+                  for ($i=0; $i < $life->cantidad_cupones; $i++) { 
 
-                        $data_lifemiles = array(
-                          'id_lifemile' => $codigo->id_lifemile, 
-                          'id_codigo' => $codigo->id, 
-                          'id_orden' => $orden->id,
-                          'id_user' => $orden->id_user
-                        );
+                    $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
 
-                        AlpLifeMilesOrden::create($data_lifemiles);
-
-                        $codigo->update(['estado_registro'=>'0']);
-
-                        //envio Lifemiles a IBM
-
-                        $this->addlifemiles($user_cliente, $codigo, $fecha_lm);
-
-
-                        //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
-
-                        //Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionLifemiles($codigo));
-
-
-                    }else{
-
-                      $mensaje='Gracias por su compra en Alpina Go!, Por su compra usted recibira un Codigo LifeMiles, En estos momentos no tenemos disponible por favor contacte con Nuestra Area de Atencion al Cliente mendiante el Formulario pqr en Nuestra Web.';
-                      
-                      Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionMensaje($mensaje));
-
-                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionMensaje($mensaje));
-
-
-                    }
+                   # echo $codigo->id;
+                  
+                    $fecha_lm = Carbon::now()->format('m/d/Y');
+  
+                      if(isset($codigo->id)){
+  
+                          $data_lifemiles = array(
+                            'id_lifemile' => $codigo->id_lifemile, 
+                            'id_codigo' => $codigo->id, 
+                            'id_orden' => $orden->id,
+                            'id_user' => $orden->id_user
+                          );
+  
+                          AlpLifeMilesOrden::create($data_lifemiles);
+  
+                          $codigo->update(['estado_registro'=>'0']);
+  
+                          //envio Lifemiles a IBM
+  
+                          $this->addlifemiles($user_cliente, $codigo, $fecha_lm);
+  
+  
+                          //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
+  
+                          //Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionLifemiles($codigo));
+  
+  
+                      }else{
+  
+                        $mensaje='Gracias por su compra en Alpina Go!, Por su compra usted recibira un Codigo LifeMiles, En estos momentos no tenemos disponible por favor contacte con Nuestra Area de Atencion al Cliente mendiante el Formulario pqr en Nuestra Web.';
+                        
+                        Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionMensaje($mensaje));
+  
+                        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionMensaje($mensaje));
+  
+                      }
+                    
+                  }//endofor
 
                  }
 

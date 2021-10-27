@@ -25,6 +25,7 @@ class AlpLifeMiles extends Model
         'fecha_inicio',
         'fecha_final',
         'id_almacen',
+        'cantidad_cupones',
         'estado_registro',
         'id_user'
     ];

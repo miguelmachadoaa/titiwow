@@ -198,6 +198,7 @@ class AlpLifemilesController extends JoshController
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_final' => $request->fecha_final,
             'id_almacen' => $request->id_almacen,
+            'cantidad_cupones' => $request->cantidad_cupones,
             'id_user' =>$user_id
         );
 
@@ -289,6 +290,7 @@ class AlpLifemilesController extends JoshController
           'fecha_inicio' => $request->fecha_inicio,
           'fecha_final' => $request->fecha_final,
           'id_almacen' => $request->id_almacen,
+          'cantidad_cupones' => $request->cantidad_cupones,
           'id_user' =>$user_id
       );
 

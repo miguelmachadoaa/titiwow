@@ -108,6 +108,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('cantidad_cupones', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Cantidad Cupones
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="0" id="cantidad_cupones" name="cantidad_cupones" class="form-control" placeholder=" Minimo Compra"
+                                       value="{!! old('cantidad_cupones', $lifemile->cantidad_cupones) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('cantidad_cupones', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
 
                         <div class="form-group {{ $errors->
                             first('fecha_inicio', 'has-error') }}">
