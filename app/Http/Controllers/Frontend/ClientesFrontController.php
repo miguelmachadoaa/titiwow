@@ -184,18 +184,20 @@ class ClientesFrontController extends Controller
 
 
 
+
           $b=Barrio::where('city_id', $direccion->city_id)->first();
 
              if(isset($b->id)){
 
-                if($direccion->id_barrio=='0'){
+                if($direccion->id_barrio=='0' || $direccion->id_barrio=null){
 
                     $direccion->barriomodal='true';
 
                 }
 
-
             }
+
+           # dd($direccion);
 
             $barrios=Barrio::where('city_id', $direccion->city_id)->orderBy('barrio_name')->get();
 
