@@ -56,7 +56,7 @@ class AprobadosList extends Component
             'config_cities.city_name as city_name',
             'alp_formas_envios.nombre_forma_envios as forma_envio',
             'alp_formas_pagos.nombre_forma_pago as forma_pago')
-        ->where('alp_ordenes.estatus', '5')
+       // ->where('alp_ordenes.estatus', '5')
         ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
         $query = $aprobados->toSql();
         $aprobados = $aprobados->paginate($this->cantid);
