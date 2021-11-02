@@ -19,18 +19,9 @@ class AlpAbonos extends Model
 
     public $fillable = [
         'id',
-        'codigo_abono',
-        'valor_abono',
-        'fecha_final',
-        'origen',
-        'token',
-        'id_orden',
-        'motivo',
-        'notas',
-        'tipo_abono',
-        'id_almacen',
-        'estado_registro',
-        'id_user'
+        'name',
+        'nota',
+        'completed',
     ];
 
     /**
