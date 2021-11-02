@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
+use Carbon\Carbon;  
+use DB;
 
 class ProductosTableSeeder extends Seeder
 {

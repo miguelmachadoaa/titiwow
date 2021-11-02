@@ -295,7 +295,7 @@ Area clientes
 
                         <div class="form-group col-sm-12">
 
-                             <p> <b>Dirección: {{ $direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name }} | {{ $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</b>    </p>
+                             <p> <b>Dirección: </b> {{ $direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name }} | {{ $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}    </p>
                        
                         </div>
 

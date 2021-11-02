@@ -522,6 +522,7 @@ class AlpConfiguracionController extends JoshController
            // ->where("config_cities.state_id",'=', $id)
            ->orderBy('config_cities.city_name', 'desc')
             ->where("alp_almacenes.estado_registro",'=', '1')
+            ->whereNull('alp_almacenes.deleted_at')
             ->pluck("config_cities.city_name","config_cities.id")->all();
 
 

@@ -18,6 +18,7 @@ class AprobadosList extends Component
     public $cantid = 10;
 
     public $sortBy = 'id';
+    
     public $sortAsc = false;
 
     protected $queryString = [
@@ -30,9 +31,9 @@ class AprobadosList extends Component
     {
         $aprobados = AlpOrdenes::when($this->search, function($query){
             return $query->where(function ($query){
-                $query->where('referencia','like','%'.$this->search.'%')
-                ->orWhere('first_name' ,'like','%'.$this->search.'%')
-                ->orWhere('last_name','like','%'.$this->search.'%');
+                $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
+                    ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
+                    ->orWhere('users.last_name','like','%'.$this->search.'%');
                 });
         })
         ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
@@ -58,12 +59,13 @@ class AprobadosList extends Component
             'alp_formas_pagos.nombre_forma_pago as forma_pago')
        // ->where('alp_ordenes.estatus', '5')
         ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
-        $query = $aprobados->toSql();
+
+        #$query = $aprobados->toSql();
+
         $aprobados = $aprobados->paginate($this->cantid);
 
         return view('livewire.aprobados-list',[
-            'aprobados' => $aprobados,
-            'query' => $query
+            'aprobados' => $aprobados
         ]);
 
 
