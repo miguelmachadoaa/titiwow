@@ -4355,22 +4355,30 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
           }else{
 
+            if(isset($payment->id)){
+
+              $data = array(
+                'id' => $payment->id, 
+                'operation_type' => $payment->operation_type, 
+                'payment_method_id' => $payment->payment_method_id, 
+                'payment_type_id' => $payment->payment_type_id, 
+                'external_reference' => $payment->external_reference, 
+                'status' => $payment->status, 
+                'status_detail' => $payment->status_detail, 
+                'transaction_amount' => $payment->transaction_amount, 
+                'external_resource_url' => $payment->transaction_details->external_resource_url, 
+              );
+
+
+            }else{
+
+              $data = array();
+            }
+
             
-            $data = array(
-              'id' => $payment->id, 
-              'operation_type' => $payment->operation_type, 
-              'payment_method_id' => $payment->payment_method_id, 
-              'payment_type_id' => $payment->payment_type_id, 
-              'external_reference' => $payment->external_reference, 
-              'status' => $payment->status, 
-              'status_detail' => $payment->status_detail, 
-              'transaction_amount' => $payment->transaction_amount, 
-              'external_resource_url' => $payment->transaction_details->external_resource_url, 
-            );
+            
           }
 
-
-          
 
             $data_pago = array(
               'id_orden' => $orden->id, 

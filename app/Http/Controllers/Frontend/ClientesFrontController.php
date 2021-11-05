@@ -182,10 +182,11 @@ class ClientesFrontController extends Controller
 
           }
 
+          $barrios=null;
 
+          if(isset($direccion->id)){
 
-
-          $b=Barrio::where('city_id', $direccion->city_id)->first();
+            $b=Barrio::where('city_id', $direccion->city_id)->first();
 
              if(isset($b->id)){
 
@@ -197,9 +198,12 @@ class ClientesFrontController extends Controller
 
             }
 
-           # dd($direccion);
-
             $barrios=Barrio::where('city_id', $direccion->city_id)->orderBy('barrio_name')->get();
+
+
+
+          }
+
 
             return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios'));
     
