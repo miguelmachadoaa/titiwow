@@ -82,9 +82,11 @@ class VerificarPagos extends Command
 
         #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-       # $ordenes=AlpOrdenes::where('id', '20870')->get();
+        $ordenes=AlpOrdenes::where('id', '20871')->get();
+
+      #  dd($ordenes);
         
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
@@ -995,12 +997,12 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-      if (isset($preference['body']['results'])) {
-      # if (isset($preference)) {
+     # if (isset($preference['body']['results'])) {
+      if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
-           $aproved=0;
+           $aproved=1;
 
            $cancel=0;
            $pending=0;
@@ -1128,7 +1130,7 @@ class VerificarPagos extends Command
 
 
 
-                   $data_json = array(
+                  /* $data_json = array(
                       'id' => $r['id'], 
                       'operation_type' =>$r['operation_type'], 
                       'payment_method_id' =>$r['payment_method_id'], 
@@ -1156,7 +1158,7 @@ class VerificarPagos extends Command
                      );
 
 
-                    AlpPagos::create($data_pago);
+                    AlpPagos::create($data_pago);*/
 
               if ($orden->id_almacen==1) {
 
@@ -1164,7 +1166,7 @@ class VerificarPagos extends Command
                   # $this->sendcompramas($orden->id, 'approved');
 
                   $this->registrarOrden($orden->id);
-                  $this->registrarOrdenNuevo($orden->id);
+                #  $this->registrarOrdenNuevo($orden->id);
 
 
                 } catch (\Exception $e) {
@@ -1354,7 +1356,7 @@ class VerificarPagos extends Command
 
                     $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
 
-                   # echo $codigo->id;
+                    echo $codigo->id;
                   
                     $fecha_lm = Carbon::now()->format('m/d/Y');
   
@@ -1376,6 +1378,10 @@ class VerificarPagos extends Command
                           $this->addlifemiles($user_cliente, $codigo, $fecha_lm);
   
   
+
+
+
+
                           //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionLifemiles($codigo));
   
                           //Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionLifemiles($codigo));
@@ -2675,7 +2681,7 @@ private function registrarOrdenNuevo($id_orden)
 
     private function addlifemiles($user, $cupon, $fecha_lm)
     {
-        
+
         $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
 
         $pod = 0;
@@ -2695,25 +2701,30 @@ private function registrarOrdenNuevo($id_orden)
 
         $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-       // print_r($result);
+        print_r($result);
 
         $jsessionid = $result['SESSIONID'];
 
-      //  echo $jsessionid.'<br>';
+       # echo $jsessionid.' 1<br>';
 
-        $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><CREATED_FROM>2</CREATED_FROM><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.' '.$user->last_name.'</VALUE></COLUMN><COLUMN><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient><SendMailing><MailingId>19348098</MailingId><RecipientEmail>'.$user->email.'</RecipientEmail></SendMailing></Body></Envelope>';
-            //dd($xml);
+        $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><CREATED_FROM>2</CREATED_FROM><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.' '.$user->last_name.'</VALUE></COLUMN><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient><SendMailing><MailingId>19348098</MailingId><RecipientEmail>'.$user->email.'</RecipientEmail></SendMailing></Body></Envelope>';
+           # dd($xml);
 
+         #  echo "2<br>";
 
-           activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
+         #  echo $xml;
+
+         #  echo "3<br>";
+
+        activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('ibm_lifemiles respuesta');
+        activity()->withProperties($result2)->log('ibm_lifemiles respuesta');
 
-       // print_r($result);
+        print_r($result2);
 
-       // echo "3<br>";
+        echo "3<br>";
 
     //LOGOUT
 
@@ -3313,43 +3324,44 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
          $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
-          foreach ($preference['body']['results'] as $r) {
+         if(isset($preference['body']['results'])){
+         
+            foreach ($preference['body']['results'] as $r) {
 
-              if ($r['status']=='in_process' || $r['status']=='pending') {
-                  
-                $idpago=$r['id'];
+                  if ($r['status']=='in_process' || $r['status']=='pending') {
+                      
+                    $idpago=$r['id'];
 
-                $preference_data_cancelar = '{"status": "cancelled"}';
+                    $preference_data_cancelar = '{"status": "cancelled"}';
 
-                $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+                    $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
 
-                $data_cancelar = array(
-                  'id_orden' => $orden->id, 
-                  'id_forma_pago' => $orden->id_forma_pago, 
-                  'id_estatus_pago' => 4, 
-                  'monto_pago' => $orden->monto_total, 
-                  'json' => json_encode($pre), 
-                  'id_user' => '1'
-                );
+                    $data_cancelar = array(
+                      'id_orden' => $orden->id, 
+                      'id_forma_pago' => $orden->id_forma_pago, 
+                      'id_estatus_pago' => 4, 
+                      'monto_pago' => $orden->monto_total, 
+                      'json' => json_encode($pre), 
+                      'id_user' => '1'
+                    );
 
-                AlpPagos::create($data_cancelar);
+                    AlpPagos::create($data_cancelar);
 
-                $data_history_json = array(
-                  'id_orden' => $orden->id, 
-                  'id_status' =>'4', 
-                  'notas' => 'Cancelacion de pago en Mercadopago', 
-                  'json' => json_encode($pre), 
-                  'id_user' => '1' 
-              );
+                    $data_history_json = array(
+                      'id_orden' => $orden->id, 
+                      'id_status' =>'4', 
+                      'notas' => 'Cancelacion de pago en Mercadopago', 
+                      'json' => json_encode($pre), 
+                      'id_user' => '1' 
+                  );
 
-              $history=AlpOrdenesHistory::create($data_history_json);
+                  $history=AlpOrdenesHistory::create($data_history_json);
 
 
-            }
+                }
 
-           
-
-            }
+             }
+          }
 
     }
 
