@@ -82,9 +82,9 @@ class VerificarPagos extends Command
 
         #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('id', '20871')->get();
+       # $ordenes=AlpOrdenes::where('id', '20871')->get();
 
       #  dd($ordenes);
         
@@ -997,12 +997,12 @@ class VerificarPagos extends Command
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-     # if (isset($preference['body']['results'])) {
-      if (isset($preference)) {
+      if (isset($preference['body']['results'])) {
+      #if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
-           $aproved=1;
+           $aproved=0;
 
            $cancel=0;
            $pending=0;
@@ -1130,7 +1130,7 @@ class VerificarPagos extends Command
 
 
 
-                  /* $data_json = array(
+                   $data_json = array(
                       'id' => $r['id'], 
                       'operation_type' =>$r['operation_type'], 
                       'payment_method_id' =>$r['payment_method_id'], 
@@ -1158,7 +1158,7 @@ class VerificarPagos extends Command
                      );
 
 
-                    AlpPagos::create($data_pago);*/
+                    AlpPagos::create($data_pago);
 
               if ($orden->id_almacen==1) {
 
@@ -1166,7 +1166,7 @@ class VerificarPagos extends Command
                   # $this->sendcompramas($orden->id, 'approved');
 
                   $this->registrarOrden($orden->id);
-                #  $this->registrarOrdenNuevo($orden->id);
+                  $this->registrarOrdenNuevo($orden->id);
 
 
                 } catch (\Exception $e) {
