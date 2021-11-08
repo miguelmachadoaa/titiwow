@@ -20,9 +20,14 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
+            $('.cantidadCarrito').html($('.productoscarritodetalle').length);   
 
             $('.epayco-button-render').hide();
 
+        });
+
+        $('#btnCarrito').on('click', function(){
+            $('#CartModal').modal('show');
         });
 
         
@@ -480,15 +485,17 @@
 
                 if (data.indexOf("<!--") > -1) {
 
-                        $('.addtocartTrigger').data('imagen', pimagen);
-                        $('.addtocartTrigger').data('name', name);
-                        $('.addtocartTrigger').data('slug', slug);
-                        $('.addtocartTrigger').data('price', price);
-                        $('.addtocartTrigger').data('id', id);
+                    $.get(base+'/cart/getcarrito', function(data) {
+                        
+                        $('.bodycarrito').html(data);
 
-                        $('.addtocartTrigger').trigger('click');
+                        $('.cantidadCarrito').html($('.productoscarritodetalle').length);
 
-                    }
+                    });
+
+                   
+
+                }
 
                        if (single==1) {
 
@@ -530,13 +537,13 @@
 
                     if (data.indexOf("<!--") > -1) {
 
-                        $('.addtocartTrigger').data('imagen', pimagen);
-                        $('.addtocartTrigger').data('name', name);
-                        $('.addtocartTrigger').data('slug', slug);
-                        $('.addtocartTrigger').data('price', price);
-                        $('.addtocartTrigger').data('id', id);
+                        $.get(base+'/cart/getcarrito', function(data) {
+                        
+                            $('.bodycarrito').html(data);
 
-                        $('.addtocartTrigger').trigger('click');
+                            $('.cantidadCarrito').html($('.productoscarritodetalle').length);
+
+                         });
 
                     }
 
@@ -600,12 +607,13 @@
 
                          if (data.indexOf("<!--") > -1) {
 
-                            $('.updatecartTrigger').data('tipo', tipo);
-                            $('.updatecartTrigger').data('cantidad', cantidadinicio);
-                            $('.updatecartTrigger').data('single', single);
-                            $('.updatecartTrigger').data('id', id);
+                            $.get(base+'/cart/getcarrito', function(data) {
+                        
+                        $('.bodycarrito').html(data);
 
-                            $('.updatecartTrigger').trigger('click');
+                        $('.cantidadCarrito').html($('.productoscarritodetalle').length);
+
+                    });
 
                         }
 
@@ -613,12 +621,13 @@
                          if (cantidad==0) {
 
 
-                                $('.updatecartTrigger').data('tipo', tipo);
-                                $('.updatecartTrigger').data('cantidad', cantidadinicio);
-                                $('.updatecartTrigger').data('single', single);
-                                $('.updatecartTrigger').data('id', id);
+                            $.get(base+'/cart/getcarrito', function(data) {
+                        
+                        $('.bodycarrito').html(data);
 
-                                $('.updatecartTrigger').trigger('click');
+                        $('.cantidadCarrito').html($('.productoscarritodetalle').length);
+
+                    });
 
 
                         }
@@ -682,23 +691,25 @@
 
                          if (data.indexOf("<!--") > -1) {
 
-                            $('.updatecartTrigger').data('tipo', tipo);
-                            $('.updatecartTrigger').data('cantidad', cantidadinicio);
-                            $('.updatecartTrigger').data('single', single);
-                            $('.updatecartTrigger').data('id', id);
+                            $.get(base+'/cart/getcarrito', function(data) {
+                        
+                                    $('.bodycarrito').html(data);
 
-                            $('.updatecartTrigger').trigger('click');
+                                    $('.cantidadCarrito').html($('.productoscarritodetalle').length);
+
+                                });
 
                         }
 
                         if (cantidad==0) {
 
-                                $('.updatecartTrigger').data('tipo', tipo);
-                                $('.updatecartTrigger').data('cantidad', cantidadinicio);
-                                $('.updatecartTrigger').data('single', single);
-                                $('.updatecartTrigger').data('id', id);
+                            $.get(base+'/cart/getcarrito', function(data) {
+                        
+                                $('.bodycarrito').html(data);
 
-                                $('.updatecartTrigger').trigger('click');
+                                $('.cantidadCarrito').html($('.productoscarritodetalle').length);
+
+                            });
                         }
 
                          if (single==1) {
@@ -776,6 +787,17 @@
 
                             $('.vermas').remove();
                         }
+
+                        $.get(base+'/cart/getcarrito', function(data) {
+                        
+                        $('.bodycarrito').html(data);
+
+                        $('.cantidadCarrito').html($('.productoscarritodetalle').length);
+
+                    });
+
+
+                    
 
                     });
 

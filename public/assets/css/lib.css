@@ -2234,3 +2234,31 @@ padding: 0.3em 0.3em 0em 1em;
     vertical-align: middle;
     width: 100% !important;
 }
+
+
+#btnCarrito {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+#btnCarrito img{
+  width: 100%;
+}
+
+.cantidadCarrito{
+
+  position: absolute;
+    top: -1em;
+    background: red;
+    padding: 0.3em 0.7em;
+    border-radius: 1em;
+    color: #fff;
+    font-weight: 600;
+    
+}
+
+

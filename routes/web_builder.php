@@ -1654,6 +1654,9 @@ Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartControl
 //responde json
 Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'Admin\AlpCartController@addtocart']);
 
+Route::get('cart/getcarrito/',['as'=>'cart.getcarrito', 'uses'=>'Admin\AlpCartController@getcarrito']);
+
+
 Route::post('cart/agregar/',['as'=>'cart.agregar', 'uses'=>'Admin\AlpCartController@addtocart']);
 
 
