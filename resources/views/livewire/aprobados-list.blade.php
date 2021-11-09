@@ -38,36 +38,40 @@
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('first_name')">Cliente</span>
-                                <x-sort-icon sortField="first_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('cliente')">Cliente</span>
+                                <x-sort-icon sortField="cliente" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Forma de Envio</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('telefono_cliente')">Teléfono</span>
+                                <x-sort-icon sortField="telefono_cliente" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Forma de Pago</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('forma_envio')">Forma de Envio</span>
+                                <x-sort-icon sortField="forma_envio" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Total</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('forma_pago')">Forma de Pago</span>
+                                <x-sort-icon sortField="forma_pago" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                            </th>
+                            <th>
+                                <span wire:click="sortBy('monto_total')">Total</span>
+                                <x-sort-icon sortField="monto_total" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
                                 <span wire:click="sortBy('referencia')">Cupón</span>
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Almacen</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('nombre_almacen')">Almacen</span>
+                                <x-sort-icon sortField="nombre_almacen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Ciudad</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('city_name')">Ciudad</span>
+                                <x-sort-icon sortField="city_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Origen</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                <span wire:click="sortBy('origen')">Origen</span>
+                                <x-sort-icon sortField="origen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
                                 <span wire:click="sortBy('estatus')">Estado</span>
@@ -86,20 +90,25 @@
                             <tr>
                                 <td>{{ $aprobado->id}}</td>
                                 <td>{{ $aprobado->referencia }}</td>
-                                <td>{{ $aprobado->cliente }}</td>
+                                <td>{{ $aprobado->first_name }} {{ $aprobado->last_name }}</td>
+                                <td>{{ $aprobado->telefono_cliente}}</td>
                                 <td>{{ $aprobado->forma_envio}}</td>
                                 <td>{{ $aprobado->forma_pago}}</td>
-                                <td>{{ $aprobado->monto_total}}</td>
-                                <td>N/A</td>
+                                <td>{{ number_format($aprobado->monto_total,2) }}</td>
+                                <td>{{ $aprobado->codigo_cupon}}</td>
                                 <td>{{ $aprobado->nombre_almacen}}</td>
                                 <td>{{ $aprobado->city_name }}</td>
                                 <td>{{ $aprobado->origen == 1 ? 'POS':'Web'}}</td>
-                                <td><span class='badge badge-default' >{{ $aprobado->estatus_nombre }}</span></td>
-                                <td>{{ date('d-m-Y', strtotime($aprobado->created_at )) }}</td>
+                                <td><span class='label label-success' >{{ $aprobado->estatus_nombre }}</span></td>
+                                <td>{{ date('d/m/Y H:i:s', strtotime($aprobado->created_at )) }}</td>
                                 <td>                  
                                     <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$aprobado->id}}/detalle" target='_blank'>
                                     ver detalles
                                     </a>
+                                    @if($id_rol == 1 || $id_rol == 15 )
+                                    <button wire:click="entregarOrden({{ $aprobado->id }})" class='btn btn-xs btn-info' > Entregar </button>
+                                    @endif
+                
                                 </td>
                             </tr>
                         @endforeach
@@ -114,7 +123,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 paginador" >
+        <div class="col-lg-6" >
+        Página {{ $aprobados->currentPage() * $aprobados->perPage() }} de {{ $aprobados->total() }}
+        </div>
+        <div class="col-lg-6 paginador" >
             {{ $aprobados->links() }}
         </div>
     </div>
