@@ -39,41 +39,7 @@ Todas las Ordenes
 
              
                 <div class="panel-body">
-                    @if ($ordenes->count() >= 1)
-                        <div class="table-responsive">
-
-                        <table class="table table-bordered" id="tbOrdenes">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Referencia</th>
-                                    <th>Cliente</th>
-                                    <th>Teléfono</th>
-                                    <th>Forma de Envio</th>
-                                    <th>Forma de Pago</th>
-                                    <th>Total</th>
-                                    <th>Codigo Oracle</th>
-                                    <th>Cupón</th>
-                                    <th>Factura</th>
-                                    <th>Tracking</th>
-                                    <th>Almacen</th>
-                                    <th>Ciudad</th>
-                                    <th>Origen</th>
-                                    <th>Creado</th>
-                                    <th>Estado Pago</th>
-                                    <th>Estado</th>
-                                    <th>Accion</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                               
-                            </tbody>
-                        </table>
-                        </div>
-                    @else
-                        No se encontraron registros
-                    @endif   
+                @livewire('todas-list') 
                 </div>
             </div>
         </div>
