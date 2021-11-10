@@ -1135,6 +1135,19 @@
             @endif
 
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductosalmacen']))
+
+                <li {!! (Request::is('admin/reportes/listadoproductosalmacen') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ secure_url('admin/reportes/listadoproductosalmacen') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Listado de Productos Almacen
+                </a>
+                </li>
+            @endif
+
+
+
+
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
                  <li {!! (Request::is('admin/reportes/masterfile') ? 'class="active" id="active"' : '') !!}>
