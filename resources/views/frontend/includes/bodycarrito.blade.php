@@ -65,7 +65,7 @@
 
 
     @else
-    <div class="col-xs-3">{{number_format(0, 0, ',', '.')}} </div>
+    <div class="col-xs-3 envi03">Gratis </div>
 
     @endif
 
