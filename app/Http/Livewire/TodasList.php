@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 use DB;
 use Sentinel;
 
-class AprobadosList extends Component
+class TodasList extends Component
 {
     use WithPagination;
 
@@ -43,7 +43,7 @@ class AprobadosList extends Component
 
             $id_rol=$role->role_id;
         }
-        $aprobados = AlpOrdenes::when($this->search, function($query){
+        $todas = AlpOrdenes::when($this->search, function($query){
             return $query->where(function ($query){
                 $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
                     ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
@@ -72,13 +72,12 @@ class AprobadosList extends Component
             'config_cities.city_name as city_name',
             'alp_formas_envios.nombre_forma_envios as forma_envio',
             'alp_formas_pagos.nombre_forma_pago as forma_pago')
-        ->where('alp_ordenes.estatus', '5')
         ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
 
         
-        $aprobados = $aprobados->paginate($this->cantid);
+        $todas = $todas->paginate($this->cantid);
 
-        foreach($aprobados as $row){
+       /* foreach($aprobados as $row){
             
             $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
 
@@ -90,10 +89,10 @@ class AprobadosList extends Component
                 $row->codigo_cupon='N/A';
 
               }
-        }
+        }*/
 
-        return view('livewire.aprobados-list',[
-            'aprobados' => $aprobados,
+        return view('livewire.todas-list',[
+            'todas' => $todas,
             'id_rol' => $id_rol
         ]);
 
