@@ -17,20 +17,27 @@ use Illuminate\Http\Request;
 class AlmacenInventarioImport implements ToCollection
 {
 
+    protected $almacen = null;
+
+    public function __construct(string $almacen) {
+        $this->almacen = $almacen;
+     }
+
     public function collection(Collection $rows)
     {
-        $user_id = Sentinel::getUser()->id;
+        $user_id = 1;
 
-        $almacen= \Session::get('almacen');
+       # $almacen= \Session::get('almacen');
 
-        $inventario= \Session::get('inventario');
+        //$inventario= \Session::get('inventario');
 
-        AlpAlmacenProducto::where('id_almacen', $almacen)->delete();
+        AlpAlmacenProducto::where('id_almacen', $this->almacen)->delete();
 
         $i=0;
 
         foreach ($rows as $row) 
         {
+
 
             if ($i==0 || is_null($row[3]) ) {
                 # code...
@@ -40,22 +47,24 @@ class AlmacenInventarioImport implements ToCollection
 
                     $p=AlpProductos::where('slug', trim($row[0]))->first();
 
+                    echo 'producto - '.$p->id.'/ ';
+
                     if (isset($p->id)) {
 
                             $data = array(
-                                'id_almacen' => $almacen, 
+                                'id_almacen' => $this->almacen, 
                                 'id_producto' => $p->id, 
                                 'id_user' => $user_id 
                             );
 
                                 AlpAlmacenProducto::create($data);
 
-                                AlpInventario::where('id_producto', '=', $p->id)->where('id_almacen', '=', $almacen)->delete();
+                                AlpInventario::where('id_producto', '=', $p->id)->where('id_almacen', '=', $this->almacen)->delete();
 
                                    if ($row[3]>0){
 
                                         $data_inventario_nuevo = array(
-                                            'id_almacen' => $almacen, 
+                                            'id_almacen' => $this->almacen, 
                                             'id_producto' => $p->id, 
                                             'cantidad' => $row[3], 
                                             'operacion' => 1, 
@@ -66,7 +75,7 @@ class AlmacenInventarioImport implements ToCollection
                                    }else{
 
                                     $data_inventario_nuevo = array(
-                                        'id_almacen' => $almacen, 
+                                        'id_almacen' => $this->almacen, 
                                         'id_producto' => $p->id, 
                                         'cantidad' => 0, 
                                         'operacion' => 1, 

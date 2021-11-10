@@ -19,6 +19,9 @@ use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpInventario;
+use App\Models\AlpInventarioImport;
+
+
 use App\User;
 use App\State;
 use App\City;
@@ -394,13 +397,6 @@ class AlpAlmacenesController extends JoshController
 
       $cities=City::get();
 
-       //$listaestados=State::pluck('state_name', 'id');
-
-       // $listaestados[0]='Todos';
-
-       // $listaciudades=City::pluck('city_name', 'id');
-
-       // $listaciudades[0]='Todos';
        // 
         $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
@@ -932,15 +928,46 @@ class AlpAlmacenesController extends JoshController
 
          $archivo = $request->file('file_update');
 
-        \Session::put('almacen', $id);
-        
-        \Session::put('inventario', []);
 
-        \Session::put('cities', $request->cities);
+         if ($request->hasFile('file_update')) {
+            
+          $file = $request->file('file_update');
+
+          $extension = $file->extension()?: 'jpg';
+
+          $partes=explode('.',$file->getClientOriginalName());
+
+          $ext=$partes[1];
+          
+          $picture = str_random(10) . '.' . $extension;    
+
+          $destinationPath = public_path() . '/uploads/inventario/';
+          
+          $file->move($destinationPath, $picture);
+
+         # $path = $request->file('file_update')->storeAs('public/inventario',$picture);
+         
+          $imagen = $picture;
+
+      }     
+
+
+    
+      AlpInventarioImport::create([
+        'id_almacen'=>$user->almacen,
+        'archivo'=>$picture,
+        'id_user'=>$user->id,
+      ]);
+
+      #  \Session::put('almacen', $id);
+        
+      #  \Session::put('inventario', []);
+
+     #   \Session::put('cities', $request->cities);
 
      #   Excel::import(new AlmacenImport, $archivo);
 
-        Excel::import(new AlmacenInventarioImport, $archivo);
+      #  Excel::import(new AlmacenInventarioImport, $archivo);
        
         return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }

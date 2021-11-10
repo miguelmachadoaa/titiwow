@@ -2922,7 +2922,7 @@ public function listadoproductosalmacen()
 
     $inventario=$this->inventario();
 
-    return Excel::download(new ListadoProductosAlmacenExport($request->estado,$request->tproducto,$user->almacen, $inventario), 'Listado_de_productos_almacen.csv');
+    return Excel::download(new ListadoProductosAlmacenExport($request->estado,$request->tproducto,$user->almacen, $inventario), 'Listado_de_productos_almacen.csv', \Maatwebsite\Excel\Excel::CSV);
     
 }
 
