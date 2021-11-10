@@ -10,7 +10,9 @@ use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpFormaspago;
 use App\Models\AlpFormasenvio;
+use App\Models\AlpAlmacenes;
 use App\RoleUser;
+use App\City;
 use Livewire\WithPagination;
 use DB;
 use Sentinel;
@@ -50,18 +52,13 @@ class TodasList extends Component
         $todas = AlpOrdenes::when($this->search, function($query){
             return $query->where(function ($query){
                 $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
+                    ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%')
                     ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
-                    ->orWhere('alp_ordenes.origen' ,'like','%'.$this->search.'%')
+
                     ->orWhere('users.last_name','like','%'.$this->search.'%');
                 });
         }) 
         ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-       // ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-       // ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-       // ->join('alp_almacenes', 'alp_ordenes.id_almacen', '=', 'alp_almacenes.id')
-       // ->join('config_cities', 'alp_almacenes.id_city', '=', 'config_cities.id')
-       // ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-       // ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
         ->select(
             'alp_ordenes.id as id',
             'alp_ordenes.id_cliente as id_cliente',
@@ -72,15 +69,10 @@ class TodasList extends Component
             'alp_ordenes.estatus as estatus', 
             'alp_ordenes.id_forma_envio as id_forma_envio',
             'alp_ordenes.id_forma_pago as id_forma_pago',
+            'alp_ordenes.id_almacen as id_almacen',
             'alp_ordenes.created_at as created_at', 
             'users.first_name as first_name', 
             'users.last_name as last_name')
-          /*  'alp_clientes.telefono_cliente as telefono_cliente', 
-            'alp_ordenes_estatus.estatus_nombre as estatus_nombre',
-            'alp_almacenes.nombre_almacen as nombre_almacen',
-            'config_cities.city_name as city_name',
-            'alp_formas_envios.nombre_forma_envios as forma_envio',
-            'alp_formas_pagos.nombre_forma_pago as forma_pago')*/
 
         ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
 
@@ -148,6 +140,30 @@ class TodasList extends Component
             $row->forma_envio='N/A';
 
             }
+            //Agrega Almacén
+
+            $almacen=AlpAlmacenes::where('id', $row->id_almacen)->first();
+
+            if (isset($almacen->id)) {
+            $row->nombre_almacen=$almacen->nombre_almacen;
+
+            }else{
+
+            $row->nombre_almacen='N/A';
+
+            }
+            //Agregar Ciudad
+
+            $ciudad=City::where('id', $almacen->id_city)->first();
+
+            if (isset($ciudad->id)) {
+                $row->city_name=$ciudad->city_name;
+    
+                }else{
+    
+                $row->city_name='N/A';
+    
+                }
         }
 
         return view('livewire.todas-list',[

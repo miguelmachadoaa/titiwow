@@ -14292,6 +14292,50 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
 
 
+    public function getcarrito( )
+    {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpCartController/getcarrito ');
+
+        }else{
+
+          activity()->log('AlpCartController/getcarrito');
+
+
+        }
+
+        $cart= \Session::get('cart');
+
+         $total=$this->total();
+
+         $envio=$this->envio();
+
+         if($envio==-1){
+           $envio=0;
+         }
+
+         $view= View::make('frontend.includes.bodycarrito', compact('cart', 'total', 'envio'));
+
+          $data=$view->render();
+
+          return $data;
+      
+    }
+
+
+
+
+
+
+
 
 
 

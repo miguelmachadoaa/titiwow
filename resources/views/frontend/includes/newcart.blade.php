@@ -1,77 +1,24 @@
-
-
-<div class="cd-cart-container @if($cart!=NULL) @else  @endif">
-    <a href="#0" class="cd-cart-trigger">
-        
-        <ul class="count"> <!-- cart items count -->
-            <li>@if($cart!=NULL) {{ count($cart) }}  @else {{0}} @endif</li>
-            <li>@if($cart!=NULL) {{ count($cart)+1 }} @else {{0}} @endif</li>
-        </ul> <!-- .count -->
-    </a>
-
-    <div class="cd-cart">
-        <div class="wrapper">
-            <header>
-                <h3>Carrito</h3>
-                <span class="undo">Item removed. <a href="#0">Undo</a></span>
-            </header>
+<div class="modal fade" id="CartModal" role="dialog" aria-labelledby="modalLabeldanger">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">MI PEDIDO</h4>
+              </div>
+              <div class="modal-body bodycarrito">
+                
+                 @include('frontend.includes.bodycarrito')
+              </div>
             
-            <div class="body">
-                <ul>
-                    <!-- products added to the cart will be inserted here using JavaScript -->
-                    @if(isset($cart))
-                    
-                    @foreach($cart as $row)
+            </div><!-- /.modal-content -->
 
-                    @if(isset($row->nombre_producto))
-                    @if(isset($row->promocion))
-                    @else       
-
-                    <li class="product">
-                        <div class="product-image">
-                            <a href="#0">
-                                <img class="img-responsive" src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}" title="{{ $row->nombre_producto }}">
-                            </a>
-                        </div>
-                        <div class="product-details">
-                            <h3>
-                                <a href="{{ route('producto', [$row->slug]) }}">{{ $row->nombre_producto }}</a>
-                            </h3>
-                            <span class="price">{{ intval($row->precio_oferta) }}</span>
-                            <div class="actions">
-                                <a data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" href="#0" class="delete-item col-xs-3">Borrar</a>
-                                    <div class="quantity col-xs-8">
-                                        <label for="cd-product-{{ $row->id }}">Cantidad</label>
-                                            <span class="select">
-                                                <select class="cartselect" data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" id="cd-product-{{ $row->id }}" name="quantity">
-                                                    <option value="{{ $row->cantidad }}">{{ $row->cantidad }}</option>
-
-                                                    @for ($i = 1; $i <= $configuracion->maximo_productos; $i++)
-                                                        The current value is {{ $i }}
-                                                        <option value="{{ $i }}">{{ $i }}</option>
-                                                    @endfor
-
-                                                    
-                                                </select>
-                                            </span>
-                                    </div>
-                            </div>
-                        </div>
-                    </li>
-                    @endif
-                    @endif
-                    
-
-                    @endforeach
-                    @endif
-                </ul>
-            </div>
-
-            <footer>
-                <a style="background: #0000;" href="{{ secure_url('cart/show') }}" class="checkout btn"><em>Total - COP <span>@if(isset($cart)) {{ $total }}  @endif</span></em></a>
-            </footer>
         </div>
-    </div> <!-- .cd-cart -->
-</div> <!-- cd-cart-container -->
+    </div>
 
 
+
+
+    <button class="btn btn-default" id="btnCarrito" >
+        <img   src="{{secure_url('assets/images/carrito-compras.png')}}" alt="">
+        <span class="badgecarrito cantidadCarrito">0</span>
+    </button>

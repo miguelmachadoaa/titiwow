@@ -61,14 +61,14 @@
                                 <span wire:click="sortBy('referencia')">Cupón</span>
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
-                            <!--th>
+                            <th>
                                 <span wire:click="sortBy('nombre_almacen')">Almacen</span>
                                 <x-sort-icon sortField="nombre_almacen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
                                 <span wire:click="sortBy('city_name')">Ciudad</span>
                                 <x-sort-icon sortField="city_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th-->
+                            </th>
                             <th>
                                 <span wire:click="sortBy('origen')">Origen</span>
                                 <x-sort-icon sortField="origen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
@@ -93,21 +93,30 @@
                                 <td>{{ $row->first_name }} {{ $row->last_name }}</td>
                                 <td>{{ $row->telefono_cliente}}</td>
                                 <td>{{ $row->forma_envio}}</td>
-                                <td>{{ $row->forma_pago}}</td>
+                                <td>{{ $row->forma_pago}}</td-->
                                 <td>{{ number_format($row->monto_total,2) }}</td>
                                 <td>{{ $row->codigo_cupon}}</td>
-                                <!--td>{{ $row->nombre_almacen}}</td>
-                                <td>{{ $row->city_name }}</td-->
+                                <td>{{ $row->nombre_almacen}}</td>
+                                <td>{{ $row->city_name }}</td>
                                 <td>{{ $row->origen == 1 ? 'POS':'Web'}}</td>
+                                @if($row->estatus == 1)
+                                <td><span class='label label-primary' >{{ $row->estatus_nombre }}</span></td>
+                                @elseif($row->estatus == 5)
+                                <td><span class='label label-info' >{{ $row->estatus_nombre }}</span></td>
+                                @elseif($row->estatus == 8)
+                                <td><span class='label label-warning' >{{ $row->estatus_nombre }}</span></td>
+                                @elseif($row->estatus == 3)
                                 <td><span class='label label-success' >{{ $row->estatus_nombre }}</span></td>
+                                @elseif($row->estatus == 4)
+                                <td><span class='label label-danger' >{{ $row->estatus_nombre }}</span></td>
+                                @elseif($row->estatus == 7)
+                                <td><span class='label label-default' >{{ $row->estatus_nombre }}</span></td>
+                                @endif
                                 <td>{{ date('d/m/Y H:i:s', strtotime($row->created_at )) }}</td>
                                 <td>                  
                                     <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$row->id}}/detalle" target='_blank'>
                                     ver detalles
                                     </a>
-                                    @if($id_rol == 1 || $id_rol == 15 )
-                                    <button wire:click="entregarOrden({{ $row->id }})" class='btn btn-xs btn-info' > Entregar </button>
-                                    @endif
                 
                                 </td>
                             </tr>
