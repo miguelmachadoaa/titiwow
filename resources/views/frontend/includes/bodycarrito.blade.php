@@ -64,7 +64,14 @@
 
     <div class="col-xs-9"><b>Total</b></div>
     @if(isset($envio))
+        @if($envio=='0')
+        <div class="col-xs-3">Gratis </div>
+
+        @else
         <div class="col-xs-3">{{number_format($total+$envio, 0, ',', '.')}} </div>
+
+        @endif
+        
     @else
     <div class="col-xs-3">{{number_format($total, 0, ',', '.')}} </div>
     @endif
