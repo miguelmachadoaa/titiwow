@@ -85,28 +85,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if( isset($aprobados))
-                        @foreach($aprobados as $aprobado)
+                    @if( isset($todas))
+                        @foreach($todas as $row)
                             <tr>
-                                <td>{{ $aprobado->id}}</td>
-                                <td>{{ $aprobado->referencia }}</td>
-                                <td>{{ $aprobado->first_name }} {{ $aprobado->last_name }}</td>
-                                <td>{{ $aprobado->telefono_cliente}}</td>
-                                <td>{{ $aprobado->forma_envio}}</td>
-                                <td>{{ $aprobado->forma_pago}}</td>
-                                <td>{{ number_format($aprobado->monto_total,2) }}</td>
-                                <td>{{ $aprobado->codigo_cupon}}</td>
-                                <td>{{ $aprobado->nombre_almacen}}</td>
-                                <td>{{ $aprobado->city_name }}</td>
-                                <td>{{ $aprobado->origen == 1 ? 'POS':'Web'}}</td>
-                                <td><span class='label label-success' >{{ $aprobado->estatus_nombre }}</span></td>
-                                <td>{{ date('d/m/Y H:i:s', strtotime($aprobado->created_at )) }}</td>
+                                <td>{{ $row->id}}</td>
+                                <td>{{ $row->referencia }}</td>
+                                <td>{{ $row->first_name }} {{ $row->last_name }}</td>
+                                <td>{{ $row->telefono_cliente}}</td>
+                                <td>{{ $row->forma_envio}}</td>
+                                <td>{{ $row->forma_pago}}</td>
+                                <td>{{ number_format($row->monto_total,2) }}</td>
+                                <td>{{ $row->codigo_cupon}}</td>
+                                <td>{{ $row->nombre_almacen}}</td>
+                                <td>{{ $row->city_name }}</td>
+                                <td>{{ $row->origen == 1 ? 'POS':'Web'}}</td>
+                                <td><span class='label label-success' >{{ $row->estatus_nombre }}</span></td>
+                                <td>{{ date('d/m/Y H:i:s', strtotime($row->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$aprobado->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$row->id}}/detalle" target='_blank'>
                                     ver detalles
                                     </a>
                                     @if($id_rol == 1 || $id_rol == 15 )
-                                    <button wire:click="entregarOrden({{ $aprobado->id }})" class='btn btn-xs btn-info' > Entregar </button>
+                                    <button wire:click="entregarOrden({{ $row->id }})" class='btn btn-xs btn-info' > Entregar </button>
                                     @endif
                 
                                 </td>
@@ -123,11 +123,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6" >
-        <strong>Página {{ $aprobados->currentPage() * $aprobados->perPage() }} de {{ $aprobados->total() }}</strong>
-        </div>
+
         <div class="col-lg-6 paginador" >
-            {{ $aprobados->links() }}
+            {{ $todas->links() }}
         </div>
     </div>
 </div>
