@@ -25,7 +25,7 @@ Listado de productos Rappy
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Listado de Productos </h1>
+    <h1>Listado de productos Rappy </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">

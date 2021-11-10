@@ -8,6 +8,9 @@ use App\Models\AlpProductos;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
 use App\Models\AlpCombosProductos;
+use App\Models\AlpPrecioGrupo;
+
+
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -166,4 +169,125 @@ class ListadoProductosAlmacenExport implements FromView
             'almacen' => $this->almacen
         ]);
     }
+
+
+
+    private function addOferta($productos){
+
+
+        $descuento='1'; 
+
+        $precio = array();
+
+
+          $role = array( );
+
+            $r='9';
+
+                foreach ($productos as  $row) {
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                    }else{
+
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id','=', '62')->first();
+
+                      if (isset($pregiogrupo->id)) {
+                       
+                          $precio[$row->id]['precio']=$pregiogrupo->precio;
+                          $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$row->id]['pum']=$pregiogrupo->pum;
+                          $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+                      }
+
+                      
+
+                    }
+
+                }
+                
+        
+
+
+
+      // dd($precio);
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+          if ($descuento=='1') {
+
+            if (isset($precio[$producto->id])) {
+              # code...
+             
+              switch ($precio[$producto->id]['operacion']) {
+
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+            }
+
+
+           }else{
+
+           $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+           }
+
+
+           $prods[]=$producto;
+           
+          }
+
+        return $prods;
+
+
+    }
+
+
+
+
 }
