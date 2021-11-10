@@ -102,7 +102,7 @@ class ListadoProductosAlmacenExport implements FromView
                 ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.id','=', $this->almacen->id)
                 ->groupBy('alp_almacen_producto.id')
-                ->where('estado_registro', $this->estado)->get();   
+                ->where('alp_productos.estado_registro', $this->estado)->get();   
             
             }else{
                 
@@ -123,7 +123,7 @@ class ListadoProductosAlmacenExport implements FromView
                 ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.id','=', $this->almacen->id)
                 ->groupBy('alp_almacen_producto.id')
-                ->where('estado_registro', $this->estado)
+                ->where('alp_productos.estado_registro', $this->estado)
                 ->where('tipo_producto', $this->tproducto)->get();
             }
 
