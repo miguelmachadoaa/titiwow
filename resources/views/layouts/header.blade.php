@@ -165,7 +165,11 @@
                             </a></span>
                         </button>
 
-                        <a class="hidden-xs" style="float: none; display: inline-block; margin-top: 8px;margin-right: 15px; margin-bottom: 8px;" class="" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="livicon" data-name="shopping-cart" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+                        <a class="hidden-xs" style="float: none; display: inline-block; margin-top: 8px;margin-right: 15px; margin-bottom: 8px;" class="" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="livicon" data-name="shopping-cart" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
+                    
+                        <span class="badgecarrito cantidadCarrito">0</span>
+                    
+                    </a>
 
 
                         
@@ -294,7 +298,8 @@
 
                                     <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
                                     
-                                        <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
+                                        <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i>
+                                    </a>
     
                                     <!--/button-->
 
