@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Listado de productos Almacen
+Listado de productos Rappy
 @parent
 @stop
 
@@ -34,7 +34,7 @@ Listado de productos Almacen
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Listado de productos Almacen</li>
+        <li class="active">Listado de productos Rappy</li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Listado de productos Almacen
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Listado de productos Almacen
+                       Listado de productos Rappy
                     </h4>
                 </div>
                 <br />
@@ -84,31 +84,6 @@ Listado de productos Almacen
                             </select>
                         </div>           
                     </div>
-
-
-                    <div class="row">
-                            <div class="form-group col-sm-12 ">
-                            <label for="select21" class="col-md-2 control-label text-right">
-                            Almacen                                               
-                            </label>
-                            <div class="col-md-10">   
-                                <select id="almacen" name="almacen" class="form-control select2">
-                                    <option value="">Seleccione</option>
-                                     @foreach($almacenes as $alm)
-                                     
-                                        <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
-
-                                     @endforeach
-                                    
-                                </select>
-
-                                {!! $errors->first('almacen', '<span class="help-block">:message</span> ') !!}
-                            </div>           
-                        </div>
-
-
-
-
 
                     
 

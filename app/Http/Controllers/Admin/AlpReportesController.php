@@ -2915,20 +2915,14 @@ public function listadoproductosalmacen()
     }
 
 
-    $validated = $request->validate([
-      'almacen' => 'required',
-  ]);
-
     if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
 
        return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
     }
 
-
     $inventario=$this->inventario();
 
-
-    return Excel::download(new ListadoProductosAlmacenExport($request->estado,$request->tproducto,$request->almacen, $inventario), 'Listado_de_productos_almacen.csv');
+    return Excel::download(new ListadoProductosAlmacenExport($request->estado,$request->tproducto,$user->almacen, $inventario), 'Listado_de_productos_almacen.csv');
     
 }
 

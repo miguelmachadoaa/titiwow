@@ -1140,12 +1140,10 @@
                 <li {!! (Request::is('admin/reportes/listadoproductosalmacen') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/listadoproductosalmacen') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Listado de Productos Almacen
+                    Listado de Productos Rapppy
                 </a>
                 </li>
             @endif
-
-
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
