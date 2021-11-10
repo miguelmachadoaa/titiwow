@@ -61,14 +61,14 @@
                                 <span wire:click="sortBy('referencia')">Cupón</span>
                                 <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
-                            <th>
+                            <!--th>
                                 <span wire:click="sortBy('nombre_almacen')">Almacen</span>
                                 <x-sort-icon sortField="nombre_almacen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
                                 <span wire:click="sortBy('city_name')">Ciudad</span>
                                 <x-sort-icon sortField="city_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
+                            </th-->
                             <th>
                                 <span wire:click="sortBy('origen')">Origen</span>
                                 <x-sort-icon sortField="origen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
@@ -96,8 +96,8 @@
                                 <td>{{ $row->forma_pago}}</td>
                                 <td>{{ number_format($row->monto_total,2) }}</td>
                                 <td>{{ $row->codigo_cupon}}</td>
-                                <td>{{ $row->nombre_almacen}}</td>
-                                <td>{{ $row->city_name }}</td>
+                                <!--td>{{ $row->nombre_almacen}}</td>
+                                <td>{{ $row->city_name }}</td-->
                                 <td>{{ $row->origen == 1 ? 'POS':'Web'}}</td>
                                 <td><span class='label label-success' >{{ $row->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($row->created_at )) }}</td>
@@ -123,7 +123,9 @@
         </div>
     </div>
     <div class="row">
-
+        <div class="col-lg-6" >
+        <strong> {{ $todas->currentPage() * $todas->perPage() }} Registros de {{ $todas->total() }}</strong>
+        </div>
         <div class="col-lg-6 paginador" >
             {{ $todas->links() }}
         </div>
