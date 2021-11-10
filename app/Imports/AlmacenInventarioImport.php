@@ -32,8 +32,6 @@ class AlmacenInventarioImport implements ToCollection
         foreach ($rows as $row) 
         {
 
-           # \Log::debug('row importa almancen' . $row); 
-
             if ($i==0 || is_null($row[3]) ) {
                 # code...
             }else{

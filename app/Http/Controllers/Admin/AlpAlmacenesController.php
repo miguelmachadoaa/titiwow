@@ -300,6 +300,7 @@ class AlpAlmacenesController extends JoshController
             'epayco_key' => $request->epayco_key,
             'epayco_public_key' => $request->epayco_public_key,
             'epayco_private_key' => $request->epayco_private_key,
+            'codigo_almacen' => $request->codigo_almacen,
             'id_user' =>$user_id
         );
 
@@ -479,6 +480,7 @@ class AlpAlmacenesController extends JoshController
                 'epayco_key' => $request->epayco_key,
                 'epayco_public_key' => $request->epayco_public_key,
                 'epayco_private_key' => $request->epayco_private_key,
+                'codigo_almacen' => $request->codigo_almacen,
                 'tipo_almacen' => $request->tipo_almacen
                 );
 

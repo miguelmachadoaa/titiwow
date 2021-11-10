@@ -293,6 +293,21 @@ Editar Almacen {{$almacen->nombre_almacen}}
                                 </div>
 
 
+                <div class="form-group {{ $errors->first('codigo_almacen', 'has-error') }}">
+                    <label for="codigo_almacen" class="col-sm-2 control-label">
+                        Codigo Almacen
+                    </label>
+                    <div class="col-sm-5">
+                        
+                        <input id="codigo_almacen" name="codigo_almacen" class="form-control" placeholder="Codigo Almacen" value="{!! old('codigo_almacen', $almacen->codigo_almacen) !!}"></input>
+                    </div>
+                    <div class="col-sm-4">
+                        {!! $errors->first('codigo_almacen', '<span class="help-block">:message</span> ') !!}
+                    </div>
+                </div>
+
+
+
                                 
                         <fieldset>
                             <h3>Datos para pagos </h3>

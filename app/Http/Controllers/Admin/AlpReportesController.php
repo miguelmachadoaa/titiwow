@@ -33,6 +33,7 @@ use App\Exports\ProductosCombosExport;
 use App\Exports\LifemilesExport;
 use App\Exports\AbandonadosExport;
 use App\Exports\AccesoExport;
+use App\Exports\ListadoProductosAlmacenExport;
 
 
 
@@ -46,7 +47,6 @@ use App\Exports\ClientesExport;
 use App\Exports\PrecioExport;
 use App\Exports\BonoExport;
 use App\Exports\FormatoSolicitudPedidoAlpinista;
-
 
 use App\Http\Requests\FinancieroRequest;
 
@@ -1491,7 +1491,12 @@ class AlpReportesController extends Controller
 
     }
 
-     public function listadoproductos() 
+    
+
+
+
+
+    public function listadoproductos() 
     {
 
          if (Sentinel::check()) {
@@ -1545,6 +1550,9 @@ class AlpReportesController extends Controller
 
         return Excel::download(new ListadoProductosExport($request->estado,$request->tproducto), 'Listado_de_productos.xlsx');
     }
+
+
+    
 
 
 
@@ -2850,6 +2858,82 @@ public function acceso()
     return Excel::download(new AccesoExport($request->desde, $request->hasta), 'acceso'.time().'.xlsx');
 
 }
+
+
+
+
+
+
+
+public function listadoproductosalmacen() 
+{
+
+     if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('AlpReportesController/listadoproductosalmacen ');
+
+    }else{
+
+      activity()
+      ->log('AlpReportesController/listadoproductosalmacen');
+
+    }
+
+    if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+       return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+    }
+
+    $almacenes=AlpAlmacenes::get();
+
+    return view('admin.reportes.listadoproductosalmacen', compact('almacenes'));
+
+}
+
+
+ public function exportlistadoproductosalmacen(Request $request) 
+{
+    if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())->log('AlpReportesController/exportlistadoproductosalmacen ');
+
+    }else{
+
+      activity()
+      ->withProperties($request->all())->log('AlpReportesController/exportlistadoproductosalmacen');
+
+    }
+
+
+    $validated = $request->validate([
+      'almacen' => 'required',
+  ]);
+
+    if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+       return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+    }
+
+
+    $inventario=$this->inventario();
+
+
+    return Excel::download(new ListadoProductosAlmacenExport($request->estado,$request->tproducto,$request->almacen, $inventario), 'Listado_de_productos_almacen.csv');
+    
+}
+
+
+
 
 
 

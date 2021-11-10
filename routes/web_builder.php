@@ -798,10 +798,12 @@ Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@expo
 
 
 
-   Route::get('reportes/listadoproductos', 'Admin\AlpReportesController@listadoproductos')->name('reportes.listadoproductos');
+Route::get('reportes/listadoproductos', 'Admin\AlpReportesController@listadoproductos')->name('reportes.listadoproductos');
 
- Route::post('reportes/exportlistadoproductos', 'Admin\AlpReportesController@exportlistadoproductos')->name('reportes.exportlistadoproductos');
+Route::post('reportes/exportlistadoproductos', 'Admin\AlpReportesController@exportlistadoproductos')->name('reportes.exportlistadoproductos');
 
+Route::get('reportes/listadoproductosalmacen', 'Admin\AlpReportesController@listadoproductosalmacen')->name('reportes.listadoproductosalmacen');
+Route::post('reportes/exportlistadoproductosalmacen', 'Admin\AlpReportesController@exportlistadoproductosalmacen')->name('reportes.exportlistadoproductosalmacen');
 
 
     Route::get('reportes/nomina', 'Admin\AlpReportesController@nomina')->name('reportes.nomina');

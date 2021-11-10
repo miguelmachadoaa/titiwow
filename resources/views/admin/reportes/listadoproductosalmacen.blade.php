@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reporte Sellout
+Listado de productos Almacen
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Reporte Sellout
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Sellout</h1>
+    <h1>Listado de Productos </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Reporte Sellout
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Sellout</li>
+        <li class="active">Listado de productos Almacen</li>
     </ol>
 </section>
 
@@ -45,46 +45,48 @@ Reporte Sellout
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reporte SellOut
+                       Listado de productos Almacen
                     </h4>
                 </div>
                 <br />
                 <div class="panel-body">
 
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/reportes/exportproductostotales') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/reportes/exportlistadoproductosalmacen') }}">
 
                         {{ csrf_field() }}
 
                 <div class="row">   
-                  
 
 
-                    <div class="form-group">
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Estado del Producto                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="estado" name="estado" class="form-control select2">
+                                <option value="0">Todos</option>
+                                <option value="1">Activos</option>
+                                <option value="2">Inactivos</option>
+                                
+                            </select>
+                        </div>           
+                    </div>
 
-                                <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
+                    <div class="form-group col-sm-12 ">
+                        <label for="select22" class="col-md-2 control-label text-right">
+                        Tipo de Producto                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="tproducto" name="tproducto" class="form-control select2">
+                                <option value="0" selected>Todos</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Combo</option>                            
+                            </select>
+                        </div>           
+                    </div>
 
-                        <div class="row">
-                                <div class="col-sm-5 pad-0-res mt-5">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
-                                           data-hc="#555555" data-loop="true"></i>
-                                    </div>
-                                    <input required class="form-control" id="desde" name="desde" placeholder="Desde">
-                                </div>
-                            </div>
-                                <div class="col-sm-5 pad-0-res mt-5">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
-                                           data-hc="#555555" data-loop="true"></i>
-                                    </div>
-                                    <input required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
-                                </div>
-                            </div>
-                        </div>
 
-                         <div class="row">
+                    <div class="row">
                             <div class="form-group col-sm-12 ">
                             <label for="select21" class="col-md-2 control-label text-right">
                             Almacen                                               
@@ -92,9 +94,6 @@ Reporte Sellout
                             <div class="col-md-10">   
                                 <select id="almacen" name="almacen" class="form-control select2">
                                     <option value="">Seleccione</option>
-
-                                    <option value="0">Todos</option>
-
                                      @foreach($almacenes as $alm)
                                      
                                         <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
@@ -102,36 +101,12 @@ Reporte Sellout
                                      @endforeach
                                     
                                 </select>
+
+                                {!! $errors->first('almacen', '<span class="help-block">:message</span> ') !!}
                             </div>           
                         </div>
 
 
-
-                                <div class="form-group col-sm-12 ">
-
-                                    <br>
-                                    <label for="select21" class="col-md-2 control-label text-right">
-                                        Origen                                               
-                                        </label>
-
-                                        <div class="col-md-10">   
-                                            <select id="origen" name="origen" class="form-control select2">
-                                                <option value="-1">Todos</option>
-                                                <option value="0">Web</option>
-                                                <option value="1">Tomapedidos</option>
-
-                                            </select>
-                                        </div>         
-                                </div>
-
-                                
-
-                        </div>
-
-
-                        
-                            <!-- /.input group -->
-                    </div>
 
 
 
@@ -139,7 +114,7 @@ Reporte Sellout
 
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <button type="submit" class="btn btn-md btn-primary">  Descargar ventas en Excel  </button>
+                                <button type="submit" class="btn btn-md btn-primary">  Descargar listado de productos  </button>
                                 
                               
 
