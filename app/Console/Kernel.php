@@ -35,6 +35,8 @@ class Kernel extends ConsoleKernel
         Commands\Teextranamos2IBM::class,
         Commands\TeextranamosIBM::class,
         Commands\PedidosEnviados::class,
+        Commands\PedidosEnviados::class,
+        Commands\ImportAlmacenInventario::class,
     ];
 
     /**
@@ -100,6 +102,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('pedidos:enviados')->dailyAt('18:00');
         
         $schedule->command('verificar:pagos')->everyFifteenMinutes();
+
+        $schedule->command('almacen:import')->everyFifteenMinutes();
+
         $schedule->command('verificar:pagoshora')->hourly()->between('6:00', '23:00');
 
         $schedule->command('notificacion:carrito')->hourly()->between('7:00', '22:00');
