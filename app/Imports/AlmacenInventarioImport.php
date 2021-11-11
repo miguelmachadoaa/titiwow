@@ -47,8 +47,6 @@ class AlmacenInventarioImport implements ToCollection
 
                     $p=AlpProductos::where('slug', trim($row[0]))->first();
 
-                    echo 'producto - '.$p->id.'/ ';
-
                     if (isset($p->id)) {
 
                             $data = array(
