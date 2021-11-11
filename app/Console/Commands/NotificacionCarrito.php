@@ -68,7 +68,7 @@ class NotificacionCarrito extends Command
         ->where('alp_carrito.notificacion','=', 1)
         ->get();
 
-        dd($carritos);
+        #dd($carritos);
 
         $userarray = array();
 
