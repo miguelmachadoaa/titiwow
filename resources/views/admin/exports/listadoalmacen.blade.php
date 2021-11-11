@@ -16,13 +16,13 @@
 
         
             <tr>
-                <td>{!! $row->codigo_almacen !!}</td>
-                <td>{!! $row->referencia_producto1 !!}</td>
-                <td>{!! $row->referencia_producto1 !!}</td>
-                <td>{!! $row->nombre_producto1 !!}</td>
-                <td>{!! $row->precio_base1 !!}</td>
+                <td>{{ $row->codigo_almacen }}</td>
+                <td>{{ $row->referencia_producto1 }}</td>
+                <td>{{ $row->referencia_producto1 }}</td>
+                <td>{{ $row->nombre_producto1 }}</td>
+                <td>{{ $row->precio_base1 }}</td>
                 @if(isset($inventario[$row->id][$almacen->id]))
-                <td>{!! $inventario[$row->id][$almacen->id]!!}</td>
+                <td>{{ $inventario[$row->id][$almacen->id]}}</td>
 
                 @else
                 <td>0</td>

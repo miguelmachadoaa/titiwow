@@ -1983,3 +1983,9 @@ Route::get('cron-cancelar', function() {
     $exitCode = Artisan::call('cancelar:ordenes');
   
 });
+
+
+Route::get('cron-inventario', function() {
+    $exitCode = Artisan::call('almacen:import');
+  
+});

@@ -954,7 +954,7 @@ class AlpAlmacenesController extends JoshController
 
     
       AlpInventarioImport::create([
-        'id_almacen'=>$user->almacen,
+        'id_almacen'=>$id,
         'archivo'=>$picture,
         'id_user'=>$user->id,
       ]);
@@ -969,7 +969,7 @@ class AlpAlmacenesController extends JoshController
 
       #  Excel::import(new AlmacenInventarioImport, $archivo);
        
-        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
+        return Redirect::route('admin.almacenes.index')->with('success', trans('El inventario se esta actualizando en este Momento'));
     }
 
 
