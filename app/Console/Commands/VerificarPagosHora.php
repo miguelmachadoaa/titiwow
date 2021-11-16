@@ -400,7 +400,8 @@ class VerificarPagosHora extends Command
                             try {
                               # $this->sendcompramas($orden->id, 'approved');
 
-                              $this->registrarOrden($orden->id);
+                             # $this->registrarOrden($orden->id);
+                              $this->registrarOrdenNuevo($orden->id);
 
 
                             } catch (\Exception $e) {
@@ -859,7 +860,8 @@ class VerificarPagosHora extends Command
                 try {
                   # $this->sendcompramas($orden->id, 'approved');
 
-                  $this->registrarOrden($orden->id);
+                 # $this->registrarOrden($orden->id);
+                  $this->registrarOrdenNuevo($orden->id);
 
 
                 } catch (\Exception $e) {
@@ -1217,7 +1219,7 @@ class VerificarPagosHora extends Command
                 try {
                   # $this->sendcompramas($orden->id, 'approved');
 
-                  $this->registrarOrden($orden->id);
+                  #$this->registrarOrden($orden->id);
                   $this->registrarOrdenNuevo($orden->id);
 
 

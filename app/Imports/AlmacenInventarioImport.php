@@ -72,22 +72,22 @@ class AlmacenInventarioImport implements ToCollection
 
                                    }else{
 
-                                    $data_inventario_nuevo = array(
-                                        'id_almacen' => $this->almacen, 
-                                        'id_producto' => $p->id, 
-                                        'cantidad' => 0, 
-                                        'operacion' => 1, 
-                                        'notas' => 'Actualización de inventario por upload almacen', 
-                                        'id_user' => $user_id 
-                                    );
+                                        $data_inventario_nuevo = array(
+                                            'id_almacen' => $this->almacen, 
+                                            'id_producto' => $p->id, 
+                                            'cantidad' => 0, 
+                                            'operacion' => 1, 
+                                            'notas' => 'Actualización de inventario por upload almacen', 
+                                            'id_user' => $user_id 
+                                        );
 
                                    }
 
-                                    AlpInventario::create($data_inventario_nuevo);
+                                AlpInventario::create($data_inventario_nuevo);
                                    
-                        }
-
                     }
+
+                }
 
             }//else
 

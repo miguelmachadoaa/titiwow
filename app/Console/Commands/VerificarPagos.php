@@ -96,8 +96,6 @@ class VerificarPagos extends Command
        
         foreach ($ordenes as $ord) {
 
-        #  echo $ord->id.' /';
-
           $almacen=AlpAlmacenes::where('id', $ord->id_almacen)->first();
 
           $orden=AlpOrdenes::where('id', $ord->id)->first();
@@ -118,11 +116,8 @@ class VerificarPagos extends Command
                   
               
               if ($almacen->mercadopago_sand=='1') {
-    
 
                   MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
-
-                  
                 
                 }
             
@@ -131,13 +126,8 @@ class VerificarPagos extends Command
                   MercadoPago::setPublicKey($almacen->public_key_mercadopago);
                   
                 }
-    
-                
 
-                #Log::info('id ordenva verficar  '.json_encode($ord->id));
-                #Log::info('id ordenva verficar  '.json_encode($ord->referencia_mp));
-    
-                  try {
+                try {
     
                     $preference = Mercadopago::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
     
@@ -160,15 +150,6 @@ class VerificarPagos extends Command
 
             
 
-           // dd(json_encode($preference));
-    
-            #Log::info('Respuesta mercadopago  '.json_encode($preference));
-
-            //se procesa por mercadopago 
-            //toda la logica se paso a esta funcion 
-
-            #echo $ord->id.' /';
-                
             $this->procesarMercadopago($preference, $ord->id);
 
 
@@ -177,7 +158,6 @@ class VerificarPagos extends Command
           if($orden->id_forma_pago=='4'){
 
             $this->procesarTarjeta($ord->id);
-
 
           }
 
@@ -409,7 +389,7 @@ class VerificarPagos extends Command
                             try {
                               # $this->sendcompramas($orden->id, 'approved');
 
-                              $this->registrarOrden($orden->id);
+                              #$this->registrarOrden($orden->id);
                               $this->registrarOrdenNuevo($orden->id);
 
 
@@ -536,12 +516,6 @@ class VerificarPagos extends Command
 
                               try {
 
-                                # $this->ibmConfirmarCompra($user_cliente, $orden);
-
-                                # $this->ibmConfirmarPago($user_cliente, $orden);
-
-                                # $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
-                                
                               } catch (\Exception $e) {
 
                                 activity()->withProperties(1)->log('Error de ibm vp372');
@@ -551,8 +525,6 @@ class VerificarPagos extends Command
                                                     
                             }
 
-
-                            
 
                             try {
 
@@ -635,23 +607,6 @@ class VerificarPagos extends Command
                                 }
 
 
-                                /* try {
-
-                                    if ($orden->id_almacen=='1') {
-
-                                      // $this->sendcompramas($orden->id, 'rejected');
-
-                                      $this->cancelarCompramas($orden->id);
-
-
-                                      # code...
-                                    }
-                                  
-                                } catch (\Exception $e) {
-
-                                  activity()->withProperties(1)->log('Error de compramas vp477');
-                                  
-                                }*/
 
 
                                 $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
@@ -806,7 +761,7 @@ class VerificarPagos extends Command
                 try {
                   # $this->sendcompramas($orden->id, 'approved');
 
-                  $this->registrarOrden($orden->id);
+                  #$this->registrarOrden($orden->id);
                   $this->registrarOrdenNuevo($orden->id);
 
 
@@ -1165,7 +1120,7 @@ class VerificarPagos extends Command
                 try {
                   # $this->sendcompramas($orden->id, 'approved');
 
-                  $this->registrarOrden($orden->id);
+                  #$this->registrarOrden($orden->id);
                   $this->registrarOrdenNuevo($orden->id);
 
 

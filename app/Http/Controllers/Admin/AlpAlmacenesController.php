@@ -105,11 +105,11 @@ class AlpAlmacenesController extends JoshController
 
       if ($user->almacen=='0') {
         
-        $almacenes = AlpAlmacenes::all();
+          $almacenes = AlpAlmacenes::all();
        
         }else{
       
-      $almacenes = AlpAlmacenes::where('id', $user->almacen)->get();
+          $almacenes = AlpAlmacenes::where('id', $user->almacen)->get();
 
       }
 
