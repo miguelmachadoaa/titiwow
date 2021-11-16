@@ -2,7 +2,7 @@
 
     @if(is_array($cart))
 
-    <div class="col-xs-12 " >
+    <div class="col-xs-12 hidden-xs" >
 
 <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
     
@@ -43,19 +43,23 @@
                     <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                 </div>
                 <div class="col-sm-4" style="padding-top: 3%;">
+                    <p class="visible-xs" style="margin:0"><small>Producto</small></p>
                     <p>{{$cr->nombre_producto}}</p>
                 </div>
                 
                 <div class="col-sm-2 col-xs-4" style="padding-top: 3%;">
+                <p class="visible-xs" style="margin:0"><small>P/U</small></p>
                     <p>${{number_format($cr->precio_oferta, 0, ',', '.')}} </p>
                 </div>
 
                 <div class="col-sm-1 col-xs-1" style="padding-top: 3%;">
+                <p class="visible-xs" style="margin:0"><small>Cant</small></p>
                     <p>{{$cr->cantidad}} </p>
                 </div>
 
 
                 <div class="col-sm-2 col-xs-4" style="padding-top: 3%; ">
+                <p class="visible-xs" style="margin:0"><small>Total</small></p>
                     <p>${{number_format($cr->precio_oferta*$cr->cantidad, 0, ',', '.')}} </p>
                 </div>
 
