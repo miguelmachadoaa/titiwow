@@ -2,6 +2,37 @@
 
     @if(is_array($cart))
 
+    <div class="col-xs-12 " >
+
+<div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
+    
+    <div class="col-sm-2" style="padding-top: 3%;">
+    </div>
+    <div class="col-sm-4" style="padding-top: 3%;">
+        Producto
+    </div>
+    
+    <div class="col-sm-2 col-xs-4" style="padding-top: 3%;">
+        P/U
+    </div>
+
+    <div class="col-sm-1 col-xs-1" style="padding-top: 3%;">
+        Cant.
+    </div>
+
+
+    <div class="col-sm-2 col-xs-4" style="padding-top: 3%; ">
+      Total
+    </div>
+
+    <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
+       
+    </div>
+
+</div>
+
+</div>
+
         @foreach($cart as $key=>$cr)
 
         <div class="col-xs-12 " >
@@ -16,7 +47,7 @@
                 </div>
                 
                 <div class="col-sm-2 col-xs-4" style="padding-top: 3%;">
-                    <p>{{number_format($cr->precio_oferta, 0, ',', '.')}} </p>
+                    <p>${{number_format($cr->precio_oferta, 0, ',', '.')}} </p>
                 </div>
 
                 <div class="col-sm-1 col-xs-1" style="padding-top: 3%;">
@@ -25,13 +56,13 @@
 
 
                 <div class="col-sm-2 col-xs-4" style="padding-top: 3%; ">
-                    <p>{{number_format($cr->precio_oferta*$cr->cantidad, 0, ',', '.')}} </p>
+                    <p>${{number_format($cr->precio_oferta*$cr->cantidad, 0, ',', '.')}} </p>
                 </div>
 
                 <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
-                    <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item">
-                        <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{secure_url('assets/images/borrar.png')}}" alt="">
-                    </a>
+                    <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                </a>
                 </div>
 
             </div>
@@ -49,7 +80,7 @@
 
 <div class="row totalcarrito" style="margin: 1em;    background: #eee;"> 
     <div class="col-xs-9"><b>Subtotal</b></div>
-    <div class="col-xs-3">{{number_format($total, 0, ',', '.')}} </div>
+    <div class="col-xs-3">${{number_format($total, 0, ',', '.')}} </div>
 
     <div class="col-xs-9"><b> Envio </b></div>
     @if(isset($envio))
@@ -59,7 +90,7 @@
             <div class="col-xs-3 envio1">Gratis </div>
 
         @else
-            <div class="col-xs-3 envio2">{{number_format($envio, 0, ',', '.')}} </div>
+            <div class="col-xs-3 envio2">${{number_format($envio, 0, ',', '.')}} </div>
 
         @endif
 
@@ -74,10 +105,10 @@
     <div class="col-xs-9"><b>Total</b></div>
     @if(isset($envio))
       
-        <div class="col-xs-3">{{number_format($total+$envio, 0, ',', '.')}} </div>
+        <div class="col-xs-3">${{number_format($total+$envio, 0, ',', '.')}} </div>
         
     @else
-    <div class="col-xs-3">{{number_format($total, 0, ',', '.')}} </div>
+    <div class="col-xs-3">${{number_format($total, 0, ',', '.')}} </div>
     @endif
 
 
