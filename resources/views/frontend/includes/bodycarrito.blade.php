@@ -9,20 +9,20 @@
     <div class="col-sm-2" style="padding-top: 3%;">
     </div>
     <div class="col-sm-4" style="padding-top: 3%;">
-        Producto
+        <b>Producto</b>   
     </div>
     
     <div class="col-sm-2 col-xs-4" style="padding-top: 3%;">
-        P/U
+    <b>P/U</b>          
     </div>
 
     <div class="col-sm-1 col-xs-1" style="padding-top: 3%;">
-        Cant.
+      <b>Cant.</b>  
     </div>
 
 
     <div class="col-sm-2 col-xs-4" style="padding-top: 3%; ">
-      Total
+     <b>Total</b> 
     </div>
 
     <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
@@ -43,23 +43,23 @@
                     <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                 </div>
                 <div class="col-sm-4" style="padding-top: 3%;">
-                    <p class="visible-xs" style="margin:0"><small>Producto</small></p>
+                    <p class="visible-xs" style="margin:0"><small><b>Producto</b></small></p>
                     <p>{{$cr->nombre_producto}}</p>
                 </div>
                 
                 <div class="col-sm-2 col-xs-4" style="padding-top: 3%;">
-                <p class="visible-xs" style="margin:0"><small>P/U</small></p>
+                <p class="visible-xs" style="margin:0"><small><b>P/U</b>      </small></p>
                     <p>${{number_format($cr->precio_oferta, 0, ',', '.')}} </p>
                 </div>
 
                 <div class="col-sm-1 col-xs-1" style="padding-top: 3%;">
-                <p class="visible-xs" style="margin:0"><small>Cant</small></p>
+                <p class="visible-xs" style="margin:0"><small><b>Cant</b></small></p>
                     <p>{{$cr->cantidad}} </p>
                 </div>
 
 
                 <div class="col-sm-2 col-xs-4" style="padding-top: 3%; ">
-                <p class="visible-xs" style="margin:0"><small>Total</small></p>
+                <p class="visible-xs" style="margin:0"><small><b>Total</b></small></p>
                     <p>${{number_format($cr->precio_oferta*$cr->cantidad, 0, ',', '.')}} </p>
                 </div>
 
