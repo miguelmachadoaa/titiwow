@@ -1567,11 +1567,6 @@ class VerificarPagosHora extends Command
          }
 
 
-
-
-
-
-
     }
 
  private function registrarOrden($id_orden)
@@ -2034,9 +2029,6 @@ private function registrarOrdenNuevo($id_orden)
 
     $orden->update(['send_json_masc'=>$dataraw]);
 
-    $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
-
-    Log::info('Datos enviados a Velocity para registro de orden aprobada  '.$urls);
 
     Log::info($dataraw);
 
@@ -2067,10 +2059,7 @@ private function registrarOrdenNuevo($id_orden)
 
    Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
    
-   Log::info('Respuesta de Velocity al registro de la orden. '.$result);
-
    activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
-
 
    $notas='Registro de orden en Velocity.';
 
