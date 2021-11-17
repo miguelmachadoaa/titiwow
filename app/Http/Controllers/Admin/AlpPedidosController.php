@@ -2763,6 +2763,7 @@ public function postdireccion(DireccionModalRequest $request)
 
             $rol=$role->role_id;
 
+            if(isset($cart['id_direccion'])){
 
               $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
               ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -2771,6 +2772,11 @@ public function postdireccion(DireccionModalRequest $request)
               ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
               ->where('alp_direcciones.id', $cart['id_direccion'])
               ->first();
+
+            }
+
+
+              
 
              
 
