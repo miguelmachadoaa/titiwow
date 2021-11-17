@@ -3880,18 +3880,6 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public function verificarDireccion()
     {
 
@@ -5599,7 +5587,7 @@ public function marketingcliente()
 
       $cart=\Session::get('cart');
   
-          if (isset($cart['id_cliente'])) {
+          if (isset($cart['id_cliente'])  ) {
 
          #   dd($cart['id_cliente']);
   
@@ -5610,8 +5598,10 @@ public function marketingcliente()
               $user_cliente=User::where('id', $user_id)->first();
               
               $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-              
-               $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+
+              if(isset($cart['id_direccion'])){
+
+                $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
                 ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
                 ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
                 ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
@@ -5619,6 +5609,10 @@ public function marketingcliente()
                 ->where('alp_direcciones.id_client', $user_id)
                 ->where('alp_direcciones.id', '=', $cart['id_direccion'])
                 ->first();
+
+              }
+              
+               
   
                 
               if (isset($d->id)) {
