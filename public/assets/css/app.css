@@ -2123,3 +2123,10 @@ padding: 0.3em 0.3em 0em 1em;
     left: 0;
     width: 50%;
 }
+
+button.page-link:focus, button.page-link:hover, button.page-link:active {
+    color: #777;
+    cursor: pointer;
+    background-color: #fff;
+    border-color: #ddd;
+}
