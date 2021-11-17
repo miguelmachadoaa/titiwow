@@ -5743,20 +5743,6 @@ public function marketingcliente()
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
               }else{
   
                 

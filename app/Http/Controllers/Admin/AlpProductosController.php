@@ -1053,8 +1053,6 @@ class AlpProductosController extends JoshController
 
           if (substr($pre->id_role, 0, 1)=='E') {
 
-
-
             $nr = DB::table('alp_empresas')->select('id', 'nombre_empresa')->where('id',substr($pre->id_role, 1))->first();
 
             if (isset($nr->id)) {
@@ -1077,7 +1075,17 @@ class AlpProductosController extends JoshController
 
           }
 
+          if(isset($nc->city_name)){
+
            $pre->city_name=$nc->city_name;
+
+
+          }else{
+
+            $pre->city_name='';
+
+          }
+
 
             $precio_grupo[]=$pre;
 
