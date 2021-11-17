@@ -2034,6 +2034,8 @@ class FrontEndController extends JoshController
 
                       if ($activation) {
 
+                        $activation = Activation::create($user);
+
                           Activation::complete($user, $activation->code);
 
                       }
