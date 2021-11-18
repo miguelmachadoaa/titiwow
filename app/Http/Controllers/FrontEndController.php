@@ -3164,50 +3164,41 @@ class FrontEndController extends JoshController
      */
 
     public function getForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null)
-
     {
 
         if (!$user = Sentinel::findById($userId)) {
 
             // Redirect to the forgot password page
-
             return Redirect::route('forgot-password')->with('error', trans('auth/message.account_not_found'));
 
         }
 
 
-
         if($reminder = Reminder::exists($user))
-
         {
 
-            if($passwordResetCode == $reminder->code)
+            $r=Reminder::where('user_id', '=', $user->id)->first();
 
+            if($passwordResetCode == $r->code)
             {
 
                 return view('forgotpwd-confirm', compact(['userId', 'passwordResetCode']));
 
-            }
-
-            else{
+            }else{
 
                 return 'code does not match';
 
             }
 
-        }
-
-        else
-
-        {
+        }else{
 
             return 'does not exists';
 
         }
 
 
-
     }
+
 
 
 

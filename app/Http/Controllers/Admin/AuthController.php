@@ -277,7 +277,9 @@ class AuthController extends JoshController
             return Redirect::route('forgot-password')->with('error', trans('auth/message.account_not_found'));
         }
         if($reminder = Reminder::exists($user)) {
-            if($passwordResetCode == $reminder->code) {
+            $r=Reminder::where('user_id', '=', $user->id)->first();
+
+            if($passwordResetCode == $r->code) {
                 return view('admin.auth.forgot-password-confirm', compact(['userId', 'passwordResetCode']));
             } else{
                 return 'code does not match';
