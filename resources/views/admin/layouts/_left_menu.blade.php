@@ -1140,7 +1140,7 @@
                 <li {!! (Request::is('admin/reportes/listadoproductosalmacen') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/listadoproductosalmacen') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Listado de Productos Rapppy
+                    Listado de Productos Rappi
                 </a>
                 </li>
             @endif
