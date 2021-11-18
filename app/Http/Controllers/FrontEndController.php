@@ -3099,6 +3099,7 @@ class FrontEndController extends JoshController
 
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
 
+            $r=Reminder::where('user_id', '=', $user->id)->first();
 
 
             // Data to be used on the email view
@@ -3109,7 +3110,7 @@ class FrontEndController extends JoshController
 
                 'user_name' => $user->first_name .' '. $user->last_name,
 
-                'forgotPasswordUrl' => URL::route('olvido-clave-confirm', [$user->id, $reminder->code])
+                'forgotPasswordUrl' => URL::route('olvido-clave-confirm', [$user->id, $r->code])
 
             ];
 
