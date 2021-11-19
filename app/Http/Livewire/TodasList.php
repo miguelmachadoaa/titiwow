@@ -49,32 +49,70 @@ class TodasList extends Component
 
             $id_rol=$role->role_id;
         }
-        $todas = AlpOrdenes::when($this->search, function($query){
-            return $query->where(function ($query){
-                $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
-                    ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%')
-                    ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
 
-                    ->orWhere('users.last_name','like','%'.$this->search.'%');
-                });
-        }) 
-        ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-        ->select(
-            'alp_ordenes.id as id',
-            'alp_ordenes.id_cliente as id_cliente',
-            'alp_ordenes.origen as origen', 
-            'alp_ordenes.estatus_pago as estatus_pago', 
-            'alp_ordenes.monto_total as monto_total', 
-            'alp_ordenes.referencia as referencia', 
-            'alp_ordenes.estatus as estatus', 
-            'alp_ordenes.id_forma_envio as id_forma_envio',
-            'alp_ordenes.id_forma_pago as id_forma_pago',
-            'alp_ordenes.id_almacen as id_almacen',
-            'alp_ordenes.created_at as created_at', 
-            'users.first_name as first_name', 
-            'users.last_name as last_name')
+        $user = Sentinel::getUser();
 
-        ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
+        if (isset($user->id)) {
+  
+  
+          if ($user->almacen=='0') {
+            $todas = AlpOrdenes::when($this->search, function($query){
+                return $query->where(function ($query){
+                    $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
+                        ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%')
+                        ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
+
+                        ->orWhere('users.last_name','like','%'.$this->search.'%');
+                    });
+            }) 
+            ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+            ->select(
+                'alp_ordenes.id as id',
+                'alp_ordenes.id_cliente as id_cliente',
+                'alp_ordenes.origen as origen', 
+                'alp_ordenes.id_almacen',
+                'alp_ordenes.estatus_pago as estatus_pago', 
+                'alp_ordenes.monto_total as monto_total', 
+                'alp_ordenes.referencia as referencia', 
+                'alp_ordenes.estatus as estatus', 
+                'alp_ordenes.id_forma_envio as id_forma_envio',
+                'alp_ordenes.id_forma_pago as id_forma_pago',
+                'alp_ordenes.id_almacen as id_almacen',
+                'alp_ordenes.created_at as created_at', 
+                'users.first_name as first_name', 
+                'users.last_name as last_name')
+
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
+            }else{
+                $todas = AlpOrdenes::when($this->search, function($query){
+                    return $query->where(function ($query){
+                        $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
+                            ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%')
+                            ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
+    
+                            ->orWhere('users.last_name','like','%'.$this->search.'%');
+                        });
+                }) 
+                ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+                ->select(
+                    'alp_ordenes.id as id',
+                    'alp_ordenes.id_cliente as id_cliente',
+                    'alp_ordenes.origen as origen', 
+                    'alp_ordenes.id_almacen',
+                    'alp_ordenes.estatus_pago as estatus_pago', 
+                    'alp_ordenes.monto_total as monto_total', 
+                    'alp_ordenes.referencia as referencia', 
+                    'alp_ordenes.estatus as estatus', 
+                    'alp_ordenes.id_forma_envio as id_forma_envio',
+                    'alp_ordenes.id_forma_pago as id_forma_pago',
+                    'alp_ordenes.id_almacen as id_almacen',
+                    'alp_ordenes.created_at as created_at', 
+                    'users.first_name as first_name', 
+                    'users.last_name as last_name')
+                ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+                ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
+            }
+        }
 
         
         $todas = $todas->paginate($this->cantid);

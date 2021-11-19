@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Listado de productos Rappy
+Listado de Productos Rappi
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Listado de productos Rappy
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Listado de productos Rappy </h1>
+    <h1>Listado de Productos Rappi </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Listado de productos Rappy
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Listado de productos Rappy</li>
+        <li class="active">Listado de Productos Rappi</li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Listado de productos Rappy
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Listado de productos Rappy
+                       Listado de Productos Rappi
                     </h4>
                 </div>
                 <br />
