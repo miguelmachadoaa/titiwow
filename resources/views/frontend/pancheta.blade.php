@@ -1,4 +1,4 @@
-<div class="col-sm-4 co-xs-6 " style=" padding: 0;">
+<div class="col-sm-6 col-md-4 co-xs-6 " style=" padding: 0;">
 
     <div class="row" style="border: 1px solid #f5ecec; -webkit-border-radius: 15px 15px; -moz-border-radius:15px 15px; margin:0.5em;">
         
@@ -7,13 +7,18 @@
 
         </div>
 
-        <div class="col-sm-7 col-xs-8">
+        <div class="col-sm-7 col-xs-8 producto">
 
-            <p style="   font-size: 14px;color: #143473;margin: 20px 5px 15px 5px;min-height: 5em; font-family: 'PlutoMedium'; text-align: left;" > {{$p->nombre_producto}}</p>
+        <a href="{{ route('producto', [$p->slug]) }}" ><h3 style=" font-size: 1em; margin-top: 5px; " > {{$p->nombre_producto}}</h3></a>
 
-            <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center; " style=" font-size: 11px;color: #199ad9;margin: 20px 0px 15px 0px; font-family: 'PlutoBold';">{{ $p->presentacion_producto }}</h6></a>
 
-             <p style="color: #143473;font-size: 1.2em; font-family: 'Roboto', sans-serif !important;">Precio: ${{number_format($p->precio_oferta, 0, ',', '.')}}</p>
+            
+                <h6  class="text-align:center; " style=" ">{{ $p->presentacion_producto }}</h6>
+            
+
+
+             <p class="precio_base" style="">Precio: ${{number_format($p->precio_oferta, 0, ',', '.')}}</p>
+
             <p style="height: 2em;">
                @if(isset($cartancheta[$p->slug]))
 

@@ -11,13 +11,13 @@
 
             @foreach($cartancheta as $carta)
 
-               <h6 style="color: #009fe3;text-decoration: none;font-family: 'PlutoBold';"> <i class="fa fa-angle-double-right"></i>{{$carta->nombre_producto}} Precio: ${{number_format($carta->precio_oferta, 0, ',', '.')}}</h6>
+               <h6 style=""> <i class="fa fa-angle-double-right"></i>{{$carta->nombre_producto}} Precio: ${{number_format($carta->precio_oferta, 0, ',', '.')}}</h6>
 
             @endforeach
 
         @endif
 
-        <h3 style="color: #1450C9;margin-bottom: 15px;">Total de la Ancheta : <span class="totalancheta">COP {{number_format($total, 0, ',', '.')}}</span></h3>
+        <h3 style="">Total de la Ancheta : <span class="totalancheta">COP {{number_format($total, 0, ',', '.')}}</span></h3>
 
     </div>
 

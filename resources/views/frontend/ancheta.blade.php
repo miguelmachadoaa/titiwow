@@ -210,9 +210,6 @@
                     
                     </p>
 
-                    
-
-                  
 
                             @if ($configuracion->explicacion_precios=='1')
 
@@ -257,7 +254,7 @@
 
                             @if($ac->cantidad_minima==0)
 
-                            Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales</small></h3>
+                          Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales</small></h3>
 
                             @else
 

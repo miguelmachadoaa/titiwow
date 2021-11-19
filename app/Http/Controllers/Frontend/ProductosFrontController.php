@@ -476,6 +476,7 @@ class ProductosFrontController extends Controller
     public function show($slug)
     {
 
+
       $cart= \Session::get('cart');
 
        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
@@ -506,6 +507,7 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.mostrar','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
+
 
 
             if (isset($producto->tipo_producto)) {
