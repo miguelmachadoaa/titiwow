@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
 
 Gracias por su compra {{ $compra->first_name.' '.$compra->last_name }}
 
@@ -51,11 +51,15 @@ Ip: {{$compra->ip}}
 
 
 
-@component('mail::button', ['url' => secure_url('/')])
-Sigue Comprando
-@endcomponent
+
+
+
+<p style="text-aling:center">
+    <a  href="{{ secure_url('/') }}" class="button button-blue " target="_blank">Sigue Comprando </a>
+</p>
+
 
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

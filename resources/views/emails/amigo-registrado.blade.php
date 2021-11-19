@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
 
  <h3><b>Hola Embajador.</b></h3>
  
@@ -8,10 +8,11 @@
 
 Puedes ver el status de cada uno de tus referidos entrando a tu perfil:
 
-@component('mail::button', ['url' => secure_url('/')])
-Ir a tu Perfil
-@endcomponent
+<p style="text-aling:center">
+    <a  href="{{ secure_url('/') }}" class="button button-blue " target="_blank">Visitar Página </a>
+</p>
 
-¡Alpina alimenta tu vida!<br>
+
+<p>Gracias,</p><br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

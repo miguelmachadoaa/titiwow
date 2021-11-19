@@ -57,13 +57,16 @@ Fecha de Orden: {{$orden->created_at}}
 
 @else
 
-@component('mail::button', ['url' =>  secure_url('/tracking/'.$compra->token)])
-	Rastrea tu Pedido
-@endcomponent
+
+
+
+<p style="text-aling:center">
+    <a  href="{{ secure_url('/tracking/'.$compra->token) }}" class="button button-blue " target="_blank">Rastrea tu Pedido </a>
+</p>
+
 
 @endif
 
 	Gracias,<br>
 	{{ config('app.name') }}
-
-@endcomponent
+	@include('emails.footer')

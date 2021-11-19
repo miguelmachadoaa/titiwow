@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
  
 Bienvenido a alpina 
 
@@ -13,4 +13,5 @@ Se agredece tomar las consideraciones en el caso.
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')
+

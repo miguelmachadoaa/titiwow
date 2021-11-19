@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
 
 Bienvenido a Alpina Go.
 
@@ -6,17 +6,16 @@ Le informamos que su pedido ha sido registrado satisfactoriamente en nuestro sis
 
 En el siguiente enlace puede realizar el proceso de pago del mismo.
 
-
 <br>
   
 
-@component('mail::button', ['url' => secure_url('pedidos/'.$orden->token.'/pago')])
-Pagar Orden
-@endcomponent
+<p style="text-aling:center">
+    <a  href="{{ secure_url('pedidos/'.$orden->token.'/pago')}}" class="button button-blue " target="_blank">Pagar Orden </a>
+</p>
 
 Si el enlace no funciona puede dirigirse a est URL {{secure_url('pedidos/'.$orden->token.'/pago')}}.
 
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
 
 
 ¡Hola {{$data['cliente']->first_name.' '.$data['cliente']->last_name}}!
@@ -13,4 +13,4 @@ Lamentamos cualquier molestia o inconveniente que esto haya podido generar. Ya h
 
 
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

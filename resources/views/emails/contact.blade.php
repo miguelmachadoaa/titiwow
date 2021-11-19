@@ -1,15 +1,7 @@
 
 
-@component('mail::layout')
-    {{-- Header --}}
-    @slot('header')
-        @component('mail::header', ['url' => config('app.url')])
-           Josh Admin
-        @endcomponent
-    @endslot
+@include('emails.header')
 
-    {{-- Body --}}
-# Hello
 
 We have received a new contact mail.<br />
 **Name :** {{ $data['contact-name'] }}<br />
@@ -19,10 +11,6 @@ We have received a new contact mail.<br />
 
 Thanks,
 
-    {{-- Footer --}}
-    @slot('footer')
-        @component('mail::footer')
-           &copy; 2017 All Copy right received
-        @endcomponent
-    @endslot
-@endcomponent
+Gracias,<br>
+{{ config('app.name') }}
+@include('emails.footer')

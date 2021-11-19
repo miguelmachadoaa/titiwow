@@ -1,11 +1,8 @@
-@component('mail::message')
-
+@include('emails.header')
 
  Bienvenido a Alpina Go {{ $name.' '.$lastname }}
 
-
 {{ $mensaje }}
-
 
 @if(isset($role->role_id))
 
@@ -20,11 +17,7 @@
 </a>
         	</div>
 
-
 	    @endif
-
-
-        
 
     @endif
 
@@ -34,7 +27,6 @@ No se recibio la variable
 
 @endif
 
-
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

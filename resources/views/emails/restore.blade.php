@@ -1,26 +1,15 @@
-@component('mail::layout')
-    {{-- Header --}}
-    @slot('header')
-        @component('mail::header', ['url' => config('app.url')])
-            Alpina Go
-        @endcomponent
-    @endslot
+@include('emails.header')
 
     {{-- Body --}}
     # Hello  {!! $user['user_name'] !!},<br>
 
 Welcome to SiteNameHere! Please click on the following link to Restore Your account:<br />
-@component('mail::button', ['url' =>  $user['activationUrl']  ])
-        Restore Account
-@endcomponent
+
+
+<p style="text-aling:center">
+    <a  href="{{ $user['activationUrl'] }}" class="button button-blue " target="_blank">Restore Account </a>
+</p>
 
 
     Thanks,
-
-    {{-- Footer --}}
-    @slot('footer')
-    @component('mail::footer')
-    &copy; 2018 All Copy right received
-@endcomponent
-@endslot
-@endcomponent
+    @include('emails.footer')

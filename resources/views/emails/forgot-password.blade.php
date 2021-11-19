@@ -1,29 +1,18 @@
-
-
-@component('mail::layout')
-    {{-- Header --}}
-    @slot('header')
-        @component('mail::header', ['url' => config('app.url')])
-            Alpina Go
-        @endcomponent
-    @endslot
+@include('emails.header')
 
     {{-- Body --}}
 
     # Hello  {!! $user['user_name'] !!},<br>
 
     Please click on the following link to updated your password
-@component('mail::button', ['url' =>  $user['forgotPasswordUrl'] ])
-        Reset Password
-@endcomponent
 
 
-    Thanks,
+<p style="text-aling:center">
+    <a  href="{{ $user['forgotPasswordUrl']}}" class="button button-blue " target="_blank">Reset Password</a>
+</p>
 
-    {{-- Footer --}}
-    @slot('footer')
-    @component('mail::footer')
-    &copy; 2018 All Copy right received
-@endcomponent
-@endslot
-@endcomponent
+
+
+Gracias,<br>
+{{ config('app.name') }}
+@include('emails.footer')

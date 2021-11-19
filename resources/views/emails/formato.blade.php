@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
  
  Buen dia <br>
 
@@ -7,4 +7,4 @@
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

@@ -1,8 +1,8 @@
-@component('mail::message')
+@include('emails.header')
 
 {{$mensaje}}
 
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

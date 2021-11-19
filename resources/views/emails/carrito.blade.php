@@ -1,4 +1,4 @@
-@component('mail::message')
+@include('emails.header')
 Hola <b>{{ $compra->first_name.' '.$compra->last_name }}</b>
 
 Finaliza la compra que tienes en proceso, te mostramos un detalle
@@ -33,11 +33,13 @@ Finaliza la compra que tienes en proceso, te mostramos un detalle
 
 
 
-@component('mail::button', ['url' => $configuracion->base_url.'clientes/carrito/'.$compra->id])
-Finaliza Tu Compra
-@endcomponent
+
+<p style="text-aling:center">
+    <a  href="{{ $configuracion->base_url.'clientes/carrito/'.$compra->id }}" class="button button-blue " target="_blank">Finaliza Tu Compra </a>
+</p>
+
 
 
 Gracias,<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

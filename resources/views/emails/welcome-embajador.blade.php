@@ -1,4 +1,5 @@
-@component('mail::message')
+@include('emails.header')
+
 Hola  {{ $name.' '.$lastname }}
 
 ¡Felicitaciones eres Embajador AlpinaGo!
@@ -7,9 +8,10 @@ Hola  {{ $name.' '.$lastname }}
 
 ¡Refiere a tus amigos desde tu Área Cliente! 
 
-@component('mail::button', ['url' => secure_url('/misamigos')])
-Referir Amigos
-@endcomponent
+
+<p style="text-aling:center">
+    <a  href="{{ secure_url('/misamigos') }}" class="button button-blue " target="_blank">Referir Amigos </a>
+</p>
 
 Esperamos que sigas disfrutando de la experiencia Alpina Go! Y recuerda:
 
@@ -17,4 +19,4 @@ Esperamos que sigas disfrutando de la experiencia Alpina Go! Y recuerda:
 
 <br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')

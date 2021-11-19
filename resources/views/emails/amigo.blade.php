@@ -13,8 +13,12 @@
 Registrarme
 @endcomponent
 
+<p style="text-aling:center">
+    <a  href="{{ secure_url('/registroembajadores/'.$token) }}" class="button button-blue " target="_blank">Registrarme</a>
+</p>
+
 Esperamos que disfrutes de la experiencia AlpinaGo! Y recuerda:
 
 Alpina alimenta tu vida<br>
 {{ config('app.name') }}
-@endcomponent
+@include('emails.footer')
