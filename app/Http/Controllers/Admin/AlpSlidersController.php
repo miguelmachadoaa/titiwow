@@ -432,7 +432,7 @@ class AlpSlidersController extends JoshController
         $confirm_route = $error = null;
         try {
 
-            $confirm_route = route('admin.sliders.delete', ['id' => $slider]);
+            $confirm_route = secure_url('admin/sliders/'.$slider.'/delete');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
 
@@ -462,7 +462,7 @@ class AlpSlidersController extends JoshController
 
       $id_slider=$slider;
 
-      $slider=AlpSliders::where('id', $id_slider)->first();
+            $slider=AlpSliders::where('id', $id_slider)->first();
 
         if ($slider->delete()) {
 
