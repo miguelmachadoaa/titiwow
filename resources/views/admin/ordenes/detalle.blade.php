@@ -875,12 +875,21 @@ Orden {{$orden->id}}
 
                      @if(($orden->monto_total_base-$orden->monto_total)>0)
 
-                      <tr>
+                      <!--tr>
                          <td style="text-align: right;" colspan="7"><b> Descuentos Totales: </b></td>
                          <td >{{ number_format($orden->monto_total_base-$orden->monto_total, 0) }}</td>
-                     </tr>
+                     </tr-->
 
                      @endif
+
+                     @if(($orden->monto_descuento)>0)
+
+                        <tr>
+                        <td style="text-align: right;" colspan="7"><b> Descuentos Totales: </b></td>
+                        <td >{{ number_format($orden->monto_descuento, 0) }}</td>
+                        </tr>
+
+                    @endif
 
                      
 
