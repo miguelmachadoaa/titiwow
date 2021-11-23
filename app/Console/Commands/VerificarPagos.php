@@ -953,7 +953,7 @@ class VerificarPagos extends Command
       $user_cliente=User::where('id', $orden->id_user)->first();
 
       if (isset($preference['body']['results'])) {
-      #if (isset($preference)) {
+   #   if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
@@ -1310,16 +1310,14 @@ class VerificarPagos extends Command
 
                   $life=AlpLifemiles::where('id', $orden->lifemiles_id)->first();
 
+
                   $codigos= array();
-
-
-
 
                   for ($i=0; $i < $life->cantidad_cupones; $i++) { 
 
                     $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
 
-                    echo $codigo->id;
+                 #   echo $codigo->id;
                   
   
                       if(isset($codigo->id)){
@@ -2674,15 +2672,6 @@ private function registrarOrdenNuevo($id_orden)
        # echo $jsessionid.' 1<br>';
 
         $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><CREATED_FROM>2</CREATED_FROM><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.' '.$user->last_name.'</VALUE></COLUMN><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon[0]->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code_Dos</NAME><VALUE>'.$cupon[1]->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient><SendMailing><MailingId>19348098</MailingId><RecipientEmail>'.$user->email.'</RecipientEmail></SendMailing></Body></Envelope>';
-           
-        
-        #dd($xml);
-
-         #  echo "2<br>";
-
-         #  echo $xml;
-
-         #  echo "3<br>";
 
         activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
 
