@@ -1413,7 +1413,6 @@ class VerificarPagosHora extends Command
 
                   # echo $codigo->id;
                  
-                   $fecha_lm = Carbon::now()->format('m/d/Y');
  
                      if(isset($codigo->id)){
  
@@ -1451,6 +1450,8 @@ class VerificarPagosHora extends Command
                      }
                    
                  }//endofor
+
+                 $fecha_lm = Carbon::now()->format('m/d/Y');
 
                  $this->addlifemiles($user_cliente, $codigos, $fecha_lm);
 

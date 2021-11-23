@@ -1301,6 +1301,9 @@ class VerificarPagos extends Command
                 # echo $orden->id;
 
 
+
+
+
                  if($orden->lifemiles_id=='0'){
 
                  }else{
@@ -1310,13 +1313,14 @@ class VerificarPagos extends Command
                   $codigos= array();
 
 
+
+
                   for ($i=0; $i < $life->cantidad_cupones; $i++) { 
 
                     $codigo=AlpLifeMilesCodigos::where('id_lifemile', '=', $orden->lifemiles_id)->where('estado_registro','1')->first();
 
                     echo $codigo->id;
                   
-                    $fecha_lm = Carbon::now()->format('m/d/Y');
   
                       if(isset($codigo->id)){
   
@@ -1363,6 +1367,8 @@ class VerificarPagos extends Command
 
                  # dd($codigos);
                   //se pasa array de codigos 
+
+                $fecha_lm = Carbon::now()->format('m/d/Y');
 
                   $this->addlifemiles($user_cliente, $codigos, $fecha_lm);
 
