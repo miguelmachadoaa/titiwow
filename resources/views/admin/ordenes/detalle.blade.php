@@ -784,7 +784,7 @@ Orden {{$orden->id}}
 
 
                      <tr>
-                         <td style="text-align: right;" colspan="7"><b> Impuesto: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Impuesto Subtotal: </b></td>
                          <td >{{ number_format($impuestos->subimpuesto, 0) }}</td>
                      </tr>
 
@@ -844,6 +844,13 @@ Orden {{$orden->id}}
                      
                      @endif
 
+
+                     @if(count($cupones)>0)
+                        <tr>
+                            <td style="text-align: right;" colspan="7"><b> Impuesto: </b></td>
+                            <td >{{ number_format($orden->monto_impuesto, 0) }}</td>
+                        </tr>
+                     @endif
                       
 
                      <tr>
@@ -868,10 +875,6 @@ Orden {{$orden->id}}
                          <td style="text-align: right;" colspan="5"><b> Descuento: </b></td>
                          <td >{{ number_format($orden->monto_total_base-$orden->monto_total, 2) }}</td>
                      </tr-->
-
-
-                      
-
 
                      @if(($orden->monto_total_base-$orden->monto_total)>0)
 
