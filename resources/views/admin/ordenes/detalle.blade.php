@@ -351,9 +351,9 @@ Orden {{$orden->id}}
                                     
 
 
-                                        @if(isset($p_a->transaction_amount))
+                                        @if(isset($pago_aprobado->monto_pago))
 
-                                            <b>{{number_format($p_a->transaction_amount, 0, ',', '.')}}</b>
+                                            <b>{{number_format($pago_aprobado->monto_pago, 0, ',', '.')}}</b>
 
 
                                         @endif
