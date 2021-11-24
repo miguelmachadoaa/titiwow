@@ -847,14 +847,14 @@ Orden {{$orden->id}}
 
                      @if(count($cupones)>0)
                         <tr>
-                            <td style="text-align: right;" colspan="7"><b> Impuesto: </b></td>
+                            <td style="text-align: right;" colspan="7"><b> Impuesto Total: </b></td>
                             <td >{{ number_format($orden->monto_impuesto, 0) }}</td>
                         </tr>
                      @endif
                       
 
                      <tr>
-                         <td style="text-align: right;" colspan="7"><b> Total: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Total Pagado: </b></td>
 
                           @if(isset($envio->costo))
 
