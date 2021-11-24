@@ -1366,7 +1366,7 @@ class VerificarPagos extends Command
                  # dd($codigos);
                   //se pasa array de codigos 
 
-                $fecha_lm = Carbon::now()->format('m/d/Y');
+                  $fecha_lm = Carbon::now()->format('m/d/Y');
 
                   $this->addlifemiles($user_cliente, $codigos, $fecha_lm);
 

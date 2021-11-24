@@ -1989,3 +1989,8 @@ Route::get('cron-inventario', function() {
     $exitCode = Artisan::call('almacen:import');
   
 });
+
+
+Route::get('enviar-lifemiles', function() {
+    $exitCode = Artisan::call('enviar:lifemiles');
+});
