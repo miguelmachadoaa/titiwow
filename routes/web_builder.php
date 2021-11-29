@@ -1994,3 +1994,8 @@ Route::get('cron-inventario', function() {
 Route::get('enviar-lifemiles', function() {
     $exitCode = Artisan::call('enviar:lifemiles');
 });
+
+
+Route::get('enviar-velocity', function() {
+    $exitCode = Artisan::call('enviar:velocity');
+});
