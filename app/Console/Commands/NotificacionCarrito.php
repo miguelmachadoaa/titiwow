@@ -66,6 +66,7 @@ class NotificacionCarrito extends Command
         ->join('users','alp_carrito.id_user' , '=', 'users.id')
         ->whereDate('alp_carrito.created_at', '>', $d)
         ->where('alp_carrito.notificacion','=', 1)
+        ->whereNull('alp_carrito.created_at')
         ->get();
 
         #dd($carritos);
@@ -88,13 +89,15 @@ class NotificacionCarrito extends Command
 
         //echo $diff.' d ';
 
-        if ($diff<24){
+        if ($diff<1240){
             
-        #echo $car->id.'-';
+        echo ' 2 -';
 
           if (in_array($car->id_user, $userarray)) {
            
           }else{
+
+            echo ' 3 -';
 
             $userarray[$car->id_user]=$car->id_user;
 
@@ -108,8 +111,6 @@ class NotificacionCarrito extends Command
 
             $detalles=$this->addOferta($detalles);
 
-            $this->addibm($car, $detalles, $fecha_hoy);
-
             $arrayName = array('notificacion' => 0 );
 
             $ord=AlpCarrito::where('id', $car->id)->first();
@@ -117,6 +118,8 @@ class NotificacionCarrito extends Command
             if(isset($ord->id)){
               $ord->update($arrayName);
             }
+
+            $this->addibm($car, $detalles, $fecha_hoy);
 
           }
 
@@ -131,7 +134,7 @@ class NotificacionCarrito extends Command
 
     private function addibm($user, $cart, $fecha)
     {
-        
+
         $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
         
         $pod = 0;
