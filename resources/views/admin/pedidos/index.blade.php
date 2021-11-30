@@ -1291,10 +1291,22 @@ Pedidos
 
         id=$(this).data('id');
 
-
         $.get(base+'/admin/tomapedidos/'+id+'/getancheta', function(data) {
 
+            //se trae la estructura de la ancheta 
+
                 $('.bodyancheta').html(data);
+
+
+                //recarga el precio 
+
+
+                $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.listaancheta').html(data);
+
+                });
+                
         });
 
         $('#verProductoAnchetaModal').modal('show');
@@ -1379,7 +1391,6 @@ Pedidos
             ancheta_de=$('#ancheta_de').val();
             ancheta_para=$('#ancheta_para').val();
             ancheta_mensaje=$('#ancheta_mensaje').val();
-
 
 
             price=$(this).data('price')+$('.totalancheta').val();
