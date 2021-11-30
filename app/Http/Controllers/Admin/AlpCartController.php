@@ -12551,103 +12551,55 @@ public function deltocartancheta( Request $request)
 
        
        if (isset($p->id)) {
-
         
           if (isset($cartancheta[$p->slug])) {
-
             
             unset($cartancheta[$p->slug]);
-
             
          }
 
-         
-
        }
-
        
        \Session::put('cartancheta', $cartancheta);
 
-       
-
         $view= View::make('frontend.pancheta', compact('p',  'cartancheta', 'error'));
 
-        
         $data=$view->render();
-
         
         $res = array('data' => $data);
-
         
         return $data;
 
-      
-
-      
-
     }
-
-    
 
 
 
 public function totalancheta()
     {
-
-      
-          
-
           
       if (!\Session::has('cartancheta')) {
-
         
         \Session::put('cartancheta',  array());
-
         
       }
 
-      
-
-
       $cartancheta= \Session::get('cartancheta');
-
-      
+     
       $producto= \Session::get('producto_ancheta');
 
-      
       $total=0;
-
       
       foreach ($cartancheta as $c) {
 
-        
-
         $total=$total+($c->precio_oferta);
 
-        
-
       }
-
-      
-
-      //$total=$total+$producto->precio_base;
-
-      
-
           $view= View::make('frontend.listaancheta', compact('cartancheta', 'total', 'producto'));
 
-          
-
           $data=$view->render();
-
-          
           return $data;
 
-      
-
     }
-
-    
 
 
 public function verificarancheta(Request $request)
