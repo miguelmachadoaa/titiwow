@@ -36,11 +36,10 @@
             data-slug="{{ $producto->slug }}" 
             data-price="{{ intval($total) }}" 
             data-id="{{ $producto->id }}" 
-            data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-primary btn-md btn-cart addtocartunaancheta" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Comprar Ancheta </a>
+            data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-primary btn-md btn-cart addtocartunaancheta" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Agregar Ancheta </a>
 
         @else
 
-        <h3>No hay producti slug </h3>
 
         @endif
 

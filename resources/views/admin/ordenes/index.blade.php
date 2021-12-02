@@ -309,10 +309,7 @@ $(document).ready(function() {
 
                 table.ajax.reload();
 
-
-
                 $('#confirmarOrdenModal').modal('hide');
-
                 
                 $('#confirm_id').val('');
                 $('#id_status').val('');
