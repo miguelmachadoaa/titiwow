@@ -5802,12 +5802,7 @@ public function marketingcliente()
                       
                   }
   
-                  
-  
-  
-  
               }else{
-  
                 
                 $almacen=AlpAlmacenes::where('defecto', '1')->first();
   
