@@ -1137,8 +1137,6 @@ class ProductosFrontController extends Controller
 
         #$orders->searchable();
 
-        dd($productos);
-
         
 //dd($banner);
         $productos = AlpProductos::

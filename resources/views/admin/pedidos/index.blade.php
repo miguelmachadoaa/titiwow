@@ -30,7 +30,7 @@ Pedidos
         <li class="active">Listado</li>
     </ol>
 
-    <div data-cart="{{json_encode($cart)}}" ></div>
+    <div  data-cart="{{json_encode($cart)}}" ></div>
 </section>
 
 <!-- Main content -->
@@ -1315,9 +1315,11 @@ Pedidos
     });
 
 
-    $('.finalizarAncheta').on('click', function(){
+    $(document).on('click','.finalizarAncheta', function(){
 
         $('.errorcantidad').html('Finalizar Ancheta');
+
+        //alert('Finalizar ancheta ');
 
         id=$(this).data('id');
 
@@ -1409,30 +1411,12 @@ Pedidos
 
         $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
-        $.post(base+'/cart/agregarunaancheta', {price, slug, datasingle, ancheta_para, ancheta_de, ancheta_mensaje}, function(data) {
+            $.post(base+'/admin/tomapedidos/agregarunaancheta', {price, slug, datasingle, ancheta_para, ancheta_de, ancheta_mensaje}, function(data) {
 
-            $('.boton_'+id+'').html(data);
+                $('.listaorden').html(data);
 
-            $(location).attr('href',base+'/cart/show');
-
-            if (data.indexOf("<!--") > -1) {
-
-                    $('.addtocartTrigger').data('imagen', pimagen);
-                    $('.addtocartTrigger').data('name', name);
-                    $('.addtocartTrigger').data('slug', slug);
-                    $('.addtocartTrigger').data('price', price);
-                    $('.addtocartTrigger').data('id', id);
-
-                    $('.addtocartTrigger').trigger('click');
-
-                }
-
-            if (single==1) {
-
-                    $('.vermas').remove();
-                }
-
-        });
+                $('#verProductoAnchetaModal').modal('hide');
+            });
 
         });
 
