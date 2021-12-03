@@ -5442,7 +5442,7 @@ public function sendcompramascancelar($id_orden){
 
                 $this->fpdf->Cell(100, 8, $cadena, 0,0);
 
-                $this->fpdf->Cell(30, 11, '     ', 0,0);
+                $this->fpdf->Cell(30  , 11, '     ', 0,0);
 
                 $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_para), 0,1);
 
