@@ -784,6 +784,10 @@ class ProductosFrontController extends Controller
 
         }
 
+        \Session::forget('cartancheta',   array());
+
+        \Session::put('cartancheta',   array());
+
        $cartancheta= \Session::get('cartancheta');
 
 
