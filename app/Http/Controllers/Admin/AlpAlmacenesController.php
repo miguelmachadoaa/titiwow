@@ -926,30 +926,27 @@ class AlpAlmacenesController extends JoshController
 
         $input=$request->all();
 
-         $archivo = $request->file('file_update');
-
+        $archivo = $request->file('file_update');
 
          if ($request->hasFile('file_update')) {
             
-          $file = $request->file('file_update');
+            $file = $request->file('file_update');
 
-          $extension = $file->extension()?: 'jpg';
+            $extension = $file->extension()?: 'jpg';
 
-          $partes=explode('.',$file->getClientOriginalName());
+            $partes=explode('.',$file->getClientOriginalName());
 
-          $ext=$partes[1];
-          
-          $picture = str_random(10) . '.' . $extension;    
+            $ext=$partes[1];
+            
+            $picture = str_random(10) . '.' . $extension;    
 
-          $destinationPath = public_path() . '/uploads/inventario/';
-          
-          $file->move($destinationPath, $picture);
+            $destinationPath = public_path() . '/uploads/inventario/';
+            
+            $file->move($destinationPath, $picture);
 
-         # $path = $request->file('file_update')->storeAs('public/inventario',$picture);
-         
-          $imagen = $picture;
+            $imagen = $picture;
 
-      }     
+        }     
 
 
     
