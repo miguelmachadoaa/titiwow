@@ -778,6 +778,8 @@ class ProductosFrontController extends Controller
 
       if (!\Session::has('cartancheta')) {
 
+          \Session::forget('cartancheta',   array());
+
           \Session::put('cartancheta',   array());
 
         }
