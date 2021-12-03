@@ -117,6 +117,14 @@
                                     <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$row->id}}/detalle" target='_blank'>
                                     ver detalles
                                     </a>
+
+                                    @if($row->estatus == 8 )
+
+                                    <a  class="btn btn-danger btn-xs" href="/admin/ordenes/{{$row->id}}/cancelarorden" target='_blank'>
+                                    Cancelar Orden
+                                    </a>
+
+                                    @endif
                 
                                 </td>
                             </tr>

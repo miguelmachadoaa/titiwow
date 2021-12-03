@@ -1423,6 +1423,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/pdf', 'Admin\AlpOrdenesController@pdf')->name('ordenes.pdf');
 
+        Route::get('{id}/cancelarorden', 'Admin\AlpOrdenesController@cancelarorden')->name('ordenes.cancelarorden');
+
         Route::get('{id}/detallealmacen', 'Admin\AlpOrdenesController@detallealmacen')->name('ordenes.detallealmacen');
 
         Route::get('{id}/confirm-delete', 'Admin\AlpOrdenesController@getModalDelete')->name('ordenes.confirm-delete');
@@ -1471,6 +1473,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
         Route::get('/compramas/list', 'Admin\AlpOrdenesController@compramas')->name('ordenes.compramas');
 
         Route::get('/sendmail/{id}', 'Admin\AlpOrdenesController@sendmail')->name('ordenes.sendmail');
+
 
 
 
