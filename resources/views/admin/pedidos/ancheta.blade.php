@@ -6,8 +6,7 @@
                 
                 <h1  class="text-primary tetx-center" id="titulo_single">Arma tu ancheta  </h1>
 
-                <p>{{json_encode($cartancheta)}}</p>
-
+       
             </div>
 
             <div class="row">
@@ -61,7 +60,7 @@
                                     
                                     <div class="col-sm-6 col-xs-6" style="text-align: left; padding: 0;">
                                         
-                                        <ul class="pager1 wizard no-margin" style="padding: 0;">
+                                        <ul class="pager1 wizard no-margin" style="padding: 0;  list-style:none;">
                                             @if($loop->index==0)
 
                                                 <!--li class="previous disabled">
@@ -90,7 +89,7 @@
 
                                          <div class="col-sm-6 col-xs-6" style="text-align: right; padding: 0;">
 
-                                            <ul class="pager1 wizard no-margin" style="padding: 0;">
+                                            <ul class="pager1 wizard no-margin" style="padding: 0; list-style:none;">
 
                                                 @if($loop->last)
 
