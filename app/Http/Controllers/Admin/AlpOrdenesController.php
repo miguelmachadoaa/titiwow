@@ -5393,8 +5393,8 @@ public function sendcompramascancelar($id_orden){
         $this->fpdf = new fpdf;
         $this->fpdf->AddPage();
         $this->fpdf->SetFont('Times');
-        $this->fpdf->SetMargins(20, 25 , 0);
-        $this->fpdf->cell(20,40,'', 0, 1);
+        $this->fpdf->SetMargins(10, 12 , 0);
+        #$this->fpdf->cell(20,40,'', 0, 1);
 
 
        // dd($mensaje->mensaje_mensaje);
@@ -5406,7 +5406,7 @@ public function sendcompramascancelar($id_orden){
         $j=0;
 
         $cadena='';
-              $this->fpdf->Cell(100, 8, '', 0,1);
+
               $this->fpdf->Cell(100, 8, '', 0,1);
 
 
@@ -5426,9 +5426,30 @@ public function sendcompramascancelar($id_orden){
 
               $i=0;
 
+
+              if($j==3 ){
+
+                $this->fpdf->Cell(100, 8, $cadena, 0,0);
+
+                $this->fpdf->Cell(20, 11, '', 0,0);
+
+                $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_de), 0,1);
+
+              }
+
+
+              if($j==4 ){
+
+                $this->fpdf->Cell(100, 8, $cadena, 0,0);
+
+                $this->fpdf->Cell(30, 11, '     ', 0,0);
+
+                $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_para), 0,1);
+
+              }
+
               $j=$j+1;
 
-              $this->fpdf->Cell(100, 8, $cadena, 0,1);
 
               $cadena=$value.' ';
 
@@ -5442,25 +5463,40 @@ public function sendcompramascancelar($id_orden){
 
 
 
+
          $this->fpdf->Cell(100, 8,$cadena , 0,1);
 
          $j=$j+1;
 
          while ($j <= 5) {
+
+          if($j==3 ){
+
+            $this->fpdf->Cell(100, 8, '', 0,0);
+
+            $this->fpdf->Cell(20, 11, '', 0,0);
+
+            $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_de), 0,1);
+
+          }
+
+
+          if($j==4 ){
+
+            $this->fpdf->Cell(100, 8, '', 0,0);
+
+            $this->fpdf->Cell(20, 11, '     ', 0,0);
+
+            $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_para), 0,1);
+
+          }
+
+
            $this->fpdf->Cell(100, 8, '', 0,1);
            $j=$j+1;
          }
 
-         $this->fpdf->Cell(100, 3, '', 0,1);
-
-         $this->fpdf->Cell(10, 11, '', 0,0);
-
-         $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_de), 0,1);
-
-         $this->fpdf->Cell(20, 11, '', 0,0);
-
-         $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_para), 0,1);
-
+        
 
 
        // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);     
