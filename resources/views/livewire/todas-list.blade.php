@@ -120,7 +120,7 @@
 
                                     @if($row->estatus == 8 )
 
-                                    <a target="_blank" class="btn btn-danger btn-xs" href="/admin/ordenes/{{$row->id}}/cancelarorden" target='_blank'>
+                                    <a  class="btn btn-danger btn-xs" href="/admin/ordenes/{{$row->id}}/cancelarorden" target='_blank'>
                                     Cancelar Orden
                                     </a>
 
