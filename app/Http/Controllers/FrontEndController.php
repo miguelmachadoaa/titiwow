@@ -3071,7 +3071,7 @@ class FrontEndController extends JoshController
 
        // dd($request);
 
-      dd($request->all());
+    #  dd($request->all());
 
         try {
 
