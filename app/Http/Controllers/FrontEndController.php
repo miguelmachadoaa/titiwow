@@ -3065,14 +3065,13 @@ class FrontEndController extends JoshController
      */
 
     public function postForgotPassword(Request $request)
-
     {
 
 
 
        // dd($request);
 
-
+      dd($request->all());
 
         try {
 
@@ -3080,41 +3079,24 @@ class FrontEndController extends JoshController
 
             $user = Sentinel::findByCredentials(['email' => $request->email]);
 
-
-
             if (!$user) {
-
-
 
                 return Redirect::route('olvido-clave')->with('error', trans('auth/message.account_email_not_found'));
 
-
-
             }
-
-
 
             $activation = Activation::completed($user);
 
-
-
             if (!$activation) {
-
 
 
                 return Redirect::route('olvido-clave')->with('error', trans('auth/message.account_not_activated'));
 
             }
 
-
-
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
 
             $r=Reminder::where('user_id', '=', $user->id)->first();
-
-
-            // Data to be used on the email view
-
 
 
             $data=[
@@ -3233,6 +3215,24 @@ class FrontEndController extends JoshController
 
 
         $user = Sentinel::findById($userId);
+
+     #   dd($request->all());
+
+        $c=Reminder::where('code', $passwordResetCode)->first();
+
+        if(isset($c->id)){
+
+          $user->password = Hash::make($request->password);
+
+          $user->save();
+
+        return Redirect::route('login')->with('success', trans('auth/message.forgot-password-confirm.success'));
+
+
+
+        }
+
+        #dd($c);
 
         if (!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
 

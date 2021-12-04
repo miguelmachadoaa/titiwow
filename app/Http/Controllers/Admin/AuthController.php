@@ -306,6 +306,8 @@ class AuthController extends JoshController
         // Find the user using the password reset code
         $user = Sentinel::findById($userId);
 
+       
+
         if (!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
             // Ooops.. something went wrong
             return Redirect::route('signin')->with('error', trans('auth/message.forgot-password-confirm.error'));
