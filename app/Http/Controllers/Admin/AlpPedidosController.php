@@ -5851,6 +5851,12 @@ public function marketingcliente()
 
         }
 
+        \Session::forget('cartancheta',   array());
+
+        \Session::put('cartancheta',   array());
+
+        
+
        $cartancheta= \Session::get('cartancheta');
 
 
