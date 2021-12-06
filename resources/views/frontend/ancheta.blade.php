@@ -534,10 +534,41 @@
 
             seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
-            if (cantidad<=seleccionados && maxima>=seleccionados) {
+
+            ban=0;
+
+            if (cantidad <=seleccionados) {
+
+                ban=1;
+
+            }else{
+
+                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+            }
+
+            if(ban==1){
+
+                if(maxima>0){
+
+                    if (maxima >=seleccionados) {
+
+                        ban=1;
+
+                    }else{
+
+                        ban=0;
+
+                        $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+
+                    }
+
+                }
+
+            }
+
+            if(ban==1){
 
                 $.post(base+'/cart/verificarancheta', {ancheta_de, ancheta_para, ancheta_mensaje}, function(data) {
-
                     
                     if (data=='0') {
 
@@ -554,26 +585,9 @@
                     }
 
                 });
-
-               
-                
-
-            }else{
-
-                if(cantidad>seleccionados){
-
-                    $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
-
-                }
-
-                if(maxima<seleccionados){
-
-                    $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
-
-                }
-
-                
             }
+
+           
 
         });
 
@@ -659,9 +673,9 @@
 
             maxima=$(this).data('maxima');
 
-            ban=0;
-
             seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
+
+            ban=0;
 
             if (cantidad <=seleccionados) {
 

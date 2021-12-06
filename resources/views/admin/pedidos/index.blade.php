@@ -1332,43 +1332,58 @@ Pedidos
 
         seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
-        if (cantidad<=seleccionados) {
+        
+        ban=0;
 
-            $.post(base+'/cart/verificarancheta', {ancheta_de, ancheta_para, ancheta_mensaje}, function(data) {
-                
-                if (data=='0') {
+            if (cantidad <=seleccionados) {
 
-                    $('.addtocartunaancheta').fadeIn();
+                ban=1;
 
-                    $('.addtocartunaancheta').focus();
-
-                    $('.reiniciarAncheta').fadeOut();
-
-                    $('#verProductoAnchetaModal').modal('show');
-
-                }else{
-
-                    $('.errorcantidad').html('<div class="alert alert-danger">No hay existencia disponible, de la caja de ancheta </div>');
-
-                }
-
-            });
-
-        }else{
-
-            if(cantidad>seleccionados){
+            }else{
 
                 $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+            }
+
+            if(ban==1){
+
+                if(maxima>0){
+
+                    if (maxima >=seleccionados) {
+
+                        ban=1;
+
+                    }else{
+
+                        ban=0;
+
+                        $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+
+                    }
 
                 }
 
-                if(maxima<seleccionados){
+            }
 
-                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+            if(ban==1){
 
-                }
+                $.post(base+'/cart/verificarancheta', {ancheta_de, ancheta_para, ancheta_mensaje}, function(data) {
+                    
+                    if (data=='0') {
 
-        }
+                        $('.addtocartunaancheta').fadeIn();
+
+                        $('.addtocartunaancheta').focus();
+
+                        $('.reiniciarAncheta').fadeOut();
+
+                    }else{
+
+                        $('.errorcantidad').html('<div class="alert alert-danger">No hay existencia disponible, de la caja de ancheta </div>');
+
+                    }
+
+                });
+            }
 
         });
 
