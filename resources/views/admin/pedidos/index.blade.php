@@ -1324,7 +1324,7 @@ Pedidos
         id=$(this).data('id');
 
         cantidad=$(this).data('cantidad');
-
+        maxima=$(this).data('maxima');
 
         ancheta_de=$('#ancheta_de').val();
         ancheta_para=$('#ancheta_para').val();
@@ -1356,7 +1356,18 @@ Pedidos
 
         }else{
 
-            $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+            if(cantidad>seleccionados){
+
+                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+
+                }
+
+                if(maxima<seleccionados){
+
+                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+
+                }
+
         }
 
         });
@@ -1435,21 +1446,55 @@ Pedidos
 
         cantidad=$(this).data('cantidad');
 
+         maxima=$(this).data('maxima');
+
         seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
-        if (cantidad <=seleccionados) {
+        ban=0;
 
-            $('.active').removeClass('active');
+                if (cantidad <=seleccionados) {
 
-            $(href).addClass('active');
+                    ban=1;
 
-            $('.errorcantidad').html('');
+                }else{
+
+                    $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+                
+                }
+
+                if(ban==1){
+
+                    if(maxima>0){
+
+                        if (maxima >=seleccionados) {
+
+                            ban=1;
+
+                        }else{
+
+                            ban=0;
+
+                            $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+
+                        }
 
 
-        }else{
+                    }
 
-            $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
-        }
+
+                }
+
+
+
+
+                if(ban==1){
+
+                    $('.active').removeClass('active');
+
+                    $(href).addClass('active');
+
+                    $('.errorcantidad').html('');
+                }
 
         $('.reiniciarAncheta').fadeIn();
 

@@ -23,15 +23,35 @@
                         
                         <h3 style="margin-top: 1em;"><strong>Paso {{$loop->iteration}}  </strong> - 
 
-                            @if($ac->cantidad_minima==0)
+                        @if($ac->cantidad_minima==0)
+
+                            @if($ac->cantidad_maxima==0)
 
                                 Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales</small></h3>
 
                             @else
 
-                                Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos </small></h3>
+                                Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales puede seleccionar maximo {{$ac->cantidad_maxima}} productos</small></h3>
 
                             @endif
+
+
+
+                        @else
+
+                            @if($ac->cantidad_maxima==0)
+
+                                Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos </small></h3>
+
+                            @else
+
+                                Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos y puede seleccionar maximo {{$ac->cantidad_maxima}} productos </small></h3>
+
+                            @endif
+
+
+
+                        @endif
 
                             @foreach($ac->productos as $p)
 
@@ -97,6 +117,7 @@
                                                         <a 
                                                          data-id="{{$ac->id}}" 
                                                         data-cantidad="{{$ac->cantidad_minima}}"
+                                                        data-maxima="{{$ac->cantidad_maxima}}"
                                                         class="btn  btn-primary finalizarAncheta "
                                                         > Finalizar Ancheta </a>
                                                     </li>
@@ -109,6 +130,7 @@
                                                         data-id="{{$ac->id}}" 
                                                         href="#tab{{$loop->iteration+1}}" 
                                                         data-cantidad="{{$ac->cantidad_minima}}"
+                                                        data-maxima="{{$ac->cantidad_maxima}}"
                                                         class="btn  btn-primary btnnetx s{{$ac->id}}"
                                                         > Siguiente </a>
                                                     </li>
