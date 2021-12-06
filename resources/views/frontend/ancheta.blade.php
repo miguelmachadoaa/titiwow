@@ -189,9 +189,6 @@
                             @endif
 
 
-
-
-
                         <b>Marca:</b> <a href="{{ secure_url('marcas/'.$producto->marca_slug) }}" >{{ $producto->nombre_marca}}</a> <br />
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
@@ -231,6 +228,7 @@
         <!--item desciption start-->
 
         <div class="widget-body">
+            
         <div class="row container">
 
 

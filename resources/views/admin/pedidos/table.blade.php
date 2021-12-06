@@ -35,7 +35,6 @@
 
                 @if(isset($cart['inventario'][$p->id]))
 
-
                         <div class="col-sm-4 col-md-3 col-xs-6" style="display: flex;    flex-direction: column;">
 
                         <div class="row" style="flex-grow: 1; ">
@@ -57,10 +56,20 @@
                                 <p style="margin:0; display:flex; flex-grow:0.5; align-content:stretch " class="">
                                    
                                 @if($cart['inventario'][$p->id]>0)
-                                    <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
+
+                                    @if($p->tipo_producto=='3')
+
+                                        <button style="flex-grow: 1;" class="btn btn-success addproductoancheta"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
+
+                                    @else
+
+                                        <button style="flex-grow: 1;" class="btn btn-success addproducto"  data-id="{{$p->id}}" ><img  style="width: 32px; " src="{{secure_url('assets/images/carrito.png')}}" alt=""></button>
+
+                                    @endif
+                                    
                                 @endif
 
-                                
+
 
                                     <button style="flex-grow: 1;" class="btn btn-primary verProducto"  
                                     data-id="{{$p->id}}" 

@@ -36,6 +36,8 @@ use App\Models\AlpImpuestos;
 use App\Models\AlpRolenvio;
 use App\Models\AlpEnvios;
 use App\Models\AlpEnviosHistory;
+use App\Models\AlpAnchetasCategorias;
+use App\Models\AlpProductosImagenes;
 
 
 
@@ -625,6 +627,57 @@ class AlpPedidosController extends JoshController
                   }
 
               }
+
+
+              if ($detalle->tipo_producto=='3') {
+                
+                if (isset($detalle->ancheta)) {
+                  
+                    foreach ($detalle->ancheta as $l) {
+                      
+                        $data_detalle_l = array(
+                          'id_orden' => $orden->id, 
+                          'id_producto' => $l->id, 
+                          'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                          'precio_unitario' =>0, 
+                          'precio_base' =>0, 
+                          'precio_total' =>0,
+                          'precio_total_base' =>0,
+                          'valor_impuesto' =>0,
+                          'monto_impuesto' =>0,
+                          'id_combo' =>$detalle->id,
+                          'id_user' =>$user_id 
+
+                        );
+
+                        
+                        $data_inventario_l = array(
+                          'id_producto' => $l->id, 
+                          'id_almacen' => $id_almacen, 
+                          'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                          'operacion' =>'2', 
+                          'notas' =>'Orden '.$orden->id,
+                          'id_user' =>$user_id 
+                        );
+
+                        AlpDetalles::create($data_detalle_l);
+                        AlpInventario::create($data_inventario_l);
+
+                  }
+                  
+                }
+
+             }
+
+
+
+
+
+
+
+
+
+
 
             }//if es un producto 
           }//endfreach
@@ -2438,75 +2491,79 @@ public function postdireccion(DireccionModalRequest $request)
 
       foreach ($cart as $producto) {
 
-      if (isset($producto->nombre_producto)) {
-        # code...
+        if (isset($producto->nombre_producto)) {
 
-      if ($descuento=='1') {
+          if($producto->id_tipo_producto=='1' || $producto->id_tipo_producto=='2'){
 
-        if (isset($precio[$producto->id])) {
-          # code...
-         
-          switch ($precio[$producto->id]['operacion']) {
+            if ($descuento=='1' ) {
 
-            case 1:
-
-              $producto->precio_oferta=$producto->precio_base*$descuento;
-
-              break;
-
-            case 2:
-
-              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              if (isset($precio[$producto->id])) {
+                # code...
               
-              break;
+                switch ($precio[$producto->id]['operacion']) {
 
-            case 3:
+                  case 1:
 
-              $producto->precio_oferta=$precio[$producto->id]['precio'];
-              
-              break;
-            
-            default:
-            
-             $producto->precio_oferta=$producto->precio_base*$descuento;
-              # code...
-              break;
+                    $producto->precio_oferta=$producto->precio_base*$descuento;
+
+                    break;
+
+                  case 2:
+
+                    $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                    
+                    break;
+
+                  case 3:
+
+                    $producto->precio_oferta=$precio[$producto->id]['precio'];
+                    
+                    break;
+                  
+                  default:
+                  
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+                    # code...
+                    break;
+                }
+
+              }else{
+
+                $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              }
+
+            }else{
+
+            $producto->precio_oferta=$producto->precio_base*$descuento;
+
+            }
+
+
+            $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+            $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+          //dd($almp);
+
+            if (isset($almp->id)) {
+
+              $producto->disponible=1;
+
+            }else{
+
+              $producto->disponible=0;
+
+            }
+
+
+
           }
 
-        }else{
-
-          $producto->precio_oferta=$producto->precio_base*$descuento;
-
+            $cart[$producto->slug]=$producto;
+        
         }
 
-       }else{
-
-       $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
-       }
-
-
-        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
-        $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
-
-        //dd($almp);
-
-        if (isset($almp->id)) {
-
-          $producto->disponible=1;
-
-        }else{
-
-          $producto->disponible=0;
-
-        }
-
-
-       $cart[$producto->slug]=$producto;
-       
-      }
       }
 
 
@@ -5778,6 +5835,487 @@ public function marketingcliente()
 
 
 
+
+
+
+      public function getAncheta($id){
+
+        if (!\Session::has('cartancheta')) {
+
+          \Session::put('cartancheta',   array());
+
+        }
+
+        \Session::forget('cartancheta',   array());
+
+        \Session::put('cartancheta',   array());
+
+        
+
+       $cartancheta= \Session::get('cartancheta');
+
+
+        $producto=AlpProductos::where('id', $id)->first();
+
+
+        \Session::put('producto_ancheta',   $producto);
+
+
+        $imagenes=AlpProductosImagenes::where('id_producto', '=', $producto->id)->get();
+
+        $catprincipal = DB::table('alp_productos')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+        ->where('alp_productos.id','=', $producto->id)->where('alp_productos.estado_registro','=', 1)->get();
+
+
+        $producto->cantidad=1;
+        
+        $producto->precio_oferta=$producto->precio_base;
+
+        $cartancheta[$producto->slug]=$producto;
+
+        \Session::put('cartancheta',  $cartancheta);
+
+        $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $producto->id)->get();
+
+        foreach ($anchetas_categorias as $c) {
+
+          $productos=AlpProductos::select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+          ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+          ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+          ->join('alp_ancheta_productos', 'alp_productos.id', '=', 'alp_ancheta_productos.id_producto')
+          ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
+          ->where('alp_almacen_producto.id_almacen', '=', 1)
+          ->whereNull('alp_ancheta_productos.deleted_at')
+          ->whereNull('alp_almacen_producto.deleted_at')
+          ->groupBy('alp_productos.id')
+          ->get();
+
+           $productos=$this->addOferta($productos);
+
+          $c->productos=$productos;
+          
+        }
+
+        $url=secure_url('producto/'.$producto->slug);
+
+        $cart= \Session::get('cart');
+
+        $total=0;
+        
+        if($cart!=NULL){
+
+            foreach($cartancheta as $row) {
+
+              if(isset($row->id)){
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+              }
+
+            }
+        }
+
+
+        $inventario=$this->inventario();
+
+
+        return \View::make('admin.pedidos.ancheta', compact('imagenes','producto', 'anchetas_categorias', 'cartancheta', 'url', 'catprincipal', 'total', 'inventario'));
+
+
+      }
+
+
+
+      public function addtocartancheta( Request $request)
+      {
+  
+        
+            $p=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+            ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+            ->where('alp_productos.slug', $request->slug)
+            ->first();
+  
+            
+            //dd($p);
+  
+            
+          if (!\Session::has('cartancheta')) {
+            
+            \Session::put('cartancheta',   array());
+            
+          }
+  
+          
+         $cartancheta= \Session::get('cartancheta');
+         
+         $descuento='1'; 
+         
+         $error=''; 
+         
+         $precio = array();
+  
+         $inv=$this->inventario();
+         
+         $almacen=$this->getAlmacen();
+  
+         if (isset($p->id)) {
+
+          $p->precio_oferta=$request->price;
+            
+            $p->cantidad=1;
+            
+            $p->impuesto=$p->precio_oferta*$p->valor_impuesto;
+            
+  
+          if (isset($inv[$p->id])) {
+            
+            if($inv[$p->id]>=$p->cantidad){
+              
+            $cartancheta[$p->slug]=$p;
+            
+  
+            }else{
+              
+              $error="No hay existencia suficiente de este producto";
+              
+            }
+  
+            
+          }else{
+            
+              $error="No hay existencia suficiente de este producto, en su ubicacion";
+  
+            }
+  
+         }else{
+          
+          $error="No encontro el producto";
+
+        }
+  
+         \Session::put('cartancheta', $cartancheta);
+  
+          $view= View::make('admin.pedidos.pancheta', compact('p',  'cartancheta', 'error'));
+          
+          $data=$view->render();
+          
+          $res = array('data' => $data);
+          
+          return $data;
+          
+  
+      }
+  
+      
+  
+  
+  
+  
+  
+  
+  public function deltocartancheta( Request $request)
+      {
+  
+        
+            $p=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+  
+            ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+  
+            ->where('alp_productos.slug', $request->slug)
+  
+            ->first();
+  
+            
+            $p=$this->addOfertaUn($p);
+  
+            
+            //dd($producto);
+  
+            
+          if (!\Session::has('cartancheta')) {
+  
+            
+            \Session::put('cartancheta',   array());
+  
+            
+          }
+  
+          
+         $cartancheta= \Session::get('cartancheta');
+  
+         
+         $descuento='1'; 
+  
+         
+         $error=''; 
+  
+         
+         $precio = array();
+  
+         
+         if (isset($p->id)) {
+          
+            if (isset($cartancheta[$p->slug])) {
+              
+              unset($cartancheta[$p->slug]);
+              
+           }
+  
+         }
+         
+         \Session::put('cartancheta', $cartancheta);
+  
+          $view= View::make('admin.pedidos.pancheta', compact('p',  'cartancheta', 'error'));
+  
+          $data=$view->render();
+          
+          $res = array('data' => $data);
+          
+          return $data;
+  
+      }
+  
+  
+  
+  public function totalancheta()
+      {
+            
+        if (!\Session::has('cartancheta')) {
+          
+          \Session::put('cartancheta',  array());
+          
+        }
+  
+        $cartancheta= \Session::get('cartancheta');
+       
+        $producto= \Session::get('producto_ancheta');
+  
+        $total=0;
+        
+        foreach ($cartancheta as $c) {
+  
+          $total=$total+($c->precio_oferta);
+  
+        }
+            $view= View::make('frontend.listaancheta', compact('cartancheta', 'total', 'producto'));
+  
+            $data=$view->render();
+            return $data;
+  
+      }
+
+
+
+      public function verificarancheta(Request $request)
+    {
+
+
+          
+      if (!\Session::has('cartancheta')) {
+        
+        \Session::put('cartancheta',  array());
+        
+      }
+
+      
+
+      if (!\Session::has('mensajeancheta')) {
+        
+        \Session::put('mensajeancheta',  array());
+
+      }
+
+      
+      $request->ancheta_de=strip_tags($request->ancheta_de);
+
+      $request->ancheta_para=strip_tags($request->ancheta_para);
+
+      $request->ancheta_mensaje=strip_tags($request->ancheta_mensaje);
+
+      
+
+      $mensaje = array(
+        'ancheta_de' => $request->ancheta_de, 
+        'ancheta_para' => $request->ancheta_para, 
+        'ancheta_mensaje' => $request->ancheta_mensaje, 
+      );
+
+      
+      \Session::put('mensajeancheta',  $mensaje);
+
+      $cartancheta= \Session::get('cartancheta');
+
+      $producto= \Session::get('producto_ancheta');
+      
+      $inv=$this->inventario();
+      
+      //dd($cartancheta);
+      
+      $total=0;
+
+      $respuesta=0;
+
+      foreach ($cartancheta as $c) {
+
+        if (isset($inv[$c->id])) {
+
+          if ($inv[$c->id]<$c->cantidad) {
+
+            $respuesta=1;
+            
+          }
+          
+        }else{
+
+          $respuesta=1;
+
+        }
+
+      }
+
+        return $respuesta;
+
+    }
+
+
+
+
+
+
+
+
+
+    public function addtocartunaancheta( Request $request)
+
+    {
+
+      
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
+
+           if (!\Session::has('mensajeancheta')) {
+            
+            \Session::put('mensajeancheta',  array());
+            
+          }
+
+      
+      $request->ancheta_de=strip_tags($request->ancheta_de);
+
+      $request->ancheta_para=strip_tags($request->ancheta_para);
+
+      $request->ancheta_mensaje=strip_tags($request->ancheta_mensaje);
+
+      
+
+      $mensaje = array(
+        'ancheta_de' => $request->ancheta_de, 
+        'ancheta_para' => $request->ancheta_para, 
+        'ancheta_mensaje' => $request->ancheta_mensaje, 
+      );
+
+      
+      \Session::put('mensajeancheta',  $mensaje);
+
+        
+       $cart= \Session::get('cart');
+
+       $carrito= \Session::get('cr');
+       
+       $descuento='1'; 
+       
+       $error='0'; 
+
+       $precio = array();
+       
+       $inv=$this->inventario();
+       
+       $almacen=$this->getAlmacen();
+
+       //dd($almacen);
+
+       
+
+       if (isset($producto->id)) {
+
+        $cartancheta= \Session::get('cartancheta');
+
+         $producto->precio_oferta=$request->price;
+
+         $producto->ancheta=$cartancheta;
+         
+        $producto->cantidad=1;
+
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+        
+
+        if (isset($inv[$producto->id])) {
+
+          
+          if($inv[$producto->id]>=$producto->cantidad){
+
+            
+          $cart[$producto->slug]=$producto;
+             
+          }else{
+            
+            $error="No hay existencia suficiente de este producto";
+            
+          }
+
+          # code...
+
+        }else{
+
+          
+            $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+            
+          }
+
+          
+       }else{
+
+        
+        $error="No encontro el producto";
+
+        
+       }
+
+
+       \Session::forget('cartancheta');
+
+
+       \Session::put('cart', $cart);
+   
+
+       $total_venta=$this->totalcart($cart);
+
+        $view= View::make('admin.pedidos.listaorden', compact('producto', 'cart', 'error', 'total_venta'));
+
+        $data=$view->render();
+
+        $res = array('data' => $data);
+
+        return $data;
+
+
+      
+
+    }
+
+    
+
+
+
+   
+
+    
 
 
 

@@ -6552,6 +6552,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
     {
 
        $id_almacen=$this->getAlmacen();
+
+      # dd($id_almacen);
        
       $entradas = AlpInventario::groupBy('id_producto')
         ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
@@ -6589,6 +6591,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
           $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
           
       }
+
+     # dd(json_encode($inv));
 
       return $inv;
 
@@ -8814,10 +8818,10 @@ public function verificarDireccion( Request $request)
                     
                   }
 
-               }
+                }
 
-               }
-                              }
+              }
+            }
 
                               
 
@@ -10721,11 +10725,29 @@ public function addcupon(Request $request)
 
     $tipo=0;
 
+    $cart= \Session::get('cart');
+
+
+    $user_id=null;
+
+    if (Sentinel::check()) {
+
+      $user_id = Sentinel::getUser()->id;
+
+    }else{
+      
+      if(isset($cart['id_cliente'])){
+
+        $user_id==$cart['id_cliente'];
+
+      }
+     
+    }
     
 
-        if (isset(Sentinel::getUser()->id)) {
+        if (!is_null($user_id)) {
 
-            $user_id = Sentinel::getUser()->id;
+          #  $user_id = Sentinel::getUser()->id;
             
             $usuario=User::where('id', $user_id)->first();
 
@@ -12547,128 +12569,76 @@ public function deltocartancheta( Request $request)
 
        
        if (isset($p->id)) {
-
         
           if (isset($cartancheta[$p->slug])) {
-
             
             unset($cartancheta[$p->slug]);
-
             
          }
 
-         
-
        }
-
        
        \Session::put('cartancheta', $cartancheta);
 
-       
-
         $view= View::make('frontend.pancheta', compact('p',  'cartancheta', 'error'));
 
-        
         $data=$view->render();
-
         
         $res = array('data' => $data);
-
         
         return $data;
 
-      
-
-      
-
     }
-
-    
 
 
 
 public function totalancheta()
     {
-
-      
-          
-
           
       if (!\Session::has('cartancheta')) {
-
         
         \Session::put('cartancheta',  array());
-
         
       }
 
-      
-
-
       $cartancheta= \Session::get('cartancheta');
-
-      
+     
       $producto= \Session::get('producto_ancheta');
 
-      
-      $total=0;
+      #dd($producto);
 
+      $total=0;
       
       foreach ($cartancheta as $c) {
 
-        
-
         $total=$total+($c->precio_oferta);
 
-        
-
       }
-
-      
-
-      //$total=$total+$producto->precio_base;
-
-      
-
           $view= View::make('frontend.listaancheta', compact('cartancheta', 'total', 'producto'));
 
-          
-
           $data=$view->render();
-
-          
           return $data;
-
-      
 
     }
 
-    
 
-
-public function verificarancheta(Request $request)
+    public function verificarancheta(Request $request)
     {
 
-      
-          
 
           
       if (!\Session::has('cartancheta')) {
-
         
         \Session::put('cartancheta',  array());
-
         
       }
 
       
 
       if (!\Session::has('mensajeancheta')) {
-
         
         \Session::put('mensajeancheta',  array());
 
-        
       }
 
       
@@ -12681,55 +12651,35 @@ public function verificarancheta(Request $request)
       
 
       $mensaje = array(
-
         'ancheta_de' => $request->ancheta_de, 
-
         'ancheta_para' => $request->ancheta_para, 
-
         'ancheta_mensaje' => $request->ancheta_mensaje, 
-
       );
 
       
       \Session::put('mensajeancheta',  $mensaje);
 
-      
-
       $cartancheta= \Session::get('cartancheta');
 
-      
       $producto= \Session::get('producto_ancheta');
-
       
       $inv=$this->inventario();
-
       
-      //dd($cartancheta);
-
+      #dd($cartancheta);
       
       $total=0;
 
-      
       $respuesta=0;
 
-      
       foreach ($cartancheta as $c) {
-
-        
 
         if (isset($inv[$c->id])) {
 
-          
-
           if ($inv[$c->id]<$c->cantidad) {
 
-            
-
             $respuesta=1;
-
             
           }
-
           
         }else{
 
@@ -12737,15 +12687,9 @@ public function verificarancheta(Request $request)
 
         }
 
-        
-
       }
 
-      
-
         return $respuesta;
-
-      
 
     }
 
@@ -12779,20 +12723,13 @@ public function reiniciarancheta()
 
       
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
-
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
-
           ->where('alp_productos.slug', $request->slug)
-
           ->first();
 
-          
-
            if (!\Session::has('mensajeancheta')) {
-
             
         \Session::put('mensajeancheta',  array());
-
         
       }
 
@@ -12806,13 +12743,9 @@ public function reiniciarancheta()
       
 
       $mensaje = array(
-
         'ancheta_de' => $request->ancheta_de, 
-
         'ancheta_para' => $request->ancheta_para, 
-
         'ancheta_mensaje' => $request->ancheta_mensaje, 
-
       );
 
       
