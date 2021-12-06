@@ -83,6 +83,22 @@ Editar Categoria
                                 </div>
                             </div>
 
+
+                        <div class="form-group {{ $errors->
+                            first('cantidad_maxima', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Cantidad maxima a seleccionar
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="0" id="cantidad_maxima" name="cantidad_maxima" class="form-control" placeholder="Cantidad maxima a seleccionar"
+                                        value="{{$categoria->cantidad_maxima}}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('cantidad_maxima', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ secure_url('admin/productos') }}">

@@ -22,6 +22,7 @@ class AlpAnchetasCategorias extends Model
         'id_ancheta',
         'nombre_categoria',
         'cantidad_minima',
+        'cantidad_maxima',
         'estado_registro',
         'id_user'
     ];

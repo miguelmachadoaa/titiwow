@@ -83,6 +83,25 @@ Configuracion Ancheta
                                 </div>
                             </div>
 
+
+
+                            <div class="form-group {{ $errors->
+                            first('cantidad_maxima', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Cantidad maxima a seleccionar
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="1" min="0" id="cantidad_maxima" name="cantidad_maxima" class="form-control" placeholder="Cantidad maxima a seleccionar"
+                                           value="">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('cantidad_maxima', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ secure_url('admin/productos/'.$producto->id.'/edit') }}">
@@ -142,7 +161,7 @@ Configuracion Ancheta
 
 
 
-                    @if(count($categorias ))
+                    @if(isset($categorias ))
 
                     <table class="table">
                         <tr>
@@ -150,6 +169,8 @@ Configuracion Ancheta
                             <th>Id</th>
                             <th>Categoria</th>
                             <th>Cantidad de Productos</th>
+                            <th>Cantidad Minima</th>
+                            <th>Cantidad Maxima</th>
                             <th>Accion</th>
                         </tr>
 
@@ -163,11 +184,9 @@ Configuracion Ancheta
                             </td>
 
                             <td>{{count($c->productos)}}</td>
+                            <td>{{($c->cantidad_minima)}}</td>
+                            <td>{{($c->cantidad_maxima)}}</td>
                             <td>
-
-
-                                
-
 
                                 <a  href="{{secure_url('admin/productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-success">Gestionar</i></a>
 

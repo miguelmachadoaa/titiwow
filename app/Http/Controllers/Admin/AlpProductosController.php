@@ -2542,7 +2542,8 @@ class AlpProductosController extends JoshController
       $data = array(
         'id_ancheta' => $request->id_ancheta, 
         'nombre_categoria' => $request->nombre_categoria, 
-        'cantidad_minima' => $request->cantidad_minima
+        'cantidad_minima' => $request->cantidad_minima,
+        'cantidad_maxima' => $request->cantidad_maxima
       );
 
 
@@ -2574,9 +2575,7 @@ class AlpProductosController extends JoshController
     {
         // Grab all the blogs
 
-
       $categoria=AlpAnchetasCategorias::where('id', $id)->first();
-
 
         // Show the page
         return view('admin.productos.editarcategoria', compact('categoria'));
@@ -2592,7 +2591,8 @@ class AlpProductosController extends JoshController
 
       $data = array(
         'nombre_categoria' => $request->nombre_categoria, 
-        'cantidad_minima' => $request->cantidad_minima
+        'cantidad_minima' => $request->cantidad_minima,
+        'cantidad_maxima' => $request->cantidad_maxima
       );
 
       $categoria->update($data);

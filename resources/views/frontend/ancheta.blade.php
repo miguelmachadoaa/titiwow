@@ -246,7 +246,7 @@
 
                     @foreach($anchetas_categorias as $ac)
 
-                    <div class="tab-pane @if($loop->index==0) active @endif  {{'tabpane'.$ac->id}}     " id="tab{{$loop->iteration}}" data-minima="{{$ac->cantidad_minima}}">
+                    <div class="tab-pane @if($loop->index==0) active @endif  {{'tabpane'.$ac->id}}     " id="tab{{$loop->iteration}}" data-minima="{{$ac->cantidad_minima}}" data-maxima="{{$ac->cantidad_maxima}}">
 
                         <br>
                         
@@ -254,11 +254,32 @@
 
                             @if($ac->cantidad_minima==0)
 
-                          Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales</small></h3>
+                                @if($ac->cantidad_maxima==0)
+
+                                    Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales</small></h3>
+
+                                @else
+
+                                    Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales puede seleccionar maximo {{$ac->cantidad_maxima}} productos</small></h3>
+
+                                @endif
+
+                                
 
                             @else
 
-                            Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos </small></h3>
+                                @if($ac->cantidad_maxima==0)
+
+                                    Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos </small></h3>
+
+                                @else
+
+                                    Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos y puede seleccionar maximo {{$ac->cantidad_maxima}} productos </small></h3>
+
+                                @endif
+
+
+                                
 
                             @endif
 
@@ -328,6 +349,7 @@
                                                         <a 
                                                          data-id="{{$ac->id}}" 
                                                         data-cantidad="{{$ac->cantidad_minima}}"
+                                                        data-maxima="{{$ac->cantidad_maxima}}"
                                                         class="btn  btn-primary finalizarAncheta "
                                                         > Finalizar Ancheta </a>
                                                     </li>
@@ -340,6 +362,7 @@
                                                         data-id="{{$ac->id}}" 
                                                         href="#tab{{$loop->iteration+1}}" 
                                                         data-cantidad="{{$ac->cantidad_minima}}"
+                                                        data-maxima="{{$ac->cantidad_maxima}}"
                                                         class="btn  btn-primary btnnetx s{{$ac->id}}"
                                                         > Siguiente </a>
                                                     </li>
@@ -504,6 +527,8 @@
 
             cantidad=$(this).data('cantidad');
 
+            maxima=$(this).data('maxima');
+
 
             ancheta_de=$('#ancheta_de').val();
             ancheta_para=$('#ancheta_para').val();
@@ -511,9 +536,7 @@
 
             seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
-            if (cantidad<=seleccionados) {
-
-
+            if (cantidad<=seleccionados && maxima>=seleccionados) {
 
                 $.post(base+'/cart/verificarancheta', {ancheta_de, ancheta_para, ancheta_mensaje}, function(data) {
 
@@ -531,10 +554,6 @@
                         $('.errorcantidad').html('<div class="alert alert-danger">No hay existencia disponible, de la caja de ancheta </div>');
 
                     }
-                    
-
-
-
 
                 });
 
@@ -543,7 +562,19 @@
 
             }else{
 
-                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+                if(cantidad>seleccionados){
+
+                    $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+
+                }
+
+                if(maxima<seleccionados){
+
+                    $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+
+                }
+
+                
             }
 
         });
@@ -628,21 +659,60 @@
 
             cantidad=$(this).data('cantidad');
 
+            maxima=$(this).data('maxima');
+
+            ban=0;
+
             seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
             if (cantidad <=seleccionados) {
 
-                $('.active').removeClass('active');
-
-                $(href).addClass('active');
-
-                $('.errorcantidad').html('');
+                ban=1;
 
 
             }else{
 
                 $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
             }
+
+            if(ban==1){
+
+                if(maxima>0){
+
+                    if (maxima >=seleccionados) {
+
+                        ban=1;
+
+
+
+                    }else{
+
+                        ban=0;
+
+                        $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+
+                    }
+
+
+                }
+
+
+            }
+
+            
+
+
+            if(ban==1){
+
+                $('.active').removeClass('active');
+
+                $(href).addClass('active');
+
+                $('.errorcantidad').html('');
+            }
+
+
+          
 
              $('.reiniciarAncheta').fadeIn();
 
@@ -653,9 +723,11 @@
 
 
         $('.anchetabtn').on('click', function(){
+
             id=$(this).data('id');
 
             $('.anchetapanel').fadeOut('fast', function() { });
+
             $('.'+id).fadeIn('fast', function() { });
         });
 
