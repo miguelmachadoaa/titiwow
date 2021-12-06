@@ -607,7 +607,8 @@ public function compramasupdate()
 
 
 
-      public function data()
+    
+    public function data()
     {
 
 

@@ -51,6 +51,8 @@ class VerifyCsrfToken extends Middleware
        'cart/addtocartancheta', //
        'cart/deltocartancheta', //
        'cart/agregarunaancheta', //
+       'tomapedidos/agregarunaancheta', //
+       'admin/tomapedidos/agregarunaancheta', //
        'cart/verificarancheta', //
        'formasenvio/storecity', //
        'formasenvio/delcity', //

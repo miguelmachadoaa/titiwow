@@ -15,8 +15,6 @@ Pedidos
     
 @stop
 
-
-
 {{-- Content --}}
 @section('content')
 <section class="content-header" style="margin-bottom:0;">
@@ -32,7 +30,7 @@ Pedidos
         <li class="active">Listado</li>
     </ol>
 
-    <div data-cart="{{json_encode($cart)}}" ></div>
+    <div  data-cart="{{json_encode($cart)}}" ></div>
 </section>
 
 <!-- Main content -->
@@ -1064,6 +1062,49 @@ Pedidos
 
 
 
+<div class="modal fade" id="verProductoAnchetaModal" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+  <div class="modal-dialog" style="width: 80%;  ">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Arma tu Ancheta</h4>
+        </div>
+
+            <div class="modal-body bodyancheta">
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img id="img-producto-modal" src="" alt="">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h3 id="nombre-producto-modal"><span></span>  </h3>
+                        <p id="referencia-producto-modal"> <b>Referencia:</b>  <span></span></p>
+                        <p id="referencia-producto-sap-modal"> <b>Referencia Sap:</b>  <span></span></p>
+                        <p id="presentacion-producto-modal"> <b>Presentacion:</b>  <span></span></p>
+                        <p id="categoria-producto-modal"> <b>Categoria:</b>  <span></span></p>
+                        <p id="precio-producto-modal"> <b>Precio:</b>   <span></span></p>
+                        <p id="oferta-producto-modal"> <b> Oferta</b>: <span></span></p>
+                        <p id="inventario-producto-modal"> <b>Inventario:</b>  <span></span></p>
+                    </div>
+                </div>
+
+            </div>
+
+       
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 <div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1239,9 +1280,295 @@ Pedidos
     });
 
 
-      $(document).on('click','.addproducto', function(){
+    /* Inicio de js para anchetas */
 
-             base=$('#base').val();
+
+    $(document).on('click','.addproductoancheta', function(){
+
+        $('.bodyancheta').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>')
+
+        base=$('#base').val();
+
+        id=$(this).data('id');
+
+        $.get(base+'/admin/tomapedidos/'+id+'/getancheta', function(data) {
+
+            //se trae la estructura de la ancheta 
+
+                $('.bodyancheta').html(data);
+
+
+                //recarga el precio 
+
+
+                $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.listaancheta').html(data);
+
+                });
+                
+        });
+
+        $('#verProductoAnchetaModal').modal('show');
+
+
+    });
+
+
+    $(document).on('click','.finalizarAncheta', function(){
+
+        $('.errorcantidad').html('Finalizar Ancheta');
+
+        //alert('Finalizar ancheta ');
+
+        id=$(this).data('id');
+
+        cantidad=$(this).data('cantidad');
+
+
+        ancheta_de=$('#ancheta_de').val();
+        ancheta_para=$('#ancheta_para').val();
+        ancheta_mensaje=$('#ancheta_mensaje').val();
+
+        seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
+
+        if (cantidad<=seleccionados) {
+
+            $.post(base+'/cart/verificarancheta', {ancheta_de, ancheta_para, ancheta_mensaje}, function(data) {
+                
+                if (data=='0') {
+
+                    $('.addtocartunaancheta').fadeIn();
+
+                    $('.addtocartunaancheta').focus();
+
+                    $('.reiniciarAncheta').fadeOut();
+
+                    $('#verProductoAnchetaModal').modal('show');
+
+                }else{
+
+                    $('.errorcantidad').html('<div class="alert alert-danger">No hay existencia disponible, de la caja de ancheta </div>');
+
+                }
+
+            });
+
+        }else{
+
+            $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+        }
+
+        });
+
+        $(document).ready(function(){
+
+            $('.addtocartunaancheta').fadeOut();
+
+            base=$('#base').val();
+
+            $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.listaancheta').html(data);
+
+                });
+            });
+
+
+
+
+
+        $(document).on('click','.addtocartunaancheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            datasingle=$(this).data('single');
+
+            ancheta_de=$('#ancheta_de').val();
+            ancheta_para=$('#ancheta_para').val();
+            ancheta_mensaje=$('#ancheta_mensaje').val();
+
+
+            price=$(this).data('price')+$('.totalancheta').val();
+
+            slug=$(this).data('slug');
+
+            single=$('#single').val();
+
+            url=$(this).attr('href');
+
+
+        pimagen=$(this).data('pimagen');
+
+        name=$(this).data('name');
+
+
+        $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+
+            $.post(base+'/admin/tomapedidos/agregarunaancheta', {price, slug, datasingle, ancheta_para, ancheta_de, ancheta_mensaje}, function(data) {
+
+                $('.listaorden').html(data);
+
+                $('#verProductoAnchetaModal').modal('hide');
+            });
+
+        });
+
+
+
+
+        $(document).on('click', '.btnnetx', function(e){
+
+        $('.addtocartunaancheta').fadeOut();
+
+        e.preventDefault();
+
+        href=$(this).attr('href');
+
+        id=$(this).data('id');
+
+        cantidad=$(this).data('cantidad');
+
+        seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
+
+        if (cantidad <=seleccionados) {
+
+            $('.active').removeClass('active');
+
+            $(href).addClass('active');
+
+            $('.errorcantidad').html('');
+
+
+        }else{
+
+            $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+        }
+
+        $('.reiniciarAncheta').fadeIn();
+
+
+        });
+
+
+
+
+        $('.anchetabtn').on('click', function(){
+        id=$(this).data('id');
+
+        $('.anchetapanel').fadeOut('fast', function() { });
+        $('.'+id).fadeIn('fast', function() { });
+        });
+
+
+        $(document).ready(function(){
+
+            $('.addtocartunaancheta').fadeOut();
+
+            base=$('#base').val();
+
+            $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.listaancheta').html(data);
+
+                });
+            });
+
+
+
+
+            $(document).on('click','.addtocartancheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
+            $.post(base+'/cart/addtocartancheta', {price, slug, id}, function(data) {
+
+                $('.p'+id+'').html(data);
+
+
+                $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.listaancheta').html(data);
+
+                });
+
+
+            });
+
+            });
+
+
+            $(document).on('click','.deltocartancheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
+            $.post(base+'/cart/deltocartancheta', {price, slug, id}, function(data) {
+
+                $('.p'+id+'').html(data);
+
+                $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.listaancheta').html(data);
+
+                });
+
+            });
+
+            });
+
+
+            $(document).on('click','.reiniciarAncheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            $.get(base+'/cart/reiniciarancheta', function(data) {
+
+                    location.reload();
+
+                });
+
+            });
+
+
+
+
+
+
+/* Fin js anccheta */
+
+
+
+    $(document).on('click','.addproducto', function(){
+
+            base=$('#base').val();
 
              id=$(this).data('id');
 
@@ -1489,7 +1816,7 @@ Pedidos
 
     $('.btn_buscar_cliente').on('click', function(){
 
-        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>')
+        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
 

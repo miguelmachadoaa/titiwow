@@ -1211,9 +1211,13 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::post('tomapedidos/{id}/postroles', 'Admin\AlpPedidosController@postroles');
 
 
+    Route::get('tomapedidos/{id}/getancheta', 'Admin\AlpPedidosController@getancheta');
 
+    
 
+    Route::post('tomapedidos/agregarunaancheta/',['as'=>'tomapedidos.agregarunaancheta', 'uses'=>'Admin\AlpPedidosController@addtocartunaancheta']);
 
+    
 
 
 
