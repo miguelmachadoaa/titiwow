@@ -543,7 +543,7 @@
 
             }else{
 
-                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+                $('.errorcantidad').html('<div class="alert alert-danger">Debes seleccionar al menos '+cantidad+' productos</div>');
             }
 
             if(ban==1){
@@ -558,7 +558,7 @@
 
                         ban=0;
 
-                        $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+                        $('.errorcantidad').html('<div class="alert alert-danger">Debes seleccionar maximo '+maxima+' productos</div>');
 
                     }
 
@@ -684,7 +684,7 @@
 
             }else{
 
-                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+                $('.errorcantidad').html('<div class="alert alert-danger">Debes seleccionar al menos '+cantidad+' productos</div>');
             }
 
             if(ban==1){
@@ -701,7 +701,7 @@
 
                         ban=0;
 
-                        $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar maximo '+maxima+' productos</div>');
+                        $('.errorcantidad').html('<div class="alert alert-danger">Debes seleccionar máximo '+maxima+' productos</div>');
 
                     }
 
