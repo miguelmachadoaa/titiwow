@@ -257,7 +257,7 @@ div.overlay > div {
 
                         <div class="form-group clearfix">
 
-                            <label class="col-md-3 control-label" for="nombre_producto">Fache Vencimiento / CVV</label>
+                            <label class="col-md-3 control-label" for="nombre_producto">Fecha de Vencimiento (MM/AA) / CVV</label>
 
                             <div class="col-sm-2">
 
