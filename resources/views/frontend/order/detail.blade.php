@@ -631,7 +631,7 @@ div.overlay > div {
 
        // Step #3
         const cardForm = mp.cardForm({
-        amount: "{{$total}}",
+        amount: "{{$total-$total_descuentos}}",
         autoMount: true,
         form: {
             id: "form-checkout",

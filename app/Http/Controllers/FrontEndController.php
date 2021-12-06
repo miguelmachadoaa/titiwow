@@ -130,6 +130,8 @@ use Intervention\Image\Facades\Image;
 class FrontEndController extends JoshController
 {
 
+ 
+
   public function getCompramas(Request $request)
   {
 
@@ -151,12 +153,18 @@ class FrontEndController extends JoshController
       $content = $request->getContent();
 
       $input = json_decode($content, true);
+      
+     
 
     $r="false";
 
-    if (isset($input['ordenId'])) {
+   
+ 
+    if (isset($input[0]['ordenId'])) {
 
-    $orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
+    $orden=AlpOrdenes::where('referencia', $input[0]['ordenId'])->first();
+    
+    
 
     if (isset($orden->id)) {
 
@@ -170,7 +178,7 @@ class FrontEndController extends JoshController
 
       if (isset($envio->id)) {
 
-        $status=AlpEnviosEstatus::where('codigo', $input['estado'])->first();
+        $status=AlpEnviosEstatus::where('codigo', $input[0]['estado'])->first();
 
         $user=User::where('id', $orden->id_user)->first();
 
@@ -193,7 +201,7 @@ class FrontEndController extends JoshController
 
           $r="true";
 
-           Mail::to($user->email)->send(new \App\Mail\NotificacionEnvio($user, $orden, $envio, $status, $input ));
+           Mail::to($user->email)->send(new \App\Mail\NotificacionEnvio($user, $orden, $envio, $status, $input[0] ));
 
         }
 
@@ -207,6 +215,9 @@ class FrontEndController extends JoshController
     return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
 
   }
+
+
+  
 
 
 
