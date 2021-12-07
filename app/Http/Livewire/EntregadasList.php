@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 use DB;
 use Sentinel;
 
-class EsperaList extends Component
+class EntregadasList extends Component
 {
     use WithPagination;
 
@@ -51,7 +51,7 @@ class EsperaList extends Component
   
           if ($user->almacen=='0') {
 
-            $enespera = AlpOrdenes::when($this->search, function($query){
+            $entregadas = AlpOrdenes::when($this->search, function($query){
                 return $query->where(function ($query){
                     $query->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'LIKE', '%' . $this->search . '%')
                     ->orwhere('alp_ordenes.referencia','like','%'.$this->search.'%')
@@ -81,11 +81,11 @@ class EsperaList extends Component
                 'config_cities.city_name as city_name',
                 'alp_formas_envios.nombre_forma_envios as forma_envio',
                 'alp_formas_pagos.nombre_forma_pago as forma_pago')
-            ->where('alp_ordenes.estatus', '8')
+            ->where('alp_ordenes.estatus', '3')
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
         }else{
             
-            $enespera = AlpOrdenes::when($this->search, function($query){
+            $entregadas = AlpOrdenes::when($this->search, function($query){
                 return $query->where(function ($query){
                     $query->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'LIKE', '%' . $this->search . '%')
                     ->orwhere('alp_ordenes.referencia','like','%'.$this->search.'%')
@@ -115,7 +115,7 @@ class EsperaList extends Component
                 'config_cities.city_name as city_name',
                 'alp_formas_envios.nombre_forma_envios as forma_envio',
                 'alp_formas_pagos.nombre_forma_pago as forma_pago')
-            ->where('alp_ordenes.estatus', '8')
+            ->where('alp_ordenes.estatus', '3')
             ->where('alp_ordenes.id_almacen', '=', $user->almacen)
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
 
@@ -123,9 +123,9 @@ class EsperaList extends Component
     }
 
         
-        $enespera = $enespera->paginate($this->cantid);
+        $entregadas = $entregadas->paginate($this->cantid);
 
-        foreach($enespera as $row){
+        foreach($entregadas as $row){
             
             $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
 
@@ -139,8 +139,8 @@ class EsperaList extends Component
               }
         }
 
-        return view('livewire.espera-list',[
-            'enespera' => $enespera,
+        return view('livewire.entregadas-list',[
+            'entregadas' => $entregadas,
             'id_rol' => $id_rol
         ]);
 

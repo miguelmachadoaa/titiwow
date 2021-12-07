@@ -85,24 +85,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if( isset($enespera))
-                        @foreach($enespera as $espera)
+                    @if( isset($entregadas))
+                        @foreach($entregadas as $entregada)
                             <tr>
-                                <td>{{ $espera->id}}</td>
-                                <td>{{ $espera->referencia }}</td>
-                                <td>{{ $espera->first_name }} {{ $espera->last_name }}</td>
-                                <td>{{ $espera->telefono_cliente}}</td>
-                                <td>{{ $espera->forma_envio}}</td>
-                                <td>{{ $espera->forma_pago}}</td>
-                                <td>{{ number_format($espera->monto_total,2) }}</td>
-                                <td>{{ $espera->codigo_cupon}}</td>
-                                <td>{{ $espera->nombre_almacen}}</td>
-                                <td>{{ $espera->city_name }}</td>
-                                <td>{{ $espera->origen == 1 ? 'POS':'Web'}}</td>
-                                <td><span class='label label-success' >{{ $espera->estatus_nombre }}</span></td>
-                                <td>{{ date('d/m/Y H:i:s', strtotime($espera->created_at )) }}</td>
+                                <td>{{ $entregada->id}}</td>
+                                <td>{{ $entregada->referencia }}</td>
+                                <td>{{ $entregada->first_name }} {{ $entregada->last_name }}</td>
+                                <td>{{ $entregada->telefono_cliente}}</td>
+                                <td>{{ $entregada->forma_envio}}</td>
+                                <td>{{ $entregada->forma_pago}}</td>
+                                <td>{{ number_format($entregada->monto_total,2) }}</td>
+                                <td>{{ $entregada->codigo_cupon}}</td>
+                                <td>{{ $entregada->nombre_almacen}}</td>
+                                <td>{{ $entregada->city_name }}</td>
+                                <td>{{ $entregada->origen == 1 ? 'POS':'Web'}}</td>
+                                <td><span class='label label-success' >{{ $entregada->estatus_nombre }}</span></td>
+                                <td>{{ date('d/m/Y H:i:s', strtotime($entregada->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$espera->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$entregada->id}}/detalle" target='_blank'>
                                     ver detalles
                                     </a>
                                 </td>
@@ -120,10 +120,10 @@
     </div>
     <div class="row">
         <div class="col-lg-6" >
-        <strong>Página {{ $enespera->currentPage() * $enespera->perPage() }} de {{ $enespera->total() }}</strong>
+        <strong>Página {{ $entregadas->currentPage() * $entregadas->perPage() }} de {{ $entregadas->total() }}</strong>
         </div>
         <div class="col-lg-6 paginador" >
-            {{ $enespera->links() }}
+            {{ $entregadas->links() }}
         </div>
     </div>
 </div>
