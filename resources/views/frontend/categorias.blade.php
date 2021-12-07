@@ -206,7 +206,7 @@
 
         <div class="row">
 
-             <h1 style="font-size: 24px; color: #241F48; margin-bottom: 15px; font-weight: 500;  font-family: 'AlpinaSans Semibold';" class="subtitulo"> {{$categoria->seo_titulo}}</h1>
+             <h1 style="font-size: 24px; color: #241F48; margin-bottom: 15px; font-weight: 500;  font-family: 'AlpinaSans Semibold';padding:0px 10px;" class="subtitulo"> {{$categoria->seo_titulo}}</h1>
 
 
         @if(!$productos->isEmpty())
