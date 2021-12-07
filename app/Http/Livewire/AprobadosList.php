@@ -53,10 +53,10 @@ class AprobadosList extends Component
 
             $aprobados = AlpOrdenes::when($this->search, function($query){
                 return $query->where(function ($query){
-                    $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
-                        ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
-                        ->orWhere('users.last_name','like','%'.$this->search.'%');
-                    });
+                    $query->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'LIKE', '%' . $this->search . '%')
+                    ->orwhere('alp_ordenes.referencia','like','%'.$this->search.'%')
+                    ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%');
+                });
             }) 
             ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
             ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -87,10 +87,10 @@ class AprobadosList extends Component
             
             $aprobados = AlpOrdenes::when($this->search, function($query){
                 return $query->where(function ($query){
-                    $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
-                        ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
-                        ->orWhere('users.last_name','like','%'.$this->search.'%');
-                    });
+                    $query->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'LIKE', '%' . $this->search . '%')
+                    ->orwhere('alp_ordenes.referencia','like','%'.$this->search.'%')
+                    ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%');
+                });
             }) 
             ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
             ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')

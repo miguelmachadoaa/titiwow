@@ -58,11 +58,9 @@ class TodasList extends Component
           if ($user->almacen=='0') {
             $todas = AlpOrdenes::when($this->search, function($query){
                 return $query->where(function ($query){
-                    $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
-                        ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%')
-                        ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
-
-                        ->orWhere('users.last_name','like','%'.$this->search.'%');
+                    $query->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'LIKE', '%' . $this->search . '%')
+                        ->orwhere('alp_ordenes.referencia','like','%'.$this->search.'%')
+                        ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%');
                     });
             }) 
             ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
@@ -86,12 +84,10 @@ class TodasList extends Component
             }else{
                 $todas = AlpOrdenes::when($this->search, function($query){
                     return $query->where(function ($query){
-                        $query->where('alp_ordenes.referencia','like','%'.$this->search.'%')
-                            ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%')
-                            ->orWhere('users.first_name' ,'like','%'.$this->search.'%')
-    
-                            ->orWhere('users.last_name','like','%'.$this->search.'%');
-                        });
+                    $query->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'LIKE', '%' . $this->search . '%')
+                        ->orwhere('alp_ordenes.referencia','like','%'.$this->search.'%')
+                        ->orWhere('alp_ordenes.created_at','like','%'.$this->search.'%');
+                    });
                 }) 
                 ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
                 ->select(
