@@ -863,7 +863,7 @@
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.medida') </label>
 
                                                 <div class="col-sm-9 col-xs-12">
-                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value=""  >
+                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value="{{ old('medida') }}"  >
 
                                                      {!! $errors->first('medida', '<span class="help-block">:message</span> ') !!}
 
@@ -905,7 +905,7 @@
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">Cantidad del Producto </label>
 
                                                 <div class="col-sm-9 col-xs-12">
-                                                    <input id="cantidad" name="cantidad" type="text" placeholder="Cantidad del Producto" class="form-control" value=""  >
+                                                    <input id="cantidad" name="cantidad" type="text" placeholder="Cantidad del Producto" class="form-control" value="{{ old('cantidad') }}"  >
 
                                                      {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
 
@@ -925,7 +925,7 @@
                                              <select id="mostrar_descuento" name="mostrar_descuento" class="form-control ">
                                                 <option value="">Seleccione</option>
                                                    
-                                                    <option value="{{ 1 }}"
+                                                    <option value="{{ 1 }}" Selected
                                                              >Mostrar</option>
 
                                                     <option value="{{ 0}}"
@@ -951,7 +951,7 @@
                                              <select id="mostrar" name="mostrar" class="form-control ">
                                                 <option value="">Seleccione</option>
                                                    
-                                                    <option value="{{ 1 }}"
+                                                    <option value="{{ 1 }}" Selected
                                                              >Mostrar</option>
 
                                                     <option value="{{ 0}}"
@@ -988,6 +988,19 @@
                                            
                                         </div>
 
+                                        <div class="form-group clearfix col-sm-12 {{ $errors->first('order', 'has-error') }}">
+                                                
+                                            <label class="col-md-3 control-label" for="order">Orden en los Listados</label>
+                                            
+                                            <div class="col-md-9">
+                                                <input id="order" name="order" type="number" step="0.1" min="0"  placeholder="Orden el Listados" class="form-control" value="999" >
+
+                                                {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
+
+                                            </div>
+
+                                            
+                                        </div>
                                         
 
 

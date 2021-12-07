@@ -1064,6 +1064,21 @@
                                            
                                         </div>
 
+                                        <div class="form-group clearfix col-sm-12 {{ $errors->
+                                                first('order', 'has-error') }}">
+                                                
+                                                <label class="col-md-3 control-label" for="order">Orden en los Listados</label>
+                                                
+                                                <div class="col-md-9">
+                                                    <input id="order" name="order" type="number" step="0.1" min="0"  placeholder="Orden en los Listados" class="form-control" value="{{ $producto->order }}" >
+
+                                                    {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+
+                                                
+                                            </div>
+
 
 
 

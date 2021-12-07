@@ -545,6 +545,7 @@ class AlpProductosController extends JoshController
             'unidad' =>$request->unidad,
             'mostrar' =>$request->mostrar,
             'update_api' =>$request->update_api,
+            'order' => $request->order,
             'id_user' =>$user_id
         );
          
@@ -1116,8 +1117,6 @@ class AlpProductosController extends JoshController
 
         $imagenes=AlpProductosImagenes::where('id_producto', $producto->id)->get();
 
-
-
         return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades', 'imagenes'));
 
     }
@@ -1205,6 +1204,7 @@ class AlpProductosController extends JoshController
                 'unidad' =>$request->unidad,
                 'mostrar' =>$request->mostrar,
                 'update_api' =>$request->update_api,
+                'order' => $request->order,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -1233,6 +1233,7 @@ class AlpProductosController extends JoshController
                 'unidad' =>$request->unidad,
                 'mostrar' =>$request->mostrar,
                 'update_api' =>$request->update_api,
+                'order' => $request->order,
                 'id_marca' =>$request->id_marca
                 );
 

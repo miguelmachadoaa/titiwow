@@ -869,7 +869,7 @@ class ProductosFrontController extends Controller
         $cataname = DB::table('alp_categorias')->select('nombre_categoria','seo_titulo','seo_descripcion')->where('id','=', $categoria->id)->where('estado_registro','=', 1)->get();
 
 
-        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
+        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
@@ -883,8 +883,7 @@ class ProductosFrontController extends Controller
         ->where('alp_productos.estado_registro','=',1)
         ->where('alp_productos.mostrar','=',1)
         ->groupBy('alp_productos.id')
-        ->orderBy('alp_marcas.order') 
-        ->orderBy('alp_productos.updated_at', 'desc')
+        ->orderBy('alp_productos.order') 
         ->paginate(36); 
         //->get();
 

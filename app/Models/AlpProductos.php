@@ -62,7 +62,7 @@ class AlpProductos extends Model
         'medida',
         'destacado',
         'sugerencia',
-        'orden',
+        'order',
         'robots',
         'mostrar_descuento',
         'cantidad',

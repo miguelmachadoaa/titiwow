@@ -40,9 +40,18 @@ class ProductosRequest extends FormRequest {
             'mostrar_descuento' => 'required',
 			'precio_base' => 'required',
 			'cantidad' => 'required|numeric',
+			'order' => 'required|numeric',
 			'unidad' => 'required',
 			'imagen_producto' => 'image',
 		];
 	}
+
+	public function messages()
+    {
+        return [
+                    'order.required' => 'El Campo Orden es Requerido'
+                    
+                ];
+    }
 
 }
