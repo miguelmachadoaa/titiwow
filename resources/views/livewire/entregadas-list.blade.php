@@ -42,32 +42,12 @@
                                 <x-sort-icon sortField="cliente" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('telefono_cliente')">Teléfono</span>
-                                <x-sort-icon sortField="telefono_cliente" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
-                                <span wire:click="sortBy('forma_envio')">Forma de Envio</span>
-                                <x-sort-icon sortField="forma_envio" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
-                                <span wire:click="sortBy('forma_pago')">Forma de Pago</span>
-                                <x-sort-icon sortField="forma_pago" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
                                 <span wire:click="sortBy('monto_total')">Total</span>
                                 <x-sort-icon sortField="monto_total" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
-                                <span wire:click="sortBy('referencia')">Cupón</span>
-                                <x-sort-icon sortField="referencia" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
                                 <span wire:click="sortBy('nombre_almacen')">Almacen</span>
                                 <x-sort-icon sortField="nombre_almacen" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                            </th>
-                            <th>
-                                <span wire:click="sortBy('city_name')">Ciudad</span>
-                                <x-sort-icon sortField="city_name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                             </th>
                             <th>
                                 <span wire:click="sortBy('origen')">Origen</span>
@@ -91,13 +71,8 @@
                                 <td>{{ $entregada->id}}</td>
                                 <td>{{ $entregada->referencia }}</td>
                                 <td>{{ $entregada->first_name }} {{ $entregada->last_name }}</td>
-                                <td>{{ $entregada->telefono_cliente}}</td>
-                                <td>{{ $entregada->forma_envio}}</td>
-                                <td>{{ $entregada->forma_pago}}</td>
                                 <td>{{ number_format($entregada->monto_total,2) }}</td>
-                                <td>{{ $entregada->codigo_cupon}}</td>
                                 <td>{{ $entregada->nombre_almacen}}</td>
-                                <td>{{ $entregada->city_name }}</td>
                                 <td>{{ $entregada->origen == 1 ? 'POS':'Web'}}</td>
                                 <td><span class='label label-success' >{{ $entregada->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($entregada->created_at )) }}</td>
