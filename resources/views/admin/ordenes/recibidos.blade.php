@@ -37,44 +37,7 @@ Ordenes Recibidas
                 </div>
                 <br />
                 <div class="panel-body">
-
-                               <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
-            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
-
-
-                    @if ($ordenes->count() >= 1)
-                        <div class="table-responsive">
-
-                         <table class="table table-bordered" id="tbOrdenes">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Referencia</th>
-                                    <th>Cliente</th>
-                                    <th>Teléfono</th>
-                                    <th>Forma de Envio</th>
-                                    <th>Forma de Pago</th>
-                                    <th>Almacen</th>
-                                    <th>Ciudad</th>
-                                    <th>Origen</th>
-                                    <th>Total</th>
-                                    <!--th>Codigo Oracle</th-->
-                                    <th>Cupón</th>
-                                    <th>Factura</th>
-                                    <!--th>Tracking</th-->
-                                    <th>Creado</th>
-                                    <th>Accion</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                              
-                            </tbody>
-                        </table>
-                        </div>
-                    @else
-                        No se encontraron registros
-                    @endif   
+                    @livewire('recibidas-list')
                 </div>
             </div>
         </div>
