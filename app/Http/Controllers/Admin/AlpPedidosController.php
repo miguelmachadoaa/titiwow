@@ -5009,6 +5009,7 @@ public function marketingcliente()
       $iduser=\Session::get('iduser');
 
       if ($iduser) {
+
          $id_cliente=$iduser;
 
 
@@ -5029,6 +5030,7 @@ public function marketingcliente()
       AlpClientesHistory::create($data_history);
 
       return 'true';
+      
       }else{
 
         return 'false';

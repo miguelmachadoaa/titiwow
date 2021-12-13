@@ -1728,6 +1728,8 @@ Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'Admin\AlpCar
 
 
 Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'Admin\AlpConfiguracionController@selectState'));
+
+Route::get('configuracion/{id}/getalmacen',array('as'=>'configuracion.getalmacen','uses'=>'Admin\AlpConfiguracionController@getalmacen'));
        
 Route::post('configuracion/setbarrio', 'Admin\AlpConfiguracionController@setbarrio')->name('configuracion.setbarrio');
 

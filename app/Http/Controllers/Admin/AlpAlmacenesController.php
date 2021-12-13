@@ -259,6 +259,9 @@ class AlpAlmacenesController extends JoshController
           ->withProperties($request->all())->log('almacenes/store');
 
         }
+
+
+       # dd($request->all());
         
         $user_id = Sentinel::getUser()->id;
 
@@ -274,6 +277,27 @@ class AlpAlmacenesController extends JoshController
 
           
         }
+
+
+        $imagen=null;
+
+         $picture = "";
+
+        
+        if ($request->hasFile('imagen_almacen')) {
+            
+            $file = $request->file('imagen_almacen');
+            $extension = $file->extension()?: 'jpg';
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = public_path('uploads/almacenes/' . $picture);
+            Image::make($file)->resize(600, 600)->save($destinationPath); 
+               
+            $imagen = $picture;
+
+        }   
+
+
+
 
         $data = array(
             'nombre_almacen' => $request->nombre_almacen, 
@@ -303,7 +327,7 @@ class AlpAlmacenesController extends JoshController
             'epayco_key' => $request->epayco_key,
             'epayco_public_key' => $request->epayco_public_key,
             'epayco_private_key' => $request->epayco_private_key,
-            'codigo_almacen' => $request->codigo_almacen,
+            'imagen_almacen' => $imagen,
             'id_user' =>$user_id
         );
 
@@ -476,7 +500,7 @@ class AlpAlmacenesController extends JoshController
                 'epayco_key' => $request->epayco_key,
                 'epayco_public_key' => $request->epayco_public_key,
                 'epayco_private_key' => $request->epayco_private_key,
-                'codigo_almacen' => $request->codigo_almacen,
+                'imagen_almacen' => $request->imagen_almacen,
                 'tipo_almacen' => $request->tipo_almacen
                 );
 
@@ -486,6 +510,32 @@ class AlpAlmacenesController extends JoshController
        $almacen = AlpAlmacenes::find($id);
     
         $almacen->update($data);
+
+
+
+        $imagen=null;
+
+        $picture = "";
+
+       
+       if ($request->hasFile('imagen_almacen')) {
+           
+           $file = $request->file('imagen_almacen');
+           $extension = $file->extension()?: 'jpg';
+           $picture = str_random(10) . '.' . $extension;    
+           $destinationPath = public_path('uploads/almacenes/' . $picture);
+           Image::make($file)->resize(600, 600)->save($destinationPath); 
+              
+           $imagen = $picture;
+
+           $almacen->update(['imagen_almacen'=>$imagen]);
+
+       }   
+
+
+
+
+
 
          $data_direccion = array(
           'id_client'=>'A'.$almacen->id,
@@ -1249,7 +1299,7 @@ class AlpAlmacenesController extends JoshController
 
         AlpAlmacenDespacho::create($data);
 
-       $despachos=AlpAlmacenDespacho::where('id_almacen', $request->id_almacen)->get();
+       $despachos=AlpAlmacenDespacho::where('id_almacen', $request->id_almacen)->orderBy('id', 'desc')->limit(10)->get();
 
         $listaestados=State::pluck('state_name', 'id');
 
