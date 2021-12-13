@@ -216,7 +216,7 @@
 
                     localStorage.setItem('ubicacion', datos.responseText);
 
-                  //  alert(ubicacion.imagen_almacen);
+                   // alert(ubicacion.imagen_almacen);
 
                     if(ubicacion.imagen_almacen==null){
 
