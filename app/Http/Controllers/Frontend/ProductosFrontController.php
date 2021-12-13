@@ -1470,14 +1470,15 @@ class ProductosFrontController extends Controller
 
         }else{ //no esta logueado 
 
-            $ciudad= \Session::get('ciudad');
+           # $ciudad= \Session::get('ciudad');
+            $almacen= \Session::get('almacen');
 
-            if (isset($ciudad)) {
+            if (isset($almacen)) {
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                ->where('alp_almacen_despacho.id_city', $ciudad)
+                ->where('alp_almacenes.id', $almacen)
                 ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
 
@@ -1485,7 +1486,7 @@ class ProductosFrontController extends Controller
                 # code...
                 }else{
 
-                  $c=City::where('id', $ciudad)->first();
+                 # $c=City::where('id', $ciudad)->first();
 
                   if (isset($c->id)) {
                       $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')

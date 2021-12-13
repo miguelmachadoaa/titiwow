@@ -33,6 +33,7 @@ class AlmacenesRequest extends FormRequest {
             case 'POST': {
                 return [
                      'nombre_almacen' => 'required|min:3',
+                     'alias_almacen' => 'required|min:3',
 		            'descripcion_almacen' => 'required|min:3',
 					'defecto' => 'required',
 					'hora' => 'required',

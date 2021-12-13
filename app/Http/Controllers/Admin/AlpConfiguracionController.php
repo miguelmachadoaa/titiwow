@@ -490,6 +490,22 @@ class AlpConfiguracionController extends JoshController
      public function selectCityModal($id)
     {
 
+      $almacenes=AlpAlmacenes::where('estado_registro', '=', '1')
+      ->where('tipo_almacen', '=', '0')
+      ->pluck("alias_almacen","id")->all();
+      
+    
+
+      asort($almacenes);
+        
+        $almacenes['0'] = 'Seleccione';
+        return json_encode($almacenes);
+    }
+
+
+    public function selectCityModalSinAlmacen($id)
+    {
+
 
       $ad=AlpAlmacenDespacho::where('id_state', 0)->where('id_city', 0)->first();
 
@@ -536,6 +552,7 @@ class AlpConfiguracionController extends JoshController
         $cities['0'] = 'Seleccione';
         return json_encode($cities);
     }
+
 
 
 
@@ -740,8 +757,203 @@ class AlpConfiguracionController extends JoshController
     }
 
 
-
     public function verificarciudad(Request $request)
+    {
+
+
+      
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('configuracion/verificarciudad ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('configuracion/verificarciudad');
+
+
+        }
+        
+          \Session::put('ciudad', $request->city_id);
+          \Session::put('almacen', $request->city_id);
+
+          $tipo=0;
+
+
+        if (isset(Sentinel::getUser()->id)) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+             if ($role->role_id=='14') {
+              
+              $tipo=1;
+
+            }
+
+        }
+
+
+                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                ->where('alp_almacenes.id', $request->city_id)
+                ->where('alp_almacenes.estado_registro', '=', '1')
+                ->first();
+
+                if (isset($ad->id)) {
+                # code...
+                }else{
+
+                #  $c=City::where('id', $request->city_id)->first();
+
+                  if (isset($c->id)) {
+
+                        $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                      ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                      ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                      ->where('alp_almacen_despacho.id_city', '0')
+                      ->where('alp_almacen_despacho.id_state', $c->state_id)
+                      ->where('alp_almacenes.estado_registro', '=', '1')
+                      ->first();
+                    # code...
+                  }
+
+              
+
+                  if (isset($ad->id)) {
+                    
+                  }else{
+
+                    $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                  ->where('alp_almacen_despacho.id_city', '0')
+                  ->where('alp_almacen_despacho.id_state', '0')->where('alp_almacenes.estado_registro', '=', '1')->first();
+
+                  }
+
+                }
+
+
+                if (isset($ad->id)) {
+
+                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
+
+                  $id_almacen='true';
+
+                   $cities = City::select('config_cities.*', 'config_states.state_name as state_name', 'config_states.id as id_state')
+                    ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                    ->where('config_cities.id',$almacen->id_city)->first();
+
+
+                    if (isset($cities->id)) {
+
+                        $data = array(
+                          'status' => $id_almacen, 
+                          'city_name' => $cities->city_name, 
+                          'state_name' => $cities->state_name, 
+                          'id_ciudad' => $cities->id,
+                          'id_state' => $cities->id_state,
+                        );
+
+                        return json_encode($data);
+
+                      }else{
+
+
+                        $data = array(
+                          'status' => $id_almacen
+                        );
+
+                        return json_encode($data);
+                      }
+
+
+
+                  
+                  # code...
+                }else{
+
+                   $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
+
+                    if (isset($almacen->id)) {
+
+                     $id_almacen='false';
+
+                     $data = array(
+                      'status' => $id_almacen
+                    );
+
+                    return json_encode($data);
+
+
+
+                    }else{
+
+                      $id_almacen='false';
+
+
+                      $data = array(
+                        'status' => $id_almacen
+                      );
+
+                      return json_encode($data);
+
+                    }
+
+                }
+
+
+                $almacen=AlpAlmacenes::where('id', $request->city_id)->where('alp_almacenes.estado_registro', '=', '1')->first();
+
+      
+       $cities = City::select('config_cities.*', 'config_states.state_name as state_name', 'config_states.id as id_state')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->where('config_cities.id',$almacen->id_city)->first();
+
+
+        if (isset($cities->id)) {
+
+          $data = array(
+            'status' => $id_almacen, 
+            'city_name' => $cities->city_name, 
+            'state_name' => $cities->state_name, 
+            'id_ciudad' => $cities->id,
+            'id_state' => $cities->id_state,
+          );
+
+          return json_encode($data);
+
+        }else{
+
+
+          $data = array(
+            'status' => $id_almacen
+          );
+
+          return json_encode($data);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+    public function verificarciudadSinAlmacen(Request $request)
     {
 
 
@@ -827,7 +1039,7 @@ class AlpConfiguracionController extends JoshController
                 }
 
 
-                 if (isset($ad->id)) {
+                if (isset($ad->id)) {
 
                   $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
 
@@ -1119,7 +1331,7 @@ class AlpConfiguracionController extends JoshController
   public function getAlmacen($id){
 
   
-    $city_id=$id;
+    $id_almacen=$id;
 
     $tipo=0;
 
@@ -1328,112 +1540,6 @@ class AlpConfiguracionController extends JoshController
         }else{ //no esta logueado 
 
           
-
-            $ciudad= $city_id;
-
-            
-
-
-            if (isset($ciudad)) {
-
-
-              $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                ->where('alp_almacen_despacho.id_city', $ciudad)
-                ->where('alp_almacenes.estado_registro', '=', '1')
-                ->first();
-                
-                if (isset($ad->id)) {
-
-                # code...
-
-                }else{
-
-                  
-                  $c=City::where('id', $ciudad)->first();
-
-                  if (isset($c->id)) {
-
-                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-                    ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                    ->where('alp_almacen_despacho.id_city', '0')
-                    ->where('alp_almacen_despacho.id_state', $c->state_id)
-                    ->where('alp_almacenes.estado_registro', '=', '1')
-                    ->first();
-                    # code...
-
-                  }
-
-                  
-                 
-
-                 
-                  if (isset($ad->id)) {
-
-                    
-
-                  }else{
-
-                    
-                    $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                  ->where('alp_almacen_despacho.id_city', '0')
-                  ->where('alp_almacenes.estado_registro', '=', '1')
-                  ->where('alp_almacen_despacho.id_state', '0')->first();
-
-                  }
-
-                  
-                }
-
-                
-                if (isset($ad->id)) {
-                  
-                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
-                  
-                  $id_almacen=$almacen->id;
-
-                  # code...
-
-                }else{
-
-                   $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-                   
-                    if (isset($almacen->id)) {
-
-                      $id_almacen=$almacen->id;
-
-                    }else{
-                      
-                      $id_almacen='1';
-                      
-                    }
-
-                    
-                }
-
-
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-               
-              if (isset($almacen->id)) {
-
-                  $id_almacen=$almacen->id;
-
-                }else{
-
-                  $id_almacen='1';
-
-                }
-
-                
-
-
-            }
 
             
         
