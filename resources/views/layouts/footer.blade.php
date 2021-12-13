@@ -132,6 +132,13 @@
 
                             
                         </form>     
+
+
+                        <div class="row">
+                            <div class="col-sm-12 imagenubicacion">
+
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <!--button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button-->

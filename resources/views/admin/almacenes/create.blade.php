@@ -137,6 +137,66 @@
                             </div>
                         </div>
 
+
+
+
+
+                        <div class="form-group clearfix">
+
+                        <label for="title" class="col-md-3 control-label">Imagen de Cobertura del almacen</label>
+
+
+                        <div class="col-md-9">
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                            <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
+
+                                <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
+
+                            </div>
+
+                            <div class="fileinput-preview fileinput-exists thumbnail"
+                                style="max-width: 200px; max-height: 150px;">
+                                    
+                            </div>
+
+                            <div>
+                                <span class="btn btn-primary btn-file">
+
+                                    <span class="fileinput-new">Seleccione Imagen </span>
+
+                                    <span class="fileinput-exists">Cambiar</span>
+
+                                    <input type="file" name="imagen_almacen" id="pic" accept="image/*"/>
+
+                                </span>
+                            
+                                <span class="btn btn-primary fileinput-exists"
+                                    data-dismiss="fileinput">Eliminar</span>
+
+                            </div>
+
+                        </div>
+                        </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                          <div class="form-group {{ $errors->
                             first('minimo_compra', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">

@@ -198,6 +198,44 @@
         });
 
 
+        
+
+        $(document).on('change','#city_id_ubicacion', function(){
+
+            city_id=$('#city_id_ubicacion').val();
+
+            base=$('#base').val();
+
+            $.ajax({
+                type: "GET",
+                url: base+"/configuracion/"+city_id+"/getalmacen",
+                    
+                complete: function(datos){     
+
+                    ubicacion=JSON.parse(datos.responseText);
+
+                    localStorage.setItem('ubicacion', datos.responseText);
+
+                  //  alert(ubicacion.imagen_almacen);
+
+                    if(ubicacion.imagen_almacen==null){
+
+                    }else{
+
+                        $('.imagenubicacion').html('<img src="'+base+'/uploads/almacenes/'+ubicacion.imagen_almacen+'">');
+
+
+                    }
+
+
+                }
+
+            });
+
+
+        });
+
+
          $('.saveubicacion').click(function (){
     
             var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
@@ -249,8 +287,8 @@
                                 $('.addtocart').addClass('hidden');
                             }
 
-                    }
-                });
+                        }
+                    });
 
 
 

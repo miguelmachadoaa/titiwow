@@ -8,6 +8,10 @@ Detalle Almacen {{$almacen->nombre_almacen}}
 
 @section('header_styles')
 
+<link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+
     <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
 
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
@@ -373,6 +377,8 @@ Detalle Almacen {{$almacen->nombre_almacen}}
 @stop
 @section('footer_scripts')
 
+<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+
 <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
  <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
@@ -384,6 +390,9 @@ Detalle Almacen {{$almacen->nombre_almacen}}
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script>
+
+
+    $('.select2').select2();
 
 
     $('#tableAlmacen').DataTable();
