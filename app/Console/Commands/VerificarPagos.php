@@ -2271,8 +2271,6 @@ private function registrarOrdenNuevo($id_orden)
 
     $dataraw=json_encode($o);
 
-    dd($dataraw);
-
     $orden->update(['send_json_masc'=>$dataraw]);
 
     Log::info($dataraw);
