@@ -860,8 +860,8 @@ class AlpConfiguracionController extends JoshController
 
                         $data = array(
                           'status' => $id_almacen, 
-                          'city_name' => $cities->city_name, 
-                          'state_name' => $cities->state_name, 
+                          'city_name' => $almacen->alias_almacen, 
+                          'state_name' => '', 
                           'id_ciudad' => $cities->id,
                           'id_state' => $cities->id_state,
                         );
@@ -926,8 +926,8 @@ class AlpConfiguracionController extends JoshController
 
           $data = array(
             'status' => $id_almacen, 
-            'city_name' => $cities->city_name, 
-            'state_name' => $cities->state_name, 
+            'city_name' => $almacen->alias_almacen, 
+            'state_name' => '', 
             'id_ciudad' => $cities->id,
             'id_state' => $cities->id_state,
           );
