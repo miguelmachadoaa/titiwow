@@ -813,7 +813,7 @@ class ProductosFrontController extends Controller
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
           ->join('alp_ancheta_productos', 'alp_productos.id', '=', 'alp_ancheta_productos.id_producto')
           ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
-          ->where('alp_almacen_producto.id_almacen', '=', 1)
+          ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
           ->whereNull('alp_ancheta_productos.deleted_at')
           ->whereNull('alp_almacen_producto.deleted_at')
           ->groupBy('alp_productos.id')
@@ -824,6 +824,8 @@ class ProductosFrontController extends Controller
           $c->productos=$productos;
           
         }
+
+        dd($anchetas_categorias);
 
         return \View::make('frontend.ancheta', compact('imagenes','producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias', 'cartancheta'));
       

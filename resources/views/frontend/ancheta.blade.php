@@ -494,6 +494,9 @@
         </div>
 
 <!-- Modal Direccion -->
+<div>
+    {{json_encode($producto)}}
+</div>
 
 <input type="hidden" name="single" id="single" value="1">
 
