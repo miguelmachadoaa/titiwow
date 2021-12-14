@@ -152,7 +152,7 @@ Lifemiles
                             <th>Codigo</th>
                             <th>Prueba </th>
                             <th>Actualizado </th>
-                            <th>Fecha</th>
+                            <th>Fecha Asignado</th>
                             <th>Estado Registro </th>
                             <th>Orden </th>
                         </tr>
@@ -172,7 +172,7 @@ Lifemiles
                             <td>{{$h->code}}</td>
                             <td>{{$h->prueba}}</td>
                             <td>{{$h->estatus}}</td>
-                            <td>{{$h->created_at}}</td>
+                            <td>{{$h->fecha_asignado}}</td>
                             <td>
                                 @if($h->estado_registro=='1')
 
