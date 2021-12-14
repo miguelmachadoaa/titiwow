@@ -4741,33 +4741,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
               if ($cliente->id_embajador!=0) {
 
                 $data_puntos = array(
-
                   'id_orden' => $orden->id,
-
                   'id_cliente' => $cliente->id_embajador,
-
                   'tipo' => '1',//agregar
-
                   'cantidad' =>$total ,
-
                   'id_user' =>$user_id                   
-
                 );
 
               }else{
               
                 $data_puntos = array(
-
                   'id_orden' => $orden->id,
-
                   'id_cliente' => $user_id,
-
                   'tipo' => '1',//agregar
-
                   'cantidad' =>$total,
-
                   'id_user' =>$user_id                   
-
                 );
 
               }
@@ -4793,16 +4781,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
           'id_user' =>$user_id                   
         );
 
-        
-
         AlpEnviosHistory::create($data_envio_history);
-
         
          if ($orden->id_forma_pago=='1') {
-
           
             $data_update = array(
-              'estatus' =>'5', 
+              'estatus' =>'8', 
               'estatus_pago' =>'1', 
             );
 
@@ -4810,8 +4794,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
              
               $data_history = array(
                 'id_orden' => $orden->id, 
-               'id_status' => '5', 
-                'notas' => 'Orden Aprobada por ser Contraentrega.', 
+               'id_status' => '8', 
+                'notas' => 'Orden en espera .', 
                'id_user' => 1
               );
 
@@ -4820,7 +4804,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
          }else{
 
              $data_update = array(
-                'estatus' =>'1', 
+                'estatus' =>'8', 
                 'estatus_pago' =>'1', 
               );
              
@@ -4828,28 +4812,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
          }
 
-         
-
-
          /*eliminamos el carrito*/
-
          
          $carro=AlpCarrito::where('id', $carrito)->first();
 
-         
          if ( isset($carro->id)) {
 
             $carro->delete();
            
             $detalles_carrito=AlpCarritoDetalle::where('id_carrito', $carrito)->get();
            
-           $ids = array();
+            $ids = array();
            
-           foreach ($detalles_carrito as $dc) {
+            foreach ($detalles_carrito as $dc) {
 
-            $ids[]=$dc->id;
+              $ids[]=$dc->id;
             
-           }
+            }
 
            AlpCarritoDetalle::destroy($ids);
 
@@ -4875,7 +4854,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
           }
 
-          
          }
 
         $carrito= \Session::forget('cr');
@@ -4964,70 +4942,45 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
     
     public function add( AlpProductos $producto)
-
     {
 
        $cart= \Session::get('cart');
 
-       
        $descuento='1'; 
 
-       
         if (Sentinel::check()) {
-
           
             $user_id = Sentinel::getUser()->id;
-
             
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-            
             if (isset($cliente->id_empresa) ) {
-
               
                 if ($cliente->id_empresa!=0) {
 
-                    
-
                      $empresa=AlpEmpresas::find($cliente->id_empresa);
-
                      
                     $cliente['nombre_empresa']=$empresa->nombre_empresa;
 
-                    
                     $descuento=(1-($empresa->descuento_empresa/100));
 
                 }
 
-               
-
             }
-
             
         }
 
-        
-
        $producto->cantidad=1;
 
-       
        $producto->precio_base=$producto->precio_base*$descuento;
 
-       
-
        $cart[$producto->slug]=$producto;
-
        
       // return $cart;
 
-       
        \Session::put('cart', $cart);
 
-       
        return redirect('cart/show');
-
-       
-      
 
     }
 

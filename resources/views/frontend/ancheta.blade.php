@@ -494,9 +494,7 @@
         </div>
 
 <!-- Modal Direccion -->
-<div>
-    {{json_encode($anchetas_categorias)}}
-</div>
+
 
 <input type="hidden" name="single" id="single" value="1">
 
