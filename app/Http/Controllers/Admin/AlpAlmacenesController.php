@@ -473,8 +473,8 @@ class AlpAlmacenesController extends JoshController
         }
 
                 $data = array(
-                'nombre_alamcen' => $request->nombre_alamcen, 
-                'descripcion_alamcen' => $request->descripcion_alamcen,
+                'nombre_almacen' => $request->nombre_almacen, 
+                'descripcion_almacen' => $request->descripcion_almacen,
                 'defecto' => $request->defecto, 
                 'id_city' => $request->city_id,
                 'hora' => $request->hora, 
@@ -504,8 +504,6 @@ class AlpAlmacenesController extends JoshController
                 'alias_almacen' => $request->alias_almacen,
                 'tipo_almacen' => $request->tipo_almacen
                 );
-
-               // dd($data);
 
 
        $almacen = AlpAlmacenes::find($id);
