@@ -4787,7 +4787,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
           
             $data_update = array(
               'estatus' =>'8', 
-              'estatus_pago' =>'1', 
+              'estatus_pago' =>'4', 
             );
 
              $orden->update($data_update);
@@ -4805,7 +4805,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
              $data_update = array(
                 'estatus' =>'8', 
-                'estatus_pago' =>'1', 
+                'estatus_pago' =>'4', 
               );
              
                $orden->update($data_update);

@@ -93,7 +93,16 @@
                                 <td>{{ $espera->first_name }} {{ $espera->last_name }}</td>
                                 <td>{{ $espera->telefono_cliente}}</td>
                                 <td>{{ $espera->forma_envio}}</td>
-                                <td>{{ $espera->forma_pago}}</td>
+                                <td>
+                                    @if($espera->id_forma_pago=='1' ||$espera->id_forma_pago=='7')
+                                        <div class="btn btn-danger" >
+                                        {{ $espera->forma_pago}}
+                                        </div>
+                                    @else
+                                    {{ $espera->forma_pago}}
+                                    @endif
+                                    
+                                </td>
                                 <td>{{ number_format($espera->monto_total,2) }}</td>
                                 <td>{{ $espera->codigo_cupon}}</td>
                                 <td>{{ $espera->nombre_almacen}}</td>

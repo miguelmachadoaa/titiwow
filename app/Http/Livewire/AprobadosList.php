@@ -103,6 +103,7 @@ class AprobadosList extends Component
                 'alp_ordenes.id as id',
                 'alp_ordenes.origen as origen', 
                 'alp_ordenes.id_almacen',
+                'alp_ordenes.id_forma_pago',
                 'alp_ordenes.estatus_pago as estatus_pago', 
                 'alp_ordenes.monto_total as monto_total', 
                 'alp_ordenes.referencia as referencia', 

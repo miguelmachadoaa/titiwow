@@ -93,7 +93,13 @@
                                 <td>{{ $aprobado->first_name }} {{ $aprobado->last_name }}</td>
                                 <td>{{ $aprobado->telefono_cliente}}</td>
                                 <td>{{ $aprobado->forma_envio}}</td>
-                                <td>{{ $aprobado->forma_pago}}</td>
+                                <td>@if($aprobado->id_forma_pago=='1' ||$aprobado->id_forma_pago=='7')
+                                        <div class="btn btn-danger" >
+                                        {{ $aprobado->forma_pago}}
+                                        </div>
+                                    @else
+                                    {{ $aprobado->forma_pago}}
+                                    @endif</td>
                                 <td>{{ number_format($aprobado->monto_total,2) }}</td>
                                 <td>{{ $aprobado->codigo_cupon}}</td>
                                 <td>{{ $aprobado->nombre_almacen}}</td>

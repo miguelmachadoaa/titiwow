@@ -93,7 +93,13 @@
                                 <td>{{ $row->first_name }} {{ $row->last_name }}</td>
                                 <td>{{ $row->telefono_cliente}}</td>
                                 <td>{{ $row->forma_envio}}</td>
-                                <td>{{ $row->forma_pago}}</td-->
+                                <td>@if($row->id_forma_pago=='1' ||$row->id_forma_pago=='7')
+                                        <div class="btn btn-danger" >
+                                        {{ $row->forma_pago}}
+                                        </div>
+                                    @else
+                                    {{ $row->forma_pago}}
+                                    @endif</td-->
                                 <td>{{ number_format($row->monto_total,2) }}</td>
                                 <td>{{ $row->codigo_cupon}}</td>
                                 <td>{{ $row->nombre_almacen}}</td>

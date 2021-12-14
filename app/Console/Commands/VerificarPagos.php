@@ -9,6 +9,7 @@ use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpImpuestos;
+use App\Models\AlpFormaspago;
 
 use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
@@ -2270,7 +2271,7 @@ private function registrarOrdenNuevo($id_orden)
 
     $dataraw=json_encode($o);
 
-   # dd($dataraw);
+    dd($dataraw);
 
     $orden->update(['send_json_masc'=>$dataraw]);
 
@@ -2292,7 +2293,8 @@ private function registrarOrdenNuevo($id_orden)
   $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-  $result = curl_exec($ch);
+  #$result = curl_exec($ch);
+  $result = [];
   if (curl_errno($ch)) {
       echo 'Error:' . curl_error($ch);
   }

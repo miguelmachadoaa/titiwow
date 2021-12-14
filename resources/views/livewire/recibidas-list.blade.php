@@ -93,7 +93,13 @@
                                 <td>{{ $recibida->first_name }} {{ $recibida->last_name }}</td>
                                 <td>{{ $recibida->telefono_cliente}}</td>
                                 <td>{{ $recibida->forma_envio}}</td>
-                                <td>{{ $recibida->forma_pago}}</td>
+                                <td>@if($recibida->id_forma_pago=='1' ||$recibida->id_forma_pago=='7')
+                                        <div class="btn btn-danger" >
+                                        {{ $recibida->forma_pago}}
+                                        </div>
+                                    @else
+                                    {{ $recibida->forma_pago}}
+                                    @endif</td>
                                 <td>{{ number_format($recibida->monto_total,2) }}</td>
                                 <td>{{ $recibida->codigo_cupon}}</td>
                                 <td>{{ $recibida->nombre_almacen}}</td>
