@@ -77,7 +77,7 @@
                                 <td><span class='label label-success' >{{ $entregada->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($entregada->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$entregada->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="{{secure_url('/admin/ordenes/'.$entregada->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
                                 </td>

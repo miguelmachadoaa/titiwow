@@ -309,6 +309,20 @@ Orden {{$orden->id}}
                      </tr>
 
 
+                     <tr>
+                         <td>Forma de Pago </td>
+                         <td>
+                         @if($formapago->id=='1' ||$formapago->id=='7')
+                                    <span class='label label-danger' >
+                                        {{ $formapago->nombre_forma_pago}}
+                                    </span>
+                                    @else
+                                    {{ $formapago->nombre_forma_pago}}
+                                    @endif
+                            </td>
+                     </tr>
+
+
 
                      @if(isset($envio->id))
 

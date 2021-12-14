@@ -377,8 +377,6 @@ class ClientesFrontController extends Controller
         }
 
 
-
-
             $ad=AlpAlmacenDespacho::where('id_state', 0)->first();
 
         if (isset($ad->id)) {

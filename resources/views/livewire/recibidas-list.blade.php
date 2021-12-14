@@ -94,9 +94,9 @@
                                 <td>{{ $recibida->telefono_cliente}}</td>
                                 <td>{{ $recibida->forma_envio}}</td>
                                 <td>@if($recibida->id_forma_pago=='1' ||$recibida->id_forma_pago=='7')
-                                        <div class="btn btn-danger" >
+                                <span class='label label-danger' >
                                         {{ $recibida->forma_pago}}
-                                        </div>
+                                    </span>
                                     @else
                                     {{ $recibida->forma_pago}}
                                     @endif</td>
@@ -108,7 +108,7 @@
                                 <td><span class='label label-success' >{{ $recibida->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($recibida->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$recibida->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="{{secure_url('/admin/ordenes/'.$recibida->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
                                     @if($id_rol == 1 || $id_rol == 15 )

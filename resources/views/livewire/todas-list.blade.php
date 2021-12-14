@@ -94,9 +94,9 @@
                                 <td>{{ $row->telefono_cliente}}</td>
                                 <td>{{ $row->forma_envio}}</td>
                                 <td>@if($row->id_forma_pago=='1' ||$row->id_forma_pago=='7')
-                                        <div class="btn btn-danger" >
+                                    <span class='label label-danger' >
                                         {{ $row->forma_pago}}
-                                        </div>
+                                    </span>
                                     @else
                                     {{ $row->forma_pago}}
                                     @endif</td-->
@@ -120,7 +120,7 @@
                                 @endif
                                 <td>{{ date('d/m/Y H:i:s', strtotime($row->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$row->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="{{secure_url('/admin/ordenes/'.$row->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
 

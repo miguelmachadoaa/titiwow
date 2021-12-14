@@ -3133,6 +3133,7 @@ public function compramasupdate()
         $descuentoicg=null;
 
           $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
+          $formapago=AlpFormaspago::where('id', $orden->id_forma_pago)->first();
 
           $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
@@ -3172,7 +3173,7 @@ public function compramasupdate()
 
        //   dd(json_decode($orden->send_json_masc, true));
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos', 'tickets'  ));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'formapago', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos', 'tickets'  ));
 
     }
 

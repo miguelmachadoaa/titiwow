@@ -94,9 +94,9 @@
                                 <td>{{ $aprobado->telefono_cliente}}</td>
                                 <td>{{ $aprobado->forma_envio}}</td>
                                 <td>@if($aprobado->id_forma_pago=='1' ||$aprobado->id_forma_pago=='7')
-                                        <div class="btn btn-danger" >
-                                        {{ $aprobado->forma_pago}}
-                                        </div>
+                                        <span class='label label-danger' >
+                                            {{ $aprobado->forma_pago}}
+                                        </span>
                                     @else
                                     {{ $aprobado->forma_pago}}
                                     @endif</td>
@@ -108,7 +108,7 @@
                                 <td><span class='label label-success' >{{ $aprobado->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($aprobado->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$aprobado->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="{{secure_url('/admin/ordenes/'.$aprobado->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
                                     @if($id_rol == 1 || $id_rol == 15 )

@@ -95,9 +95,9 @@
                                 <td>{{ $espera->forma_envio}}</td>
                                 <td>
                                     @if($espera->id_forma_pago=='1' ||$espera->id_forma_pago=='7')
-                                        <div class="btn btn-danger" >
+                                    <span class='label label-danger' >
                                         {{ $espera->forma_pago}}
-                                        </div>
+                                    </span>
                                     @else
                                     {{ $espera->forma_pago}}
                                     @endif
@@ -111,7 +111,7 @@
                                 <td><span class='label label-success' >{{ $espera->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($espera->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="/admin/ordenes/{{$espera->id}}/detalle" target='_blank'>
+                                    <a class="btn btn-primary btn-xs"href="{{secure_url('/admin/ordenes/'.$espera->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
                                 </td>
