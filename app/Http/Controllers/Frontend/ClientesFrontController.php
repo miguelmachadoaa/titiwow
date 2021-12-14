@@ -377,6 +377,7 @@ class ClientesFrontController extends Controller
         }
 
 
+
             $ad=AlpAlmacenDespacho::where('id_state', 0)->first();
 
         if (isset($ad->id)) {
@@ -424,7 +425,7 @@ class ClientesFrontController extends Controller
 
             $cart= \Session::get('cart');
 
-            $listabarrios=Barrio::orderBy('barrio_name')->where('id', '=', '-1')->get();
+            $listabarrios=Barrio::orderBy('barrio_name')->get();
 
 
 

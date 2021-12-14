@@ -877,7 +877,66 @@ $('.editAddress').on('click', function(){
 
     $('#edit_notas').val($(this).data('notas'));
 
+
+
+    var base = $('#base').val();
+    //alert($(this).data('city_id'));
+
+    if($(this).data('city_id')!=0){
+    
+        $.ajax({
+            url: base+'/configuracion/barrios/'+$(this).data('city_id'),
+            type: "GET",
+            dataType: "json",
+            success:function(data) {
+
+                
+                $('select[name="edit_barrio_id"]').empty();
+
+                console.log(JSON.stringify(data).length);
+
+                if (JSON.stringify(data).length>25) {
+
+                    $('.edit_barrio_address').addClass('hidden');
+                    $('#edit_barrio_address').val(' ');
+
+                    $('.edit_barrio_id').removeClass('hidden');
+
+                }else{
+
+                    $('.edit_barrio_address').removeClass('hidden');
+
+                    $('#edit_barrio_id').val(0);
+
+                    $('.edit_barrio_id').addClass('hidden');
+
+                }
+
+                $.each(data, function(key, value) {
+                    $('select[name="edit_barrio_id"]').append('<option value="'+ key+'">'+ value +'</option>');
+                });
+
+            }
+        });
+
+    }
+
+
+    $('#edit_state_id').select2({  width: 'resolve' });
+
+    $('#edit_city_id').select2({  width: 'resolve' });
+
+    $('#edit_barrio_id').select2({  width: 'resolve' });
+
+
     $("#editDireccionModal").modal('show');
+
+
+
+
+
+
+
 
 });
 
