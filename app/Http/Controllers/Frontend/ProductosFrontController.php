@@ -825,21 +825,13 @@ class ProductosFrontController extends Controller
           
         }
 
-        dd($anchetas_categorias);
-
         return \View::make('frontend.ancheta', compact('imagenes','producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias', 'cartancheta'));
       
-
-
       }else{
 
         return \View::make('frontend.producto_single', compact('imagenes','producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 
-
       }
-
-        
-        
 
     }
 

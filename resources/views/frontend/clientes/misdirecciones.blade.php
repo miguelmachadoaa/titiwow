@@ -1015,7 +1015,7 @@ $('.delDireccion').click(function () {
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/configuracion/citiesModal/'+stateID,
+                            url: base+'/configuracion/cities/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {
@@ -1141,7 +1141,7 @@ $('.delDireccion').click(function () {
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/configuracion/citiesModal/'+stateID,
+                            url: base+'/configuracion/cities/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {
