@@ -2289,6 +2289,7 @@ class AlpCartController extends JoshController
               ->join('alp_almacen_formas_pago', 'alp_formas_pagos.id', '=', 'alp_almacen_formas_pago.id_forma_pago')
               ->where('alp_almacen_formas_pago.id_almacen', $id_almacen)
               ->whereNull('alp_almacen_formas_pago.deleted_at')
+              ->orderBy('alp_formas_pagos.orden', 'asc')
               ->groupBy('alp_formas_pagos.id')->get();
 
             # code...
@@ -2299,6 +2300,7 @@ class AlpCartController extends JoshController
               $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
 
               ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
+              ->orderBy('alp_formas_pagos.orden', 'asc')
 
               ->where('alp_rol_pago.id_rol', $role->role_id)->get();
 

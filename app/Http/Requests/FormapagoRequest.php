@@ -25,6 +25,7 @@ class FormapagoRequest extends FormRequest {
 	{
 		return [
             'nombre_forma_pago' => 'required|min:3',
+            'orden' => 'required',
             'descripcion_forma_pago' => 'required|min:5'
 		];
 	}

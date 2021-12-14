@@ -170,6 +170,7 @@ class AlpFormaspagoController extends JoshController
         $data = array(
             'nombre_forma_pago' => $request->nombre_forma_pago, 
             'descripcion_forma_pago' => $request->descripcion_forma_pago, 
+            'orden' => $request->orden, 
             'id_user' =>$user_id
         );
          
@@ -260,7 +261,8 @@ class AlpFormaspagoController extends JoshController
 
        $data = array(
             'nombre_forma_pago' => $request->nombre_forma_pago, 
-            'descripcion_forma_pago' => $request->descripcion_forma_pago
+            'descripcion_forma_pago' => $request->descripcion_forma_pago,
+            'orden' => $request->orden,
         );
          
        $forma = AlpFormaspago::find($id);

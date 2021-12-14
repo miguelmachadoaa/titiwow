@@ -81,6 +81,22 @@
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('orden', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Orden 
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" min="1" step="1"  id="orden" name="orden" class="form-control" placeholder="Orden de Forma de Pago"
+                                       value="{!! old('orden') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('orden', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
 
 
 

@@ -40,7 +40,7 @@ Editar Forma de Pago
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
-                             <div class="form-group {{ $errors->
+                        <div class="form-group {{ $errors->
                             first('nombre_forma_pago', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Nombre Forma de Pago
@@ -68,6 +68,24 @@ Editar Forma de Pago
                                 {!! $errors->first('descripcion_forma_pago', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+                        <div class="form-group {{ $errors->
+                            first('orden', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Orden Forma de Pago
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="orden" name="orden" class="form-control" placeholder="Orden  de Forma de Pago"
+                                       value="{!! old('orden', $forma->orden) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('orden', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ route('admin.formaspago.index') }}">
