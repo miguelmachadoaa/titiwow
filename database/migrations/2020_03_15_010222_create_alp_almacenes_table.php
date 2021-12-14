@@ -46,6 +46,7 @@ class CreateAlpAlmacenesTable extends Migration
             $table->string('epayco_private_key')->nullable();
             $table->string('codigo_almacen')->nullable();
             $table->string('imagen_almacen')->nullable();
+            $table->string('alias_almacen')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

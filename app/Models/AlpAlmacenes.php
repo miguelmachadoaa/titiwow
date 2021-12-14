@@ -49,6 +49,7 @@ class AlpAlmacenes extends Model
         'epayco_private_key',
         'codigo_almacen',
         'imagen_almacen',
+        'alias_almacen',
         'id_user'
     ];
 

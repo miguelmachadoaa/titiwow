@@ -538,6 +538,18 @@ class AlpCartController extends JoshController
 
             }
 
+          }else{
+
+
+            $estatus_aviso='pending';
+            
+            $aviso_pago="Hemos recibido su orden  en cuanto sea aprobado Le llegará un email con la descripción de su pedido. ¡Muchas gracias por su Compra!";
+            
+            $metodo=$compra->nombre_forma_pago;
+
+
+
+
           }
           
         }
@@ -4668,82 +4680,63 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
     public function orderProcesar(Request $request)
     {
 
-       $cart= \Session::get('cart');
+      $cart= \Session::get('cart');
 
-       if (count($cart)>0) {
+      if (count($cart)>0) {
         
-      $carrito= \Session::get('cr');
+        $carrito= \Session::get('cr');
       
-      $total=$this->total();
+        $total=$this->total();
       
-      $id_orden= \Session::get('orden');
+        $id_orden= \Session::get('orden');
       
-      $orden=AlpOrdenes::where('id', $id_orden)->first();
+        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      $almacen=AlpAlmacenes::where('id', $orden->id)->first();
+        $almacen=AlpAlmacenes::where('id', $orden->id)->first();
 
-      $aviso_pago='0';
+        $aviso_pago='0';
       
-      $configuracion = AlpConfiguracion::where('id','1')->first();
+        $configuracion = AlpConfiguracion::where('id','1')->first();
 
 
-      if (Sentinel::check()) {
+        if (Sentinel::check()) {
 
-        $user_id = Sentinel::getUser()->id;
+          $user_id = Sentinel::getUser()->id;
 
-        $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
+          $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
-       // dd($direccion);
+          // dd($direccion);
 
-        $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+          $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
-        if (isset($ciudad_forma->dias)) {
+          if (isset($ciudad_forma->dias)) {
 
-          $diasd=$ciudad_forma->dias;
+            $diasd=$ciudad_forma->dias;
 
-        }else{
+          }else{
+            
+            $diasd=5;
+            
+          }
 
-          
-          $diasd=5;
+          $date = Carbon::now();
 
-          
-        }
+          $dias=$this->getFechaEntrega($orden->id_forma_envio, $direccion->city_id );
 
-        
-
-
-        $date = Carbon::now();
-
-        
-
-        
-
-      $dias=$this->getFechaEntrega($orden->id_forma_envio, $direccion->city_id );
-
-      
-
-       $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
-
+          $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
        
-       $date = Carbon::now();
-
+          $date = Carbon::now();
        
-       $fecha_envio=$date->addDays($diasd)->format('Y-m-d');
-
+          $fecha_envio=$date->addDays($diasd)->format('Y-m-d');
        
-        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
+          $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
         
-         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+          $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
          
-         if (isset($cliente)) {
+            if (isset($cliente)) {
 
-           
-
-            if ($cliente->id_embajador!=0) {
-
-             
+              if ($cliente->id_embajador!=0) {
 
                 $data_puntos = array(
 
@@ -4759,11 +4752,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
                 );
 
-                
-            }else{
-
+              }else{
               
-              $data_puntos = array(
+                $data_puntos = array(
 
                   'id_orden' => $orden->id,
 
@@ -4777,46 +4768,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
                 );
 
-              
-            }
+              }
 
             
-          AlpPuntos::create($data_puntos);
-
-          
-
+            AlpPuntos::create($data_puntos);
          }
 
          
         $data_envio = array(
-
           'id_orden' => $orden->id, 
-
           'fecha_envio' => $date->addDays($diasd)->format('Y-m-d'),
-
           'estatus' => 1, 
-
           'id_user' =>$user_id                   
-
-          
         );
 
-        
-
         $envio=AlpEnvios::create($data_envio);
-
         
         $data_envio_history = array(
-
           'id_envio' => $envio->id, 
-
           'estatus_envio' => 1, 
-
           'nota' => 'Envio recibido', 
-
           'id_user' =>$user_id                   
-
-          
         );
 
         
@@ -4824,59 +4796,33 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
         AlpEnviosHistory::create($data_envio_history);
 
         
-        
-
-        
          if ($orden->id_forma_pago=='1') {
 
           
             $data_update = array(
-
               'estatus' =>'5', 
-
               'estatus_pago' =>'1', 
-
             );
 
-            
              $orden->update($data_update);
-
              
               $data_history = array(
-
                 'id_orden' => $orden->id, 
-
                'id_status' => '5', 
-
                 'notas' => 'Orden Aprobada por ser Contraentrega.', 
-
                'id_user' => 1
-
               );
 
-              
             $history=AlpOrdenesHistory::create($data_history);
-
-            
-
-
-
 
          }else{
 
-          
              $data_update = array(
-
                 'estatus' =>'1', 
-
                 'estatus_pago' =>'1', 
-
               );
-
              
                $orden->update($data_update);
-
-               
 
          }
 
@@ -4891,16 +4837,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
          
          if ( isset($carro->id)) {
 
-           
-
             $carro->delete();
-
-            
-           $detalles_carrito=AlpCarritoDetalle::where('id_carrito', $carrito)->get();
-
+           
+            $detalles_carrito=AlpCarritoDetalle::where('id_carrito', $carrito)->get();
            
            $ids = array();
-
            
            foreach ($detalles_carrito as $dc) {
 
@@ -4915,84 +4856,53 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
          
          if ($orden->id_forma_pago=='3') {
 
-          
           $saldo_c=AlpSaldo::where('id_cliente', $user_id)->where('estado_registro', '1')->first();
-
           
           if (isset($saldo_c->id)) {
 
-            
-
              $data_saldo = array(
-
               'id_cliente' => $user_id, 
-
               'saldo' => $orden->monto_total, 
-
               'operacion' => '2', 
-
               'nota' => 'Compra id '.$orden->id.'', 
-
               'fecha_vencimiento' => $saldo_c->fecha_vencimiento, 
-
               'id_user' => $user_id
-
             );
-
              
              AlpSaldo::create($data_saldo);
-
-             
 
           }
 
           
          }
 
-         
-
         $carrito= \Session::forget('cr');
 
-        
         \Session::forget('orden');
 
-        
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-
             ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-
             ->where('alp_ordenes.id', $orden->id)->first();
-
             
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto' ,'alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
-
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-          
          $cart= \Session::forget('cart');
-
          
          $states=State::where('config_states.country_id', '47')->get();
-
          
           $configuracion = AlpConfiguracion::where('id','1')->first();
 
-          
           $user_cliente=User::where('id', $user_id)->first();
-
           
           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
           try {
-                         Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+              Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
             Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
@@ -5001,33 +4911,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
             Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
             Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
-                      } catch (\Exception $e) {
-                        activity()->withProperties(1)
-                                    ->log('error envio de correo l5398');
+          
+          } catch (\Exception $e) {
+              
+            activity()->withProperties(1)->log('error envio de correo l5398');
 
-                      }
+          }
 
            $idc=$orden->id*1024;
 
           return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
 
-                    #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-
+              #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
           
         }else{
 
-          
             return redirect('login');
-
             
         }
-
         
       }else{
 
-        
             return redirect('cart/show');
-
             
       }
 
@@ -10625,22 +10530,22 @@ public function addcupon(Request $request)
 
         }else{
 
-          $ciudad= \Session::get('ciudad');
+          $almacen= \Session::get('almacen');
 
-            if (isset($ciudad)) {
+            if (isset($almacen)) {
 
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                ->where('alp_almacen_despacho.id_city', $ciudad)
+                ->where('alp_almacenes.id', $almacen)
                 ->where('alp_almacenes.estado_registro', '=', '1')->first();
                 
                 if (isset($ad->id)) {
 
                 }else{
 
-                  $c=City::where('id', $ciudad)->first();
+                  #$c=City::where('id', $ciudad)->first();
                   
                   if (isset($c->id)) {
                     
@@ -10987,12 +10892,12 @@ public function addcupon(Request $request)
 
           
 
-            $ciudad= \Session::get('ciudad');
+            $almacen= \Session::get('almacen');
 
             
 
 
-            if (isset($ciudad)) {
+            if (isset($almacen)) {
 
               
 
@@ -11004,7 +10909,7 @@ public function addcupon(Request $request)
 
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
 
-                ->where('alp_almacen_despacho.id_city', $ciudad)
+                ->where('alp_almacenes.id', $almacen)
 
                 ->where('alp_almacenes.estado_registro', '=', '1')
 
@@ -11018,7 +10923,7 @@ public function addcupon(Request $request)
                 }else{
 
                   
-                  $c=City::where('id', $ciudad)->first();
+                 # $c=City::where('id', $ciudad)->first();
 
                   
                   if (isset($c->id)) {

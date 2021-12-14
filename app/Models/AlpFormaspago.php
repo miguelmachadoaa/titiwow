@@ -21,6 +21,7 @@ class AlpFormaspago extends Model
         'id',
         'nombre_forma_pago',
         'descripcion_forma_pago',
+        'orden',
         'estado_registro',
         'id_user'
     ];

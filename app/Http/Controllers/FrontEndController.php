@@ -4588,7 +4588,8 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
-            $ciudad= \Session::get('ciudad');
+           # $ciudad= \Session::get('ciudad');
+            $almacen= \Session::get('almacen');
 
 
 
@@ -4596,7 +4597,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
-            if (isset($ciudad)) {
+            if (isset($almacen)) {
 
 
 
@@ -4607,15 +4608,10 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
-                ->where('alp_almacen_despacho.id_city', $ciudad)
-
+                ->where('alp_almacenes.id', $almacen)
                 ->where('alp_almacenes.estado_registro', '=', '1')
-
                 ->first();
 
 
@@ -4628,7 +4624,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
-                  $c=City::where('id', $ciudad)->first();
+                #  $c=City::where('id', $ciudad)->first();
 
 
 
@@ -4792,7 +4788,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
-       // dd($id_almacen);
+       # dd($id_almacen);
 
 
 

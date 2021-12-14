@@ -78,6 +78,23 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group {{ $errors->
+                            first('alias_almacen', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Alias almacen <small>Informacion que se muestra en el listado de modal </small>
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="alias_almacen" name="alias_almacen" class="form-control" placeholder="Nombre de Almacen"
+                                       value="{!! old('alias_almacen') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('alias_almacen', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
                         <div class="form-group {{ $errors->
                             first('descripcion_almacen', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">

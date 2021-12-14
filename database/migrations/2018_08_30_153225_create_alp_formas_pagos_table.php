@@ -17,6 +17,7 @@ class CreateAlpFormasPagosTable extends Migration
             $table->increments('id');
             $table->string('nombre_forma_pago');
             $table->text('descripcion_forma_pago')->nullable();
+            $table->string('orden');
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
