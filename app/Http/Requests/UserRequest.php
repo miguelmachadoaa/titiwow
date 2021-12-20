@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
                     'last_name.required' => 'El Apellido es requerido',
                     'last_name.min' => 'El Apellido debe ser mayor a 3 caracteres',
                     'email.required' => 'El Email es requerido',
+                    "email.unique:users,email" => "Error message for table 1",
                     'password.required' => 'La Clave es requerido',
                     'password.between' => 'La clave debe contener entre 3 y 32 caracteres',
                     'password_confirm.required' => 'El Confirmacion de Clave es requerido',

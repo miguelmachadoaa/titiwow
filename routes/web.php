@@ -93,9 +93,9 @@ Route::group(['prefix' => 'masterfile', 'namespace'=>'Admin'], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], function () {
     # GUI Crud Generator
-    Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('generator_builder');
+    /*Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('generator_builder');
     Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
-    Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
+    Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');*/
     // Model checking
     Route::post('modelCheck', 'ModelcheckController@modelCheck');
 
@@ -149,21 +149,21 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
     Route::resource('groups', 'GroupsController');
 
     /*routes for blog*/
-    Route::group(['prefix' => 'blog'], function () {
+  /*  Route::group(['prefix' => 'blog'], function () {
         Route::get('{blog}/delete', 'BlogController@destroy')->name('blog.delete');
         Route::get('{blog}/confirm-delete', 'BlogController@getModalDelete')->name('blog.confirm-delete');
         Route::get('{blog}/restore', 'BlogController@restore')->name('blog.restore');
         Route::post('{blog}/storecomment', 'BlogController@storeComment')->name('storeComment');
     });
-    Route::resource('blog', 'BlogController');
+    Route::resource('blog', 'BlogController');*/
 
     /*routes for blog category*/
-    Route::group(['prefix' => 'blogcategory'], function () {
+   /* Route::group(['prefix' => 'blogcategory'], function () {
         Route::get('{blogCategory}/delete', 'BlogCategoryController@destroy')->name('blogcategory.delete');
         Route::get('{blogCategory}/confirm-delete', 'BlogCategoryController@getModalDelete')->name('blogcategory.confirm-delete');
         Route::get('{blogCategory}/restore', 'BlogCategoryController@getRestore')->name('blogcategory.restore');
     });
-    Route::resource('blogcategory', 'BlogCategoryController');
+    Route::resource('blogcategory', 'BlogCategoryController');*/
     /*routes for file*/
     Route::group(['prefix' => 'file'], function () {
         Route::post('create', 'FileController@store')->name('store');
@@ -328,10 +328,10 @@ Route::get('/', ['uses' => 'FrontEndController@home'])->name('home');
 
 Route::get('/el-qlub', ['uses' => 'FrontEndController@qlub'])->name('el-qlub');
 
-Route::get('blog','BlogController@index')->name('blog');
+/*Route::get('blog','BlogController@index')->name('blog');
 Route::get('blog/{slug}/tag', 'BlogController@getBlogTag');
 Route::get('blogitem/{slug?}', 'BlogController@getBlog');
-Route::post('blogitem/{blog}/comment', 'BlogController@storeComment');
+Route::post('blogitem/{blog}/comment', 'BlogController@storeComment');*/
 
 //news
 Route::get('news', 'NewsController@index')->name('news');
