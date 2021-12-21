@@ -24,7 +24,7 @@ class BlogController extends JoshController
     public function __construct()
     {
         parent::__construct();
-        $this->tags = Blog::allTags();
+       // $this->tags = Blog::allTags();
     }
 
     /**

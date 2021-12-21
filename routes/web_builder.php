@@ -1072,7 +1072,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
-
+/*
     Route::group(['prefix' => 'gruposproductos'], function () {
 
         Route::get('{id}/delete', 'Admin\GruposProductosController@destroy')->name('gruposproductos.delete');
@@ -1112,7 +1112,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
-
+*/
 
 
 
