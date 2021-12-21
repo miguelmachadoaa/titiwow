@@ -103,9 +103,10 @@
                     {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
-                    <input type="email" class="form-control" id="Email" name="email" placeholder="Email"
+                    <input type="email" class="form-control" id="Email" name="Email" placeholder="Email"
                            value="{!! old('email') !!}" >
                     {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
+                    <div class="errorEmail"></div>
                 </div>
                 <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
                     <input type="number" class="form-control" id="telefono_cliente" name="telefono_cliente" placeholder="Teléfono"
@@ -587,6 +588,13 @@ $(document).ready(function(){
                         }else if(data=='false1'){
 
                             $('#notific').html('<div class="alert alert-danger">Codigo de Registro no Existe.</div>');
+
+                        }else if(data=='falseEmail'){
+
+                            $('#notific').html('<div class="alert alert-danger">El Email ya fue usado.</div>');
+                            $('.errorEmail').html('<div class="label label-danger">El Email ya fue usado.</div>');
+
+                            
 
                         }else{
 

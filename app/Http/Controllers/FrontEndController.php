@@ -1946,6 +1946,16 @@ class FrontEndController extends JoshController
           $request->barrio_address=strip_tags($request->barrio_address);
 
 
+          $u=User::where('email', $request->email)->first();
+
+
+          if(isset($u->id)){
+
+            return 'falseEmail';
+
+          }
+
+
         try {
 
             if($request->chkalpinista == 1) {
@@ -2331,7 +2341,7 @@ class FrontEndController extends JoshController
 
               Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
 
-              Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
+           #   Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
@@ -2342,7 +2352,9 @@ class FrontEndController extends JoshController
 
         } catch (UserExistsException $e) {
 
-            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+            #$this->messageBag->add('email', trans('auth/message.account_already_exists'));
+
+            return 'falseEmail';
 
         }
 
