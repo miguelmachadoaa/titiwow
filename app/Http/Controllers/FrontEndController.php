@@ -217,6 +217,142 @@ class FrontEndController extends JoshController
   }
 
 
+  public function getCompramasInventarioAlmacen(Request $request, $id)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('FrontEndController/getCompramasInventarioAlmacen ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('FrontEndController/getCompramasInventarioAlmacen');
+        }
+
+      $content = $request->getContent();
+
+      $datos = json_decode($content, true);
+
+       activity()->withProperties($datos)->log('FrontEndController/getCompramasInventarioAlmacen Data Recibida ');
+
+    $r="false";
+
+    $resp = array();
+
+       $inventario=$this->inventarioAlmacen($id);
+
+       $almacen=$id;
+
+       $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $data_almacen = array();
+
+        $data_inventario = array();
+
+        $ids_inventario = array();
+
+        $ids_almacen = array();
+
+       if (count($datos)) {
+
+            foreach ($datos as $dato ) {
+
+            # activity()->withProperties($dato)->log('FrontEndController/getCompramasInventario  2');
+
+           # activity()->withProperties($dato['stock'])->log('FrontEndController/getCompramasInventario 2.1');
+
+            $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
+
+              if ($dato['stock']>=0) {
+
+                  if (isset($p->id)) {
+
+                        $r='true';
+
+                        $resp[$dato['sku']]='true';
+
+                        $data = array(
+                          'id_almacen' => $almacen, 
+                           'id_producto' => $p->id, 
+                           'created_at' => $date,
+                          'id_user' => 1 
+                        );
+
+                        $data_almacen[]=$data;
+
+                        $ids_almacen[]=$p->id;
+
+                        $ids_inventario[]=$p->id;
+
+                        $data_inventario_nuevo = array(
+                            'id_almacen' => $almacen, 
+                            'id_producto' => $p->id, 
+                            'cantidad' => $dato['stock'], 
+                            'operacion' => 1, 
+                            'notas' => 'Actualización de inventario por api compramas', 
+                            'created_at' => $date, 
+                            'id_user' => 1 
+                        );
+
+                        $data_inventario[]=$data_inventario_nuevo;
+
+                  }else{
+
+                    $resp[$dato['sku']]='false';
+
+                  }
+
+                }else{
+
+                  if (isset($p->id)) {
+
+                    $resp[$dato['sku']]='true';
+
+                     $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->first();
+
+                     if (isset($ap->id)) {
+
+                        $ids_inventario[]=$p->id;
+
+                        $ids_almacen[]=$p->id;
+
+                     }
+
+                  }
+
+                }
+
+            } //end foreach datos
+
+            AlpInventario::whereIn('id_producto', $ids_inventario)->where('id_almacen', $almacen)->delete();
+
+            AlpAlmacenProducto::whereIn('id_producto', $ids_almacen)->where('id_almacen', $almacen)->delete();
+
+            AlpAlmacenProducto::insert($data_almacen);
+
+            AlpInventario::insert($data_inventario);
+
+       } //(end if hay resspuessta)
+
+      activity()->withProperties($resp)->log('FrontEndController/getCompramasInventario Data Respuesta ');
+
+      return response(json_encode($resp), 200) ->header('Content-Type', 'application/json');
+
+
+  }
+
+
+  
+
+
   
 
 
@@ -3864,6 +4000,68 @@ class FrontEndController extends JoshController
 
 
 
+    private function inventarioAlmacen($id)
+    {
+
+       
+
+       $id_almacen=$id;
+
+        $entradas = AlpInventario::groupBy('id_producto')
+          ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+          ->join('alp_almacen_producto', 'alp_inventarios.id_producto', '=', 'alp_almacen_producto.id_producto')
+          ->where('alp_inventarios.operacion', '1')
+          ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+          ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+          ->whereNull('alp_almacen_producto.deleted_at')
+          ->groupBy('alp_inventarios.id_almacen')
+              #->whereNull('alp_inventarios.deleted_at')
+          ->get();
+
+
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+              ->groupBy('alp_inventarios.id_almacen')
+              #->whereNull('alp_inventarios.deleted_at')
+              ->get();
+
+
+              foreach ($salidas as $row) {
+
+
+
+                if (isset($inv[$row->id_producto])) {
+
+                  $inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
+
+                }else{
+
+                  $inv[$row->id_producto]=0;
+
+                }
+
+                #$inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+
+    }
+
+
+
+
 
  private function combos()
 
@@ -5118,32 +5316,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
       }
 
-
-
-      
-
-      
-
-
-
      return response(json_encode($prods), 200) ->header('Content-Type', 'application/json');
 
-
-
-      
-
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

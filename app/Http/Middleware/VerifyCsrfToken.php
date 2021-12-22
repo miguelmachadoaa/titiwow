@@ -69,6 +69,7 @@ class VerifyCsrfToken extends Middleware
        'delamigo', //
        'compramas', //
        'compramasinventario', //
+       'compramasinventario/*', //
        'get360', //
        'get360consultar', //
        'get360actualizar' //

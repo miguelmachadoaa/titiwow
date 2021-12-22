@@ -279,6 +279,8 @@ Route::get('get360consultar', 'FrontEndController@get360consultar')->name('get36
 
 Route::post('compramasinventario', 'FrontEndController@getCompramasInventario')->name('compramasinventario');
 
+Route::post('compramasinventario/{id}/almacen', 'FrontEndController@getCompramasInventarioAlmacen')->name('compramasinventarioalmacen');
+
 
 
 Route::get('login', 'FrontEndController@getLogin')->name('login');
