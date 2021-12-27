@@ -241,14 +241,6 @@
                             @foreach($prods as $producto)
 
                                 
-                            
-
-
-
-
-
-
-
 
 
 

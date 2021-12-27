@@ -93,7 +93,7 @@
 
         }else{
 
-            url=base+"/nuevobuscar/?buscar="+buscar;
+            url=base+"/buscar/?buscar="+buscar;
 
             $(location).attr('href',url);
 
