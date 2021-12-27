@@ -1787,6 +1787,10 @@ Route::get('paginas/{slug}', ['as' => 'pagina', 'uses' => 'Frontend\ProductosFro
 
 Route::get("buscar","Frontend\ProductosFrontController@mySearch");
 
+Route::get("nuevobuscar","Frontend\ProductosFrontController@nuevobuscar");
+
+Route::get("sugerencias","Frontend\ProductosFrontController@sugerencias");
+
 /* Fin Rutas Frontend Publico */
 
 

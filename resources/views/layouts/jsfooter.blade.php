@@ -6,9 +6,12 @@
     <button style="width: 0px; display: none; height: 0px;" class="updatecartTrigger">.</button>
 
     <!--global js starts-->
+    
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/lib.js') }}"></script>
     <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/jquery-ui.min.js') }}"></script>
+
 
     <!--global js end-->
     <!-- javascript para verificar y validar la ubicacion para la venta-->
@@ -16,8 +19,82 @@
     <!--Chatbot-->
     <!--script type="application/javascript" charset="UTF-8" src="https://cdn.agentbot.net/core/0421146a608cb85197f732accafb785a.js"></script-->
     <!--Fin chatbot-->
+
+
+   
+
+
     
     <script type="text/javascript">
+
+    $(function () {
+
+    //  alert('cargo');
+
+        $(".typehead").autocomplete({
+            minLength: 0,
+            source : function( request, response ) {
+                $.ajax({
+                    url: "{{secure_url('/sugerencias')}}",
+                    dataType: "json",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        alert(data);
+                        response( data );
+                    }
+                });
+            },
+            focus: function (event, ui) {
+                $(".typehead").val(ui.item.label);
+                return false;
+            },
+            select: function (event, ui) {
+                $(".typehead").val(ui.item.name);
+             //   $("#buscar-id").val(ui.item.email);                    
+
+                return false;
+            }
+        })
+            .data("ui-autocomplete")._renderItem = function (ul, item) {
+                console.log(item.name);
+                return $("<li>")
+                    .data("ui-autocomplete-item", item)
+                    .append("<a> " + item.name + "<br>" + item.name + "</a>")
+                    .appendTo(ul);
+            };
+    });
+
+
+    $('.busqueda').on('click', function(e){
+
+
+        e.preventDefault();
+
+        buscar=$('.typehead').val();
+        base=$('#base').val();
+
+        alert(buscar);
+
+
+        $.ajax({
+            type: "GET",
+            url: base+"/nuevobuscar/?buscar="+buscar,
+                
+            complete: function(datos){     
+
+                $('.contain_body').html((datos.responseText));
+            }
+
+        });
+
+
+
+
+
+    });
+
 
         $(document).ready(function(){
             $('.cantidadCarrito').html($('.productoscarritodetalle').length);   

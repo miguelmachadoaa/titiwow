@@ -4,7 +4,7 @@
 
     <div class="col-xs-12 hidden-xs" >
 
-<div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
+<div class="row "  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
     
     <div class="col-sm-2" style="padding-top: 3%;">
     </div>

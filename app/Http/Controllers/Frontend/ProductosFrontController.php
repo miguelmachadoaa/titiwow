@@ -1549,4 +1549,132 @@ class ProductosFrontController extends Controller
 
     }
 
+
+
+
+
+
+    public function sugerencias(Request $request)
+    {
+
+       # dd();
+        $productos=AlpProductos::select('nombre_producto as label', 'nombre_producto as value')->search($request->q,null, true, true)->get();
+
+     #   $categorias=AlpCategorias::select('nombre_categoria as name')->search($request->get('buscar'),null, true, true)->get()->toArray();
+
+      #  $resultado=array_merge($productos, $categorias);
+
+      $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+      foreach($productos as $row)
+      {
+       $output .= '
+       <li><a href="#">'.$row->label.'</a></li>
+       ';
+      }
+      $output .= '</ul>';
+      echo $output;
+
+     #   return json_encode($productos);
+      
+
+    }
+
+
+
+    
+    public function nuevobuscar(Request $request)
+    {
+
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
+
+       $id_almacen=$this->getAlmacen();
+
+        
+        $rol=9;
+
+        $descuento='1'; 
+
+        $precio = array();
+
+        $termino = $request->get('buscar');
+
+        $banner=AlpBannerBusqueda::where('termino', '=', $termino)->first();
+
+        $productos = AlpProductos::search('leche')->get();
+
+        #$orders->searchable();
+
+        
+//dd($banner);
+        $productos = AlpProductos::
+        search($request->get('buscar'),null, true, true)->select('alp_productos.*', 'alp_marcas.order as order', 'alp_marcas.nombre_marca', 'alp_categorias.nombre_categoria')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->whereNull('alp_productos.deleted_at')
+        ->where('alp_productos.estado_registro','=', 1)
+        ->where('alp_productos.mostrar','=',1)
+        ->groupBy('alp_productos.id')
+        ->orderBy('alp_marcas.order', 'asc')
+        ->orderBy('alp_productos.updated_at', 'desc')
+        ->paginate(36); 	
+        
+
+        #dd($productos);
+
+        $cart= \Session::get('cart');
+
+    $prods=$this->addOferta($productos);
+
+   # dd($prods);
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+        $inventario=$this->inventario();
+
+
+      //  dd($inventario);
+
+        $combos=$this->combos();
+
+        $role=Roles::where('id', $rol)->first();
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+          $url=secure_url('buscar?buscar='.$termino);
+
+        return \View::make('frontend.respuestabuscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'banner'));
+
+    }
+
+
+
+
+
+
+
+
+
 }

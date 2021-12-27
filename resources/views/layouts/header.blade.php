@@ -33,6 +33,10 @@
     <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600|Roboto" rel="stylesheet">    
     
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/css/jquery-ui.min.css') }}" rel="stylesheet" />
+
+    
     <!--end of global css-->
 
     <style>
@@ -144,12 +148,11 @@
 
                          <form method="GET" action="{{ secure_url('buscar') }}">
 
-
-                        <div class="input-group" style="padding: 1em 0em;">
-                            <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default busqueda" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
-                        </span>
+                            <div class="input-group" style="padding: 1em 0em;">
+                                <input type="text" name="buscar"  id="buscar" class="form-control " placeholder="Buscar1" value="{{ old('buscar') }}" autocomplete="off">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default busqueda" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
+                            </span>
 
                         </form>
 
@@ -276,9 +279,9 @@
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="input-group">
-                                                <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
+                                                <input type="text" name="buscar"  id="buscar" class="form-control typehead" placeholder="Buscar2" value="{{ old('buscar') }}" autocomplete="off">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-default busqueda " alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
+                                                <button class="btn btn-default busqueda " alt="Buscar" type="button" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
                                             </span>
                                             </div>
                                         </div>
@@ -332,7 +335,7 @@
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="input-group">
-                                                <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
+                                                <input type="text" name="buscar"  id="buscar" class="form-control " placeholder="Buscar3" value="{{ old('buscar') }}" autocomplete="off">
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-default" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
                                             </span>
