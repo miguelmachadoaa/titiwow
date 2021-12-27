@@ -75,19 +75,32 @@
         buscar=$('.typehead').val();
         base=$('#base').val();
 
-        alert(buscar);
+       // alert(buscar);
+
+        if ( $(".contain_body").length > 0 ) {
+           
+            $.ajax({
+                type: "GET",
+                url: base+"/nuevobuscar/?buscar="+buscar,
+                    
+                complete: function(datos){     
+
+                    $('.contain_body').html((datos.responseText));
+                }
+
+            });
 
 
-        $.ajax({
-            type: "GET",
-            url: base+"/nuevobuscar/?buscar="+buscar,
-                
-            complete: function(datos){     
+        }else{
 
-                $('.contain_body').html((datos.responseText));
-            }
+            url=base+"/nuevobuscar/?buscar="+buscar;
 
-        });
+            $(location).attr('href',url);
+
+        }
+
+
+       
 
 
 
