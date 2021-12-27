@@ -83,9 +83,11 @@ class VerificarPagos extends Command
 
         #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-       # $ordenes=AlpOrdenes::where('id', '20871')->get();
+       # dd($ordenes);
+
+        $ordenes=AlpOrdenes::where('id', '26909')->get();
 
       #  dd($ordenes);
         
@@ -96,6 +98,8 @@ class VerificarPagos extends Command
         if (count($ordenes)) {
        
         foreach ($ordenes as $ord) {
+
+          echo $ord->id.' / ';
 
           $almacen=AlpAlmacenes::where('id', $ord->id_almacen)->first();
 
@@ -172,6 +176,8 @@ class VerificarPagos extends Command
 
           if($orden->id_forma_pago=='1' || $orden->id_forma_pago=='7'){
 
+            echo 'forma de pago contraentrega /';
+
             $this->procesarContraentrega($orden->id);
 
           }
@@ -189,6 +195,9 @@ class VerificarPagos extends Command
 
 
     private function procesarContraentrega($id_orden){
+
+
+        echo 'procesar contraentrega  / ';
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -304,7 +313,10 @@ class VerificarPagos extends Command
 
                     AlpPagos::create($data_pago);
 
-              if ($orden->id_almacen==1) {
+              if ($orden->id_almacen==1 || $orden->id_almacen==32) {
+
+                
+        echo 'envio a mas   / ';
 
                 try {
                   # $this->sendcompramas($orden->id, 'approved');
@@ -2116,9 +2128,20 @@ class VerificarPagos extends Command
 private function registrarOrdenNuevo($id_orden)
 {
 
+
+  echo 'proceso envio a velocity   / ';
+
+
   $configuracion=AlpConfiguracion::first();
   
   $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+
+  echo $orden->id.'   / ';
+
+
+
+  $almacen_pedido=AlpAlmacenes::where('id', $orden->id_almacen)->first();
   
   $formapago=AlpFormaspago::where('id', $orden->id_forma_pago)->first();
 
@@ -2238,6 +2261,8 @@ private function registrarOrdenNuevo($id_orden)
 
           $descuento_total=0;
 
+          echo 'Envio a velocity 1    / ';
+
           foreach($descuentoicg as $di){
 
             $descuento_total=$descuento_total+$di->monto_descuento;
@@ -2265,10 +2290,18 @@ private function registrarOrdenNuevo($id_orden)
             'products' => $productos, 
           );
 
-         # dd($o);
+       #  dd($o);
 
 
     $dataraw=json_encode($o);
+
+    echo "data / ".$dataraw;
+
+    $url= "https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id=".$almacen_pedido->codigo_almacen;
+
+    dd($url);
+
+    echo $dataraw.' - ';
 
     $orden->update(['send_json_masc'=>$dataraw]);
 
@@ -2278,7 +2311,7 @@ private function registrarOrdenNuevo($id_orden)
 
   $ch = curl_init();
 
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 

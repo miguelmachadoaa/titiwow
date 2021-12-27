@@ -8346,20 +8346,20 @@ public function verificarDireccion( Request $request)
 
           if ($orden->estatus=='4') {
 
-            \Session::forget('orden');
-                        \Session::forget('cr');
+              \Session::forget('orden');
+              \Session::forget('cr');
 
-                        return 'falseCancelado';
+              return 'falseCancelado';
 
           }
 
           if ($orden->estatus!='8') {
 
-            \Session::forget('orden');
-                        \Session::forget('cr');
-                        \Session::forget('cart');
+              \Session::forget('orden');
+              \Session::forget('cr');
+              \Session::forget('cart');
 
-                        return 'falseAprobado';
+              return 'falseAprobado';
 
           }
 
