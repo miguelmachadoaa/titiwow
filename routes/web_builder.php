@@ -683,6 +683,12 @@ Route::get('reportes/lifemiles', 'Admin\AlpReportesController@lifemiles')->name(
 
 Route::post('reportes/exportlifemiles', 'Admin\AlpReportesController@exportlifemiles')->name('reportes.lifemiles');
 
+Route::get('reportes/usercompras', 'Admin\AlpReportesController@usercompras')->name('reportes.usercompras');
+
+Route::post('reportes/exportusercompras', 'Admin\AlpReportesController@exportusercompras')->name('reportes.usercompras');
+
+
+
 Route::get('reportes/abandonado', 'Admin\AlpReportesController@abandonado')->name('reportes.abandonado');
 
 Route::post('reportes/exportabandonado', 'Admin\AlpReportesController@exportabandonado')->name('reportes.abandonado');

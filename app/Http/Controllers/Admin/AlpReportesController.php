@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UserComprasExport;
 use App\Exports\CompramasExport;
 use App\Exports\UltimamillaExport;
 use App\Exports\NominaExport;
@@ -2928,6 +2929,67 @@ public function listadoproductosalmacen()
 
 
 
+    
+public function usercompras() 
+{
+
+    
+      if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('AlpReportesController/precio ');
+
+    }else{
+
+      activity()
+      ->log('AlpReportesController/precio');
+
+
+    }
+
+    if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+       return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+    }
+
+    
+      // Show the page
+    return view('admin.reportes.usercompras');
+
+
+}
+
+
+
+
+public function exportusercompras(Request $request) 
+{
+
+     if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())->log('AlpReportesController/exporterroriva  ');
+
+    }else{
+
+      activity()
+      ->withProperties($request->all())->log('AlpReportesController/exporterroriva ');
+
+
+    }
+
+
+    return Excel::download(new UserComprasExport($request->desde, $request->hasta), 'usercompras'.time().'.xlsx');
+
+}
 
 
 
