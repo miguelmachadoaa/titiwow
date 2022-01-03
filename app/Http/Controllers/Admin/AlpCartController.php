@@ -2920,11 +2920,29 @@ class AlpCartController extends JoshController
             MercadoPago::setClientSecret($almacen->key_mercadopago);
             MercadoPago::setPublicKey($almacen->public_key_mercadopago);
 
+            $total_pago_mercadopago=number_format($orden->monto_total+$envio-$total_tarjetas, 0, '.', '');
+            $net_amount_mercadopago=number_format($net_amount-$total_tarjetas, 0, '.', '');
+            $impuesto_mercadopago=number_format($impuesto, 0, '.', '');
+
+            if($total_pago_mercadopago==$net_amount_mercadopago+$impuesto_mercadopago){
+
+            }else{
+
+              $diff=$total_pago_mercadopago-($net_amount_mercadopago+$impuesto_mercadopago);
+
+              $diff=$diff*-1;
+
+              $total_pago_mercadopago=$total_pago_mercadopago+$diff;
+
+            }
+
+
+
             $payment = new MercadoPago\Payment();
-            $payment->transaction_amount = (float)$orden->monto_total+$envio-$total_tarjetas;
-            $payment->net_amount =(float)number_format($net_amount-$total_tarjetas, 2, '.', '');
+            $payment->transaction_amount = (float)$total_pago_mercadopago;
+            $payment->net_amount =(float)number_format($net_amount_mercadopago, 2, '.', '');
             $payment->taxes = [[
-              "value"=>(float)number_format($impuesto, 2, '.', ''),
+              "value"=>(float)$impuesto_mercadopago,
               "type"=>"IVA"]
             ];
     
@@ -2939,6 +2957,8 @@ class AlpCartController extends JoshController
             $payer = new MercadoPago\Payer();
             $payer->email = $user_cliente->email;
             $payment->payer = $payer;
+
+            dd($payment);
     
             activity($user->full_name)
                     ->performedOn($user)
