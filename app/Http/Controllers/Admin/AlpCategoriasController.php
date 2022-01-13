@@ -496,7 +496,7 @@ class AlpCategoriasController extends JoshController
             
             $categoria = AlpCategorias::find($id);
 
-            $confirm_route = route('admin.categorias.delete', ['id' => $categoria->id]);
+            $confirm_route = secure_url('admin/categorias/'.$id.'/delete');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
