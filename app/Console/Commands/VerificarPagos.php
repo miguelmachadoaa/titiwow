@@ -2299,8 +2299,6 @@ private function registrarOrdenNuevo($id_orden)
 
     $url= "https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id=".$almacen_pedido->codigo_almacen;
 
-    dd($url);
-
     echo $dataraw.' - ';
 
     $orden->update(['send_json_masc'=>$dataraw]);
