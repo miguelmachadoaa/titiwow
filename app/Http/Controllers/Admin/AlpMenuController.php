@@ -493,7 +493,7 @@ class AlpMenuController extends JoshController
             
             $menu = AlpMenu::find($id);
 
-            $confirm_route = route('admin.menus.delete', ['id' => $menu->id]);
+            $confirm_route = secure_url('admin/menus/'.$id.'/delete');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
@@ -513,7 +513,7 @@ class AlpMenuController extends JoshController
             
             $menu = AlpDetalleSubmenu::find($id);
 
-            $confirm_route = route('admin.menus.deletedetalle', ['id' => $menu->id]);
+            $confirm_route = secure_url('admin/menus/'.$id.'/deletedetalle');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
