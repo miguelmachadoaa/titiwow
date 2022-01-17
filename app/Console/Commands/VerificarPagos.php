@@ -83,11 +83,11 @@ class VerificarPagos extends Command
 
         #$ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
-        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
        # dd($ordenes);
 
-        $ordenes=AlpOrdenes::where('id', '26909')->get();
+      #  $ordenes=AlpOrdenes::where('id', '26909')->get();
 
       #  dd($ordenes);
         
