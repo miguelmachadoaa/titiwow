@@ -251,16 +251,16 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                <p>total {{$total}}</p>
+                                <!--p>total {{$total}}</p>
                                 <p>total_pagos {{$total_pagos}}</p>
-                                <p>total_descuentos_icg {{$total_descuentos_icg}}</p>
+                                <p>total_descuentos_icg {{$total_descuentos_icg}}</p-->
                                
 
                                         @if(isset($total_descuentos_icg))
 
                                             @if($costo_envio==-1)
 
-                                                <h4 style="color:#6c6c6d;">{{ number_format($total-$total_pagos-$   ,0,",",".")}}</h4> 
+                                                <h4 style="color:#6c6c6d;">{{ number_format($total-$total_pagos-$costo_envio   ,0,",",".")}}</h4> 
 
                                             @else
 

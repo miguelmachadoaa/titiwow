@@ -270,7 +270,7 @@ private function registrarOrdenNuevo($id_orden)
 
     Log::info($dataraw);
 
-    dd($dataraw);
+    #dd($dataraw);
 
     activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en Velocity nuevo orden id '.$orden->id.' .vp634');
 
