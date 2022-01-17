@@ -220,11 +220,41 @@
                                     
                                     </div><!-- /.row -->
 
-                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a
+                                    
+                                    data-slug="{{ $producto->slug }}" 
+                                    data-price="{{ intval($producto->precio_oferta) }}" 
+                                    data-sku="{{ $producto->referencia_producto_sap }}" 
+                                    data-ean="{{ $producto->referencia_producto }}"
+                                    data-id="{{ $producto->id }}" 
+                                    @if(isset($producto->nombre_categoria))
+                                        data-categoria="{{ $producto->nombre_categoria }}" 
+                                    @else
+                                        data-categoria="" 
+                                    @endif
+                                    data-marca="{{ $producto->nombre_marca }}" 
+                                    data-name="{{ $producto->nombre_producto }}" 
+                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                     @else
 
-                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a 
+                                        data-slug="{{ $producto->slug }}" 
+                                        data-price="{{ intval($producto->precio_oferta) }}" 
+                                        data-sku="{{ $producto->referencia_producto_sap }}" 
+                                        data-ean="{{ $producto->referencia_producto }}"
+                                        data-id="{{ $producto->id }}" 
+                                        @if(isset($producto->nombre_categoria))
+                                            data-categoria="{{ $producto->nombre_categoria }}" 
+                                        @else
+                                            data-categoria="" 
+                                        @endif
+                                        data-marca="{{ $producto->nombre_marca }}" 
+                                        data-name="{{ $producto->nombre_producto }}" 
+                                        data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+
+                                    class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                     <a data-slug="{{ $producto->slug }}" 
                                         data-price="{{ intval($producto->precio_oferta) }}" 
@@ -245,7 +275,21 @@
 
                                 @else <!-- si hay inventario  -->
 
-                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a
+                                    data-slug="{{ $producto->slug }}" 
+                                    data-price="{{ intval($producto->precio_oferta) }}" 
+                                    data-sku="{{ $producto->referencia_producto_sap }}" 
+                                    data-ean="{{ $producto->referencia_producto }}"
+                                    data-id="{{ $producto->id }}" 
+                                    @if(isset($producto->nombre_categoria))
+                                        data-categoria="{{ $producto->nombre_categoria }}" 
+                                    @else
+                                        data-categoria="" 
+                                    @endif
+                                    data-marca="{{ $producto->nombre_marca }}" 
+                                    data-name="{{ $producto->nombre_producto }}" 
+                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                 
                                 @endif
 
@@ -286,11 +330,39 @@
                                     
                                     </div><!-- /.row -->
 
-                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a
+                                    data-slug="{{ $producto->slug }}" 
+                                    data-price="{{ intval($producto->precio_oferta) }}" 
+                                    data-sku="{{ $producto->referencia_producto_sap }}" 
+                                    data-ean="{{ $producto->referencia_producto }}"
+                                    data-id="{{ $producto->id }}" 
+                                    @if(isset($producto->nombre_categoria))
+                                        data-categoria="{{ $producto->nombre_categoria }}" 
+                                    @else
+                                        data-categoria="" 
+                                    @endif
+                                    data-marca="{{ $producto->nombre_marca }}" 
+                                    data-name="{{ $producto->nombre_producto }}" 
+                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                     @else
 
-                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a 
+                                    data-slug="{{ $producto->slug }}" 
+                                    data-price="{{ intval($producto->precio_oferta) }}" 
+                                    data-sku="{{ $producto->referencia_producto_sap }}" 
+                                    data-ean="{{ $producto->referencia_producto }}"
+                                    data-id="{{ $producto->id }}" 
+                                    @if(isset($producto->nombre_categoria))
+                                        data-categoria="{{ $producto->nombre_categoria }}" 
+                                    @else
+                                        data-categoria="" 
+                                    @endif
+                                    data-marca="{{ $producto->nombre_marca }}" 
+                                    data-name="{{ $producto->nombre_producto }}" 
+                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                     <a data-slug="{{ $producto->slug }}" 
                                         data-sku="{{ $producto->referencia_producto_sap }}"
                                         data-ean="{{ $producto->referencia_producto }}" 
@@ -310,13 +382,42 @@
 
                                 @else <!-- si hay inventario  -->
 
-                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a
+                                    
+                                    data-slug="{{ $producto->slug }}" 
+                                    data-price="{{ intval($producto->precio_oferta) }}" 
+                                    data-sku="{{ $producto->referencia_producto_sap }}" 
+                                    data-ean="{{ $producto->referencia_producto }}"
+                                    data-id="{{ $producto->id }}" 
+                                    @if(isset($producto->nombre_categoria))
+                                        data-categoria="{{ $producto->nombre_categoria }}" 
+                                    @else
+                                        data-categoria="" 
+                                    @endif
+                                    data-marca="{{ $producto->nombre_marca }}" 
+                                    data-name="{{ $producto->nombre_producto }}" 
+                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                 
                                 @endif
 
                             @else <!-- si hay inventario  -->
 
-                                <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                <a
+                                data-slug="{{ $producto->slug }}" 
+                                data-price="{{ intval($producto->precio_oferta) }}" 
+                                data-sku="{{ $producto->referencia_producto_sap }}" 
+                                data-ean="{{ $producto->referencia_producto }}"
+                                data-id="{{ $producto->id }}" 
+                                @if(isset($producto->nombre_categoria))
+                                    data-categoria="{{ $producto->nombre_categoria }}" 
+                                @else
+                                    data-categoria="" 
+                                @endif
+                                data-marca="{{ $producto->nombre_marca }}" 
+                                data-name="{{ $producto->nombre_producto }}" 
+                                data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                             
                             @endif
 

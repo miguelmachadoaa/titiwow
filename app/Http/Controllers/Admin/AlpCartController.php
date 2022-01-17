@@ -2937,7 +2937,6 @@ class AlpCartController extends JoshController
             }
 
 
-
             $payment = new MercadoPago\Payment();
             $payment->transaction_amount = (float)$total_pago_mercadopago;
             $payment->net_amount =(float)number_format($net_amount_mercadopago, 2, '.', '');
@@ -2958,7 +2957,7 @@ class AlpCartController extends JoshController
             $payer->email = $user_cliente->email;
             $payment->payer = $payer;
 
-            dd($payment);
+           #dd($payment);
     
             activity($user->full_name)
                     ->performedOn($user)

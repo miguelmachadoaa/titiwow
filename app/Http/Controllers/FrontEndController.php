@@ -1239,6 +1239,19 @@ class FrontEndController extends JoshController
         ->whereNull('alp_almacen_slider.deleted_at')
         ->orderBy("order")->get();
 
+        $datalayer_slider=array();
+
+        foreach($sliders as $slider){
+          $sli = array(
+            'id' => $slider->id, 
+            'name' => $slider->nombre_slider, 
+            'creative' => 'home', 
+            'position' => $slider->order, 
+          );
+
+          $datalayer_slider[]=$sli;
+        }
+
 
       $cart= \Session::get('cart');
 
@@ -1252,7 +1265,7 @@ class FrontEndController extends JoshController
        }
 
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url', 'datalayer_slider'));
 
 
     }
