@@ -272,7 +272,7 @@
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="input-group">
-                                                <input type="text" name="buscar"  id="buscar" class="form-control typehead" placeholder="Buscar2" value="{{ old('buscar') }}" autocomplete="off">
+                                                <input type="text" name="buscar"  id="buscar" class="form-control typehead" placeholder="Buscar" value="{{ old('buscar') }}" autocomplete="off">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default busqueda " alt="Buscar" type="button" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
                                             </span>
