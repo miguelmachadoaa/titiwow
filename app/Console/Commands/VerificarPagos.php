@@ -2305,11 +2305,12 @@ private function registrarOrdenNuevo($id_orden)
 
     Log::info($dataraw);
 
-    activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en Velocity nuevo orden id '.$orden->id.' .vp634');
+    activity()->withProperties($dataraw)->log('Envio Aprobado Velocity '.$orden->id.' .vp634');
 
   $ch = curl_init();
 
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
+  #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -2321,8 +2322,8 @@ private function registrarOrdenNuevo($id_orden)
   $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-  #$result = curl_exec($ch);
-  $result = [];
+  $result = curl_exec($ch);
+  
   if (curl_errno($ch)) {
       echo 'Error:' . curl_error($ch);
   }
