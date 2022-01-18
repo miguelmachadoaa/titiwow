@@ -2088,11 +2088,6 @@ class FrontEndController extends JoshController
           $request->password=strip_tags($request->password);
           $request->doc_cliente=strip_tags($request->doc_cliente);
           $request->cod_alpinista=strip_tags($request->cod_alpinista);
-          $request->principal_address=strip_tags($request->principal_address);
-          $request->secundaria_address=strip_tags($request->secundaria_address);
-          $request->edificio_address=strip_tags($request->edificio_address);
-          $request->detalle_address=strip_tags($request->detalle_address);
-          $request->barrio_address=strip_tags($request->barrio_address);
 
 
           $u=User::where('email', $request->email)->first();
@@ -2172,20 +2167,8 @@ class FrontEndController extends JoshController
                         }
 
 
-                      $direccion = array(
-                          'id_client' => $user->id, 
-                          'city_id' => $request->city_id, 
-                          'id_estructura_address' => $request->id_estructura_address, 
-                          'principal_address' => $request->principal_address,
-                          'secundaria_address' => $request->secundaria_address,
-                          'edificio_address' => $request->edificio_address,
-                          'detalle_address' => $request->detalle_address,
-                          'barrio_address'=> $request->barrio_address,             
-                          'id_barrio'=> $request->id_barrio,             
-                          'id_user' => 0,               
-                      );
+                      
 
-                      AlpDirecciones::create($direccion);
 
                        $data_c = array(
                             'cod_oracle_cliente' =>$request->telefono_cliente,
@@ -2331,54 +2314,7 @@ class FrontEndController extends JoshController
 
                     $roleusuario=RoleUser::where('user_id', $user->id)->first();
 
-                     if ($request->id_barrio=='0') {
-
-              # code...
-
-                      }else{
-
-
-
-                        $b=Barrio::where('id', $request->id_barrio)->first();
-
-
-
-                        if (isset($b->id)) {
-
-                          $request->barrio_address=$b->barrio_name;
-
-                        }
-
-                      }
-
-
-
-                      $direccion = array(
-
-                          'id_client' => $user->id, 
-
-                          'city_id' => $request->city_id, 
-
-                          'id_estructura_address' => $request->id_estructura_address, 
-
-                          'principal_address' => $request->principal_address,
-
-                          'secundaria_address' => $request->secundaria_address,
-
-                          'edificio_address' => $request->edificio_address,
-
-                          'detalle_address' => $request->detalle_address,
-
-                          'barrio_address'=> $request->barrio_address,             
-
-                          'id_barrio'=> $request->id_barrio,             
-
-                          'id_user' => 0,               
-
-                      );
-
-
-                      AlpDirecciones::create($direccion);
+                   
 
                        $data_c = array(
 
