@@ -126,6 +126,20 @@
                                 </div>
                             </div>
 
+
+                            <div class="form-group col-sm-12 contenedorBarrio" style="display:none">
+                                <label for="select21" class="col-md-3 control-label">
+                                    Barrio
+                                </label>
+                                <div class="col-md-9" >
+                                    <select id="barrio_id_ubicacion" name="barrio_id_ubicacion" class="form-control js-example-responsive" style="width: 100%">
+                                        <option value="-1">Seleccione Barrio</option>       
+                                    </select>
+                                </div>
+                            </div>
+
+
+
                             <div class="col-sm-12">
                                 <div class="resciudad "></div>
                             </div>

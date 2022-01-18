@@ -782,7 +782,10 @@ class AlpConfiguracionController extends JoshController
 
         }
         
+          \Session::put('barrio', $request->barrio_id);
+
           \Session::put('ciudad', $request->city_id);
+
           \Session::put('almacen', $request->city_id);
 
           $tipo=0;
@@ -803,12 +806,31 @@ class AlpConfiguracionController extends JoshController
         }
 
 
-                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                  ->where('alp_almacenes.id', $request->city_id)
+                  ->where('alp_almacen_despacho.id_barrio', $request->barrio_id)
+                  ->where('alp_almacenes.estado_registro', '=', '1')
+                  ->first();
+
+                if (isset($ad->id)) {
+
+                }else{
+
+                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacenes.id', $request->city_id)
                 ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
+
+
+                }
+
+
+
+                
 
                 if (isset($ad->id)) {
                 # code...
@@ -838,7 +860,9 @@ class AlpConfiguracionController extends JoshController
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                   ->where('alp_almacen_despacho.id_city', '0')
-                  ->where('alp_almacen_despacho.id_state', '0')->where('alp_almacenes.estado_registro', '=', '1')->first();
+                  ->where('alp_almacen_despacho.id_state', '0')
+                  ->where('alp_almacenes.estado_registro', '=', '1')
+                  ->first();
 
                   }
 
@@ -858,9 +882,25 @@ class AlpConfiguracionController extends JoshController
 
                     if (isset($cities->id)) {
 
+                      $barrio=Barrio::where('id', $request->barrio_id)->first();
+
+                      $barrio_name='';
+                      $barrio_id=0;
+              
+                      if(isset($barrio->id)){
+              
+                        $barrio_name=$barrio->barrio_name;
+                        $barrio_id=$barrio->id;
+              
+              
+                      }
+              
+
                         $data = array(
                           'status' => $id_almacen, 
                           'city_name' => $almacen->alias_almacen, 
+                          'barrio_name' => $barrio_name, 
+                          'id_barrio' => $barrio_id,
                           'state_name' => '', 
                           'id_ciudad' => $cities->id,
                           'id_state' => $cities->id_state,
@@ -888,20 +928,17 @@ class AlpConfiguracionController extends JoshController
 
                     if (isset($almacen->id)) {
 
-                     $id_almacen='false';
+                        $id_almacen='false';
 
-                     $data = array(
-                      'status' => $id_almacen
-                    );
+                        $data = array(
+                          'status' => $id_almacen
+                        );
 
-                    return json_encode($data);
-
-
+                        return json_encode($data);
 
                     }else{
 
                       $id_almacen='false';
-
 
                       $data = array(
                         'status' => $id_almacen
@@ -914,13 +951,26 @@ class AlpConfiguracionController extends JoshController
                 }
 
 
-                $almacen=AlpAlmacenes::where('id', $request->city_id)->where('alp_almacenes.estado_registro', '=', '1')->first();
+        $almacen=AlpAlmacenes::where('id', $request->city_id)
+        ->where('alp_almacenes.estado_registro', '=', '1')
+        ->first();
 
-      
-       $cities = City::select('config_cities.*', 'config_states.state_name as state_name', 'config_states.id as id_state')
+        $barrio=Barrio::where('id', $request->barrio_id)->first();
+
+        $barrio_name='';
+        $barrio_id=0;
+
+        if(isset($barrio->id)){
+
+          $barrio_name=$barrio->barrio_name;
+          $barrio_id=$barrio->id;
+
+
+        }
+
+        $cities = City::select('config_cities.*', 'config_states.state_name as state_name', 'config_states.id as id_state')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->where('config_cities.id',$almacen->id_city)->first();
-
 
         if (isset($cities->id)) {
 
@@ -928,6 +978,8 @@ class AlpConfiguracionController extends JoshController
             'status' => $id_almacen, 
             'city_name' => $almacen->alias_almacen, 
             'state_name' => '', 
+            'barrio_name' => $barrio_name, 
+            'id_barrio' => $barrio_id,
             'id_ciudad' => $cities->id,
             'id_state' => $cities->id_state,
           );
@@ -1553,7 +1605,12 @@ class AlpConfiguracionController extends JoshController
 
        $almacen=AlpAlmacenes::where('id', '=', $id_almacen)->first();
 
+       $barrios=AlpAlmacenDespacho::where('alp_almacen_despacho.estado_registro', '=', '1')
+       ->join('config_barrios', 'alp_almacen_despacho.id_barrio', '=', 'config_barrios.id')
+       ->where('alp_almacen_despacho.id_almacen', '=', $id_almacen)
+       ->pluck("config_barrios.barrio_name",'config_barrios.id')->all();
 
+       $almacen['barrios']=$barrios;
         
       #return $id_almacen;
 
@@ -1561,6 +1618,29 @@ class AlpConfiguracionController extends JoshController
 
       
     }
+
+
+
+    public function selectBarriosModal($id)
+    {
+
+      $barrios=AlpAlmacenDespacho::where('alp_almacen_despacho.estado_registro', '=', '1')
+      ->join('config_barrios', 'alp_almacen_despacho.id_barrio', '=', 'config_barrios.id')
+      ->where('alp_almacen_despacho.id_almacen', '=', $id)
+      ->pluck("config_barrios.barrio_name",'config_barrios.id')->all();
+      
+      dd($barrios);
+
+      asort($barrios);
+        
+        $barrios['0'] = 'Seleccione';
+
+        return json_encode($almacenes);
+    }
+
+
+
+
 
 
 

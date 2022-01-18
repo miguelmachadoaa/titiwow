@@ -1742,6 +1742,8 @@ Route::post('configuracion/setbarrio', 'Admin\AlpConfiguracionController@setbarr
 
 Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'Admin\AlpConfiguracionController@selectCity'));
 
+Route::get('configuracion/barriosModal/{id}',array('as'=>'configuracion.barrios','uses'=>'Admin\AlpConfiguracionController@selectBarriosModal'));
+
 Route::get('configuracion/tipourl/{id}',array('as'=>'configuracion.tipourl','uses'=>'Admin\AlpConfiguracionController@selectTipoUrl'));
 
 

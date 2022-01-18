@@ -223,6 +223,8 @@
     
         $(document).ready(function(){
 
+            $("#barrio_id_ubicacion").fadeOut();
+
            $("#state_id_ubicacion").select2();
 
             $("#city_id_ubicacion").select2();
@@ -240,9 +242,9 @@
 
                 if (ubicacion.status=='true'){
 
-                    $('.ubicacion_header a').html('Ubicación: '+ubicacion.city_name+' '+ubicacion.state_name);
+                    $('.ubicacion_header a').html('Ubicación: '+ubicacion.city_name+' '+ubicacion.state_name+' '+ubicacion.barrio_name);
 
-                    $('.pmimodal').html('Est&aacute; visualizando los productos disponibles en esta ubicaci&oacute;n: <br> <span style="font-size:16px" > '+ ubicacion.city_name+', '+ubicacion.state_name+'</sapn>');
+                    $('.pmimodal').html('Est&aacute; visualizando los productos disponibles en esta ubicaci&oacute;n: <br> <span style="font-size:16px" > '+ ubicacion.city_name+', '+ubicacion.state_name+' '+ubicacion.barrio_name+'</span>');
 
                     $('.addtocart').removeClass('hidden');
 
@@ -292,6 +294,8 @@
 
         $(document).on('change','#city_id_ubicacion', function(){
 
+            $(".contenedorBarrio").hide();
+
             city_id=$('#city_id_ubicacion').val();
 
             base=$('#base').val();
@@ -304,7 +308,35 @@
 
                     ubicacion=JSON.parse(datos.responseText);
 
-                    localStorage.setItem('ubicacion', datos.responseText);
+                    let barrios = ubicacion.barrios;
+
+                    let c= Object.keys(barrios).length
+
+                    console.log(c)
+
+                    if(c>0){
+
+                        $('select[name="barrio_id_ubicacion"]').empty();
+
+                        Object.entries(ubicacion.barrios).forEach(([key, value]) => {
+                            $('select[name="barrio_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+
+                        $("#barrio_id_ubicacion").select2();
+
+                        $(".contenedorBarrio").show();
+
+                        $(".js-example-responsive").select2({
+                            width: 'resolve'
+                        });
+
+                    }else{
+
+                        localStorage.setItem('ubicacion', datos.responseText);
+
+                    }
+
+                   
 
                    // alert(ubicacion.imagen_almacen);
 
@@ -326,6 +358,51 @@
         });
 
 
+      /*  $('select[name="city_id_ubicacion"]').on('change', function() {
+        
+        var city_id = $(this).val();
+
+        alert('cambio');
+
+        var base = $('#base').val();
+
+        if(city_id) {
+            $.ajax({
+                url: base+'/configuracion/barriosModal/'+city_id,
+                type: "GET",
+                dataType: "json",
+                success:function(data) {
+
+                  //  alert(data);
+
+                    $('select[name="barrio_id_ubicacion"]').empty();
+
+                  
+                    $.each(data, function(key, value) {
+
+                        console.log(key + ' '+ value);
+
+                        $('select[name="barrio_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+
+                    });
+
+
+                    $("#barrio_id_ubicacion").select2();
+
+                    $(".js-example-responsive").select2({
+                        width: 'resolve'
+                    });
+                
+                   
+
+                }
+            });
+        }else{
+            $('select[name="city_id_ubicacion"]').empty();
+        }
+    });*/
+
+
          $('.saveubicacion').click(function (){
     
             var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
@@ -336,9 +413,10 @@
 
                 city_id=$('#city_id_ubicacion').val();
 
+                barrio_id=$('#barrio_id_ubicacion').val();
+
 
                 if (city_id==0) {
-
 
                     $('.resciudad').html('<div class="alert alert-danger">Debe seleccionar una ciudad.</div>');
 
@@ -347,7 +425,7 @@
 
                     $.ajax({
                     type: "POST",
-                    data:{  city_id },
+                    data:{  city_id, barrio_id },
                     url: base+"/configuracion/verificarciudad",
                         
                     complete: function(datos){     
@@ -361,7 +439,7 @@
 
                              if (ubicacion.status=='true') {
 
-                                $('.ubicacion_header a').html(ubicacion.city_name+', '+ubicacion.state_name);
+                                $('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name+' '+ubicacion.barrio_name);
 
                                 $('.addtocart').removeClass('hidden');
 
@@ -406,14 +484,21 @@
         });
 
 
+
+        
+
+
+
+
+
         // $('select[name="state_id_ubicacion"]').on('change', function() {
 
             $(document).ready(function(){
         
             //var stateID = $(this).val();
-            var stateID = 47;
+                var stateID = 47;
 
-            var base = $('#base').val();
+                var base = $('#base').val();
 
                 if(stateID) {
                     $.ajax({
