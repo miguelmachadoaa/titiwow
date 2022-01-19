@@ -695,7 +695,7 @@
         window.dataLayer.push({
             'ecommerce': {
                 'promoView': {
-                    'promotions': {{json_encode($datalayer_slider)}}
+                    'promotions': {!!json_encode($datalayer_slider)!!}
                 }
             }
         });
