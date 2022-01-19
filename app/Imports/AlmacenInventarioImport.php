@@ -38,14 +38,13 @@ class AlmacenInventarioImport implements ToCollection
         foreach ($rows as $row) 
         {
 
-
             if ($i==0 || is_null($row[3]) ) {
                 # code...
             }else{
 
                 if (trim($row[4]==0)) {
 
-                    $p=AlpProductos::where('slug', trim($row[0]))->first();
+                    $p=AlpProductos::where('referencia_producto', trim($row[1]))->first();
 
                     if (isset($p->id)) {
 
