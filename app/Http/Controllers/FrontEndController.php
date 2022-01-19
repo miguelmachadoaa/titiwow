@@ -1242,14 +1242,16 @@ class FrontEndController extends JoshController
         $datalayer_slider=array();
 
         foreach($sliders as $slider){
-          $sli = array(
-            'id' => $slider->id, 
-            'name' => $slider->nombre_slider, 
-            'creative' => 'home', 
-            'position' => $slider->order, 
-          );
 
-          $datalayer_slider[]=$sli;
+            $sli = array(
+              'id' => $slider->id, 
+              'name' => $slider->nombre_slider, 
+              'creative' => 'home', 
+              'position' => $slider->order, 
+            );
+
+            $datalayer_slider[]=$sli;
+
         }
 
 

@@ -691,6 +691,15 @@
         'pageTitle': '{{ $configuracion->seo_title}}'
         });
 
+        window.dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        window.dataLayer.push({
+            'ecommerce': {
+                'promoView': {
+                    'promotions': {{json_encode($datalayer_slider)}}
+                }
+            }
+        });
+
     </script>
 
     <!-- Google Tag Manager (noscript) -->
