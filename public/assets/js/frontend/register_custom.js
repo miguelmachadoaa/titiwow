@@ -87,7 +87,7 @@ $("#reg_form").bootstrapValidator({
                 }
             }
         },
-        terminos_cliente: {
+       /* terminos_cliente: {
             validators: {
                 notEmpty: {
                     message: 'Debe Aceptar Términos y Condiciones'
@@ -95,7 +95,7 @@ $("#reg_form").bootstrapValidator({
             },
             required: true,
             minlength: 3
-        },
+        },*/
         habeas_cliente: {
             validators: {
                 notEmpty: {

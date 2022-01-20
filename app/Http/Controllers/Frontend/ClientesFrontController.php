@@ -1499,7 +1499,18 @@ class ClientesFrontController extends Controller
 
             }
 
-            return redirect('misdirecciones');
+            if(isset($request->paso)){
+
+                return redirect('cart/show');
+
+            }else{
+
+                return redirect('misdirecciones');
+
+            }
+
+
+
 
            # return Redirect::route('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
 

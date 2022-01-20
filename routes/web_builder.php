@@ -1567,6 +1567,8 @@ Route::post('pedidos/epayco/respuesta',array('as'=>'pedidosepayco.respuesta','us
 
 Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'Admin\AlpCartController@show']);
 
+Route::get('cart/direccion', ['as'=>'cart.direccion', 'uses'=>'Admin\AlpCartController@direccion']);
+
 Route::get('cart/getOrden/',['as'=>'cart.getOrden', 'uses'=>'Admin\AlpCartController@getOrden']);
 
 
