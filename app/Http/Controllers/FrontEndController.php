@@ -1240,6 +1240,7 @@ class FrontEndController extends JoshController
         ->orderBy("order")->get();
 
         $datalayer_slider=array();
+        $datalayer_slider_id=array();
 
         foreach($sliders as $slider){
 
@@ -1251,6 +1252,7 @@ class FrontEndController extends JoshController
             );
 
             $datalayer_slider[]=$sli;
+            $datalayer_slider_id[$slider->id]=$sli;
 
         }
 
@@ -1267,7 +1269,7 @@ class FrontEndController extends JoshController
        }
 
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url', 'datalayer_slider'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url', 'datalayer_slider', 'datalayer_slider_id'));
 
 
     }

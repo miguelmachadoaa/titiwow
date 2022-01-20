@@ -933,8 +933,6 @@ class ProductosFrontController extends Controller
 
         $url=secure_url('categoria/'.$slug);
 
-        
-
         return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria', 'almacen', 'destacados'));
 
     }

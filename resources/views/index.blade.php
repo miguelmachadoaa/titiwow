@@ -90,7 +90,7 @@
     <div id="owl-demo" class="owl-carousel owl-theme hidden-xs">
         @foreach($sliders as $s)
             <div class="item">
-                <a href="{{ $s->link_slider }}" target="_self">
+                <a data-url="{{ $s->link_slider }}" data-id="{{$s->id}}" data-json="{{json_encode($datalayer_slider_id[$s->id])}}" class="btnSlider" href="#" target="_self">
                     <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
                 </a>
             </div>
@@ -102,7 +102,7 @@
         @foreach($sliders as $s)
             @if($s->imagen_slider_mobile!='0')
             <div class="item">
-                <a href="{{ $s->link_slider }}" target="_self">
+                <a data-url="{{ $s->link_slider }}" data-id="{{$s->id}}" data-json="{{json_encode($datalayer_slider_id[$s->id])}}" class="btnSlider" href="#" target="_self">
                     <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive"  alt="Alpina Go!">
                 </a>
             </div>
@@ -699,6 +699,32 @@
                 }
             }
         });
+
+        $('.btnSlider').on('click', function(){
+
+            url=$(this).data('url');
+            id=$(this).data('id');
+            json=$(this).data('json');
+
+            console.log(id);
+            console.log(json);
+
+            dataLayer.push({
+                'event': 'promotionClick',
+                'ecommerce': {
+                'promoClick': {
+                        'promotions': json
+                    }
+                },
+                'eventCallback': function() {
+                  //  document.location = url;
+                }
+            });
+
+
+
+        });
+
 
     </script>
 

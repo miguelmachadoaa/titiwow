@@ -316,12 +316,6 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
     Route::get('productos/verificar/referencia', ['as'=> 'productos.referencia', 'uses' => 'Admin\AlpProductosController@referencia']);
 
-
-
-   
-
-
-    
     
 
 //fin direcciones productos 
