@@ -717,7 +717,7 @@
                     }
                 },
                 'eventCallback': function() {
-                  //  document.location = url;
+                   document.location = url;
                 }
             });
 
