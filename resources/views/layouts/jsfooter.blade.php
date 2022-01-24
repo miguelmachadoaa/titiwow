@@ -524,8 +524,6 @@
                             $(".js-example-responsive").select2({
                                 width: 'resolve'
                             });
-                        
-                           
 
                         }
                     });

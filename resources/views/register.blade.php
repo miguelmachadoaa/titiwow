@@ -122,87 +122,7 @@
                            placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="clearfix"></div>
-                <hr />
-                <h4 class="text-primary">Dirección</h4>
-                <div class="form-group {{ $errors->first('state_id', 'has-error') }}">
-                    <div class="" >
-                        <select id="state_id" name="state_id" value="{!! old('state_id') !!}" class="form-control">
-                            <option value="">Seleccione Departamento</option>     
-                            @foreach($states as $state)
-                            <option value="{{ $state->id }}">
-                                    {{ $state->state_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="form-group {{ $errors->first('city_id', 'has-error') }}">
-                    <div class="" >
-                        <select id="city_id" name="city_id" value="{!! old('city_id') !!}" class="form-control">
-                            <option value="">Seleccione Ciudad</option>
-                        </select>
-                    </div>
-                    {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="clearfix"></div>
-                <div class="form-group">
-                    <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address', 'has-error') }}">
-                            <select id="id_estructura_address" name="id_estructura_address" value="{!! old('id_estructura_address') !!}" class="form-control">
-                                @foreach($estructura as $estru)
-                                <option value="{{ $estru->id }}">
-                                {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
-                                @endforeach
-                            </select>
-                        {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
-                    </div>
-                    <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address', 'has-error') }}">
-                        <div class="input-group">
-                            <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
-                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" value="{!! old('principal_address') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
-                        </div>
-                        {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div style="padding: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('secundaria_address', 'has-error') }}">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" value="{!! old('secundaria_address') !!}"  placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
-                    </div>
-                    {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div style="padding-right: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('edificio_address', 'has-error') }}">
-                    <div class="input-group">
-                        <input type="text" class="form-control" value="{!! old('edificio_address') !!}" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
-                    </div>
-                    {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="clearfix"></div>
-                <div class="form-group {{ $errors->first('detalle_address', 'has-error') }}">
-                    <input type="text" class="form-control" value="{!! old('detalle_address') !!}" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
-                           value="{!! old('detalle_address') !!}" >
-                    {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="form-group barrio_address {{ $errors->first('barrio_address', 'has-error') }}">
-                    <input type="text" class="form-control" value="{!! old('barrio_address') !!}" id="barrio_address" name="barrio_address" placeholder="Barrio"
-                           value="{!! old('barrio_address') !!}" >
-                    {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
-                </div>
-
-
-                <div style="padding: 0;" class="form-group col-sm-12 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
-                    <div class="" >
-                        <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
-                            <option value="">Seleccione Barrio</option>
-                        </select>
-                    </div>
-                    {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
-                </div>
-
-
-                <div class="clearfix"></div>
-                <hr />
-
+               
 
                 <!--div class="form-group {{ $errors->first('convenio', 'has-error') }}">
                     <label for="">¿Tienes un número de convenio?  <small>(Opcional)</small></label>
@@ -225,11 +145,7 @@
                     {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
-                <hr />
-                <div class="clearfix"></div>
-                <div class="form-group ">
-                
-                </div>
+               
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
                         <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
@@ -432,15 +348,15 @@ $(document).ready(function(){
             telefono_cliente=$('#telefono_cliente').val();
             password=btoa($('#Password1').val());
             password_confirm=btoa($('#Password2').val());
-            state_id=$('#state_id').val();
-            city_id=$('#city_id').val();
-            id_estructura_address=$('#id_estructura_address').val();
-            principal_address=$('#principal_address').val();
-            secundaria_address=$('#secundaria_address').val();
-            detalle_address=$('#detalle_address').val();
-            barrio_address=$('#barrio_address').val();
-            id_barrio=$('#id_barrio').val();
-            edificio_address=$('#edificio_address').val();
+        //    state_id=$('#state_id').val();
+        //    city_id=$('#city_id').val();
+        //    id_estructura_address=$('#id_estructura_address').val();
+        //    principal_address=$('#principal_address').val();
+        //    secundaria_address=$('#secundaria_address').val();
+        //    detalle_address=$('#detalle_address').val();
+        //    barrio_address=$('#barrio_address').val();
+        //    id_barrio=$('#id_barrio').val();
+         //   edificio_address=$('#edificio_address').val();
             habeas_cliente=$('#habeas_cliente').val();
             
             ban_enviar=0;
@@ -565,16 +481,17 @@ $(document).ready(function(){
                         telefono_cliente:telefono_cliente,
                         password:password,
                         password_confirm:password_confirm,
-                        state_id:state_id,
-                        city_id:city_id,
-                        id_estructura_address:id_estructura_address,
-                        principal_address:principal_address,
-                        secundaria_address:secundaria_address,
-                        detalle_address:detalle_address,
-                        barrio_address:barrio_address,
-                        id_barrio:id_barrio,
-                        habeas_cliente:habeas_cliente,
-                        edificio_address:edificio_address,
+                        habeas_cliente,
+                    //    state_id:state_id,
+                    //    city_id:city_id,
+                    //    id_estructura_address:id_estructura_address,
+                    //    principal_address:principal_address,
+                    //    secundaria_address:secundaria_address,
+                    //    detalle_address:detalle_address,
+                   //     barrio_address:barrio_address,
+                    //    id_barrio:id_barrio,
+                    //    habeas_cliente:habeas_cliente,
+                    //    edificio_address:edificio_address,
                         _token:_token   
                     },  
                     type: "POST",
@@ -612,11 +529,11 @@ $(document).ready(function(){
         });
 
 
-        $("#state_id").select2();
-        $("#city_id").select2();
-        $("#id_barrio").select2();
-        $("#id_type_doc").select2();
-        $("#id_estructura_address").select2();
+      //  $("#state_id").select2();
+     //   $("#city_id").select2();
+     //   $("#id_barrio").select2();
+     //   $("#id_type_doc").select2();
+     //   $("#id_estructura_address").select2();
         //Inicio select región
                         
             //inicio select ciudad
