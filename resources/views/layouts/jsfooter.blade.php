@@ -693,7 +693,6 @@
                         $('.cantidadCarrito').html($('.productoscarritodetalle').length);
 
                     });
-
                    
 
                 }

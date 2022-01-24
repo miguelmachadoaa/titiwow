@@ -270,8 +270,6 @@ Carrito de Compras
     </div>
 
 
-
-
 @endsection
 
 {{-- page level scripts --}}

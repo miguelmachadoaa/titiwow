@@ -150,7 +150,6 @@
 
                         <div class="row">
                             <div class="col-sm-12 imagenubicacion">
-
                             </div>
                         </div>
                 </div>

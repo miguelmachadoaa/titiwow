@@ -110,7 +110,6 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            $cart= \Session::get('cart');
 
             $puntos = array();
 
@@ -200,12 +199,30 @@ class ClientesFrontController extends Controller
 
             $barrios=Barrio::where('city_id', $direccion->city_id)->orderBy('barrio_name')->get();
 
+          }
 
+          
+          $cart= \Session::get('cart');
 
+          $total=0;
+  
+          if($cart!=NULL){
+  
+              foreach($cart as $row) {
+  
+                if (isset($row->id)) {
+  
+                  $total=$total+($row->cantidad*$row->precio_oferta);
+  
+                }
+  
+              }
+  
           }
 
 
-            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios'));
+
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios', 'total'));
     
             }else{
 
@@ -288,12 +305,28 @@ class ClientesFrontController extends Controller
 
             $puntos = array();
 
+            $cart= \Session::get('cart');
 
+            $total=0;
+    
+            if($cart!=NULL){
+    
+                foreach($cart as $row) {
+    
+                  if (isset($row->id)) {
+    
+                    $total=$total+($row->cantidad*$row->precio_oferta);
+    
+                  }
+    
+                }
+    
+            }
            
 
             //dd($cliente);
 
-            return \View::make('frontend.clientes.convenios', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role'));
+            return \View::make('frontend.clientes.convenios', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'cart', 'total'));
     
             }else{
 
@@ -428,8 +461,27 @@ class ClientesFrontController extends Controller
             $listabarrios=Barrio::orderBy('barrio_name')->get();
 
 
+            $cart= \Session::get('cart');
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion', 'listabarrios', 'role'));
+            $total=0;
+    
+            if($cart!=NULL){
+    
+                foreach($cart as $row) {
+    
+                  if (isset($row->id)) {
+    
+                    $total=$total+($row->cantidad*$row->precio_oferta);
+    
+                  }
+    
+                }
+    
+            }
+
+
+
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion', 'listabarrios', 'role', 'cart', 'total'));
     
 
             }else{
@@ -478,9 +530,25 @@ class ClientesFrontController extends Controller
              $cart= \Session::get('cart');
 
 
+             $cart= \Session::get('cart');
 
+             $total=0;
+     
+             if($cart!=NULL){
+     
+                 foreach($cart as $row) {
+     
+                   if (isset($row->id)) {
+     
+                     $total=$total+($row->cantidad*$row->precio_oferta);
+     
+                   }
+     
+                 }
+     
+             }
 
-            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart'));
+            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart', 'total'));
     
 
             }else{
@@ -784,8 +852,26 @@ class ClientesFrontController extends Controller
 
              $cart= \Session::get('cart');
 
+             $cart= \Session::get('cart');
 
-            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion', 'states', 'cart'));
+            $total=0;
+    
+            if($cart!=NULL){
+    
+                foreach($cart as $row) {
+    
+                  if (isset($row->id)) {
+    
+                    $total=$total+($row->cantidad*$row->precio_oferta);
+    
+                  }
+    
+                }
+    
+            }
+
+
+            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion', 'states', 'cart', 'total'));
 
 
 
@@ -825,9 +911,25 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-             $cart= \Session::get('cart');
+            $cart= \Session::get('cart');
 
-                return \View::make('frontend.clientes.compras', compact('compras', 'cliente', 'user', 'states', 'cart'));
+            $total=0;
+    
+            if($cart!=NULL){
+    
+                foreach($cart as $row) {
+    
+                  if (isset($row->id)) {
+    
+                    $total=$total+($row->cantidad*$row->precio_oferta);
+    
+                  }
+    
+                }
+    
+            }
+
+                return \View::make('frontend.clientes.compras', compact('compras', 'cliente', 'user', 'states', 'cart', 'total'));
 
             }else{
 
@@ -881,9 +983,25 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-             $cart= \Session::get('cart');
+            $cart= \Session::get('cart');
 
-            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states', 'cart', 'pagos'));
+            $total=0;
+    
+            if($cart!=NULL){
+    
+                foreach($cart as $row) {
+    
+                  if (isset($row->id)) {
+    
+                    $total=$total+($row->cantidad*$row->precio_oferta);
+    
+                  }
+    
+                }
+    
+            }
+
+            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states', 'cart', 'pagos', 'total'));
 
             }else{
 

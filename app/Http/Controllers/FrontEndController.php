@@ -769,7 +769,27 @@ class FrontEndController extends JoshController
 
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
-        return view('frontend.pqr', compact('t_documento'));
+        $cart= \Session::get('cart');
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+              if (isset($row->id)) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+              }
+
+            }
+
+        }
+
+
+
+        return view('frontend.pqr', compact('t_documento', 'cart', 'total'));
 
 
 

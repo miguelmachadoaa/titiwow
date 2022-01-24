@@ -55,6 +55,7 @@ Area clientes
 
 {{-- breadcrumb --}}
 @section('top')
+
     <div class="breadcum">
         <div class="container">
             <ol class="breadcrumb">
@@ -71,6 +72,7 @@ Area clientes
             </ol>
         </div>
     </div>
+
 @stop
 
 
@@ -269,14 +271,11 @@ Area clientes
             </div>
         </div>
 
-
-       
-
-
        
     </div>
 </div>
 
+@include('frontend.includes.newcart')
 
 
 @if(isset($direccion->barriomodal))
@@ -360,13 +359,11 @@ Area clientes
         $('#modal_id_barrio').select2();
 
         $(".js-example-responsive").select2({
-                                width: 'resolve'
-                            });
-
+            width: 'resolve'
+        });
 
 
         $(document).ready(function(){
-            
             $('#barrioModal').modal('show', {backdrop: 'static', keyboard: false});
         });
 
@@ -382,7 +379,6 @@ Area clientes
             if(id_barrio==null || id_barrio==undefined || id_barrio==''){
 
                 $('.errorBarrio').html('Todos los campos son obligatorios')
-
 
             }else{
 
