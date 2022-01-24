@@ -203,7 +203,7 @@ Carrito de Compras
 
     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
 
-        <button class="btn btn-primary" type="submit" >Crear </button>
+        <button class="btn btn-primary" type="submit" >Crear Dirección y Continuar con la compra </button>
 
     </div>
 
