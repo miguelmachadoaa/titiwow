@@ -66,10 +66,6 @@ class UserRequest extends FormRequest
                     'id_type_doc' => 'required',
                     'telefono_cliente' => 'required|min:5',
                     'habeas_cliente' => 'required',
-                    'id_estructura_address' => 'required',
-                    'principal_address' => 'required',
-                    'secundaria_address' => 'required',
-                    'edificio_address' => 'required',
                     'g-recaptcha-response' => new Captcha(),
                 ];
             }
@@ -84,10 +80,6 @@ class UserRequest extends FormRequest
                     'id_type_doc' => 'required',
                     'telefono_cliente' => 'required|min:5',
                     'habeas_cliente' => 'required',
-                    'id_estructura_address' => 'required',
-                    'principal_address' => 'required',
-                    'secundaria_address' => 'required',
-                    'edificio_address' => 'required', 
                     'g-recaptcha-response' => new Captcha(),
                 ];
             }

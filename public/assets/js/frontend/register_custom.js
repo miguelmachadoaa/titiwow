@@ -87,75 +87,7 @@ $("#reg_form").bootstrapValidator({
                 }
             }
         },
-        state_id: {
-            validators: {
-                notEmpty: {
-                    message: 'Debe Indicar el Departamento'
-                }
-            },
-            required: true
-        },
-        city_id: {
-            validators: {
-                notEmpty: {
-                    message: 'Debe Indicar La Ciudad'
-                }
-            },
-            required: true
-        },
-        id_estructura_address: {
-            validators: {
-                notEmpty: {
-                    message: 'Debe Indicar La Dirección'
-                }
-            },
-            required: true
-        },
-        principal_address: {
-            validators: {
-                notEmpty: {
-                    message: 'Dirección Principal es Requerida'
-                }
-            },
-            required: true,
-            minlength: 1
-        },
-        secundaria_address: {
-            validators: {
-                notEmpty: {
-                    message: 'Dirección Secundaria es Requerida'
-                }
-            },
-            required: true,
-            minlength: 1
-        },
-        edificio_address: {
-            validators: {
-                notEmpty: {
-                    message: 'El Número del Edificio es Requerido'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
-        id_barrio: {
-            validators: {
-                notEmpty: {
-                    message: 'Debe Indicar El Barrio'
-                }
-            },
-            required: true
-        },
-        barrio_address: {
-            validators: {
-                notEmpty: {
-                    message: 'El Barrio es Requerido'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
-        terminos_cliente: {
+       /* terminos_cliente: {
             validators: {
                 notEmpty: {
                     message: 'Debe Aceptar Términos y Condiciones'
@@ -163,7 +95,7 @@ $("#reg_form").bootstrapValidator({
             },
             required: true,
             minlength: 3
-        },
+        },*/
         habeas_cliente: {
             validators: {
                 notEmpty: {

@@ -176,46 +176,72 @@ class AlpCartController extends JoshController
 
       $cart= \Session::get('cart');
 
-       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
 
-                   $cart= \Session::forget('cart');
+            $cart= \Session::forget('cart');
 
-          \Session::put('cart', array());
-                 }
+            \Session::put('cart', array());
+          
+        }
+
+
+
+        if (Sentinel::check()) {
+
+          $user_id = Sentinel::getUser()->id;
+
+          $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+            ->where('alp_direcciones.id_client', $user_id)
+            ->first();
+
+            if(isset($d->id)){
+
+            }else{
+
+              return redirect('cart/direccion');
+
+
+            }
+
+
+  
+        }else{
+          
+          $user_id= \Session::get('iduser');
+         
+        }
+
+
+
 
                  
       //$fecha=$this->getFechaEntrega('2', '62');
 
-                 
       $states=State::where('config_states.country_id', '47')->get();
-
       
       $mensaje_promocion=$this->addPromocion();
-
       
       $cart=$this->reloadCart();
-
       
       //dd($cart);
 
       
       $combos=$this->combos();
-
       
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-      
       $total=$this->total();
 
-      
       $inv=$this->inventario();
-
       
       $id_almacen=$this->getAlmacenCart();
 
       
      // echo $id_almacen;
-
       
       $descuento='1'; 
 
@@ -334,6 +360,176 @@ class AlpCartController extends JoshController
 
     }
     
+
+
+    public function direccion()
+    {
+
+
+      $ip=\Request::ip();
+
+
+      \Session::forget('aviso');
+
+      $cart= \Session::get('cart');
+
+        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+
+            $cart= \Session::forget('cart');
+
+            \Session::put('cart', array());
+          
+        }
+
+                 
+      //$fecha=$this->getFechaEntrega('2', '62');
+
+      $states=State::where('config_states.country_id', '47')->get();
+      
+      $mensaje_promocion=$this->addPromocion();
+      
+      $cart=$this->reloadCart();
+      
+      //dd($cart);
+
+      
+      $combos=$this->combos();
+      
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+      $total=$this->total();
+
+      $inv=$this->inventario();
+      
+      $id_almacen=$this->getAlmacenCart();
+
+      
+     // echo $id_almacen;
+      
+      $descuento='1'; 
+
+      
+      $precio = array();
+
+      if (\Session::has('cr')) {
+
+          $carrito= \Session::get('cr');
+          
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+          
+            foreach ($cupones as $cupon) {
+
+              $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+              if (isset($c->id)) {
+                
+              $c->delete();
+
+                # code...
+
+              }
+              
+            }
+            
+        }
+        
+        $descuento=1;
+
+      $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca', 'alp_categorias.nombre_categoria as nombre_categoria')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+        ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+        ->where('alp_almacenes.id', '=', $id_almacen)
+        ->whereNull('alp_almacen_producto.deleted_at')
+        ->whereNull('alp_productos.deleted_at')
+        ->where('alp_productos.sugerencia','=', 1)
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->orderBy('order', 'asc')
+        ->inRandomOrder()
+        ->orderBy('updated_at', 'desc')
+        ->limit(6)->get();
+
+        $prods=$this->addOferta($productos);
+
+        $inventario=$this->inventario();
+        
+        $url=secure_url('cart/show');
+        
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+        $dl_productos = array();
+
+        foreach($cart as $c){
+
+          if(isset($c->id)){
+
+            $dl_p=array();
+            $dl_p['nombre_producto']=$c->nombre_producto;
+            $dl_p['nombreCategoria']=$c->nombre_categoria;
+            $dl_p['nombreMarca']=$c->nombre_marca;
+            $dl_p['presentacion_producto']=$c->presentacion_producto;
+            $dl_p['ean']=$c->referencia_producto;
+            $dl_p['sku']=$c->referencia_producto_sap;
+            $dl_p['slug']=$c->slug;
+            $dl_p['precio_base']=$c->precio_base;
+            $dl_p['precio_oferta']=$c->precio_oferta;
+            $dl_p['cantidad']=$c->cantidad;
+
+            $dl_productos[]=$dl_p;
+          }
+
+        }
+
+        $ban_disponible=0;
+
+        foreach($cart as $cc){
+
+          if($cc->disponible=='0'){
+
+            $ban_disponible='1';
+
+          }
+
+        }
+
+        $date = Carbon::now();
+
+        $d=$date->format('Y-m-d');
+      
+      $lifemiles=null;
+
+      if(isset($almacen->id)){
+
+
+        $lifemiles=AlpLifeMiles::where('id_almacen', $almacen->id)->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+
+       
+        if(isset($lifemiles->id)){
+
+        }else{
+
+          $lifemiles=AlpLifeMiles::where('id_almacen', '=', '0')->whereDate('fecha_inicio', '<=', $d)->whereDate('fecha_final', '>=', $d)->where('estado_registro', '1')->first();
+        
+        }
+      
+      }
+
+      $cities=City::get();
+
+      $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+      $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+
+      return view('frontend.creardireccion', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles', 'cities', 't_documento', 'estructura'));
+
+    }
+
+
+
+
     public function detalle()
     {
       
