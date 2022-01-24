@@ -99,13 +99,6 @@
 
         }
 
-
-       
-
-
-
-
-
     });
 
 
@@ -119,7 +112,6 @@
         $('#btnCarrito').on('click', function(){
             $('#CartModal').modal('show');
         });
-
         
 
     /*funciones para crear ubicacion del comprador*/
@@ -154,12 +146,11 @@
 
             localStorage.setItem("vepopup1", 1);
 
-            location.reload();
+            location.reload();z
 
         });
 
         $(document).ready(function(){
-
 
             ubicacionmymodal = localStorage.getItem("ubicacionmymodal");
 
@@ -170,7 +161,6 @@
             }else{
 
                 $('#miModal').removeClass('hidden');
-
 
             }
 
@@ -197,11 +187,6 @@
         localStorage.setItem("ubicacionmymodal", 1);
 
         });
-
-
-
-        
-    
 
 
      $('.btnpg').click(function(){
@@ -242,9 +227,23 @@
 
                 if (ubicacion.status=='true'){
 
-                    $('.ubicacion_header a').html('Ubicación: '+ubicacion.city_name+' '+ubicacion.state_name+' '+ubicacion.barrio_name);
+                    let str_ubicacion='';
 
-                    $('.pmimodal').html('Est&aacute; visualizando los productos disponibles en esta ubicaci&oacute;n: <br> <span style="font-size:16px" > '+ ubicacion.city_name+', '+ubicacion.state_name+' '+ubicacion.barrio_name+'</span>');
+                    if(ubicacion.city_name!=undefined){
+                        str_ubicacion=ubicacion.city_name;
+                    }
+
+                    if(ubicacion.state_name!=undefined){
+                        str_ubicacion=str_ubicacion+', '+ubicacion.state_name;
+                    }
+
+                    if(ubicacion.barrio_name!=undefined){
+                        str_ubicacion=str_ubicacion+', '+ubicacion.barrio_name;
+                    }
+
+                    $('.ubicacion_header a').html('Ubicación: '+str_ubicacion+'');
+
+                    $('.pmimodal').html('Est&aacute; visualizando los productos disponibles en esta ubicaci&oacute;n: <br> <span style="font-size:16px">'+ str_ubicacion +'</span>');
 
                     $('.addtocart').removeClass('hidden');
 
@@ -260,20 +259,11 @@
 
             }else{
 
-             //   data='{"status":"true","city_name":"Bogot\u00e1","state_name":"Cundinamarca","id_ciudad":"62"}';
-
-              //  localStorage.setItem('ubicacion', data);
-
-              //   $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
-              
-              if (ban_modal==0) {
-
                 $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
 
               }
 
                
-            }
 
         });
 
