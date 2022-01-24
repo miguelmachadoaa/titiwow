@@ -42,9 +42,13 @@ class AlmacenInventarioImport implements ToCollection
                 # code...
             }else{
 
-                if (trim($row[4]==0)) {
+              #  dd($row);
+
+                if (trim($row[4]=='0')) {
 
                     $p=AlpProductos::where('referencia_producto', trim($row[1]))->first();
+
+
 
                     if (isset($p->id)) {
 
@@ -84,6 +88,9 @@ class AlmacenInventarioImport implements ToCollection
 
                                 AlpInventario::create($data_inventario_nuevo);
                                    
+                    }else{
+
+                        echo ' / '.trim($row[1]);
                     }
 
                 }
