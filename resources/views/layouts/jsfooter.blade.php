@@ -224,8 +224,6 @@
 
                         if(data.status){
 
-                            
-
                             ///////////////////////////////////////////////
 
 
@@ -257,6 +255,38 @@
                             $('.ubicacion_header a').html('No Disponible para Despacho');
 
                             $('.addtocart').addClass('hidden');
+
+                        }
+
+
+                        if (localStorage.getItem('ubicacion')!=undefined) {
+
+                            ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
+
+                            if (ubicacion.status=='true'){
+
+                                if(ubicacion.id_ciudad==data.id_ciudad){
+
+                                }else{
+
+                                    ubicacionmymodal = localStorage.getItem("ubicacionmymodal");
+
+                                    if (ubicacionmymodal=='1') {
+
+                                        $('#miModal').fadeOut();
+
+                                    }else{
+
+                                        $('#miModal').removeClass('hidden');
+
+                                    }
+
+
+                                }
+
+
+                            }
+
 
                         }
 
