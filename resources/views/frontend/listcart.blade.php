@@ -23,7 +23,29 @@
         <h1>Carrito de Compras</h1>
 
 
-         @if(isset($ban_disponible))
+        @if(isset($d->id))
+
+        @else
+
+
+                <div class="col-sm-12 alert alert-success">
+
+                    <h4 style="">Debes Agregar una dirección de envio para continuar con la Compra. </h4>
+
+                </div>
+
+                <div class="col-sm-12">
+                    <p>
+                        <a class="btn btn-primary" href="{{secure_url('cart/direccion')}}">Agregar Dirección de Envio </a>
+                    </p>
+                </div>
+
+
+
+        @endif
+
+
+         @if(isset($ban_disponible) && isset($d->id))
 
             @if($ban_disponible==1)
 
@@ -74,7 +96,7 @@
 
                                     <h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4>
 
-                                    @if($row->disponible==0)
+                                    @if($row->disponible==0 && isset($d->id))
 
                                         @php $ban_disponible=1; @endphp 
 

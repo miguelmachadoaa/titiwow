@@ -69,10 +69,10 @@
 
     $('.busqueda').on('click', function(e){
 
-
         e.preventDefault();
 
         buscar=$('.typehead').val();
+
         base=$('#base').val();
 
        // alert(buscar);
@@ -164,7 +164,6 @@
 
             }
 
-
         });
 
 
@@ -208,6 +207,70 @@
     
         $(document).ready(function(){
 
+            base=$('#base').val();
+
+            $.ajax({
+                url: base+'/configuracion/getdireccion',
+                type: "GET",
+                dataType: "json",
+                success:function(data) {
+
+
+                    if(data.id_ciudad=='' || data.id_ciudad==null){
+
+                        $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
+
+                    }else{
+
+                        if(data.status){
+
+                            
+
+                            ///////////////////////////////////////////////
+
+
+                            let str_ubicacion='';
+
+                            if(data.city_name!=undefined){
+                                str_ubicacion=data.city_name;
+                            }
+
+                           /* if(ubicacion.state_name!=undefined || ubicacion.state_name!=null || ubicacion.state_name!=""){
+                                str_ubicacion=str_ubicacion+', '+data.state_name;
+                            }*/
+
+                            if(data.barrio_name!=undefined  || data.barrio_name!=null || data.barrio_name!=""){
+                                str_ubicacion=str_ubicacion+', '+data.barrio_name;
+                            }
+
+                            $('.ubicacion_header a').html('Ubicación: '+str_ubicacion+'');
+
+                            $('.pmimodal').html('Est&aacute; visualizando los productos disponibles en esta ubicaci&oacute;n: <br> <span style="font-size:16px">'+ str_ubicacion +'</span>');
+
+                            $('.addtocart').removeClass('hidden');
+
+
+                            ////////////////////////////////////////////////////////
+
+                        }else{
+
+                            $('.ubicacion_header a').html('No Disponible para Despacho');
+
+                            $('.addtocart').addClass('hidden');
+
+                        }
+
+
+                    }
+
+
+                  //  alert(data.barrio_name);
+
+                }
+            });
+
+
+
             $("#barrio_id_ubicacion").fadeOut();
 
            $("#state_id_ubicacion").select2();
@@ -221,7 +284,7 @@
              //$('.addtocart').addClass('hidden');
 
 
-            if (localStorage.getItem('ubicacion')!=undefined) {
+          /*  if (localStorage.getItem('ubicacion')!=undefined) {
 
                 ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
@@ -261,9 +324,7 @@
 
                 $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
 
-              }
-
-               
+            }*/
 
         });
 
@@ -279,8 +340,6 @@
 
         });
 
-
-        
 
         $(document).on('change','#city_id_ubicacion', function(){
 
@@ -326,8 +385,6 @@
 
                     }
 
-                   
-
                    // alert(ubicacion.imagen_almacen);
 
                     if(ubicacion.imagen_almacen==null){
@@ -336,9 +393,7 @@
 
                         $('.imagenubicacion').html('<img src="'+base+'/uploads/almacenes/'+ubicacion.imagen_almacen+'">');
 
-
                     }
-
 
                 }
 
@@ -346,51 +401,6 @@
 
 
         });
-
-
-      /*  $('select[name="city_id_ubicacion"]').on('change', function() {
-        
-        var city_id = $(this).val();
-
-        alert('cambio');
-
-        var base = $('#base').val();
-
-        if(city_id) {
-            $.ajax({
-                url: base+'/configuracion/barriosModal/'+city_id,
-                type: "GET",
-                dataType: "json",
-                success:function(data) {
-
-                  //  alert(data);
-
-                    $('select[name="barrio_id_ubicacion"]').empty();
-
-                  
-                    $.each(data, function(key, value) {
-
-                        console.log(key + ' '+ value);
-
-                        $('select[name="barrio_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
-
-                    });
-
-
-                    $("#barrio_id_ubicacion").select2();
-
-                    $(".js-example-responsive").select2({
-                        width: 'resolve'
-                    });
-                
-                   
-
-                }
-            });
-        }else{
-            $('select[name="city_id_ubicacion"]').empty();
-        }
-    });*/
 
 
          $('.saveubicacion').click(function (){
@@ -448,12 +458,7 @@
                         }
                     });
 
-
-
-
                 }
-
-                
 
             }
 

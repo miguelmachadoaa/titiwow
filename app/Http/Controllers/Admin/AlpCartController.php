@@ -184,6 +184,8 @@ class AlpCartController extends JoshController
           
         }
 
+        $d=null;
+
 
 
         if (Sentinel::check()) {
@@ -200,9 +202,11 @@ class AlpCartController extends JoshController
 
             if(isset($d->id)){
 
+              
+
             }else{
 
-              return redirect('cart/direccion');
+             # return redirect('cart/direccion');
 
 
             }
@@ -212,6 +216,28 @@ class AlpCartController extends JoshController
         }else{
           
           $user_id= \Session::get('iduser');
+
+
+          $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)
+          ->first();
+
+          if(isset($d->id)){
+
+            
+
+          }else{
+
+           # return redirect('cart/direccion');
+
+
+          }
+
+
          
         }
 
@@ -335,7 +361,7 @@ class AlpCartController extends JoshController
 
         $d=$date->format('Y-m-d');
       
-      $lifemiles=null;
+        $lifemiles=null;
 
       if(isset($almacen->id)){
 
@@ -354,9 +380,7 @@ class AlpCartController extends JoshController
       }
 
 
-
-
-      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles'));
+      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles', 'd'));
 
     }
     
