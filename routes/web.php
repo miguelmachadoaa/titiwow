@@ -287,6 +287,8 @@ Route::get('login', 'FrontEndController@getLogin')->name('login');
 Route::get('desactivado', 'FrontEndController@desactivado')->name('desactivado');
 Route::post('login', 'FrontEndController@postLogin')->name('login');
 Route::get('registro', 'FrontEndController@getRegister')->name('registro');
+
+Route::get('registro/gracias', 'FrontEndController@gracias')->name('registro.gracias');
 Route::get('registro/states/{id}',array('as'=>'registro.states','uses'=>'FrontEndController@selectState'));
 Route::get('registro/cities/{id}',array('as'=>'registro.cities','uses'=>'FrontEndController@selectCity'));
 Route::post('registro','FrontEndController@postRegister')->name('register');

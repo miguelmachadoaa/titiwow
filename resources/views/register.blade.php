@@ -148,17 +148,17 @@
                
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
+                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a> y Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group {{ $errors->first('terminos_cliente', 'has-error') }} checkbox">
+                <!--div class="form-group {{ $errors->first('terminos_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
                         <input type="checkbox" name="terminos_cliente" id="terminos_cliente" value="1" require> Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a>
                     </label>
                     {!! $errors->first('terminos_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="clearfix"></div>
+                <div class="clearfix"></div-->
                 <!--div class="form-group">
                     <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}" style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
@@ -304,9 +304,6 @@ $(document).ready(function(){
           $( "#btnsubmit" ).trigger( "click" );
        }
     });
-
-
-
 
 
 

@@ -84,9 +84,11 @@
 
 <div class="row totalcarrito" style="margin: 1em;    background: #eee;"> 
     <div class="col-xs-9"><b>Subtotal</b></div>
+
     <div class="col-xs-3">${{number_format($total, 0, ',', '.')}} </div>
 
     <div class="col-xs-9"><b> Envio </b></div>
+    
     @if(isset($envio))
 
         @if($envio==0)
