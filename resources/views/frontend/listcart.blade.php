@@ -23,14 +23,17 @@
         <h1>Carrito de Compras</h1>
 
 
-        @if(isset($d->id))
+        @if(isset($dir->id))
 
         @else
 
+            @if(Sentinel::guest())
+
+            @else
 
                 <div class="col-sm-12 alert alert-success">
 
-                    <h4 style="">Debes Agregar una dirección de envio para continuar con la Compra. </h4>
+                    <h4 style="margin-top:10px;">Debes agregar una dirección de envio para continuar con la Compra. </h4>
 
                 </div>
 
@@ -40,6 +43,11 @@
                     </p>
                 </div>
 
+
+            @endif
+
+
+                
 
 
         @endif
