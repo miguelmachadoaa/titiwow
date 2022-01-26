@@ -238,7 +238,12 @@
                             }*/
 
                             if(data.barrio_name!=undefined  || data.barrio_name!=null || data.barrio_name!=""){
+                                if(data.barrio_name.length>1){
+
+                                    
                                 str_ubicacion=str_ubicacion+', '+data.barrio_name;
+
+                                }
                             }
 
                             $('.ubicacion_header a').html('Ubicación: '+str_ubicacion+'');

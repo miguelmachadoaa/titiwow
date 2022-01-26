@@ -86,7 +86,7 @@
                            value="{!! old('last_name') !!}" >
                     {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
+                <!--div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
                     <div class="" >
                         <select id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
                             <option value="">Seleccione Tipo de Documento</option>     
@@ -101,6 +101,12 @@
                     <input type="text" class="form-control" id="doc_cliente" name="doc_cliente" placeholder="Nro de Documento"
                            value="{!! old('doc_cliente') !!}" >
                     {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
+                </div-->
+                <div class="form-group {{ $errors->first('dob', 'has-error') }}">
+                    <input type="date" class="form-control" id="dob" name="dob" placeholder="dob"
+                           value="{!! old('dob') !!}" >
+                    {!! $errors->first('dob', '<span class="help-block">:message</span>') !!}
+                    <div class="errordob"></div>
                 </div>
                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                     <input type="email" class="form-control" id="Email" name="Email" placeholder="Email"
@@ -148,7 +154,7 @@
                
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a> y Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go
+                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización y Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>

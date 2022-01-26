@@ -190,6 +190,37 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+                            <div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
+
+                                <label class="col-lg-2 control-label">
+                                    Documento:
+                                    <span class='require'>*</span>
+                                </label>
+                                <div class="col-lg-2" >
+                                    <select id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
+                                        <option value="">Seleccione Tipo de Documento</option>     
+                                        @foreach($t_documento as $tdoc)
+                                            <option value="{{ $tdoc->id }}" {{ ($cliente->id_type_doc == $tdoc->id ? "selected":"") }}>{{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                {!! $errors->first('id_type_doc', '<span class="help-block">:message</span>') !!}
+
+                                <div class="form-group col-lg-4 {{ $errors->first('doc_cliente', 'has-error') }}">
+                                    <input type="text" class="form-control" id="doc_cliente" name="doc_cliente" placeholder="Nro de Documento"
+                                        value="{!! old('doc_cliente', $cliente->doc_cliente) !!}" >
+                                    {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
+                                </div>
+                            </div>
+                            
+
+
+
+
                             <div class="form-group {{ $errors->first('dob', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
                                     Fecha de Nacimiento:
@@ -199,13 +230,9 @@
                                             <span class="input-group-addon">
                         <i class="livicon" data-name="calendar" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
                                             </span>
-{{--                                        @if($user->dob === "0000-00-00")--}}
-{{--                                            {!!  Form::text('dob', '', array('id' => 'datepicker','class' => 'form-control'))  !!}--}}
-                                            @if($user->dob === '')
-                                                {!!  Form::text('dob', null, array('id' => 'datepicker','class' => 'form-control'))  !!}
-                                        @else
-                                                 {!!  Form::text('dob', old('dob',$user->dob), array('id' => 'datepicker','class' => 'form-control', 'data-date-format'=> 'YYYY-MM-DD'))  !!}
-                                        @endif
+
+                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="dob"  value="{!! old('dob', $user->dob) !!}" >
+                                      
                                     </div>
                                     <span class="help-block">{{ $errors->first('dob', ':message') }}</span>
                                 </div>

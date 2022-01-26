@@ -176,6 +176,8 @@ class AlpCartController extends JoshController
 
       $cart= \Session::get('cart');
 
+    #  dd($cart);
+
         if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
 
             $cart= \Session::forget('cart');
@@ -2252,20 +2254,21 @@ class AlpCartController extends JoshController
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-     // echo $id_almacen;
-
       if ($total<0 ){
         
         return redirect('cart/show');
         
       }
 
-
+      
       if (!isset($almacen->id) ){
 
-        return redirect('cart/show');
+        return redirect('cart/show')->withInput()->with('error', trans('Su dirección esta en una ubicación no disponible para despacho.'));
         
       }
+
+
+     
 
 
       $dl_productos = array();
@@ -2292,7 +2295,26 @@ class AlpCartController extends JoshController
       }
 
 
-      foreach ($cart as $vcart) {
+    
+
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+      }else{
+        
+        $user_id= \Session::get('iduser');
+       
+      }
+
+      
+
+      if ($user_id) {
+
+
+
+        foreach ($cart as $vcart) {
 
           if (isset($vcart->id)) {
 
@@ -2319,23 +2341,8 @@ class AlpCartController extends JoshController
           
       }
 
-
-      if (Sentinel::check()) {
-
-        $user_id = Sentinel::getUser()->id;
-
-      }else{
         
-        $user_id= \Session::get('iduser');
-       
-      }
-
-      
-
-      if ($user_id) {
-
-        
-      #  $user = Sentinel::getUser();
+        #$user = Sentinel::getUser();
 
         $user=User::where('id', $user_id)->first();
 
@@ -2896,7 +2903,7 @@ class AlpCartController extends JoshController
 
          
 
-      }else{
+    }else{
 
         $dl_productos = array();
 
@@ -2925,10 +2932,11 @@ class AlpCartController extends JoshController
         
           //return redirect('login');
 
+
         return view('login', compact('url', 'dl_productos'));
 
         
-      }
+    }
 
       
     }

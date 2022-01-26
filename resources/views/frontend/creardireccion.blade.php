@@ -116,7 +116,7 @@ Carrito de Compras
 
     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
 
-        <div class="col-sm-6" >
+        <div class="col-sm-6" style="padding-left: 0;" >
             
             <select id="id_estructura_address" name="id_estructura_address" class="form-control">
 
@@ -132,7 +132,7 @@ Carrito de Compras
 
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6 " style="padding-right: 0;">
             
             <input type="text" id="principal_address" name="principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address') !!}" >
 
@@ -145,7 +145,7 @@ Carrito de Compras
 
     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
 
-        <div class="col-sm-6" >
+        <div class="col-sm-6" style="padding-left: 0;">
 
             <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #14 " class="form-control" value="{!! old('secundaria_address') !!}" >
 
@@ -153,7 +153,7 @@ Carrito de Compras
 
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6" style="padding-right: 0;">
 
             <input type="text" id="edificio_address" name="edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address') !!}" >
 
