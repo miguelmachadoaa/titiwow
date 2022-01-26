@@ -345,8 +345,7 @@ $(document).ready(function(){
 
             first_name=$('#first_name').val();
             last_name=$('#last_name').val();
-            id_type_doc=$('#id_type_doc').val();
-            doc_cliente=btoa($('#doc_cliente').val());
+            dob=$('#dob').val();
             email=$('#Email').val();
             telefono_cliente=$('#telefono_cliente').val();
             password=btoa($('#Password1').val());
@@ -478,8 +477,7 @@ $(document).ready(function(){
                     data:{
                         first_name:first_name,
                         last_name:last_name,
-                        id_type_doc:id_type_doc,
-                        doc_cliente:doc_cliente,
+                        dob:dob,
                         email:email,
                         telefono_cliente:telefono_cliente,
                         password:password,

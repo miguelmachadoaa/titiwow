@@ -198,7 +198,7 @@
 
 
                 </div>
-                <div class="col-sm-3 " >
+                <div class="col-sm-4" >
                    
                     <div class="pull-left hidden-md hidden-xs hidden-sm hidden-md">
 
@@ -219,7 +219,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-9 hidden-md hidden-xs hidden-sm" id="datos">
+                <div class="col-md-8 col-sm-8 hidden-md hidden-xs hidden-sm" id="datos">
                     <ul class="list-inline">
                         <li class="pull-right menu-top">
                             <ul class="list-inline icon-position">

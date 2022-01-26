@@ -2093,6 +2093,8 @@ class FrontEndController extends JoshController
          $configuracion=AlpConfiguracion::where('id', '1')->first();
          $input=$request->all();
 
+        # dd($input);
+
          if($configuracion->user_activacion==0){
 
             $activate=true;
