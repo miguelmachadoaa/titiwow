@@ -402,7 +402,7 @@
 
                         $('select[name="barrio_id_ubicacion"]').empty();
 
-                        Object.entries(ubicacion.barrios).forEach(([key, value]) => {
+                        Object.entries(ubicacion.barrios).sort().forEach(([key, value]) => {
                             $('select[name="barrio_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
                         });
 

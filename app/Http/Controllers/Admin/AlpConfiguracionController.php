@@ -1404,7 +1404,12 @@ class AlpConfiguracionController extends JoshController
        $barrios=AlpAlmacenDespacho::where('alp_almacen_despacho.estado_registro', '=', '1')
        ->join('config_barrios', 'alp_almacen_despacho.id_barrio', '=', 'config_barrios.id')
        ->where('alp_almacen_despacho.id_almacen', '=', $id_almacen)
+       ->orderBy('config_barrios.barrio_name', 'asc')
        ->pluck("config_barrios.barrio_name",'config_barrios.id')->all();
+
+      # dd($barrios);
+
+      // dd('1');
 
        $almacen['barrios']=$barrios;
         
