@@ -480,7 +480,7 @@ class AlpPedidosController extends JoshController
 
         $clientIP = \Request::getClientIp(true);
 
-        $id_almacen=1;
+        $id_almacen=$this->getAlmacen();
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 

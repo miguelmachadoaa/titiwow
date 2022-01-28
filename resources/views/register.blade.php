@@ -104,7 +104,7 @@
                 </div-->
                 <div class="form-group {{ $errors->first('dob', 'has-error') }}">
                     <input type="date" class="form-control" id="dob" name="dob" placeholder="dob"
-                           value="{!! old('dob') !!}" >
+                           value="{!! old('dob') !!}" style="color: #9a9a9a;">
                     {!! $errors->first('dob', '<span class="help-block">:message</span>') !!}
                     <div class="errordob"></div>
                 </div>
@@ -138,12 +138,12 @@
                     {!! $errors->first('convenio', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div-->
-                <hr />
+                <!--hr />
                 <div class="form-group checkbox">
                     <label>
                         <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista! <small>(Opcional)</small> </a>
                     </label>
-                </div>
+                </div-->
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <input type="text" class="form-control" value="{!! old('cod_alpinista') !!}" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista" value="{!! old('cod_alpinista') !!}" >
                     <div class="res_cod_alpinista"></div>

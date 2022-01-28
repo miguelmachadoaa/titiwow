@@ -41,6 +41,13 @@ Pedidos
             <div class="panel panel-primary ">
                 <div class="panel-body" style="padding-top: 0;">
 
+                <div class="row">
+
+                <div class="col-sm-12">
+                    {{json_encode($cart)}}
+                </div>
+                </div>
+
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                      <div class="row clientecompra table-responsive" style="">
