@@ -176,6 +176,8 @@ class AlpCartController extends JoshController
 
       $cart= \Session::get('cart');
 
+    #  dd($cart);
+
         if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
 
             $cart= \Session::forget('cart');
@@ -184,25 +186,25 @@ class AlpCartController extends JoshController
           
         }
 
+        $dir=null;
+
 
 
         if (Sentinel::check()) {
 
           $user_id = Sentinel::getUser()->id;
 
-          $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          $dir = AlpDirecciones::select('alp_direcciones.*')
             ->where('alp_direcciones.id_client', $user_id)
             ->first();
 
             if(isset($d->id)){
 
+              
+
             }else{
 
-              return redirect('cart/direccion');
+             # return redirect('cart/direccion');
 
 
             }
@@ -212,6 +214,24 @@ class AlpCartController extends JoshController
         }else{
           
           $user_id= \Session::get('iduser');
+
+
+          $dir = AlpDirecciones::select('alp_direcciones.*')
+          ->where('alp_direcciones.id_client', $user_id)
+          ->first();
+
+          if(isset($d->id)){
+
+            
+
+          }else{
+
+           # return redirect('cart/direccion');
+
+
+          }
+
+
          
         }
 
@@ -335,7 +355,7 @@ class AlpCartController extends JoshController
 
         $d=$date->format('Y-m-d');
       
-      $lifemiles=null;
+        $lifemiles=null;
 
       if(isset($almacen->id)){
 
@@ -352,11 +372,9 @@ class AlpCartController extends JoshController
         }
       
       }
+    #  dd($d);
 
-
-
-
-      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles'));
+      return view('frontend.cart', compact('ban_disponible','cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion', 'dl_productos', 'lifemiles', 'dir'));
 
     }
     
@@ -2236,20 +2254,21 @@ class AlpCartController extends JoshController
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-     // echo $id_almacen;
-
       if ($total<0 ){
         
         return redirect('cart/show');
         
       }
 
-
+      
       if (!isset($almacen->id) ){
 
-        return redirect('cart/show');
+        return redirect('cart/show')->withInput()->with('error', trans('Su dirección esta en una ubicación no disponible para despacho.'));
         
       }
+
+
+     
 
 
       $dl_productos = array();
@@ -2276,7 +2295,26 @@ class AlpCartController extends JoshController
       }
 
 
-      foreach ($cart as $vcart) {
+    
+
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+      }else{
+        
+        $user_id= \Session::get('iduser');
+       
+      }
+
+      
+
+      if ($user_id) {
+
+
+
+        foreach ($cart as $vcart) {
 
           if (isset($vcart->id)) {
 
@@ -2303,23 +2341,8 @@ class AlpCartController extends JoshController
           
       }
 
-
-      if (Sentinel::check()) {
-
-        $user_id = Sentinel::getUser()->id;
-
-      }else{
         
-        $user_id= \Session::get('iduser');
-       
-      }
-
-      
-
-      if ($user_id) {
-
-        
-      #  $user = Sentinel::getUser();
+        #$user = Sentinel::getUser();
 
         $user=User::where('id', $user_id)->first();
 
@@ -2880,7 +2903,7 @@ class AlpCartController extends JoshController
 
          
 
-      }else{
+    }else{
 
         $dl_productos = array();
 
@@ -2909,10 +2932,11 @@ class AlpCartController extends JoshController
         
           //return redirect('login');
 
+
         return view('login', compact('url', 'dl_productos'));
 
         
-      }
+    }
 
       
     }

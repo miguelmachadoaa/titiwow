@@ -1,29 +1,65 @@
     <div class="row" style="    margin: 15px;">
 
-      @if(isset($aviso))
-        @if($aviso!='')
+        @if(isset($aviso))
 
-        <div class="alert alert-danger">
-            {{ $aviso }}
-        </div>
+            @if($aviso!='')
 
-        @endif
-    @endif
+            <div class="alert alert-danger">
+                {{ $aviso }}
+            </div>
 
-     @if(isset($error))
-        @if($error!='0')
-
-        <div class="alert alert-danger">
-            {{ $error }}
-        </div>
+            @endif
 
         @endif
-    @endif
+
+        @if(isset($error))
+
+            @if($error!='0')
+
+            <div class="alert alert-danger">
+                {{ $error }}
+            </div>
+
+            @endif
+
+        @endif
+
+        @include('notifications')
 
         <h1>Carrito de Compras</h1>
 
 
-         @if(isset($ban_disponible))
+        @if(isset($dir->id))
+
+        @else
+
+            @if(Sentinel::guest())
+
+            @else
+
+                <div class="col-sm-12 alert alert-success">
+
+                    <h4 style="margin-top:10px;">Debes agregar una dirección de envio para continuar con la Compra. </h4>
+
+                </div>
+
+                <div class="col-sm-12">
+                    <p>
+                        <a class="btn btn-primary" href="{{secure_url('cart/direccion')}}">Agregar Dirección de Envio </a>
+                    </p>
+                </div>
+
+
+            @endif
+
+
+                
+
+
+        @endif
+
+
+        @if(isset($ban_disponible) && isset($d->id))
 
             @if($ban_disponible==1)
 
@@ -62,7 +98,8 @@
 
 
                         <hr>
-                        <div class="row @if($row->disponible==0) {{'nodisponible'}} @endif " style="text-align: left;">
+
+                        <div class="row @if($row->disponible==0 && !Sentinel::guest()) {{'nodisponible'}} @endif " style="text-align: left;">
                             
                             <div class="col-sm-2 col-xs-4">
                                 <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/250/{{$row->imagen_producto}}" alt="{{ $row->nombre_producto }}" title="{{ $row->nombre_producto }}"></a>
@@ -74,7 +111,7 @@
 
                                     <h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4>
 
-                                    @if($row->disponible==0)
+                                    @if($row->disponible==0 && isset($dir->id))
 
                                         @php $ban_disponible=1; @endphp 
 
@@ -207,7 +244,7 @@
                                 <div class="">
                                     
                                    <p style="font-size: 2em;    width: 100%;    text-align: center;">Te faltan solo <span  style="color: #241F48; font-weight: 600;">{{number_format(($total - $lifemiles->minimo_compra)*-1, 0)}}</span>  Para obtener <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>  LifeMiles por tu Compra.
-</p>   
+                                    </p>   
                                 </div>
 
                             @else
@@ -215,7 +252,7 @@
                                 <div class="">
                                     
                                    <p style="font-size: 2em;    width: 100%;    text-align: center;">Con esta compra obtienes  <span  style="color: #241F48; font-weight: 600;">{{$lifemiles->cantidad_millas}}</span>     LifeMiles por tu Compra.
-</p> 
+                                    </p> 
                                 </div>
 
                             @endif
@@ -242,69 +279,70 @@
 
                         @if($ban_promocion==1)
 
-                        <h3>Gratis por mis Compras</h3>
+                            <h3>Gratis por mis Compras</h3>
 
                         @foreach($cart as $row)
 
-                        @if(isset($row->promocion))
+                            @if(isset($row->promocion))
 
-                        
-                        <hr>
-                        <div class="row  " style="text-align: left;">
                             
-                            <div class="col-sm-2 col-xs-4">
-                                <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/250/{{$row->imagen_producto}}" alt="{{ $row->nombre_producto }}" title="{{ $row->nombre_producto }}"></a>
-                            </div>
+                            <hr>
+                            <div class="row  " style="text-align: left;">
+                                
+                                <div class="col-sm-2 col-xs-4">
+                                    <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/250/{{$row->imagen_producto}}" alt="{{ $row->nombre_producto }}" title="{{ $row->nombre_producto }}"></a>
+                                </div>
 
-                            <div class="col-sm-6 col-xs-8">
+                                <div class="col-sm-6 col-xs-8">
 
-                                <div class="col-xs-12" style="margin-bottom:5px;">
+                                    <div class="col-xs-12" style="margin-bottom:5px;">
 
-                                    <h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4>
+                                        <h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4>
 
-                                </div>    
+                                    </div>    
 
-                                <div class="col-xs-12" style="margin-bottom:10px;">
+                                    <div class="col-xs-12" style="margin-bottom:10px;">
 
-                                    <b style="color: #143473;">Precio:</b> {{ number_format($row->precio_oferta, 0,",",".") }}
+                                        <b style="color: #143473;">Precio:</b> {{ number_format($row->precio_oferta, 0,",",".") }}
 
-                                </div>    
+                                    </div>    
 
-                                <div class="col-xs-12" style="margin-bottom:10px;">
-                                    <b style="color: #143473;">Subtotal:</b> {{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}
+                                    <div class="col-xs-12" style="margin-bottom:10px;">
+                                        <b style="color: #143473;">Subtotal:</b> {{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}
 
-                                </div>    
+                                    </div>    
 
-                                @if($row->tipo_producto=='2')
+                                    @if($row->tipo_producto=='2')
 
-                                    @if(isset($combos[$row->id]))
+                                        @if(isset($combos[$row->id]))
 
-                                    <b style="color: #143473; padding-left: 1em;">Incluye:</b>
+                                        <b style="color: #143473; padding-left: 1em;">Incluye:</b>
 
-                                        @foreach($combos[$row->id] as $cp)
+                                            @foreach($combos[$row->id] as $cp)
 
-                                            <div class="col-xs-12" style=" @if($loop->last) {{'margin-bottom:10px;'}} @endif padding-left: 4em;">
+                                                <div class="col-xs-12" style=" @if($loop->last) {{'margin-bottom:10px;'}} @endif padding-left: 4em;">
 
-                                                <h6><a target="_blank"  href="{{ route('producto', [$cp->slug]) }}" ><i class="fa fa-angle-double-right"></i>{{$cp->cantidad.'- '.$cp->nombre_producto}}</a></h6>
+                                                    <h6><a target="_blank"  href="{{ route('producto', [$cp->slug]) }}" ><i class="fa fa-angle-double-right"></i>{{$cp->cantidad.'- '.$cp->nombre_producto}}</a></h6>
 
-                                            </div>  
+                                                </div>  
 
-                                        @endforeach
+                                            @endforeach
+
+                                        @endif
+
 
                                     @endif
-
-
-                                @endif
-                               
-                               
                                 
-                               
+                                
+                                    
+                                
+                                </div>
+
                             </div>
 
-                        </div>
+                                    
+                            @endif
 
-                                
-                        @endif
                         @endforeach
 
                         @endif
@@ -331,6 +369,7 @@
                     <hr>
 
                             @if(isset($almacen->id))
+
                                 @if($almacen->mensaje_promocion!=null && $almacen->mensaje_promocion!='')
 
                                     <div class="col-sm-12">
@@ -342,6 +381,7 @@
                                     <hr>
 
                                 @endif
+
                             @endif
 
 
@@ -358,46 +398,36 @@
 
                     <hr>
 
-                    
-
-           
-
-           
-
-
                 </div>
 
-     <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
-            <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
+            <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
 
-                       
+            <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
 
         </div>
 
         <p style="text-align: center;">
+
             <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
              <a class="btn btn-cart sendDetail btn-checkout" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
          </p> 
 
-         <!--div class="row">
-             <div class="col-sm-12">
-                 {{json_encode($cart)}}
-             </div>
-         </div-->
 
      @else
 
 
         <h1><span class="label label-primary">Tu Carrito está Vacio</span></h1>
+
         <br />
+
         <p style="text-align: center;">
            
             <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 
-        
 
      @endif
 

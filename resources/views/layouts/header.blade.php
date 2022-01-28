@@ -198,7 +198,7 @@
 
 
                 </div>
-                <div class="col-sm-4 " >
+                <div class="col-sm-4" >
                    
                     <div class="pull-left hidden-md hidden-xs hidden-sm hidden-md">
 

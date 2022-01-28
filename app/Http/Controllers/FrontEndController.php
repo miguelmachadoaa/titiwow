@@ -1873,8 +1873,9 @@ class FrontEndController extends JoshController
         $countries = $this->countries;
 
         $cart= \Session::get('cart');
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
-        return view('user_account', compact('user', 'countries', 'cart', 'cliente'));
+        return view('user_account', compact('user', 'countries', 'cart', 'cliente', 't_documento'));
 
 
         }else{
@@ -1909,7 +1910,7 @@ class FrontEndController extends JoshController
         $user = Sentinel::getUser();
 
 
-        $user->update($request->except('password','pic','password_confirm','marketing_email','telefono_cliente','marketing_sms'));
+        $user->update($request->except('id_type_doc','doc_cliente','pic','password_confirm','marketing_email','telefono_cliente','marketing_sms'));
 
 
         if ($password = $request->get('password')) {
@@ -1973,6 +1974,8 @@ class FrontEndController extends JoshController
         }
 
         $cliente->telefono_cliente=$request->telefono_cliente;
+        $cliente->doc_cliente=$request->doc_cliente;
+        $cliente->id_type_doc=$request->id_type_doc;
 
         $cliente->save();
 
@@ -2090,6 +2093,8 @@ class FrontEndController extends JoshController
          $configuracion=AlpConfiguracion::where('id', '1')->first();
          $input=$request->all();
 
+        # dd($input);
+
          if($configuracion->user_activacion==0){
 
             $activate=true;
@@ -2104,13 +2109,14 @@ class FrontEndController extends JoshController
 
          // $request->email=base64_decode($request->email);
           $request->password=base64_decode($request->password);
-          $request->doc_cliente=base64_decode($request->doc_cliente);
+       //   $request->doc_cliente=base64_decode($request->doc_cliente);
 
+          $request->dob=strip_tags($request->dob);
           $request->first_name=strip_tags($request->first_name);
           $request->last_name=strip_tags($request->last_name);
           $request->email=strip_tags($request->email);
           $request->password=strip_tags($request->password);
-          $request->doc_cliente=strip_tags($request->doc_cliente);
+       //   $request->doc_cliente=strip_tags($request->doc_cliente);
           $request->cod_alpinista=strip_tags($request->cod_alpinista);
 
 
@@ -2136,6 +2142,7 @@ class FrontEndController extends JoshController
                       'first_name' => $request->first_name, 
                       'last_name' => $request->last_name, 
                       'email' => $request->email, 
+                      'dob' => $request->dob, 
                       'password' => $request->password, 
                       'token'=>md5(time())
                     );
@@ -2144,8 +2151,8 @@ class FrontEndController extends JoshController
 
                       $data = array(
                       'id_user_client' => $user->id, 
-                      'id_type_doc' => $request->id_type_doc, 
-                      'doc_cliente' =>$request->doc_cliente, 
+                     // 'id_type_doc' => $request->id_type_doc, 
+                     // 'doc_cliente' =>$request->doc_cliente, 
                       'telefono_cliente' => $request->telefono_cliente,
                       'habeas_cliente' => $request->habeas_cliente,
                       'estado_masterfile' =>$masterfi,
@@ -2238,6 +2245,7 @@ class FrontEndController extends JoshController
               $data_user = array(
                     'first_name' => $request->first_name, 
                     'last_name' => $request->last_name, 
+                    'dob' => $request->dob, 
                     'email' => $request->email, 
                     'password' => $request->password, 
                     'token'=>md5(time())
@@ -2289,8 +2297,8 @@ class FrontEndController extends JoshController
                     $data = array(
 
                     'id_user_client' => $user->id, 
-                    'id_type_doc' => $request->id_type_doc, 
-                    'doc_cliente' =>$request->doc_cliente, 
+                  //  'id_type_doc' => $request->id_type_doc, 
+                  //  'doc_cliente' =>$request->doc_cliente, 
                     'telefono_cliente' => $request->telefono_cliente,
                     'habeas_cliente' => $request->habeas_cliente,
                     'cod_oracle_cliente' =>$request->telefono_cliente,
@@ -4158,20 +4166,12 @@ public function getApiUrl($endpoint, $jsessionid)
             if (isset($almacen)) {
 
 
-
-
-
-
-
-
-
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacenes.id', $almacen)
                 ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
-
 
 
                 if (isset($ad->id)) {
@@ -4181,80 +4181,40 @@ public function getApiUrl($endpoint, $jsessionid)
                 }else{
 
 
-
                 #  $c=City::where('id', $ciudad)->first();
-
 
 
                   if (isset($c->id)) {
 
-
-
-
-
-                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
-                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
-                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
-                ->where('alp_almacen_despacho.id_city', '0')
-
-                ->where('alp_almacen_despacho.id_state', $c->state_id)
-
-                ->where('alp_almacenes.estado_registro', '=', '1')
-
-                ->first();
-
-
-
-                    # code...
+                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                      ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                      ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                      ->where('alp_almacen_despacho.id_city', '0')
+                      ->where('alp_almacen_despacho.id_state', $c->state_id)
+                      ->where('alp_almacenes.estado_registro', '=', '1')
+                      ->first();
 
                   }
 
-
-
-                 
-
-
-
                   if (isset($ad->id)) {
-
-                    
 
                   }else{
 
 
-
                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                   ->where('alp_almacen_despacho.id_city', '0')
-
                   ->where('alp_almacenes.estado_registro', '=', '1')
-
                   ->where('alp_almacen_despacho.id_state', '0')->first();
-
-
 
                   }
 
-
-
                 }
-
-
 
                 if (isset($ad->id)) {
 
-
-
                   $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
-
-
 
                   $id_almacen=$almacen->id;
 
@@ -4262,53 +4222,24 @@ public function getApiUrl($endpoint, $jsessionid)
 
                 }else{
 
-
-
                    $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
-
-
-                    if (isset($almacen->id)) {
-
-
+                   if (isset($almacen->id)) {
 
                       $id_almacen=$almacen->id;
 
-
-
                     }else{
-
-
 
                       $id_almacen='1';
 
-
-
                     }
-
-
 
                 }
 
 
-
-
-
-
-
-
-
-              
-
             }else{
 
-
-
-
-
                $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-
-
 
               if (isset($almacen->id)) {
 
@@ -4319,8 +4250,6 @@ public function getApiUrl($endpoint, $jsessionid)
                   $id_almacen='1';
 
                 }
-
-
 
             }
 

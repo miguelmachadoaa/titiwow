@@ -1743,6 +1743,9 @@ Route::get('configuracion/barriosModal/{id}',array('as'=>'configuracion.barrios'
 Route::get('configuracion/tipourl/{id}',array('as'=>'configuracion.tipourl','uses'=>'Admin\AlpConfiguracionController@selectTipoUrl'));
 
 
+Route::get('configuracion/getdireccion/',array('as'=>'configuracion.getdireccion','uses'=>'Admin\AlpConfiguracionController@getdireccion'));
+
+
 
 
 Route::get('configuracion/statestodos/{id}',array('as'=>'configuracion.statestodos','uses'=>'Admin\AlpConfiguracionController@selectStateTodos'));

@@ -235,7 +235,8 @@ body {
 .icon-position li a{
     font-family: 'AlpinaSans Light';
     font-weight: 600;
-    font-size      : 17px;
+   /* font-size      : 17px;*/
+    font-size      : 15px;
     text-transform : uppercase;
     color:#241F48;
 }
@@ -2270,3 +2271,14 @@ padding: 0.3em 0.3em 0em 1em;
 .imagenubicacion img{
     width: 180px;
 }
+
+
+.icon-position li a{
+    font-family: 'AlpinaSans Light';
+    font-weight: 600;
+   /* font-size      : 17px;*/
+    font-size      : 15px;
+    text-transform : uppercase;
+    color:#241F48;
+}
+
