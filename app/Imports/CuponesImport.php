@@ -45,7 +45,7 @@ class CuponesImport implements ToCollection
                     //'fecha_final' => $row[6], 
                     'monto_minimo' => $row[7], 
                     'maximo_productos' => $row[8], 
-                    'origen' => 'Campaña Bonyurt 10%', 
+                    'origen' => 'Campaña Bonyurt 30.000', 
                     'id_user' => 1, 
                 ]);
     
