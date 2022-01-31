@@ -396,14 +396,19 @@
 
                     let c= Object.keys(barrios).length
 
-                    console.log(c)
+                    console.log(c);
 
                     if(c>0){
 
                         $('select[name="barrio_id_ubicacion"]').empty();
 
-                        Object.entries(ubicacion.barrios).sort().forEach(([key, value]) => {
-                            $('select[name="barrio_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        Object.entries(ubicacion.barrios).sort(
+                            function (a, b) {
+                                return a.barrio_name > b.barrio_name;
+                            }
+                        ).forEach(([key, value]) => {
+
+                            $('select[name="barrio_id_ubicacion"]').append('<option value="'+ value.id +'">'+ value.barrio_name +'</option>');
                         });
 
                         $("#barrio_id_ubicacion").select2();
