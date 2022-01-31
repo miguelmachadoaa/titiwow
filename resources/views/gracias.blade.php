@@ -65,7 +65,7 @@ Carrito de Compras
 
         <h3>Gracias por registrarte en nuestra tienda y hacer parte de Alpina Go, ya puedes disfrutar de nuestros deliciosos productos.</h3>
 
-        <p style="width: 100%; text-aling: center"><a href="{{secure_url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
+        <p style="width: 100%; text-align: center"><a href="{{secure_url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
     </div>
 
     <div class="row">
