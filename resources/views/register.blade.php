@@ -103,8 +103,8 @@
                     {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
                 </div-->
                 <div class="form-group {{ $errors->first('dob', 'has-error') }}">
-                    <input type="date" class="form-control" id="dob" name="dob" placeholder="dob"
-                           value="{!! old('dob') !!}" style="color: #9a9a9a;">
+                    <input type="text" class="form-control" id="dob" name="dob" placeholder="Fecha de Nacimiento"
+                           value="{!! old('dob') !!}" style="color: #9a9a9a;" onfocus="(this.type='date')" onblur="(this.type='text')">
                     {!! $errors->first('dob', '<span class="help-block">:message</span>') !!}
                     <div class="errordob"></div>
                 </div>
