@@ -1405,7 +1405,8 @@ class AlpConfiguracionController extends JoshController
        ->join('config_barrios', 'alp_almacen_despacho.id_barrio', '=', 'config_barrios.id')
        ->where('alp_almacen_despacho.id_almacen', '=', $id_almacen)
        ->orderBy('config_barrios.barrio_name', 'asc')
-       ->pluck("config_barrios.barrio_name",'config_barrios.id')->all();
+       ->groupBy("config_barrios.id")
+       ->select("config_barrios.id",'config_barrios.barrio_name')->get();
 
       # dd($barrios);
 

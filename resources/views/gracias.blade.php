@@ -64,6 +64,8 @@ Carrito de Compras
         <h3>Hola {{$user->first_name.' '.$user->last_name}}</h3>
 
         <h3>Gracias por registrarte en nuestra tienda, ya puedes empezar a disfrutar de los descuentos de Alpina.</h3>
+
+        <p><a href="{{secure_url('areaclientes')}}" class="btn btn-primary">Ir al area de cliente</a></p>   
     </div>
 
     <div class="row">
