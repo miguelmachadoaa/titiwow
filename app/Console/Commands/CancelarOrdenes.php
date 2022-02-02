@@ -97,6 +97,7 @@ class CancelarOrdenes extends Command
                 foreach ($detalles as $detalle) {
 
                       $data_inventario = array(
+                        'id_almacen' => $ord->id_almacen, 
                         'id_producto' => $detalle->id_producto, 
                         'cantidad' =>$detalle->cantidad, 
                         'operacion' =>'1', 
