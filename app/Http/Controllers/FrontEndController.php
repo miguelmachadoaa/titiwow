@@ -2510,7 +2510,17 @@ class FrontEndController extends JoshController
 
       $user = Sentinel::getuser();
 
-      return view('gracias', compact('user', 'cart'));
+      if(isset($user->id)){
+
+        return view('gracias', compact('user', 'cart'));
+
+      }else{
+
+       # return redirect('/')->with('success', 'Cerró Sesión Exitosamente');
+        return redirect('/');
+
+      }
+
 
     }
 
