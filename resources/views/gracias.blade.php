@@ -57,9 +57,12 @@ Carrito de Compras
 @section('content')
 <div class="container contain_body text-center" id="cartshow">
 
-    <div data-cart="{{json_encode($cart)}}"></div>
+    @if(isset($user->id))
+
+
 
     <div class="row" id="table_detalle">
+
 
         <h3>Hola {{$user->first_name.' '.$user->last_name}}</h3>
 
@@ -67,6 +70,22 @@ Carrito de Compras
 
         <p style="width: 100%; text-align: center"><a href="{{secure_url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
     </div>
+
+    @else
+
+    
+    <div class="row" id="table_detalle">
+
+
+        <h3>Hola!</h3>
+
+        <h3>Gracias por registrarte en nuestra tienda y hacer parte de Alpina Go, ya puedes disfrutar de nuestros deliciosos productos.</h3>
+
+        <p style="width: 100%; text-align: center"><a href="{{secure_url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
+    </div>
+
+
+    @endif
 
     <div class="row">
          
@@ -88,7 +107,6 @@ Carrito de Compras
 
 
 <div class="row">
-    <div class="col-sm-12" data-json="{{json_encode($cart)}}">
         
     </div>
 </div>
@@ -109,6 +127,7 @@ Carrito de Compras
               </div>
               <div class="modal-body bodycarrito">
                 
+              @if(isset($cart))
               @if(is_array($cart))
 
                 @foreach($cart as $key=>$cr)
@@ -150,6 +169,7 @@ Carrito de Compras
                 @endforeach
 
                 @endif
+                @endif
               </div>
             
             </div><!-- /.modal-content -->
@@ -167,21 +187,6 @@ Carrito de Compras
 
 
 
-    @if(isset($dl_productos))
-
-    <script>
-
-        window.dataLayer = window.dataLayer || [];
-
-        window.dataLayer.push({
-        'event': 'cartshow',
-        'total': '{{ $total }}',
-        'productos':{!!json_encode($dl_productos)!!}
-        });
-
-    </script>
-
-    @endif
 
 
 
