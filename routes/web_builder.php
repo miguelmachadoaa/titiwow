@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 
 Route::get('sitemap.xml', 'SiteMapController@index')->name('sitemap');
 
+Route::get('clientes/delcliente', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
 
 //inicio direcciones productos 
 Route::get('confirmarcorreo/{token}', 'FrontEndController@confirmarcorreo')->name('confirmarcorreo');

@@ -90,7 +90,13 @@
     <div id="owl-demo" class="owl-carousel owl-theme hidden-xs">
         @foreach($sliders as $s)
             <div class="item">
-                <a data-url="{{ $s->link_slider }}" data-id="{{$s->id}}" data-json="{{json_encode($datalayer_slider_id[$s->id])}}" class="btnSlider" href="#" target="_self">
+                <a data-url="{{ $s->link_slider }}" 
+                data-id="{{$s->id}}" 
+                data-name="{{$s->nombre_slider}}" 
+                data-creative="home" 
+                data-position="{{$s->order}}" 
+                data-json="{{json_encode($datalayer_slider_id[$s->id])}}" 
+                class="btnSlider" href="#" target="_self">
                     <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
                 </a>
             </div>
@@ -102,7 +108,13 @@
         @foreach($sliders as $s)
             @if($s->imagen_slider_mobile!='0')
             <div class="item">
-                <a data-url="{{ $s->link_slider }}" data-id="{{$s->id}}" data-json="{{json_encode($datalayer_slider_id[$s->id])}}" class="btnSlider" href="#" target="_self">
+                <a data-url="{{ $s->link_slider }}" 
+                
+                data-id="{{$s->id}}" 
+                data-name="{{$s->nombre_slider}}" 
+                data-creative="home" 
+                data-position="{{$s->order}}"  
+                data-json="{{json_encode($datalayer_slider_id[$s->id])}}" class="btnSlider" href="#" target="_self">
                     <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive"  alt="Alpina Go!">
                 </a>
             </div>

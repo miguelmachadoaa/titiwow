@@ -1687,6 +1687,50 @@ class AlpClientesController extends JoshController
 
 
         }
+
+          $user = Sentinel::getUser();
+
+          if(isset($user->id)){
+
+            $u=User::where('id', $user->id)->delete();
+
+            $data_history = array(
+              'id_cliente' => $user->id, 
+              'estatus_cliente' => 'Eliminado',
+              'notas' => 'Cliente eliminado desde area de cliente',
+              'id_user' => $user_id
+          );
+
+          AlpClientesHistory::create($data_history);
+
+          \Session::forget('cart');
+
+          \Session::forget('orden');
+
+          \Session::forget('cr');
+
+
+
+          //Activity log
+
+          $user = Sentinel::getuser();
+
+          activity($user->full_name)
+
+              ->performedOn($user)
+
+              ->causedBy($user)
+
+              ->log('LoggedOut');
+
+          // Log the user out
+
+          Sentinel::logout();
+
+
+
+          }
+
        
           
     }

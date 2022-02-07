@@ -402,14 +402,15 @@
 
             $.ajax({
                 type: "GET",
-                url: base+"/admin/clientes/delcliente",
+                url: base+"/clientes/delcliente",
                     
                 complete: function(datos){ 
 
-                   // alert(datos);    
-
                     $("#deleteModal").modal('hide');
-                    
+
+                    location.reload();
+
+
 
                 }
             });
