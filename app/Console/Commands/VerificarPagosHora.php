@@ -2044,7 +2044,9 @@ class VerificarPagosHora extends Command
       $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-      $result = curl_exec($ch);
+    #  $result = curl_exec($ch);
+
+    $result='';
       if (curl_errno($ch)) {
           echo 'Error:' . curl_error($ch);
       }
@@ -3907,7 +3909,7 @@ private function AprobarOrdenCompramas($id_orden)
 
     echo "data / ".$dataraw;
 
-    $url= "https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id=".$almacen_pedido->codigo_almacen;
+    $url= 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve';
 
     echo $dataraw.' - ';
 
@@ -3920,10 +3922,11 @@ private function AprobarOrdenCompramas($id_orden)
   $ch = curl_init();
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve');
+
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_POST, 1);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+  #curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
@@ -4266,7 +4269,7 @@ private function CancelarOrdenCompramas($id_orden)
 
     echo "data / ".$dataraw;
 
-    $url= "https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id=".$almacen_pedido->codigo_almacen;
+    $url= 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel';
 
     echo $dataraw.' - ';
 
@@ -4279,9 +4282,13 @@ private function CancelarOrdenCompramas($id_orden)
   $ch = curl_init();
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
+  #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
+
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_POST, 1);
+  #curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+  
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
