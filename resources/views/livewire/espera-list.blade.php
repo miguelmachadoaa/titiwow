@@ -1,9 +1,10 @@
 <div>
     <div class="row">
+
         <div class="col-lg-6">
             <div class="row">
                 <div class="col-lg-4">
-                    <label for="cantid">Seleccione la Cantidad de registros:</label>
+                    <label for="cantid">Seleccione la Cantidad de registros: {{$idCancelar}}</label>
                 </div>
                 <div class="col-lg-2">
                     <select wire:model="cantid" class="form-control">
@@ -114,6 +115,12 @@
                                     <a class="btn btn-primary btn-xs"href="{{secure_url('/admin/ordenes/'.$espera->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
+
+                                    @if($espera->estatus_pago=='4' || $espera->estatus_pago=='1')
+
+                                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-xs btnCancelar" wire:click="selectedcancelar({{ $espera->id }})" data-id="{{$espera->id}}"> Cancelar</button>
+
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -135,4 +142,26 @@
             {{ $enespera->links() }}
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancelar Orden</h5>
+                <button type="button" class="btn-close btn-link" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body">
+                <h3>Seguro que desea cancelar la orden?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" wire:click="cancelar()">Cancelar Orden</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
 </div>
