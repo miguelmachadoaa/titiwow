@@ -465,12 +465,15 @@ Orden {{$orden->id}}
 
 
                              <tr>
-                                 <td>Datos masc</td>
-                                 <td><button class="btn btn-primary datosmasc">Ver Datos Masc </button></td>
+                                 <td>Datos Velocity</td>
+                                 <td><button class="btn btn-primary datosmasc">Ver Datos Enviados a Velocity </button></td>
                              </tr>
 
 
                              @endif
+
+
+                          
 
                          
                          
@@ -484,6 +487,8 @@ Orden {{$orden->id}}
              @else
 
              <div class="col-sm-12 divdatosmasc hidden">
+
+             <H1>Datos Enviados</H1>
 
                     
                     @foreach(json_decode($orden->send_json_masc, true) as $key => $value)
@@ -530,6 +535,56 @@ Orden {{$orden->id}}
 
                        
                     @endforeach
+
+                    <H1>Respuesta de Velocity</H1>
+
+
+                    @foreach(json_decode($orden->json, true) as $key => $value)
+
+                        @if(is_array($value))
+
+                        <p>{{$key.' :'}}</p>
+
+                            @foreach($value as $key2 => $value2)
+
+                                @if(is_array($value2))
+
+                                <p style="margin-left: 2em;">{{$key2}}</p>
+
+                                    @foreach($value2 as $key3 => $value3)
+
+                                    <p style="margin-left: 4em;">
+                                        {{$key3.' : '.$value3}}
+                                    </p>
+
+                                    @endforeach
+
+
+                                @else
+
+                                <p style="margin-left: 2em;">
+                                    {{$key2.' : '.$value2}}
+                                </p>
+
+                                @endif
+
+                            
+
+                            @endforeach
+
+                        @else
+
+                        <p>
+                            {{$key.' : '.$value}}
+                        </p>
+
+                        @endif
+
+
+
+                        @endforeach
+
+
 
                  
              </div>

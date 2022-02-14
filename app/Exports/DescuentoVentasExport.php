@@ -50,6 +50,7 @@ class DescuentoVentasExport implements FromView
       ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
       ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
       ->groupBy('alp_ordenes.id')
+      ->where('alp_ordenes.id_almacen','=',  $this->id_almacen)
       ->where('alp_ordenes.estatus_pago','=', '2')
       ->where('alp_ordenes.id_forma_pago', '<>', '3')
       ->whereDate('alp_ordenes.created_at', '>=', $this->desde)

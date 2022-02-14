@@ -809,7 +809,7 @@ private function CancelarOrdenCompramas($id_orden)
 
     echo "data / ".$dataraw;
 
-    $url= 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel';
+    $url= 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel';
 
     echo $dataraw.' - ';
 
@@ -822,7 +822,7 @@ private function CancelarOrdenCompramas($id_orden)
   $ch = curl_init();
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
 
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   #curl_setopt($ch, CURLOPT_POST, 1);
@@ -837,9 +837,9 @@ private function CancelarOrdenCompramas($id_orden)
   $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-  #$result = curl_exec($ch);
+  $result = curl_exec($ch);
 
-  $result=[];
+  #$result=[];
   
   if (curl_errno($ch)) {
       echo 'Error:' . curl_error($ch);

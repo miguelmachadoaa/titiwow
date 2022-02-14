@@ -83,9 +83,10 @@ class VerificarPagosHora extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-      $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->where('countvp','>=', '5')->get();
+    #  $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->where('countvp','>=', '5')->get();
 
-      #$ordenes=AlpOrdenes::where('id', '21189')->get();
+      $ordenes=AlpOrdenes::where('id', '26932')->get();
+
         
      #  echo json_encode($ordenes);         
 
@@ -1367,20 +1368,22 @@ class VerificarPagosHora extends Command
 
     private function procesarMercadopago($preference, $id_orden){
 
+
+
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
       $user_cliente=User::where('id', $orden->id_user)->first();
 
-      if (isset($preference['body']['results'])) {
-        # if (isset($preference)) {
+     # if (isset($preference['body']['results'])) {
+         if (isset($preference)) {
 
            $cantidad=count($preference['body']['results']);
 
            $aproved=0;
 
-           $cancel=0;
+           $cancel=1;
            $pending=0;
 
            foreach ($preference['body']['results'] as $r) {
@@ -1399,10 +1402,14 @@ class VerificarPagosHora extends Command
                  }
 
                  if ($r['status']=='in_process' || $r['status']=='pending') {
-                   $pending=1;
+                #   $pending=1;
                  }
 
            }
+
+            echo $aproved. ' aprobar/ ';
+            echo $cancel. ' cancelar/ ';
+            echo $pending. ' pendiente/ ';
 
            if ( $aproved ) 
              {
@@ -1783,6 +1790,8 @@ class VerificarPagosHora extends Command
 
            }elseif($cancel){
 
+           # dd('cancelar');
+
             $configuracion=AlpConfiguracion::where('id', '1')->first();
 
 
@@ -1793,7 +1802,8 @@ class VerificarPagosHora extends Command
                $diff = $date->diffInMinutes($now); 
                
 
-              if ($diff>$configuracion->vence_ordenes_pago) {
+              if (1==1) {
+              #  if ($diff>$configuracion->vence_ordenes_pago) {
 
                //dd($diff);
 
@@ -1859,11 +1869,13 @@ class VerificarPagosHora extends Command
 
                      }
 
-
-
-                     $this->cancelarMercadopago($orden->id);
+                  #   dd($orden->id);
 
                      $this->CancelarOrdenCompramas($orden->id);
+
+
+                  #   $this->cancelarMercadopago($orden->id);
+
 
 
 
@@ -3909,7 +3921,7 @@ private function AprobarOrdenCompramas($id_orden)
 
     echo "data / ".$dataraw;
 
-    $url= 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve';
+    $url= 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve';
 
     echo $dataraw.' - ';
 
@@ -3922,7 +3934,7 @@ private function AprobarOrdenCompramas($id_orden)
   $ch = curl_init();
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve');
 
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   #curl_setopt($ch, CURLOPT_POST, 1);
@@ -4269,7 +4281,7 @@ private function CancelarOrdenCompramas($id_orden)
 
     echo "data / ".$dataraw;
 
-    $url= 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel';
+    $url= 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel';
 
     echo $dataraw.' - ';
 
@@ -4283,7 +4295,7 @@ private function CancelarOrdenCompramas($id_orden)
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
 
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   #curl_setopt($ch, CURLOPT_POST, 1);
@@ -4298,9 +4310,9 @@ private function CancelarOrdenCompramas($id_orden)
   $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-  #$result = curl_exec($ch);
+  $result = curl_exec($ch);
 
-  $result=[];
+  #$result=[];
   
   if (curl_errno($ch)) {
       echo 'Error:' . curl_error($ch);
@@ -4311,7 +4323,7 @@ private function CancelarOrdenCompramas($id_orden)
 
    Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
    
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden cancelada en Velocity orden id '.$orden->id.' .vp663');
 
    $notas='Registro de orden en Velocity.';
 

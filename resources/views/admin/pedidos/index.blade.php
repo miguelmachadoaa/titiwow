@@ -1171,12 +1171,11 @@ Pedidos
 
     $(document).ready(function(){
 
-
         if($('.wrapper').hasClass('hide_menu')){
 
         }else{
 
-            $('.wrapper').addClass('hide_menu');
+        $('.wrapper').addClass('hide_menu');
 
         }
 

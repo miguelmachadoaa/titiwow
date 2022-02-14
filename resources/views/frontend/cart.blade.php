@@ -270,6 +270,48 @@ Carrito de Compras
     </div>
 
 
+
+    
+
+<div class="modal fade" id="modalLoginEmail" role="dialog" aria-labelledby="modalLabeldanger">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Ingresa tu email para continuar con la compra</h4>
+              </div>
+
+              <div class="modal-body bodylogin">
+                    
+                <div class="form-group {{ $errors->first('login_email', 'has-error') }}">
+                    <label for="login_email" class="col-sm-2 control-label">
+                        Ingrese su email 
+                    </label>
+                    <div class="col-sm-5">
+                        <input type="text" id="login_email" name="login_email" class="form-control" placeholder="Ingrese su email"
+                            value="">
+                    </div>
+                    <div class="col-sm-4">
+                        {!! $errors->first('login_email', '<span class="help-block">:message</span> ') !!}
+                    </div>
+                </div>
+
+            
+              </div>
+
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary sendEmailLogin">Enviar</button>
+                </div>
+            
+            </div><!-- /.modal-content -->
+
+        </div>
+    </div>
+
+
+
+
 @endsection
 
 {{-- page level scripts --}}
@@ -299,6 +341,15 @@ Carrito de Compras
     <script>
         jQuery(document).ready(function () {
             new WOW().init();
+        });
+
+        
+        $('.btn-checkout').on('click', function(e){
+            e.preventDefault();
+
+            $('#modalLoginEmail').modal('show');
+
+
         });
 
 

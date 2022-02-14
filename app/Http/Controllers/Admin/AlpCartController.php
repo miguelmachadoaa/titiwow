@@ -3230,19 +3230,9 @@ class AlpCartController extends JoshController
                   
               }
 
-              
-
-
-
               $id_orden=$data['id_orden'];
 
-              
               $fecha_entrega=$data['fecha_entrega'];
-
-              
-
-              //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
-
               
               $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
                   ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
@@ -14409,13 +14399,13 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 private function registrarOrdenNuevo($id_orden)
 {
 
-  echo 'proceso envio a velocity   / ';
+  #echo 'proceso envio a velocity   / ';
 
   $configuracion=AlpConfiguracion::first();
   
   $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-  echo $orden->id.'   / ';
+ # echo $orden->id.'   / ';
 
 
 
@@ -14539,7 +14529,7 @@ private function registrarOrdenNuevo($id_orden)
 
           $descuento_total=0;
 
-          echo 'Envio a velocity 1    / ';
+      #    echo 'Envio a velocity 1    / ';
 
           foreach($descuentoicg as $di){
 
@@ -14573,11 +14563,13 @@ private function registrarOrdenNuevo($id_orden)
 
     $dataraw=json_encode($o);
 
-    echo "data / ".$dataraw;
+   # dd($dataraw);
+
+   # echo "data / ".$dataraw;
 
     $url= "https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id=".$almacen_pedido->codigo_almacen;
 
-    echo $dataraw.' - ';
+  #  echo $dataraw.' - ';
 
     $orden->update(['send_json_masc'=>$dataraw]);
 
@@ -14588,7 +14580,7 @@ private function registrarOrdenNuevo($id_orden)
   $ch = curl_init();
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -14600,11 +14592,11 @@ private function registrarOrdenNuevo($id_orden)
   $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-  //$result = curl_exec($ch);
+  $result = curl_exec($ch);
 
 
   //aquitar esto para pasar a real 
-  $result=[];
+ # $result=[];
   
   if (curl_errno($ch)) {
       echo 'Error:' . curl_error($ch);
@@ -14612,6 +14604,7 @@ private function registrarOrdenNuevo($id_orden)
   curl_close($ch);
 
 
+  #dd($result);
 
   $res=json_decode($result);
 
