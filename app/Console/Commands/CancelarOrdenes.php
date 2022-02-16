@@ -624,7 +624,7 @@ private function CancelarOrdenCompramas($id_orden)
 
     Log::info($dataraw);
 
-    activity()->withProperties($dataraw)->log('Envio Aprobado Velocity '.$orden->id.' .vp634');
+    activity()->withProperties($dataraw)->log('Envio Cancelado Velocity '.$orden->id.' .vp634');
 
   $ch = curl_init();
 
@@ -656,11 +656,11 @@ private function CancelarOrdenCompramas($id_orden)
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
+   Log::info('Respuesta de Velocity al cancelar de la orden '.json_encode($res));
    
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden cancelada en Velocity orden id '.$orden->id.' .vp663');
 
-   $notas='Registro de orden en Velocity.';
+   $notas='Cancelación  de orden en Velocity por tiempo de espera .';
 
 
    if (isset($res->mensaje)) {

@@ -14575,7 +14575,7 @@ private function registrarOrdenNuevo($id_orden)
 
     Log::info($dataraw);
 
-    activity()->withProperties($dataraw)->log('Envio Aprobado Velocity '.$orden->id.' .vp634');
+    activity()->withProperties($dataraw)->log('Envio registro Velocity '.$orden->id.' .vp634');
 
   $ch = curl_init();
 
@@ -14604,14 +14604,13 @@ private function registrarOrdenNuevo($id_orden)
   }
   curl_close($ch);
 
-
   #dd($result);
 
   $res=json_decode($result);
 
    Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
    
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden registrada en Velocity orden id '.$orden->id.' .vp663');
 
    $notas='Registro de orden en Velocity.';
 

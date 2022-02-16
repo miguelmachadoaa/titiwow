@@ -3897,11 +3897,11 @@ private function AprobarOrdenCompramas($id_orden)
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
+   Log::info('Respuesta de Velocity al aprobar orden '.$orden->referencia.' '.json_encode($res));
    
    activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
 
-   $notas='Registro de orden en Velocity.';
+   $notas='Aprobación  de orden en Velocity.';
 
 
    if (isset($res->mensaje)) {
@@ -4232,7 +4232,7 @@ private function CancelarOrdenCompramas($id_orden)
 
     Log::info($dataraw);
 
-    activity()->withProperties($dataraw)->log('Envio Aprobado Velocity '.$orden->id.' .vp634');
+    activity()->withProperties($dataraw)->log('Envio Cancelado Velocity '.$orden->id.' .vp634');
 
   $ch = curl_init();
 
@@ -4269,8 +4269,7 @@ private function CancelarOrdenCompramas($id_orden)
    
    activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
 
-   $notas='Registro de orden en Velocity.';
-
+   $notas='Cancelación de orden en Velocity.';
 
    if (isset($res->mensaje)) {
      $notas=$notas.$res->mensaje.' ';
@@ -4279,7 +4278,6 @@ private function CancelarOrdenCompramas($id_orden)
    if (isset($res->codigo)) {
      $notas=$notas.$res->codigo.' ';
    }
-
    
 
    if (isset($res->message)) {

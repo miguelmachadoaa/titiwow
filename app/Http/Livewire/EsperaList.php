@@ -423,11 +423,11 @@ public function CancelarOrdenCompramas()
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
+   Log::info('Datos de respuesta  a registro  de orden cancelada manualmente  en Velocity orden id '.$orden->id.' .el426'.json_encode($res));
    
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden cancelada manualmente  en Velocity orden id '.$orden->id.' . el428');
 
-   $notas='Registro de orden en Velocity.';
+   $notas='Cancelación de orden en Velocity Manual.';
 
 
    if (isset($res->mensaje)) {
