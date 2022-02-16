@@ -4265,7 +4265,7 @@ private function CancelarOrdenCompramas($id_orden)
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
+   Log::info('Respuesta de Velocity al cancelar orden '.$orden->id.' '.json_encode($res));
    
    activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
 
