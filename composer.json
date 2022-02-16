@@ -73,7 +73,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan logger:link",
-            "@php artisan package:discover"
+            "@php artisan package:discover",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ]
     },
     "config": {

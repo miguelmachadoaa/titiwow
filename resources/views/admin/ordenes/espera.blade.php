@@ -51,4 +51,13 @@ Ordenes En Espera
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
 
+<script>
+ window.livewire.on('openModal', () => {
+
+  //   alert('evento');
+
+     $('#exampleModal').modal('show');
+ })
+ </script>
+
 @stop

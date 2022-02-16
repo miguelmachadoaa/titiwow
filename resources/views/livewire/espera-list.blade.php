@@ -118,7 +118,8 @@
 
                                     @if($espera->estatus_pago=='4' || $espera->estatus_pago=='1')
 
-                                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-xs btnCancelar" wire:click="selectedcancelar({{ $espera->id }})" data-id="{{$espera->id}}"> Cancelar</button>
+                                    <!--button data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-xs btnCancelar" wire:click="selectedcancelar({{ $espera->id }})" data-id="{{$espera->id}}"> Cancelar</button-->
+                                        <button  class="btn btn-danger btn-xs btnCancelar" wire:click="selectedcancelar({{ $espera->id }})" data-id="{{$espera->id}}"> Cancelar</button>
 
                                     @endif
                                 </td>
@@ -150,7 +151,6 @@
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Cancelar Orden</h5>
-                <button type="button" class="btn-close btn-link" data-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <h3>Seguro que desea cancelar la orden?</h3>

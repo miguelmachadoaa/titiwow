@@ -197,6 +197,9 @@ class EsperaList extends Component
     public function selectedcancelar($id){
 
         $this->idCancelar=$id;
+        $this->showModal=true;
+     //   $this->dispatchBrowserEvent('openModal');
+        $this->emit('openModal');
 
     }
 
@@ -347,7 +350,7 @@ public function CancelarOrdenCompramas()
 
           $descuento_total=0;
 
-          echo 'Envio a velocity 1    / ';
+         # echo 'Envio a velocity 1    / ';
 
           foreach($descuentoicg as $di){
 
@@ -381,11 +384,11 @@ public function CancelarOrdenCompramas()
 
     $dataraw=json_encode($o);
 
-    echo "data / ".$dataraw;
+  #  echo "data / ".$dataraw;
 
     $url= 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel';
 
-    echo $dataraw.' - ';
+   # echo $dataraw.' - ';
 
     $orden->update(['send_json_masc'=>$dataraw]);
 
@@ -397,7 +400,7 @@ public function CancelarOrdenCompramas()
 
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
   #curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/cancel');
 
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   #curl_setopt($ch, CURLOPT_POST, 1);
@@ -451,10 +454,7 @@ public function CancelarOrdenCompramas()
 
    $notas=$notas.'Codigo: VP.';
 
-
-  if (isset($res->codigo)) {
     
-    if ($res->codigo=='200') {
 
          $dtt = array(
             'json' => $result,
@@ -464,17 +464,25 @@ public function CancelarOrdenCompramas()
 
         $orden->update($dtt);
 
-        $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+        $texto='Orden Cancelada manualmente';
 
         $data_history = array(
             'id_orden' => $orden->id, 
-           'id_status' => '9', 
+            'id_status' => '9', 
             'notas' => $notas, 
             'json' => json_encode($result), 
            'id_user' => 1
         );
 
         $history=AlpOrdenesHistory::create($data_history);
+
+
+        $ord=AlpOrdenes::where('id', $orden->id)->first();
+
+        $arrayName = array('estatus' => 4, 'estatus_pago'=>3 );
+
+        $ord->update($arrayName);
+
 
         try {
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
@@ -489,82 +497,9 @@ public function CancelarOrdenCompramas()
         }
       
      
-    }else{
+    
 
-        $dtt = array(
-          'json' => $result,
-          'estado_compramas' => '5',
-          'envio_compramas' => '0'
-          
-        );
-
-        $orden->update($dtt);
-
-      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-      $data_history = array(
-          'id_orden' => $orden->id, 
-          'id_status' => '9', 
-          'notas' => 'Error '.$notas, 
-          'json' => json_encode($result), 
-         'id_user' => 1
-      );
-
-        $history=AlpOrdenesHistory::create($data_history);
-
-        try {
-
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-          
-        } catch (\Exception $e) {
-
-          activity()->withProperties(1)
-                    ->log('error envio de correo');
-          
-        }
-
-    }
-
-  }else{
-
-    $notas='No hubo respuesta compramas';
-
-    $data_history = array(
-        'id_orden' => $orden->id, 
-       'id_status' => '9', 
-        'notas' => $notas,
-        'json' => json_encode($result), 
-       'id_user' => 1
-    );
-
-    $dtt = array(
-      'json' => $result,
-      'estado_compramas' => '5',
-      'envio_compramas' => '0'
-      
-    );
-
-    $orden->update($dtt);
-
-    $history=AlpOrdenesHistory::create($data_history);
-
-      $texto='No hubo respuesta compramas VP';
-
-      try {
-        
-      Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-       Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-      } catch (\Exception $e) {
-
-        activity()->withProperties(1)->log('error envio de correo');
-        
-      }
-                 
-
-  }
+ 
 
 
 }
