@@ -154,11 +154,11 @@
                
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización y acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go
+                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización.
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
-                <!--div class="form-group {{ $errors->first('terminos_cliente', 'has-error') }} checkbox">
+                <div class="form-group {{ $errors->first('terminos_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
                         <input type="checkbox" name="terminos_cliente" id="terminos_cliente" value="1" require> Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a>
                     </label>
@@ -359,6 +359,7 @@ $(document).ready(function(){
         //    barrio_address=$('#barrio_address').val();
         //    id_barrio=$('#id_barrio').val();
          //   edificio_address=$('#edificio_address').val();
+            terminos_cliente=$('#terminos_cliente').val();
             habeas_cliente=$('#habeas_cliente').val();
             
             ban_enviar=0;

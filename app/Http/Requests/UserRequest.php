@@ -65,6 +65,7 @@ class UserRequest extends FormRequest
                    // 'doc_cliente' => 'unique:alp_clientes,doc_cliente',
                    // 'id_type_doc' => 'required',
                     'telefono_cliente' => 'required|min:5',
+                    'terminos_cliente' => 'required',
                     'habeas_cliente' => 'required',
                     'g-recaptcha-response' => new Captcha(),
                 ];
@@ -80,6 +81,7 @@ class UserRequest extends FormRequest
                   //  'id_type_doc' => 'required',
                     'telefono_cliente' => 'required|min:5',
                     'habeas_cliente' => 'required',
+                    'terminos_cliente' => 'required',
                     'g-recaptcha-response' => new Captcha(),
                 ];
             }
