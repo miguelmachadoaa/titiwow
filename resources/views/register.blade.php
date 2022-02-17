@@ -484,6 +484,7 @@ $(document).ready(function(){
                         password:password,
                         password_confirm:password_confirm,
                         habeas_cliente,
+                        terminos_cliente,
                     //    state_id:state_id,
                     //    city_id:city_id,
                     //    id_estructura_address:id_estructura_address,
