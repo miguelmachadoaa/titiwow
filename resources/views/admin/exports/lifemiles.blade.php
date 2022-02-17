@@ -9,6 +9,7 @@
             <th><b>Monto Orden</b></th>
             <th><b>Nombre Cliente</b></th>
             <th><b>Email Cliente</b></th>
+            <th><b>Fecha Asignación</b></th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,8 @@
             <td>{!! $venta->monto_total !!}</td>
             <td>{!! $venta->first_name.' '.$venta->last_name !!}</td>
             <td>{!! $venta->email !!}</td>
+            <td>{!! $venta->fecha_asignacion !!}</td>
+            
 
         </tr>
         @endforeach

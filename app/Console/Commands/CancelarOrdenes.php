@@ -193,6 +193,34 @@ class CancelarOrdenes extends Command
 
                             activity()->withProperties($result)->log('respuesta cancelar pago de orden   '.$orden->id);
 
+                            $res=json_decode($result);
+
+                            $data_cancelar = array(
+                              'id_orden' => $orden->id, 
+                              'id_forma_pago' => $orden->id_forma_pago, 
+                              'id_estatus_pago' => 4, 
+                              'monto_pago' => $orden->monto_total, 
+                              'json' => json_encode($res), 
+                              'id_user' => '1'
+                            );
+
+                            AlpPagos::create($data_cancelar);
+
+                            $data_history_json = array(
+                              'id_orden' => $orden->id, 
+                              'id_status' =>'4', 
+                              'notas' => 'Cancelacion de pago en Mercadopago', 
+                              'json' => json_encode($res), 
+                              'id_user' => '1' 
+                          );
+
+                          $history=AlpOrdenesHistory::create($data_history_json);
+
+
+
+
+
+
                            #   echo json_encode($pre);
 
                             }

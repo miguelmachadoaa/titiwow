@@ -3608,72 +3608,105 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
 
 
-     public function cancelarMercadopago($id_orden){
+    public function cancelarMercadopago($id_orden){
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
-
+    
       $configuracion = AlpConfiguracion::where('id', '1')->first();
-
+    
       $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
-
+    
       MercadoPago::setClientId($almacen->id_mercadopago);
       MercadoPago::setClientSecret($almacen->key_mercadopago);
                   
       if ($almacen->mercadopago_sand=='1') {
-
+    
           MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
         
         }
     
         if ($almacen->mercadopago_sand=='2') {
-
+    
           MercadoPago::setPublicKey($almacen->public_key_mercadopago);
           
         }
-
+    
          $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
-
+    
+       //  dd($preference);
+    
          if(isset($preference['body']['results'])){
          
             foreach ($preference['body']['results'] as $r) {
-
+    
                   if ($r['status']=='in_process' || $r['status']=='pending') {
                       
                     $idpago=$r['id'];
-
+    
+                    $preference_data_cancelar=array([
+                      'status'=>'cancelled'
+                    ]);
+    
                     $preference_data_cancelar = '{"status": "cancelled"}';
-
-                    $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
-
+    
+                    $at=Mercadopago::getAccessToken();
+    
+                    //dd($at);
+    
+    
+                   // $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+    
+                   // dd($pre);
+    
+                    $ch = curl_init();
+    
+                    curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments/'.$idpago.'');
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+    
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $preference_data_cancelar);
+    
+                    $headers = array();
+                    $headers[] = 'Authorization: Bearer '.$at;
+                    $headers[] = 'Content-Type: application/json';
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    
+                    $result = curl_exec($ch);
+                    if (curl_errno($ch)) {
+                        echo 'Error:' . curl_error($ch);
+                    }
+                    curl_close($ch);
+    
+                    $res=json_decode($result);
+    
                     $data_cancelar = array(
                       'id_orden' => $orden->id, 
                       'id_forma_pago' => $orden->id_forma_pago, 
                       'id_estatus_pago' => 4, 
                       'monto_pago' => $orden->monto_total, 
-                      'json' => json_encode($pre), 
+                      'json' => json_encode($res), 
                       'id_user' => '1'
                     );
-
+    
                     AlpPagos::create($data_cancelar);
-
+    
                     $data_history_json = array(
                       'id_orden' => $orden->id, 
                       'id_status' =>'4', 
                       'notas' => 'Cancelacion de pago en Mercadopago', 
-                      'json' => json_encode($pre), 
+                      'json' => json_encode($res), 
                       'id_user' => '1' 
                   );
-
+    
                   $history=AlpOrdenesHistory::create($data_history_json);
-
-
+    
+    
                 }
-
+    
              }
           }
-
+    
     }
-
 
 
 

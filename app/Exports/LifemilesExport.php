@@ -29,10 +29,11 @@ class LifemilesExport implements FromView
                 'alp_lifemiles.*', 
                 'alp_lifemiles_codigos.code as code',
                 'alp_lifemiles_orden.id_orden as id_orden', 
+                'alp_lifemiles_orden.created_at as fecha_asignacion', 
                 'users.first_name as first_name', 
-            'users.last_name as last_name', 
-            'users.email as email', 
-            'alp_ordenes.monto_total as monto_total',)
+                'users.last_name as last_name', 
+                'users.email as email', 
+                'alp_ordenes.monto_total as monto_total',)
             ->join('alp_lifemiles_codigos', 'alp_lifemiles.id','=', 'alp_lifemiles_codigos.id_lifemile')
             ->join('alp_lifemiles_orden','alp_lifemiles_codigos.id','=','alp_lifemiles_orden.id_codigo')
             ->join('alp_ordenes','alp_lifemiles_orden.id_orden','=','alp_ordenes.id')

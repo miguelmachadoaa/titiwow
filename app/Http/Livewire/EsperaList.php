@@ -23,6 +23,7 @@ use DB;
 use Sentinel;
 use Illuminate\Support\Facades\Log;
 use Mail;
+use MercadoPago;
 
 
 class EsperaList extends Component
@@ -205,8 +206,8 @@ class EsperaList extends Component
 
     public function cancelar(){
 
-        $this->CancelarOrdenCompramas();
-        #$this->CancelarMercadopago();
+     //   $this->CancelarOrdenCompramas();
+        $this->CancelarMercadopago($this->idCancelar);
 
     }
 
@@ -236,153 +237,12 @@ public function CancelarOrdenCompramas()
 
     //Log::info('compramas orden '.json_encode($orden));
 
-  $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.cantidad as cantidad_producto')
-    ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-    ->where('alp_ordenes_detalle.id_orden', $orden->id)
-    ->get();
+  
 
-              $productos = array();
-
-              $peso=0;
-
-              foreach ($detalles as $d) {
-
-                $iva=0;
-
-                if($d->monto_impuesto>0){
-
-                  $iva=19;
-
-                }
-
-                $peso=$peso+$d->cantidad_producto;
-
-                if ($d->precio_unitario>0) {
-
-                  $dt = array(
-                    'sku' => $d->referencia_producto, 
-                    'name' => $d->nombre_producto, 
-                    'url_img' => $d->imagen_producto, 
-                    'value' => $d->precio_unitario, 
-                    'value_prom' => $d->precio_unitario, 
-                    'iva' => intval($iva), 
-                    'quantity' => $d->cantidad
-                  );
-
-                  $productos[]=$dt;
-                 
-                }else{
-
-                    if (substr($d->referencia_producto, 0,1)=='R') {
-                       $dt = array(
-                      'sku' => $d->referencia_producto, 
-                      'name' => $d->nombre_producto, 
-                      'url_img' => $d->imagen_producto, 
-                      'value' => $d->precio_unitario, 
-                      'value_prom' => $d->precio_unitario, 
-                      'iva' => intval($iva),   
-                      'quantity' => $d->cantidad
-                    );
-
-                    $productos[]=$dt;
-
-                  }
+           
 
 
-                  $pc=AlpProductos::where('id', $d->id_combo)->first();
-
-                  if (isset($pc->id)) {
-
-                      if ($pc->tipo_producto=='3') {
-
-                          
-                        
-                           $dt = array(
-                          'sku' => $d->referencia_producto, 
-                          'name' => $d->nombre_producto, 
-                          'url_img' => $d->imagen_producto, 
-                          'value' => $d->precio_unitario, 
-                          'value_prom' => $d->precio_unitario, 
-                          'iva' => intval($iva),  
-                          'quantity' => $d->cantidad
-                        );
-
-                        $productos[]=$dt;
-
-                      # code...
-                    }
-
-                  }
-
-                }
-            }
-
-          $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
-            ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-            ->join('role_users', 'users.id', '=', 'role_users.user_id')
-            ->join('roles', 'role_users.role_id', '=', 'roles.id')
-            ->where('users.id', '=', $orden->id_user)->first();
-
-
-          $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
-
-
-          $dir = array(
-            'ordenId' => $orden->referencia, 
-            'ciudad' => $direccion->state_name, 
-            'telefonoCliente' => $cliente->telefono_cliente, 
-            'correoCliente' => $cliente->email, 
-            'identificacionCliente' => $cliente->doc_cliente, 
-            'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
-            'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
-            'observacionDomicilio' => "", 
-            'formaPago' => $formapago->nombre_forma_pago
-          );
-
-          $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
-
-          $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
-
-          $descuento_total=0;
-
-         # echo 'Envio a velocity 1    / ';
-
-          foreach($descuentoicg as $di){
-
-            $descuento_total=$descuento_total+$di->monto_descuento;
-          }
-
-          foreach($cupones as $co){
-
-            $descuento_total=$descuento_total+$co->monto_descuento;
-          }
-
-          $o = array(
-            'tipoServicio' => 1, 
-            'retorno' => "false", 
-            'formaPago' => $formapago->nombre_forma_pago,
-            'totalFactura' => $orden->monto_total, 
-            'subTotal' => number_format($orden->monto_total-$orden->monto_impuesto, 2, '.', ''),
-            'iva' => $orden->monto_impuesto, 
-            'descuento' => $descuento_total, 
-            'peso' => $peso, 
-            'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
-            'horaMinPedido' => "00:00", 
-            'horaMaxPedido' => "00:00", 
-            'observaciones' => "", 
-            'paradas' => $dir, 
-            'products' => $productos, 
-          );
-
-       #  dd($o);
-
-
-    $dataraw=json_encode($o);
+    $dataraw=json_encode('');
 
   #  echo "data / ".$dataraw;
 
@@ -390,7 +250,7 @@ public function CancelarOrdenCompramas()
 
    # echo $dataraw.' - ';
 
-    $orden->update(['send_json_masc'=>$dataraw]);
+    //$orden->update(['send_json_masc'=>$dataraw]);
 
     Log::info($dataraw);
 
@@ -406,7 +266,7 @@ public function CancelarOrdenCompramas()
   #curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
   
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+ // curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
@@ -454,8 +314,6 @@ public function CancelarOrdenCompramas()
 
    $notas=$notas.'Codigo: VP.';
 
-    
-
          $dtt = array(
             'json' => $result,
             'estado_compramas' => '3'
@@ -496,13 +354,114 @@ public function CancelarOrdenCompramas()
           
         }
       
-     
-    
-
- 
 
 
 }
+
+
+
+
+public function cancelarMercadopago($id_orden){
+
+  $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+  $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+  $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
+  MercadoPago::setClientId($almacen->id_mercadopago);
+  MercadoPago::setClientSecret($almacen->key_mercadopago);
+              
+  if ($almacen->mercadopago_sand=='1') {
+
+      MercadoPago::setPublicKey($almacen->public_key_mercadopago_test);
+    
+    }
+
+    if ($almacen->mercadopago_sand=='2') {
+
+      MercadoPago::setPublicKey($almacen->public_key_mercadopago);
+      
+    }
+
+     $preference = MercadoPago::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
+
+   //  dd($preference);
+
+     if(isset($preference['body']['results'])){
+     
+        foreach ($preference['body']['results'] as $r) {
+
+              if ($r['status']=='in_process' || $r['status']=='pending') {
+                  
+                $idpago=$r['id'];
+
+                $preference_data_cancelar=array([
+                  'status'=>'cancelled'
+                ]);
+
+                $preference_data_cancelar = '{"status": "cancelled"}';
+
+                $at=Mercadopago::getAccessToken();
+
+                //dd($at);
+
+
+               // $pre = MercadoPago::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+
+               // dd($pre);
+
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments/'.$idpago.'');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $preference_data_cancelar);
+
+                $headers = array();
+                $headers[] = 'Authorization: Bearer '.$at;
+                $headers[] = 'Content-Type: application/json';
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $result = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    echo 'Error:' . curl_error($ch);
+                }
+                curl_close($ch);
+
+                $res=json_decode($result);
+
+                $data_cancelar = array(
+                  'id_orden' => $orden->id, 
+                  'id_forma_pago' => $orden->id_forma_pago, 
+                  'id_estatus_pago' => 4, 
+                  'monto_pago' => $orden->monto_total, 
+                  'json' => json_encode($res), 
+                  'id_user' => '1'
+                );
+
+                AlpPagos::create($data_cancelar);
+
+                $data_history_json = array(
+                  'id_orden' => $orden->id, 
+                  'id_status' =>'4', 
+                  'notas' => 'Cancelacion de pago en Mercadopago', 
+                  'json' => json_encode($res), 
+                  'id_user' => '1' 
+              );
+
+              $history=AlpOrdenesHistory::create($data_history_json);
+
+
+            }
+
+         }
+      }
+
+}
+
+
 
 
 
