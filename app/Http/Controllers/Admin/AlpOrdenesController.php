@@ -3017,6 +3017,14 @@ public function compramasupdate()
        
     $orden = AlpOrdenes::find($id);
 
+    if(isset($orden->id)){
+
+    }else{
+
+      return Redirect::back()->withErrors(['danger' => 'No se encontro la orden']);
+
+    }
+
       //dd($orden);
 
     $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.id_impuesto as id_impuesto','alp_productos.referencia_producto as referencia_producto')
