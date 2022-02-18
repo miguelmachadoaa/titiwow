@@ -154,7 +154,7 @@
                
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización.
+                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
