@@ -315,7 +315,7 @@ class VerificarPagosHora extends Command
 
                     AlpPagos::create($data_pago);
 
-              if ($orden->id_almacen==1) {
+              if ($orden->id_almacen==1 || $orden->id_almacen==32) {
 
                 try {
                   # $this->sendcompramas($orden->id, 'approved');
@@ -1005,7 +1005,7 @@ class VerificarPagosHora extends Command
                                 }
 
 
-                                if ($orden->id_almacen==1) {
+                                if ($orden->id_almacen==1 || $orden->id_almacen==32) {
 
                                   try {
                                     # $this->sendcompramas($orden->id, 'approved');
@@ -1871,7 +1871,22 @@ class VerificarPagosHora extends Command
 
                   #   dd($orden->id);
 
-                    $this->CancelarOrdenCompramas($orden->id);
+
+                    
+                    if ($orden->id_almacen==1 || $orden->id_almacen==32) {
+
+                      try {
+
+                        $this->CancelarOrdenCompramas($orden->id);
+
+
+                      } catch (\Exception $e) {
+
+                        activity()->withProperties($orden)->log('error compramas vp l355');
+                        
+                      }
+
+                    }
 
 
                     $this->cancelarMercadopago($orden->id);

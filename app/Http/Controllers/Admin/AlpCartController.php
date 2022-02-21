@@ -1356,16 +1356,22 @@ class AlpCartController extends JoshController
 
           );
 
+          if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
+            try {
+              $this->registrarOrdenNuevo($id_orden);
+            }catch (\Exception $e) {
+                activity()->withProperties($orden)->log('error velocity CART1363');
+            }
+          }
 
-          $this->registrarOrdenNuevo($id_orden);
 
-          
-          $idc=$id_orden*1024;
+              
+              $idc=$id_orden*1024;
 
-          return redirect('cart/'.$idc.'/gracias?pago=pendiente');
+              return redirect('cart/'.$idc.'/gracias?pago=pendiente');
 
 
-        #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
+            #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
 
         
 
@@ -2121,7 +2127,14 @@ class AlpCartController extends JoshController
           #  return json_encode($response);
 
 
-          $this->registrarOrdenNuevo($id_orden);
+          if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
+            try {
+              $this->registrarOrdenNuevo($id_orden);
+            }catch (\Exception $e) {
+              activity()->withProperties($orden)->log('error Velocity CART2134');
+            }
+          }
+
 
 
           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
@@ -3307,7 +3320,14 @@ class AlpCartController extends JoshController
                 
                 $metodo=$payment->payment_method_id;
 
-                $this->registrarOrdenNuevo($id_orden);
+                if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
+                  try {
+                    $this->registrarOrdenNuevo($id_orden);
+                  }catch (\Exception $e) {
+                    activity()->withProperties($orden)->log('error Velocity CART2134');
+                  }
+                }
+
                 
                 $idc=$compra->id*1024;
 
@@ -3673,7 +3693,13 @@ class AlpCartController extends JoshController
                 
                 $metodo='Bono';
 
-                $this->registrarOrdenNuevo($id_orden);
+                if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
+                  try {
+                    $this->registrarOrdenNuevo($id_orden);
+                  }catch (\Exception $e) {
+                    activity()->withProperties($orden)->log('error Velocity CART2134');
+                  }
+                }
 
                 $idc=$compra->id*1024;
 
@@ -3976,7 +4002,13 @@ public function orderProcesarIcg(Request $request)
                 
                 $metodo='Bono';
 
-                $this->registrarOrdenNuevo($id_orden);
+                if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
+                  try {
+                    $this->registrarOrdenNuevo($id_orden);
+                  }catch (\Exception $e) {
+                    activity()->withProperties($orden)->log('error Velocity CART2134');
+                  }
+                }
 
                 $idc=$compra->id*1024;
 
@@ -5140,7 +5172,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
           }
 
-          $this->registrarOrdenNuevo($orden->id);
+          if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
+            try {
+              $this->registrarOrdenNuevo($id_orden);
+            }catch (\Exception $e) {
+              activity()->withProperties($orden)->log('error Velocity CART2134');
+            }
+          }
 
            $idc=$orden->id*1024;
 
