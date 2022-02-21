@@ -2125,7 +2125,7 @@ class AlpCartController extends JoshController
           $response = array('estado' => 'aprobado', 'mensaje'=> secure_url('cart/'.$idc.'/gracias?pago=aprobado'));
 
           #  return json_encode($response);
-
+          
 
           if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
             try {

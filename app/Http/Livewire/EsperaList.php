@@ -206,8 +206,24 @@ class EsperaList extends Component
 
     public function cancelar(){
 
-     //   $this->CancelarOrdenCompramas();
+      $o=AlpOrdenes::where('id', $this->idCancelar)->first();
+
+      if(isset($o->id)){
+
+        if($o->id_almacen=='1' ||  $o->id_almacen=='32'){
+
+        $this->CancelarOrdenCompramas();
+
+
+        }
+
+
         $this->CancelarMercadopago($this->idCancelar);
+
+
+      }
+
+       
 
     }
 
