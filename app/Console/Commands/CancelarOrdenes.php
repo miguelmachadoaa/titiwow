@@ -121,7 +121,7 @@ class CancelarOrdenes extends Command
                 }
 
 
-                 if ($orden->id_almacen=='1') {
+                 if ($orden->id_almacen=='1' || $orden->id_almacen=='32') {
 
                     $this->CancelarOrdenCompramas($orden->id);
                     # code...
