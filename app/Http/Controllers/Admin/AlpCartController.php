@@ -1356,8 +1356,13 @@ class AlpCartController extends JoshController
 
           );
 
+          if($compra->id_almacen=='1'){
+            $this->registrarOrdenNuevo($id_orden);
+          }
 
-          $this->registrarOrdenNuevo($id_orden);
+
+
+          
 
           
           $idc=$id_orden*1024;
@@ -2119,9 +2124,13 @@ class AlpCartController extends JoshController
           $response = array('estado' => 'aprobado', 'mensaje'=> secure_url('cart/'.$idc.'/gracias?pago=aprobado'));
 
           #  return json_encode($response);
+          
 
+          if($compra->id_almacen=='1'){
+             $this->registrarOrdenNuevo($id_orden);
+          }
 
-          $this->registrarOrdenNuevo($id_orden);
+         
 
 
           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
@@ -3307,7 +3316,12 @@ class AlpCartController extends JoshController
                 
                 $metodo=$payment->payment_method_id;
 
-                $this->registrarOrdenNuevo($id_orden);
+                if($compra->id_almacen=='1'){
+                  $this->registrarOrdenNuevo($id_orden);
+                }
+      
+
+                
                 
                 $idc=$compra->id*1024;
 
@@ -3673,7 +3687,12 @@ class AlpCartController extends JoshController
                 
                 $metodo='Bono';
 
-                $this->registrarOrdenNuevo($id_orden);
+                if($compra->id_almacen=='1'){
+                  $this->registrarOrdenNuevo($id_orden);
+                }
+      
+
+                
 
                 $idc=$compra->id*1024;
 
@@ -3976,7 +3995,12 @@ public function orderProcesarIcg(Request $request)
                 
                 $metodo='Bono';
 
-                $this->registrarOrdenNuevo($id_orden);
+                if($compra->id_almacen=='1'){
+                  $this->registrarOrdenNuevo($id_orden);
+                }
+      
+
+                
 
                 $idc=$compra->id*1024;
 
@@ -5140,7 +5164,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
           }
 
-          $this->registrarOrdenNuevo($orden->id);
+          if($compra->id_almacen=='1'){
+             $this->registrarOrdenNuevo($orden->id);
+          }
+
+
+         
 
            $idc=$orden->id*1024;
 
