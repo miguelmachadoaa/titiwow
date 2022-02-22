@@ -1356,14 +1356,9 @@ class AlpCartController extends JoshController
 
           );
 
-          if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
-            try {
+          if ($orden->id_almacen==1 ) {
               $this->registrarOrdenNuevo($id_orden);
-            }catch (\Exception $e) {
-                activity()->withProperties($orden)->log('error velocity CART1363');
             }
-          }
-
 
               
               $idc=$id_orden*1024;
@@ -2127,13 +2122,9 @@ class AlpCartController extends JoshController
           #  return json_encode($response);
           
 
-          if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
-            try {
+          if ($orden->id_almacen==1) {
               $this->registrarOrdenNuevo($id_orden);
-            }catch (\Exception $e) {
-              activity()->withProperties($orden)->log('error Velocity CART2134');
             }
-          }
 
 
 
@@ -3320,13 +3311,9 @@ class AlpCartController extends JoshController
                 
                 $metodo=$payment->payment_method_id;
 
-                if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
-                  try {
+                if ($orden->id_almacen==1 ) {
                     $this->registrarOrdenNuevo($id_orden);
-                  }catch (\Exception $e) {
-                    activity()->withProperties($orden)->log('error Velocity CART2134');
                   }
-                }
 
                 
                 $idc=$compra->id*1024;
@@ -3693,13 +3680,9 @@ class AlpCartController extends JoshController
                 
                 $metodo='Bono';
 
-                if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
-                  try {
+                if ($orden->id_almacen==1 ) {
                     $this->registrarOrdenNuevo($id_orden);
-                  }catch (\Exception $e) {
-                    activity()->withProperties($orden)->log('error Velocity CART2134');
                   }
-                }
 
                 $idc=$compra->id*1024;
 
@@ -4002,13 +3985,9 @@ public function orderProcesarIcg(Request $request)
                 
                 $metodo='Bono';
 
-                if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
-                  try {
+                if ($orden->id_almacen==1 ) {
                     $this->registrarOrdenNuevo($id_orden);
-                  }catch (\Exception $e) {
-                    activity()->withProperties($orden)->log('error Velocity CART2134');
                   }
-                }
 
                 $idc=$compra->id*1024;
 
@@ -5172,13 +5151,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
           }
 
-          if ($orden->id_almacen==1 || $orden->id_almacen==32 ) {
-            try {
+          if ($orden->id_almacen==1 ) {
               $this->registrarOrdenNuevo($id_orden);
-            }catch (\Exception $e) {
-              activity()->withProperties($orden)->log('error Velocity CART2134');
             }
-          }
 
            $idc=$orden->id*1024;
 
@@ -14617,9 +14592,9 @@ private function registrarOrdenNuevo($id_orden)
 
   $ch = curl_init();
 
-  #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen->codigo_almacen);
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen_pedido->codigo_almacen);
  # curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago');
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.startupexpansion.co/api/v1/webhooks/alpinago');
+  #curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 

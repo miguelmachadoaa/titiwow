@@ -41,21 +41,21 @@ use Exception;
 
 use Illuminate\Console\Command;
 
-class EnviarVelocity extends Command
+class AprobarVelocity extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'enviar:velocity';
+    protected $signature = 'aprobar:velocity';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Consultar estatus de los pagos a mercadopago ';
+    protected $description = 'Aprobar Manualmente Ordenes en Velocity ';
 
     /**
      * Create a new command instance.
@@ -81,7 +81,7 @@ class EnviarVelocity extends Command
       $d=$date->subDay(3)->format('Y-m-d');
 
 
-        $ordenes=AlpOrdenes::where('id', '35270')->get();
+        $ordenes=AlpOrdenes::where('id', '35268')->get();
 
      # Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
@@ -278,12 +278,12 @@ private function registrarOrdenNuevo($id_orden)
 
   $ch = curl_init();
 
-  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago?warehouse_id='.$almacen_pedido->codigo_almacen);
+  curl_setopt($ch, CURLOPT_URL, 'https://ff.logystix.co/api/v1/webhooks/alpinago/'.$orden->referencia.'/approve');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_POST, 1);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
 
   $headers = array();
   $headers[] = 'Content-Type: application/json';
@@ -298,11 +298,11 @@ private function registrarOrdenNuevo($id_orden)
 
   $res=json_decode($result);
 
-   Log::info('Respuesta de Velocity al registro de la orden '.json_encode($res));
+   Log::info('Respuesta de Velocity orden aprobada '.json_encode($res));
    
-   activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en Velocity orden id '.$orden->id.' .vp663');
+   activity()->withProperties($res)->log('Datos de respuesta a registro de orden aprobada Manual en Velocity orden id '.$orden->id.' .vp663');
 
-   $notas='Registro de orden en Velocity Manual.';
+   $notas='Aprobación de orden en Velocity Manual';
 
    print_r($res);
 

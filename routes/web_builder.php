@@ -2020,3 +2020,7 @@ Route::get('enviar-lifemiles', function() {
 Route::get('enviar-velocity', function() {
     $exitCode = Artisan::call('enviar:velocity');
 });
+
+Route::get('aprobar-velocity', function() {
+    $exitCode = Artisan::call('aprobar:velocity');
+});
