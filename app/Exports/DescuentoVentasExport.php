@@ -45,7 +45,8 @@ class DescuentoVentasExport implements FromView
         'alp_clientes.doc_cliente as doc_cliente',
         'users.id as id_usuario', 
          'users.first_name as first_name', 
-        'users.last_name as last_name'
+        'users.last_name as last_name', 
+        'users.email as email'
       )
       ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
       ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')

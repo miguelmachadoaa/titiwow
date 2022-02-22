@@ -10,6 +10,7 @@
             <th><b> % Descuento </b></th>
             <th><b>Valor Descuento</b></th>
             <th><b>Fecha</b></th>
+            <th><b>Email</b></th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
             <td>{!! number_format((($venta->monto_descuento/$venta->monto_total)*100),2).'%'; !!}</td>
             <td>{!! $venta->monto_descuento !!}</td>
             <td>{!! $venta->fecha !!}</td>
+            <td>{!! $venta->email !!}</td>
             
           
         </tr>

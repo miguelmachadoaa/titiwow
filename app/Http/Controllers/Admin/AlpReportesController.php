@@ -135,7 +135,7 @@ class AlpReportesController extends Controller
 
        // $clientes=User::all();
 
-       $clientes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name')
+       $clientes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->groupBy('alp_ordenes.id_cliente')
           ->get();
