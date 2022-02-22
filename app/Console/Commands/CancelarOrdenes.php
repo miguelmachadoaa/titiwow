@@ -475,13 +475,13 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
        
        
-public function CancelarOrdenCompramas()
+public function CancelarOrdenCompramas($id_orden)
 {
 
 
   #echo 'proceso envio a velocity   / ';
 
-    $id_orden=$this->idCancelar;
+    //$id_orden=$this->idCancelar;
 
   $configuracion=AlpConfiguracion::first();
   
