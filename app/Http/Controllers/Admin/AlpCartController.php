@@ -1132,6 +1132,12 @@ class AlpCartController extends JoshController
 
             \Session::put('pse', $payment->id);
 
+
+            if ($orden->id_almacen==1 ) {
+              $this->registrarOrdenNuevo($id_orden);
+            }
+
+
            // dd($payment->transaction_details->external_resource_url);
             
             return $payment->transaction_details->external_resource_url;
@@ -1356,9 +1362,9 @@ class AlpCartController extends JoshController
 
           );
 
-          if ($orden->id_almacen==1 ) {
-              $this->registrarOrdenNuevo($id_orden);
-            }
+         # if ($orden->id_almacen==1 ) {
+          #    $this->registrarOrdenNuevo($id_orden);
+          #  }
 
               
               $idc=$id_orden*1024;
