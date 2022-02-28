@@ -39,13 +39,13 @@ class CuponesImport implements ToCollection
                     'valor_cupon'    => $row[2], 
                     'limite_uso'    => $row[3], 
                     'limite_uso_persona'    => $row[4], 
-                    'fecha_inicio'    => '2022-02-01', 
+                    'fecha_inicio'    => '2022-03-01', 
                     //'fecha_inicio'    => $row[5], 
                     'fecha_final' => '2022-03-31', 
                     //'fecha_final' => $row[6], 
                     'monto_minimo' => $row[7], 
                     'maximo_productos' => $row[8], 
-                    'origen' => 'Campaña Bonyurt 10%', 
+                    'origen' => 'Campaña Excommerce 30.000 COP', 
                     'id_user' => 1, 
                 ]);
     
