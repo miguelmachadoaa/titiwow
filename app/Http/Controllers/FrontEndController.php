@@ -2110,16 +2110,15 @@ class FrontEndController extends JoshController
 
          // $request->email=base64_decode($request->email);
           $request->password=base64_decode($request->password);
-       //   $request->doc_cliente=base64_decode($request->doc_cliente);
+          $request->doc_cliente=base64_decode($request->doc_cliente);
 
           $request->dob=strip_tags($request->dob);
           $request->first_name=strip_tags($request->first_name);
           $request->last_name=strip_tags($request->last_name);
           $request->email=strip_tags($request->email);
           $request->password=strip_tags($request->password);
-       //   $request->doc_cliente=strip_tags($request->doc_cliente);
+          $request->doc_cliente=strip_tags($request->doc_cliente);
           $request->cod_alpinista=strip_tags($request->cod_alpinista);
-
 
           $u=User::where('email', $request->email)->first();
 
@@ -2152,8 +2151,8 @@ class FrontEndController extends JoshController
 
                       $data = array(
                       'id_user_client' => $user->id, 
-                     // 'id_type_doc' => $request->id_type_doc, 
-                     // 'doc_cliente' =>$request->doc_cliente, 
+                      'id_type_doc' => $request->id_type_doc, 
+                      'doc_cliente' =>$request->doc_cliente, 
                       'telefono_cliente' => $request->telefono_cliente,
                       'habeas_cliente' => $request->habeas_cliente,
                       'estado_masterfile' =>$masterfi,
@@ -2298,8 +2297,8 @@ class FrontEndController extends JoshController
                     $data = array(
 
                     'id_user_client' => $user->id, 
-                  //  'id_type_doc' => $request->id_type_doc, 
-                  //  'doc_cliente' =>$request->doc_cliente, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
                     'telefono_cliente' => $request->telefono_cliente,
                     'habeas_cliente' => $request->habeas_cliente,
                     'cod_oracle_cliente' =>$request->telefono_cliente,

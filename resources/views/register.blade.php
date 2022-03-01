@@ -86,7 +86,7 @@
                            value="{!! old('last_name') !!}" >
                     {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
                 </div>
-                <!--div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
+                <div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
                     <div class="" >
                         <select id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
                             <option value="">Seleccione Tipo de Documento</option>     
@@ -101,7 +101,7 @@
                     <input type="text" class="form-control" id="doc_cliente" name="doc_cliente" placeholder="Nro de Documento"
                            value="{!! old('doc_cliente') !!}" >
                     {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
-                </div-->
+                </div>
                 <div class="form-group {{ $errors->first('dob', 'has-error') }}">
                     <input type="text" class="form-control" id="dob" name="dob" placeholder="Fecha de Nacimiento"
                            value="{!! old('dob') !!}" style="color: #9a9a9a;" onfocus="(this.type='date')" onblur="(this.type='text')">
@@ -345,6 +345,8 @@ $(document).ready(function(){
 
             first_name=$('#first_name').val();
             last_name=$('#last_name').val();
+            id_type_doc=$('#id_type_doc').val();
+            doc_cliente=btoa($('#doc_cliente').val());
             dob=$('#dob').val();
             email=$('#Email').val();
             telefono_cliente=$('#telefono_cliente').val();
@@ -478,6 +480,8 @@ $(document).ready(function(){
                     data:{
                         first_name:first_name,
                         last_name:last_name,
+                        id_type_doc:id_type_doc,
+                        doc_cliente:doc_cliente,
                         dob:dob,
                         email:email,
                         telefono_cliente:telefono_cliente,
