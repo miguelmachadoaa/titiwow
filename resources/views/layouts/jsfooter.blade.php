@@ -31,39 +31,7 @@
 
     //  alert('cargo');
 
-        $(".typehead").autocomplete({
-            minLength: 0,
-            source : function( request, response ) {
-                $.ajax({
-                    url: "{{secure_url('/sugerencias')}}",
-                    dataType: "json",
-                    data: {
-                        q: request.term
-                    },
-                    success: function (data) {
-                        alert(data);
-                        response( data );
-                    }
-                });
-            },
-            focus: function (event, ui) {
-                $(".typehead").val(ui.item.label);
-                return false;
-            },
-            select: function (event, ui) {
-                $(".typehead").val(ui.item.name);
-             //   $("#buscar-id").val(ui.item.email);                    
-
-                return false;
-            }
-        })
-            .data("ui-autocomplete")._renderItem = function (ul, item) {
-                console.log(item.name);
-                return $("<li>")
-                    .data("ui-autocomplete-item", item)
-                    .append("<a> " + item.name + "<br>" + item.name + "</a>")
-                    .appendTo(ul);
-            };
+       
     });
 
 
