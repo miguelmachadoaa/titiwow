@@ -46,7 +46,7 @@
                        Editar Campaña Lifemile
                     </h4>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body"> 
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <ul>
@@ -129,7 +129,7 @@
                                 Fecha Inicio
                             </label>
                             <div class="col-sm-5">
-                                <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" placeholder="Fecha Inicio"  value="{!! old('fecha_inicio', $lifemile->fecha_inicio) !!}">
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" placeholder="Fecha Inicio"  value="{!! $lifemile->fecha_inicio !!}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('fecha_inicio', '<span class="help-block">:message</span> ') !!}
@@ -219,21 +219,21 @@
                 theme:"bootstrap"
             });
 
-            var someDateInicio = new Date();
-            var someDate = new Date();
+        //    var someDateInicio = new Date();
+          //  var someDate = new Date();
 
-            var duration = '30'; //In Days
+      //      var duration = '30'; //In Days
 
-            someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
+            //someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
 
-            day=someDate.getDate();
+           // day=someDate.getDate();
 
-            month=someDate.getMonth();
+           // month=someDate.getMonth();
 
-            year=someDate.getFullYear();
+           // year=someDate.getFullYear();
 
-            $('#fecha_inicio').val(someDateInicio.toISOString().substr(0, 10));
-            $('#fecha_final').val(someDate.toISOString().substr(0, 10));
+//            $('#fecha_inicio').val(someDateInicio.toISOString().substr(0, 10));
+  //          $('#fecha_final').val(someDate.toISOString().substr(0, 10));
 
           //  console.log($('#fecha_final').val());
 
