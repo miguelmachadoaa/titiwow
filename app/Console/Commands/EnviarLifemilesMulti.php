@@ -41,14 +41,14 @@ use Exception;
 
 use Illuminate\Console\Command;
 
-class EnviarLifemiles extends Command
+class EnviarLifemilesMulti extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'enviar:lifemiles';
+    protected $signature = 'enviar:lifemilesmulti';
 
     /**
      * The console command description.
@@ -81,10 +81,8 @@ class EnviarLifemiles extends Command
       $d=$date->subDay(3)->format('Y-m-d');
 
 
-      #  $ordenes=AlpOrdenes::where('id','>', '30941')->get();
-        $ordenes=AlpOrdenes::whereIn('id',['35769','35727','35740','35914','35919','35906','35848','35894','35917','35775','35824','35891','35881','35831','35785','35820','36003','36041','36036','36044','36038','35952','35981','36023','36101','36075','36086','36093','36133','36109','36130','36158','36186','35160','35145','35169','35172','35137','35147','35129','35188','35250','35289','35260','35281','35305','35255','35377','35360','35346','35345','35406','35500','35479','35513','35476','35584','35551','35573','35569','35554','35568','35536','35529','35594','35608','35599','35645','35628','35632','35631','35681','35710','35666','35716'])->get();
-
-
+      #  $ordenes=AlpOrdenes::where('id', '>','35768')->get();
+        $ordenes=AlpOrdenes::whereIn('id',['31655', '31648'])->get();
 
 
         foreach($ordenes as $orden){
@@ -170,9 +168,9 @@ class EnviarLifemiles extends Command
 
         $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-       # print_r($result);
+        print_r($result);
 
-      $jsessionid = $result['SESSIONID'];
+        $jsessionid = $result['SESSIONID'];
 
        # echo $jsessionid.' 1<br>';
 
@@ -181,19 +179,19 @@ class EnviarLifemiles extends Command
 
         $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><CREATED_FROM>2</CREATED_FROM><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.' '.$user->last_name.'</VALUE></COLUMN><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Partner_Code</NAME><VALUE>ALPCO</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code</NAME><VALUE>'.$cupon[0]->code.'</VALUE></COLUMN><COLUMN><NAME>Alpina_Go_Gift_Code_Dos</NAME><VALUE> </VALUE></COLUMN><COLUMN><NAME>Alpina_Go_update_Gift_Code</NAME><VALUE>'.$fecha_lm.'</VALUE></COLUMN><COLUMN><NAME>Fuente</NAME><VALUE>Alpina Go</VALUE></COLUMN></AddRecipient><SendMailing><MailingId>19348098</MailingId><RecipientEmail>'.$user->email.'</RecipientEmail></SendMailing></Body></Envelope>';
 
-        echo $user->email.' -> Codigo :'.$cupon[0]->code.'<br>';
 
-       # dd($xml);
+
+        dd($xml);
 
         activity()->withProperties($xml)->log('ibm_lifemiles datos enviados ');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-       activity()->withProperties($result2)->log('ibm_lifemiles respuesta');
+        activity()->withProperties($result2)->log('ibm_lifemiles respuesta');
 
-       # print_r($result2);
+        print_r($result2);
 
-      #  echo "3<br>";
+        echo "3<br>";
 
     //LOGOUT
 
