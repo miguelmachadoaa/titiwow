@@ -39,13 +39,13 @@ class CuponesImport implements ToCollection
                     'valor_cupon'    => $row[2], 
                     'limite_uso'    => $row[3], 
                     'limite_uso_persona'    => $row[4], 
-                    'fecha_inicio'    => '2022-03-07', 
+                    'fecha_inicio'    => '2022-03-08', 
                     //'fecha_inicio'    => $row[5], 
-                    'fecha_final' => '2022-03-31', 
+                    'fecha_final' => '2022-12-31', 
                     //'fecha_final' => $row[6], 
                     'monto_minimo' => $row[7], 
                     'maximo_productos' => $row[8], 
-                    'origen' => 'Campaña Finesse 20%', 
+                    'origen' => 'Datapower 30%', 
                     'id_user' => 1, 
                 ]);
     
@@ -60,6 +60,17 @@ class CuponesImport implements ToCollection
                     'id_almacen'     => 32,
                     'id_user'     => 1,
                     ]);
+                    $condici6 = AlpCuponesAlmacen::create([
+                        'id_cupon'     => $id->id,
+                        'id_almacen'     => 30,
+                        'id_user'     => 1,
+                        ]);
+                    $condici7 = AlpCuponesAlmacen::create([
+                        'id_cupon'     => $id->id,
+                        'id_almacen'     => 31,
+                        'id_user'     => 1,
+                        ]);
+                    
 
                     $condici3 = AlpCuponesCategorias::create([
                         'id_cupon'     => $id->id,
