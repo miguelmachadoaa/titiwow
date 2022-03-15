@@ -1,49 +1,60 @@
 <table class="" id="categoriastable">
     <thead>
         <tr>
-            <th ><b>Id_Usuario</b></th>
-            <th><b> Id_MasterFile</b></th>
-            <th><b>Fecha_Registro</b></th>
-            <th><b>Cedula</b></th>
-            <th><b>Nombre</b></th>
+            <th ><b>Correo</b></th>
+            <th><b>  Nombre</b></th>
+            <th><b>Apellido</b></th>
+            <th><b>Fecha de Nacimiento</b></th>
+            <th><b>Genero</b></th>
 
-            <th><b>Email</b></th>
-            <th><b>Rol</b></th>
-            <th><b>Cantidad Amigos Activos</b></th>
-            <th><b>Cantidad Amigos</b></th>
-            <th><b>Id_Embajador</b></th>
-            <th><b>Valor Total de Ventas</b></th>
-            <th><b>Numero de Pedidos</b></th>
-            <th><b>Ultima Fecha de Compra</b></th>
-            <th><b>Direccion</b></th>
-            <th><b>Barrio</b></th>
+            <th><b>Tipo de Documento</b></th>
+            <th><b>Identificacion</b></th>
             <th><b>Ciudad</b></th>
-            <th><b>Departamento</b></th>
-            <th><b>Teléfono</b></th>
+            <th><b>Direccion Principal  </b></th>
+            <th><b>Telefono</b></th>
+            <th><b>Fecha de Creacion </b></th>
+            <th><b>Marketing</b></th>
+            <th><b>Habeas</b></th>
         </tr>
     </thead>
     <tbody>
 
         @foreach ($users as $row)
         <tr>
-            <td>{!! $row->id !!}</td>
-            <td>{!! $row->cod_oracle_cliente!!}</td>
-            <td>{!! $row->fecha !!}</td>
-            <td>{!! $row->doc_cliente !!}</td>
-            <td>{!! $row->first_name.' '.$row->last_name !!}</td>
             <td>{!! $row->email !!}</td>
-            <td>{!! $row->name_rol !!}</td>
-            <td>{!! $row->cantidad_amigos !!}</td>
-            <td>{!! $row->cantidad_amigos !!}</td>
-            <td>{!! $row->id_embajador !!}</td>
-            <td>{!! $row->monto_total_ordenes !!}</td>
-            <td>{!! $row->cantidad_ordenes !!}</td>
-            <td>{!! $row->fecha_ultima_compra !!}</td>
+            <td>{!! $row->first_name!!}</td>
+            <td>{!! $row->last_name !!}</td>
+            <td>{!! $row->dob !!}</td>
+            <td>{!! $row->genero_cliente !!}</td>
+            <td>Cedula de Ciudadania</td>
+            <td>{!! $row->doc_cliente !!}</td>
+            <td>{!! $row->city_name !!}</td>
+            @if(isset($row->dir->id))
+
+            <td>{{ $row->dir->abrevia_estructura.' '.$row->dir->principal_address.' '.$row->dir->secundaria_address.' '.$row->dir->edificio_address.' '.$row->dir->detalle_address }}</td>
+
+
+            @else
+
             <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address.' '.$row->detalle_address }}</td>
-            <td>{{  $row->barrio_address  }}</td>
-            <td>{{  $row->city_name  }}</td>
-            <td>{{  $row->state_name  }}</td>
-            <td>{{  $row->telefono_cliente  }}</td>
+
+
+            @endif
+
+            <td>{!! $row->telefono_cliente !!}</td>
+            <td>{!! $row->created_at !!}</td>
+            @if($row->marketing_email=='1')
+            <td>SI</td>
+            @else
+            <td>NO</td>
+            @endif
+
+            @if($row->habeas_cliente=='1')
+            <td>SI</td>
+            @else
+            <td>NO</td>
+            @endif
+            
           
         </tr>
         @endforeach

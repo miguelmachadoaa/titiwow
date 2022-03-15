@@ -386,9 +386,9 @@ class AlpReportesController extends Controller
         }
 
 
-       // dd($request->all());
+        dd($request->all());
 
-        return Excel::download(new VentasExport($request->desde, $request->hasta, $request->clientes), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_usuario_'.$request->clientes.'.xlsx');
+        return Excel::download(new VentasExport($request->desde, $request->hasta, $request->id_almacen), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_usuario_'.$request->clientes.'.xlsx');
     }
 
     public function export(Request $request) 

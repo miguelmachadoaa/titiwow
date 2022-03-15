@@ -5,7 +5,6 @@ namespace App\Exports;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpClientes;
-use App\Models\AlpDirecciones;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -15,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class UsersExport implements FromView
+class UsersExportOld implements FromView
 {
     
     public function __construct(string $desde, string $hasta, string $id_almacen)
@@ -36,9 +35,6 @@ class UsersExport implements FromView
         'alp_clientes.cod_oracle_cliente as cod_oracle_cliente',
         'alp_clientes.id_embajador as id_embajador',
         'alp_clientes.telefono_cliente as telefono_cliente',
-        'alp_clientes.marketing_email as marketing_email',
-        'alp_clientes.habeas_cliente as habeas_cliente',
-        'alp_clientes.genero_cliente as genero_cliente',
         'config_cities.city_name as city_name',
         'config_states.state_name as state_name',
         'alp_direcciones.principal_address as principal_address',
@@ -69,26 +65,85 @@ class UsersExport implements FromView
 
 
 
-         /* foreach ($users as $user ) {
+          foreach ($users as $user ) {
 
-            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-            ->where('alp_direcciones.id_client', $user->id)
-            ->where('alp_direcciones.default_address', '=', '1')
-            ->first();*
 
-            $user->dir=$d;
+            $amigos= AlpClientes::select(
+        'alp_clientes.*',
+        DB::raw('count(alp_clientes.id)  as cantidad_amigos')
+        )
+        ->groupBy('alp_clientes.id_embajador')
+        ->where('alp_clientes.id_embajador', $user->id)
+        ->first();
 
-            $usuario[]=$user;
+        if (isset($amigos->id)) {
 
-          }*/
+        $user->cantidad_amigos=$amigos->cantidad_amigos;
+
+           
+        }else{
+        $user->cantidad_amigos=0;
+
+        }
+
+
+
+        $ordenes= AlpOrdenes::select(
+        'alp_ordenes.*',
+        DB::raw('count(alp_ordenes.id)  as cantidad_ordenes'),
+        DB::raw('sum(alp_ordenes.monto_total)  as monto_total_ordenes')
+
+        )
+        ->groupBy('alp_ordenes.id_cliente')
+        ->where('alp_ordenes.id_cliente', $user->id)
+        ->orderBy('alp_ordenes.id', 'desc')
+        ->first();
+
+       // dd($ordenes);
+
+
+        if (isset($ordenes->id)) {
+
+            $user->cantidad_ordenes=$ordenes->cantidad_ordenes;
+            $user->monto_total_ordenes=$ordenes->monto_total_ordenes;
+            
+
+           
+        }else{
+            $user->cantidad_ordenes=0;
+            $user->monto_total_ordenes=0;
+            
+
+        }
+
+
+        $orden= AlpOrdenes::select(
+        DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha_ultima_compra')
+        )
+        ->where('alp_ordenes.id_cliente', $user->id)
+        ->orderBy('alp_ordenes.id', 'desc')
+        ->first();
+
+
+         if (isset($orden->fecha_ultima_compra)) {
+
+            
+            $user->fecha_ultima_compra=$orden->fecha_ultima_compra;
+
+           
+        }else{
+            
+            $user->fecha_ultima_compra='N/A';
+
+        }
+
+        $usuario[]=$user;
+
+          }
 
 
         return view('admin.exports.users', [
-            'users' => $users
+            'users' => $usuario
         ]);
     }
 }
