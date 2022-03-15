@@ -1647,6 +1647,9 @@ Route::bind('product', function($slug){
 
 Route::post('cart/addtocartancheta/',['as'=>'cart.addtocartancheta', 'uses'=>'Admin\AlpCartController@addtocartancheta']);
 
+Route::post('cart/updatecedula/',['as'=>'cart.updatecedula', 'uses'=>'Admin\AlpCartController@updatecedula']);
+
+
 Route::post('cart/deltocartancheta/',['as'=>'cart.deltocartancheta', 'uses'=>'Admin\AlpCartController@deltocartancheta']);
 
 Route::get('cart/totalancheta/',['as'=>'cart.totalancheta', 'uses'=>'Admin\AlpCartController@totalancheta']);

@@ -168,9 +168,7 @@ class AlpCartController extends JoshController
     public function show()
     {
 
-
       $ip=\Request::ip();
-
 
       \Session::forget('aviso');
 
@@ -187,7 +185,6 @@ class AlpCartController extends JoshController
         }
 
         $dir=null;
-
 
 
         if (Sentinel::check()) {
@@ -2910,9 +2907,11 @@ class AlpCartController extends JoshController
 
           }
 
+          $cliente=AlpClientes::where('id_user_client', $user->id)->first();
 
+          #dd($cliente);
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos', 'almacen', 'cupo_credito_icg', 'dl_productos'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos', 'almacen', 'cupo_credito_icg', 'dl_productos', 'cliente'));
 
           
          }
@@ -14783,7 +14782,40 @@ private function registrarOrdenNuevo($id_orden)
 
 
 
+public function updatecedula( Request $request)
+    {
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+            if(isset($c->id)){
+
+              $c->update(
+                [
+                  'id_type_doc'=>$request->type_doc,
+                  'doc_cliente'=>$request->doc_cliente,
+                ]
+              );
+
+              return 1;
+
+
+            }else{
+
+              return 0;
+            }
+
+
+        }else{
+
+         return 0;
+
+        }
+
+    }
 
 
 

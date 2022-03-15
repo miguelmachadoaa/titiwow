@@ -345,9 +345,9 @@ Carrito de Compras
 
         
         $('.btn-checkout').on('click', function(e){
-            e.preventDefault();
+           // e.preventDefault();
 
-            $('#modalLoginEmail').modal('show');
+          //  $('#modalLoginEmail').modal('show');
 
 
         });

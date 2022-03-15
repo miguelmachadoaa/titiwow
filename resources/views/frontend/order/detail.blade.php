@@ -670,6 +670,55 @@ div.overlay > div {
         </div>
     </div>
 
+@if($cliente->doc_cliente==NULL || $cliente->doc_cliente=='')
+
+    
+<div class="modal fade" id="modalCedula" role="dialog" aria-labelledby="modalLabeldanger" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="background: #241F48;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" style="color: #333">Por favor actualice su Documento de identidad</h4>
+              </div>
+
+              <div class="modal-body bodylogin">
+                    
+                
+                <div class="form-group {{ $errors->first('type_doc_update', 'has-error') }}">
+                        <div class="" >
+                            <select id="type_doc_update" name="type_doc_update" class="form-control {{ $errors->first('type_doc_update', 'has-error') }}">
+                                <option value="">Seleccione Tipo de Documento</option>     
+                                @foreach($tdocumento as $tdoc)
+                                    <option value="{{ $tdoc->id }}" {{ (old("type_doc_update") == $tdoc->id ? "selected":"") }}>{{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {!! $errors->first('type_doc_update', '<span class="help-block">:message</span>') !!}
+                    </div>
+
+                    <div class="form-group {{ $errors->first('doc_cliente_update', 'has-error') }}">
+                        <input type="text" class="form-control" id="doc_cliente_update" name="doc_cliente_update" placeholder="Nro de Documento"
+                            value="{!! old('doc_cliente_update') !!}" >
+                        {!! $errors->first('doc_cliente_update', '<span class="help-block">:message</span>') !!}
+                    </div>
+
+                    <div class="rescedula"></div>
+
+            
+              </div>
+
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-primary sendUpdateCedula">Enviar</button>
+                </div>
+            
+            </div><!-- /.modal-content -->
+
+        </div>
+    </div>
+
+
+@endif
+
 
     
 
@@ -686,7 +735,54 @@ div.overlay > div {
 
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
+   
+    
+
     <script>
+
+        $(document).ready(function(){
+
+            $('#modalCedula').modal('show');
+        });
+
+
+
+        $(document).on('click','.sendUpdateCedula', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            type_doc=$('#type_doc_update').val();
+
+            doc_cliente=$('#doc_cliente_update').val();
+
+            if(type_doc==null || type_doc==undefined || type_doc==''  || doc_cliente==null || doc_cliente==undefined || doc_cliente==''){
+
+                $('.rescedula').html('<div class="alert alert-danger">Todos los campos son requeridos</div>');
+
+
+            }else{
+
+                $.post(base+'/cart/updatecedula', {type_doc, doc_cliente}, function(data) {
+
+                    if(data=='1'){
+
+                        $('#modalCedula').modal('hide');
+                        location.reload();
+                    }else{
+                        $('.rescedula').html('<div class="alert alert-danger">Hubo un error al actualizar por favor intente nuevamente</div>');
+                    }
+
+                });
+
+
+
+            }
+        
+        });
+
+
        const mp = new MercadoPago('{{$almacen->public_key_mercadopago}}');
        // Add step #3
 
