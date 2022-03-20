@@ -385,9 +385,6 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-
-        dd($request->all());
-
         return Excel::download(new VentasExport($request->desde, $request->hasta, $request->id_almacen), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_usuario_'.$request->clientes.'.xlsx');
     }
 
