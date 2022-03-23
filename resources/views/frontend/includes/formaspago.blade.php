@@ -206,7 +206,7 @@ $total_descuentos_icg=0;
 
                             @if($pm['id']!='davivienda')
 
-                            <div class="panel panel-default">
+                            <!--div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="heading{{ $pm['id'] }}">
                                   <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $pm['id'] }}" aria-expanded="true" aria-controls="collapse{{ $pm['id'] }}">
@@ -232,7 +232,7 @@ $total_descuentos_icg=0;
                                 </div>
                             </div>
 
-                                <br>
+                                <br-->
                                 
                             @endif
                             @endif
@@ -242,7 +242,7 @@ $total_descuentos_icg=0;
 
                         @endif
 
-                        <br>
+                        <!--br-->
 
                     @elseif($fp->id==4)
 
