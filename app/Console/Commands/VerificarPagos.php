@@ -1785,7 +1785,15 @@ class VerificarPagos extends Command
               
                      if ($orden->id_almacen==1 || $orden->id_almacen==32) {
 
+                      try {
+
                         $this->CancelarOrdenCompramas($orden->id);
+                        
+                      } catch (\Exception $e) {
+
+                        activity()->withProperties($orden)->log('error compramas vp l355');
+                        
+                      }
 
                       }
               }
