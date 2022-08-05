@@ -43,9 +43,7 @@ Pedidos
 
                 <div class="row">
 
-                <div class="col-sm-12">
-                    {{json_encode($cart)}}
-                </div>
+               
                 </div>
 
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">

@@ -30,7 +30,6 @@ class AlpOrdenes extends Model
         'id_forma_envio',
         'id_forma_pago',
         'monto_total',
-        'monto_total',
         'monto_total_base',
         'monto_descuento',
         'base_impuesto',

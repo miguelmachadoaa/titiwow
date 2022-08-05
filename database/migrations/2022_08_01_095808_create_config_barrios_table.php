@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class AlpCombosProductos extends Migration
+class CreateConfigBarriosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class AlpCombosProductos extends Migration
      */
     public function up()
     {
-        Schema::create('alp_combos_productos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_combo');
-            $table->integer('id_producto');
+        Schema::create('config_barrios', function (Blueprint $table) {
+            $table->id();
+            $table->string('barrio_name');
+            $table->integer('city_id');
             $table->integer('estado_registro')->default(1);
-            $table->integer('id_user');
+            $table->integer('id_user')->default(1);;
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ class AlpCombosProductos extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('config_barrios');
     }
 }

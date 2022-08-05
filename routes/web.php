@@ -1,4 +1,5 @@
 <?php
+
 include_once 'web_builder.php';
 /*
 |--------------------------------------------------------------------------
@@ -284,6 +285,7 @@ Route::post('compramasinventario/{id}/almacen', 'FrontEndController@getCompramas
 
 
 Route::get('login', 'FrontEndController@getLogin')->name('login');
+
 Route::get('desactivado', 'FrontEndController@desactivado')->name('desactivado');
 Route::post('login', 'FrontEndController@postLogin')->name('login');
 Route::get('registro', 'FrontEndController@getRegister')->name('registro');
@@ -328,7 +330,12 @@ Route::get('logout', 'FrontEndController@getLogout')->name('logout');
 /*Route::get('/', ['as' => 'home', function () {
     return view('index');
 }]);*/
-Route::get('/', ['uses' => 'FrontEndController@home'])->name('home');
+//Route::get('/', ['uses' => 'FrontEndController@home'])->name('home');
+
+Route::get('/', ['uses' => 'FrontEndController@getLogin'])->name('login.fronts');
+
+
+
 
 Route::get('/el-qlub', ['uses' => 'FrontEndController@qlub'])->name('el-qlub');
 

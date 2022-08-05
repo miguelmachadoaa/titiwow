@@ -23,10 +23,8 @@ class CreateAlpAlmacenesTable extends Migration
             $table->string('minimo_compra');
             $table->string('tipo_almacen');
             $table->string('formato')->default(0);
-            $table->integer('defecto');
             $table->string('descuento_productos')->default(1);
             $table->text('mensaje_promocion');
-            $table->string('descuento_productos')->default();
             $table->integer('defecto');
             $table->string('id_mercadopago');
             $table->integer('mercadopago_sand');

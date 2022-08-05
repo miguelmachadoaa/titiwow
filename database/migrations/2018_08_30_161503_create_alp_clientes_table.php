@@ -28,6 +28,18 @@ class CreateAlpClientesTable extends Migration
             $table->integer('estado_registro')->default(1);
             $table->integer('id_empresa')->default(0);
             $table->integer('id_embajador')->default(0);
+            $table->integer('estatus_ibm')->default(0);
+            $table->integer('json_ibm')->default(0);
+            $table->integer('origen')->default(0);
+            $table->integer('token')->default(0);
+            $table->integer('tomapedidos_termino')->default(0);
+            $table->integer('tomapedidos_marketing')->default(0);
+            $table->integer('marketing_email')->default(0);
+            $table->integer('marketing_sms')->default(0);
+            $table->integer('notificacion_bienvenida')->default(0);
+            $table->integer('notificacion_teextranamos')->default(0);
+            $table->integer('notificacion_teextranamos2')->default(0);
+            $table->integer('notificacion_descuento')->default(0);
             $table->text('nota')->nullable();
             $table->integer('id_user');
             $table->timestamps();

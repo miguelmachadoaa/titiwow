@@ -15,6 +15,7 @@ class CreateAlpInventariosTable extends Migration
     {
         Schema::create('alp_inventarios', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_almacen');
             $table->integer('id_producto');
             $table->integer('cantidad');
             $table->integer('operacion')->comment('1 agregar, 2 Descontar');
