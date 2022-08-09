@@ -21,9 +21,6 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
         return view('admin/404');
     });
 
-
-
-
     Route::get('500', function () {
         return view('admin/500');
     });

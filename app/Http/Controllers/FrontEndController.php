@@ -1650,28 +1650,7 @@ class FrontEndController extends JoshController
                   ->first();
 
 
-                  if (isset($d->id)) {
-
-                    $b=Barrio::where('city_id', $d->city_id)->first();
-
-                      if(isset($b->id)){
-
-                          if($d->id_barrio=='0'){
-
-                        return secure_url('clientes');
-
-                      }
-
-
-                    }
-
-
-                  }else{
-
-                    # return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
-                    return secure_url('misdirecciones');
-                  }
-
+                  
                   if ($request->back=='0') {
 
                       return secure_url('clientes');
@@ -1739,11 +1718,6 @@ class FrontEndController extends JoshController
 
     public function postLogin2(Request $request)
     {
-
-    
-
-
-
 
 
         try {

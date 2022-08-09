@@ -221,7 +221,6 @@ class ClientesFrontController extends Controller
           }
 
 
-
             return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios', 'total'));
     
             }else{
