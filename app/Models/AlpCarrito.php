@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,4 +43,10 @@ class AlpCarrito extends Model
     public static $rules = [
         'referencia' => 'required'
     ];
+
+
+    public function detalles()
+    {
+        return $this->hasMany('App\Models\AlpCarritoDetalle', 'id_carrito', 'id');
+    }
 }

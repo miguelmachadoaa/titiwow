@@ -30,22 +30,26 @@
                 <h1><a href="index.html" class="logo"><img src="{{ secure_asset('assets/images/logo_movil.png') }}" alt="" style="width: 100%;"></a></h1>
         <ul class="list-unstyled components mb-5">
           <li class="active">
-            <a href="#"><span class="fa fa-home"></span> Tablero</a>
+            <a data-id="dashboard" href="#" class="cajita"><span class="fa fa-home"></span> Tablero</a>
           </li>
           <li>
-              <a href="#"><span class="fa fa-floppy-o"></span> Carrito</a>
+              <a data-id="carritos" href="#" class="cajita"><span class="fa fa-floppy-o"></span> Carrito</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-shopping-cart"></span> Pedidos</a>
+            <a data-id="pedidos" href="#" class="cajita"><span class="fa fa-shopping-cart"></span> Pedidos</a>
+          </li>
+
+          <li>
+            <a data-id="productos" href="#" class="cajita"><span class="fa fa-shopping-cart"></span> Productos</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-usd"></span> Transacciones</a>
+            <a data-id="transacciones"  href="#" class="cajita"><span class="fa fa-usd"></span> Transacciones</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-area-chart"></span> Reportes</a>
+            <a data-id="reportes" href="#" class="cajita"><span class="fa fa-area-chart"></span> Reportes</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-sign-out"></span> Salir</a>
+            <a  href="#" ><span class="fa fa-sign-out"></span> Salir</a>
           </li>
         </ul>
 

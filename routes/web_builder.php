@@ -16,6 +16,21 @@ Route::get('pos/categorias', 'PosController@categorias')->name('categorias');
 Route::get('pos/productos', 'PosController@productos')->name('productos');
 Route::get('pos/clientes', 'PosController@clientes')->name('clientes');
 Route::get('pos/opciones', 'PosController@opciones')->name('opciones');
+Route::get('pos/addproducto', 'PosController@addproducto')->name('addproducto');
+Route::post('pos/addproducto', 'PosController@postaddproducto')->name('postaddproducto');
+Route::post('pos/buscarproducto', 'PosController@buscarproducto')->name('buscarproducto');
+Route::post('pos/addtocart', 'PosController@addtocart')->name('addtocart');
+Route::post('pos/deltocart', 'PosController@deltocart')->name('deltocart');
+Route::post('pos/vaciarcart', 'PosController@vaciarcart')->name('vaciarcart');
+Route::post('pos/savecart', 'PosController@savecart')->name('savecart');
+Route::post('pos/pagar', 'PosController@pagar')->name('pagar');
+Route::post('pos/delcarrito', 'PosController@delcarrito')->name('delcarrito');
+Route::post('pos/setcarrito', 'PosController@setcarrito')->name('setcarrito');
+
+Route::post('pos/addpago', 'PosController@addpago')->name('addpago');
+Route::post('pos/delpago', 'PosController@delpago')->name('delpago');
+Route::post('pos/procesar', 'PosController@procesar')->name('procesar');
+Route::post('pos/getcarrito', 'PosController@getcarrito')->name('getcarrito');
 
 
 

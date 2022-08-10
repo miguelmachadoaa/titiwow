@@ -8,6 +8,7 @@
                         </div>
                         <div class="col-sm-8">
                            <p>Pedidos</p>
+                           <p>  Hola </p>
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-primary"><i class="fa fa-search"></i></button>

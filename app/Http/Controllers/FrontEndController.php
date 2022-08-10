@@ -1609,16 +1609,15 @@ class FrontEndController extends JoshController
     public function postLogin(Request $request)
     {
 
-      $email=base64_decode($request->email);
-      $password=base64_decode($request->password);
-      $password=strip_tags($password);
-      $email=strip_tags($email);
+     
 
-        try {
+    # dd($request->all());
+
 
             // Try to log the user in
 
-            if ($user=  Sentinel::authenticate(['email'=>$email, 'password'=>$password], $request->get('remember-me', 0))) {
+            if ($user=  Sentinel::authenticate(['email'=>$request->email, 'password'=>$request->password], $request->get('remember-me', 0))) {
+
 
                 //Activity log for login
 
@@ -1653,65 +1652,39 @@ class FrontEndController extends JoshController
                   
                   if ($request->back=='0') {
 
-                      return secure_url('clientes');
-
-                      #return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
+                      return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
 
                   }else{
 
-                      return $request->back;
-
-                      #return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+                      return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
 
                   }
 
 
                }else{
 
-                  return secure_url('admin');
+                  #return redirect('admin');
 
-                  #return redirect("admin")->with('success', trans('auth/message.login.success'));
+                  return redirect("admin")->with('success', trans('auth/message.login.success'));
 
                }     
 
             } else {
 
-                return 'false';
+                #return 'false';
 
-                #return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
+                return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
 
             }
 
 
-        } catch (UserNotFoundException $e) {
+       
 
-            $this->messageBag->add('email', trans('auth/message.account_not_found'));
-
-        } catch (NotActivatedException $e) {
-
-            $this->messageBag->add('email', trans('auth/message.account_not_activated'));
-
-        } catch (UserSuspendedException $e) {
-
-            $this->messageBag->add('email', trans('auth/message.account_suspended'));
-
-        } catch (UserBannedException $e) {
-
-            $this->messageBag->add('email', trans('auth/message.account_banned'));
-
-        } catch (ThrottlingException $e) {
-
-            $delay = $e->getDelay();
-
-            $this->messageBag->add('email', trans('auth/message.account_suspended', compact('delay')));
-
-        }
-
-        return 'false';
+       # return 'false';
 
         // Ooops.. something went wrong
 
-       # return Redirect::back()->withInput()->withErrors($this->messageBag);
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
 
     }
 

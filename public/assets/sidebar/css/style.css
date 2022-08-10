@@ -8193,7 +8193,7 @@ h1, h2, h3, h4, h5,
   background: #fff;
   border: none;
   border-radius: 0;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); }
 
@@ -8329,4 +8329,58 @@ a[data-toggle="collapse"] {
 
 .odd {
   background: #d5d5d5;
+}
+
+.producto{
+  background: #fff;
+box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+padding: 0.3em;
+margin-bottom: 0.5em;
+margin-right: 0.5em;
+cursor: pointer;
+}
+
+.producto .col-sm-8 p{
+  line-height: 1;
+}
+
+.existencia{
+  position: absolute;
+top: 0;
+left: 0;
+padding: 0px 12px;
+background: #3e64ff;
+color: #fff;
+font-size: 0.7em;
+}
+
+
+.precio{
+  color: #3e64ff;
+font-weight: 600;
+line-height: 1;
+font-size: 16px;
+}
+
+
+.orden-producto{
+  background: #fff;
+box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.orden-producto .col-sm-8 p{
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.orden-producto .col-sm-8 h5{
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+
+.cajasombra{
+  background: #fff;
+box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+padding: 1em;
 }

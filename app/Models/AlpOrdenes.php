@@ -53,7 +53,6 @@ class AlpOrdenes extends Model
         'estado_compramas',
         'envio_compramas',
         'notas',
-        'countvp',  
         'lifemiles_id', 
         'estatus',
         'estatus_pago',
@@ -84,4 +83,24 @@ class AlpOrdenes extends Model
     {
         return $query->where('status',1);
     }
+
+     public function detalles()
+    {
+        return $this->hasMany('App\Models\AlpDetalles', 'id_orden', 'id');
+    }
+
+     public function pagos()
+    {
+        return $this->hasMany('App\Models\AlpPagos', 'id_orden', 'id');
+    }
+
+     public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'id_cliente');
+    }
+
+
+
+
+
 }

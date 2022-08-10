@@ -23,9 +23,6 @@ class AlpPagos extends Model
         'id_forma_pago',
         'id_estatus_pago',
         'monto_pago',
-        'referencia',
-        'metodo',
-        'tipo',
         'json',
         'estado_registro',
         'id_user'
@@ -48,4 +45,10 @@ class AlpPagos extends Model
     public static $rules = [
         'id_orden' => 'required'
     ];
+
+
+    public function formapago()
+    {
+        return $this->hasMany('App\Models\AlpFormaspago', 'id_forma_pago', 'id');
+    }
 }

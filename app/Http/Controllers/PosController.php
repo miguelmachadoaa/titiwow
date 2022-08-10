@@ -71,11 +71,16 @@ use App\Models\AlpEnvios;
 use App\Models\AlpEnviosEstatus;
 
 use App\Models\AlpEnviosHistory;
+use App\Models\AlpImpuestos;
 
 use App\Models\AlpXml;
 use App\Models\AlpTicket;
 use App\Models\AlpTicketHistory;
 use App\Models\AlpDepartamento;
+use App\Models\AlpCarrito;
+use App\Models\AlpCarritoDetalle;
+use App\Models\AlpFormaspago;
+use App\Models\AlpPagos;
 
 
 use App\User;
@@ -130,7 +135,21 @@ use Intervention\Image\Facades\Image;
 class PosController extends JoshController
 {
 
- 
+    
+    public function __construct()
+    {
+
+        parent::__construct();
+
+        
+        if (!\Session::has('cart')) {
+
+          \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+        }
+
+
+    }
 
   public function dashboard(Request $request)
   {
@@ -142,12 +161,12 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/dashboard ');
+            ->withProperties($request->getContent())->log('PosController/dashboard ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/dashboard');
+          ->withProperties($request->getContent())->log('PosController/dashboard');
         }
 
 
@@ -166,12 +185,12 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/opciones ');
+            ->withProperties($request->getContent())->log('PosController/opciones ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/opciones');
+          ->withProperties($request->getContent())->log('PosController/opciones');
         }
 
 
@@ -190,16 +209,63 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/carritos ');
+            ->withProperties($request->getContent())->log('PosController/carritos ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/carritos');
+          ->withProperties($request->getContent())->log('PosController/carritos');
         }
 
+      /*  $carritos=AlpCarrito::select('alp_carrito.*', 'alp_carrito_detalle.id_producto', 'alp_carrito_detalle.cantidad')
+        ->join('alp_carrito_detalle', 'alp_carrito.id', '=', 'alp_carrito_detalle.id_carrito')
+        ->join('alp_productos', 'alp_carrito_detalle.id_producto', '=', 'alp_productos.id')
+        ->where('alp_carrito.id_user', $user->id)
+        ->get();*/
 
-    return view('pos.carritos');
+        $carritos=AlpCarrito::with('detalles')->get();
+
+     #   dd(json_encode($carritos));
+
+
+    return view('pos.carritos', compact('carritos'));
+
+  }
+
+
+   public function delcarrito(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/delcarrito ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/delcarrito');
+        }
+
+      /*  $carritos=AlpCarrito::select('alp_carrito.*', 'alp_carrito_detalle.id_producto', 'alp_carrito_detalle.cantidad')
+        ->join('alp_carrito_detalle', 'alp_carrito.id', '=', 'alp_carrito_detalle.id_carrito')
+        ->join('alp_productos', 'alp_carrito_detalle.id_producto', '=', 'alp_productos.id')
+        ->where('alp_carrito.id_user', $user->id)
+        ->get();*/
+
+        AlpCarrito::where('id', $request->id)->delete();
+
+
+        $carritos=AlpCarrito::with('detalles')->get();
+
+     #   dd(json_encode($carritos));
+
+
+    return view('pos.carritos', compact('carritos'));
 
   }
 
@@ -214,13 +280,17 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/pedidos ');
+            ->withProperties($request->getContent())->log('PosController/pedidos ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/pedidos');
+          ->withProperties($request->getContent())->log('PosController/pedidos');
         }
+
+
+
+
 
 
     return view('pos.pedidos');
@@ -238,12 +308,12 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/transacciones ');
+            ->withProperties($request->getContent())->log('PosController/transacciones ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/transacciones');
+          ->withProperties($request->getContent())->log('PosController/transacciones');
         }
 
 
@@ -263,12 +333,12 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/reportes ');
+            ->withProperties($request->getContent())->log('PosController/reportes ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/reportes');
+          ->withProperties($request->getContent())->log('PosController/reportes');
         }
 
 
@@ -287,12 +357,12 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/categorias ');
+            ->withProperties($request->getContent())->log('PosController/categorias ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/categorias');
+          ->withProperties($request->getContent())->log('PosController/categorias');
         }
 
 
@@ -300,7 +370,9 @@ class PosController extends JoshController
 
   }
 
-     public function productos(Request $request)
+  
+
+  public function clientes(Request $request)
   {
 
         if (Sentinel::check()) {
@@ -310,35 +382,12 @@ class PosController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/productos ');
+            ->withProperties($request->getContent())->log('PosController/clientes ');
 
         }else{
 
           activity()
-          ->withProperties($request->getContent())->log('FrontEndController/productos');
-        }
-
-
-    return view('pos.productos');
-
-  }
-
-     public function clientes(Request $request)
-  {
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('FrontEndController/clientes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('FrontEndController/clientes');
+          ->withProperties($request->getContent())->log('PosController/clientes');
         }
 
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente','alp_clientes.genero_cliente as genero_cliente')
@@ -350,6 +399,684 @@ class PosController extends JoshController
 
 
     return view('pos.clientes', compact('clientes'));
+
+  }
+
+  public function addproducto(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addproducto ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addproducto');
+        }
+
+       $categorias=AlpCategorias::where('estado_registro', '1')->get();
+       $impuestos=AlpImpuestos::where('estado_registro', '1')->get();
+
+
+    return view('pos.addproducto', compact( 'categorias', 'impuestos'));
+
+  }
+
+
+  public function postaddproducto(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/postaddproducto ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/postaddproducto');
+        }
+
+       
+
+       $producto=AlpProductos::create([
+          'nombre_producto'=>$request->nombre_producto,
+          'id_categoria_default'=>$request->id_categoria,
+          'id_impuesto'=>$request->id_impuesto,
+          'precio_base'=>$request->precio,
+          'slug'=>str_slug($request->nombre_producto),
+       ]);
+
+      // dd($producto);
+
+
+    return view('pos.addproducto', compact( 'categorias', 'impuestos'));
+
+  }
+
+
+    public function productos(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/productos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/productos');
+        }
+
+          $productos=AlpProductos::where('estado_registro', '1')->get();
+
+    return view('pos.productos', compact('productos'));
+
+  }
+
+
+
+  public function buscarproducto(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/buscarproducto ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/buscarproducto');
+        }
+
+          $productos=AlpProductos::
+          #where('estado_registro', '1')
+          Where('nombre_producto', 'like', '%'.$request->termino.'%')
+          ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
+          ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
+          ->get();
+
+        return view('pos.productos', compact('productos'));
+
+  }
+
+
+
+    public function addtocart(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addtocart ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addtocart');
+        }
+
+
+
+          $cart= \Session::get('cart');
+
+          $p=AlpProductos::where('id', $request->id)->first();
+
+
+          if(isset($p->id)){
+
+            if(isset($cart['productos'][$p->id])){
+
+
+              $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+
+              $cart['productos'][$p->id]=$p;
+
+            }else{
+
+
+
+              $p->cantidad=1;
+
+              $cart['productos'][$p->id]=$p;
+
+
+
+            }
+
+
+          }else{
+
+              $error="No se encontro producto";
+
+          }
+
+        $cart=$this->calculoCart($cart);
+
+        \Session::put('cart', $cart);
+
+        return view('pos.ordenactual', compact('cart'));
+
+  }
+
+
+   public function deltocart(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addtocart ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addtocart');
+        }
+
+
+
+          $cart= \Session::get('cart');
+
+          $p=AlpProductos::where('id', $request->id)->first();
+
+
+          if(isset($p->id)){
+
+            if(isset($cart['productos'][$p->id])){
+
+
+              unset($cart['productos'][$p->id]);
+
+            }else{
+
+
+            }
+
+
+          }else{
+
+              $error="No se encontro producto";
+
+          }
+
+        $cart=$this->calculoCart($cart);
+
+        \Session::put('cart', $cart);
+
+        return view('pos.ordenactual', compact('cart'));
+
+  }
+
+
+
+  public function vaciarcart(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/vaciarcart ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/vaciarcart');
+        }
+
+
+        $cart= \Session::get('cart');
+
+        $cart['productos']=[];
+        $cart['pagos']=[];
+
+        $cart=$this->calculoCart($cart);
+
+        \Session::put('cart', $cart);
+
+        return view('pos.ordenactual', compact('cart'));
+
+  }
+
+
+
+  public function savecart(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/vaciarcart ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/vaciarcart');
+        }
+
+
+        $cart= \Session::get('cart');
+
+        $carrito=AlpCarrito::create([
+          'referencia'=>time(),
+          'id_city'=>'1',
+          'id_user'=>$user->id
+
+
+        ]);
+
+
+        foreach($cart['productos'] as $p){
+
+          AlpCarritoDetalle::create([
+            'id_carrito'=>$carrito->id,
+            'id_producto'=>$p->id,
+            'cantidad'=>$p->cantidad,
+            'id_user'=>$user->id
+          ]);
+
+
+        }
+
+
+        \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+        return view('pos.ordenactual', compact('cart'));
+
+  }
+
+
+  public function setcarrito(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/vaciarcart ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/vaciarcart');
+        }
+
+
+
+          \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+        $cart= \Session::get('cart');
+
+        $detalles = AlpCarritoDetalle::where ('id_carrito', $request->id)->with('productos')->get();
+
+
+        foreach($detalles as $detalle){
+
+          $p=$detalle->productos;
+
+          $p->cantidad=$detalle->cantidad;
+
+          $cart['productos'][$p->id]=$p;
+         
+
+        }
+
+        $cart=$this->calculoCart($cart);
+
+        \Session::put('cart', $cart);
+
+
+        return view('pos.ordenactual', compact('cart'));
+
+  }
+
+
+   public function pagar(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/setcarrito ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/setcarrito');
+        }
+
+       # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+
+        $cart= \Session::get('cart');
+
+        $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+
+       
+        return view('pos.pagar', compact('cart', 'formaspago'));
+
+  }
+
+
+public function addpago(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addpago ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addpago');
+        }
+
+       # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+
+        $cart= \Session::get('cart');
+
+        $cart['pagos'][]=[
+          'id'=>$request->id,
+          'name'=>$request->name,
+          'monto'=>$request->monto,
+        ];
+
+         $cart=$this->calculoCart($cart);
+
+        \Session::put('cart', $cart);
+
+        $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+
+       
+        return view('pos.pagar', compact('cart', 'formaspago'));
+
+  }
+
+
+  public function delpago(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addpago ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addpago');
+        }
+
+       # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+
+        $cart= \Session::get('cart');
+
+       # unset($cart['pagos'][$request->id]);
+
+        array_splice($cart['pagos'], $request->id, 1);
+
+         $cart=$this->calculoCart($cart);
+
+        \Session::put('cart', $cart);
+
+        $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+
+       
+        return view('pos.pagar', compact('cart', 'formaspago'));
+
+  }
+
+
+  public function getcarrito(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/getcarrito ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/getcarrito');
+        }
+
+       # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+
+        $cart= \Session::get('cart');
+
+       # unset($cart['pagos'][$request->id]);
+       
+        return view('pos.ordenactual', compact('cart'));
+
+  }
+
+
+  public function procesar(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/procesar ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/procesar');
+        }
+
+        
+
+
+        $cart= \Session::get('cart');
+
+        
+        $orden=AlpOrdenes::create([
+          'referencia'=>time(),
+          'referencia_mp'=>time(),
+          'id_cliente'=>9,
+          'id_address'=>1,
+          'id_forma_envio'=>1,
+          'id_forma_pago'=>1,
+          'monto_total'=>$cart['total'],
+          'monto_total_base'=>$cart['base'],
+          'monto_descuento'=>0,
+          'base_impuesto'=>$cart['base'],
+          'valor_impuesto'=>'0.19',
+          'monto_impuesto'=>$cart['impuesto'],
+          'comision_mp'=>0,
+          'retencion_fuente_mp'=>0,
+          'retencion_iva_mp'=>0,
+          'retencion_ica_mp'=>0,
+          'cod_oracle_pedido'=>0,
+          'ordencompra'=>0,
+          'id_almacen'=>1,
+          'origen'=>0,
+          'token'=>0,
+          'tracking'=>0,
+          'factura'=>0,
+          'ip'=>0,
+          'json'=>0,
+          'send_json_masc'=>0,
+          'json_icg'=>0,
+          'estado_compramas'=>0,
+          'envio_compramas'=>0,
+          'notas'=>0,
+          'lifemiles_id'=>0, 
+          'estatus'=>1,
+          'estatus_pago'=>2,
+          'id_user'=>$user->id
+        ]);
+
+
+        foreach($cart['productos'] as $p){
+
+          AlpDetalles::create([
+            'id_orden'=>$orden->id,
+            'id_producto'=>$p->id,
+            'cantidad'=>$p->cantidad,
+            'precio_unitario'=>$p->precio_base,
+            'precio_total'=>$p->precio_base*$p->cantidad,
+            'precio_base'=>$p->cantidad,
+            'precio_total_base'=>$p->precio_base*$p->cantidad,
+            'valor_impuesto'=>'0.19',
+            'monto_impuesto'=>0,
+            'id_combo'=>0,
+            'id_user'=>$user->id
+          ]);
+
+        }
+
+
+        foreach($cart['pagos'] as $pago){
+
+          AlpPagos::create([
+            'id_orden'=>$orden->id,
+            'id_forma_pago'=>$pago['id'],
+            'id_estatus_pago'=>'2',
+            'monto_pago'=>$pago['monto'],
+            'json'=>json_encode($cart['pagos']),
+            'estado_registro'=>'1',
+            'id_user'=>$user->id
+          ]);
+
+        }
+
+
+        \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+        $cart= \Session::get('cart');
+
+        $cart=$this->calculoCart($cart);
+
+        $orden=AlpOrdenes::where('id', $orden->id)->with('detalles', 'pagos', 'user')->first();
+
+        return view('pos.resumen', compact('orden'));
+
+  }
+
+
+
+
+  function calculoCart($cart){
+
+      $total=0;
+      $base=0;
+      $impuesto=0;
+      $descuento=0;
+      $pagado=0;
+
+      if(isset($cart['productos'])){
+
+          foreach ($cart['productos'] as $p) {
+
+              $total_detalle=$p->precio_base*$p->cantidad;
+
+              $total=$total+$total_detalle;
+
+              if($p->id_impuesto=='1'){
+
+                  $base_detalle=($total_detalle/1.19);
+
+                  $impuesto_detalle=$base_detalle*0.19;
+
+                  $base=$base+$base_detalle;
+
+                  $impuesto=$impuesto+$impuesto_detalle;
+
+              }
+
+
+          }
+
+      }
+
+
+      if(isset($cart['pagos'])){
+
+          foreach ($cart['pagos'] as $pago) {
+
+          #  dd($pago['monto']);
+
+              $pagado=$pagado+$pago['monto'];
+
+          }
+
+      }
+
+      $cart['total']=number_format($total,2);
+      $cart['base']=number_format($base,2);
+      $cart['impuesto']=number_format($impuesto,2);
+      $cart['pagado']=number_format($pagado,2);
+      $cart['resto']=number_format($total-$pagado,2);
+      $cart['descuento']=number_format($descuento,2);
+
+
+      return $cart;
 
   }
 

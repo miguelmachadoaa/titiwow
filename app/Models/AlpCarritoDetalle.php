@@ -42,4 +42,11 @@ class AlpCarritoDetalle extends Model
     public static $rules = [
         'id_carrito' => 'required'
     ];
+
+    public function productos()
+    {
+        return $this->hasOne('App\Models\AlpProductos', 'id', 'id_producto');
+    }
+
+
 }
