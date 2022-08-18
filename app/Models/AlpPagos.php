@@ -49,6 +49,6 @@ class AlpPagos extends Model
 
     public function formapago()
     {
-        return $this->hasMany('App\Models\AlpFormaspago', 'id_forma_pago', 'id');
+        return $this->hasOne('App\Models\AlpFormaspago', 'id', 'id_forma_pago');
     }
 }

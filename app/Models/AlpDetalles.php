@@ -49,4 +49,10 @@ class AlpDetalles extends Model
     public static $rules = [
         'id_orden' => 'required'
     ];
+
+
+     public function producto()
+    {
+        return $this->hasOne('App\Models\AlpProductos', 'id', 'id_producto');
+    }
 }

@@ -91,12 +91,24 @@ class AlpOrdenes extends Model
 
      public function pagos()
     {
+
         return $this->hasMany('App\Models\AlpPagos', 'id_orden', 'id');
+
     }
 
-     public function user()
+     public function cliente()
     {
         return $this->hasOne('App\User', 'id', 'id_cliente');
+    }
+
+     public function cajero()
+    {
+        return $this->hasOne('App\User', 'id', 'id_user');
+    }
+
+     public function estado()
+    {
+        return $this->hasOne('App\Models\AlpEstatusOrdenes', 'id', 'estatus');
     }
 
 

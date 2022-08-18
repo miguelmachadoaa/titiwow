@@ -366,6 +366,27 @@ overflow: auto;">
         });
 
 
+        $(document).on('click', '.detalleorden', function(){
+
+            id=$(this).data('id');
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/detalleorden",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
 
         $(document).on('click', '.procesar', function(){
 

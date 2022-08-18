@@ -49,6 +49,22 @@ use DB;
 class ClientesFrontController extends Controller
 {
 
+       public function __construct()
+    {
+
+
+        
+        if (!\Session::has('cart')) {
+
+          \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+
+        }
+
+
+    }
+
+    
+
     public function index()
     {
 

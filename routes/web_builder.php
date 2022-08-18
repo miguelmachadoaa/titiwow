@@ -31,6 +31,7 @@ Route::post('pos/addpago', 'PosController@addpago')->name('addpago');
 Route::post('pos/delpago', 'PosController@delpago')->name('delpago');
 Route::post('pos/procesar', 'PosController@procesar')->name('procesar');
 Route::post('pos/getcarrito', 'PosController@getcarrito')->name('getcarrito');
+Route::post('pos/detalleorden', 'PosController@detalleorden')->name('detalleorden');
 
 
 

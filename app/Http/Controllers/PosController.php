@@ -193,7 +193,6 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/opciones');
         }
 
-
     return view('pos.opciones');
 
   }
@@ -290,10 +289,54 @@ class PosController extends JoshController
 
 
 
+        $ordenes = AlpOrdenes::where('id_user', $user->id)->with('cliente', 'cajero', 'estado')->get();
 
 
 
-    return view('pos.pedidos');
+    return view('pos.pedidos', compact('ordenes'));
+
+  }
+
+
+    public function detalleorden(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/pedidos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/pedidos');
+        }
+
+
+
+        $orden = AlpOrdenes::where('id_user', $user->id)->where('id', $request->id)->with('cliente', 'cajero', 'estado', 'detalles', 'pagos')->first();
+
+        foreach($orden->detalles as $d){
+
+          $p=AlpProductos::where('id', $d->id_producto)->first();
+
+          $d->producto=$p;
+        }
+
+        foreach($orden->pagos as $pago){
+
+          $f=AlpFormaspago::where('id', $pago->id_forma_pago)->first();
+
+          $pago->formapago=$f;
+        }
+
+        #dd(json_encode($orden));
+
+    return view('pos.detallepedido', compact('orden'));
 
   }
 
@@ -317,7 +360,12 @@ class PosController extends JoshController
         }
 
 
-    return view('pos.transacciones');
+        $pagos=AlpPagos::where('id_user', $user->id)->with('formapago')->get();
+
+        #dd(json_encode($pagos));
+
+
+    return view('pos.transacciones', compact('pagos'));
 
   }
 
@@ -341,8 +389,12 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/reportes');
         }
 
+        $pagos=AlpPagos::select('alp_ordenes_pagos.*',  DB::raw('SUM(monto_pago) as total_pagos'))->where('id_user', $user->id)->with('formapago')->groupBy('id_forma_pago')->get();
 
-    return view('pos.reportes');
+       # dd(json_encode($pagos));
+
+
+    return view('pos.reportes', compact('pagos'));
 
   }
 
