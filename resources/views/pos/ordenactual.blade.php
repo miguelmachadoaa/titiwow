@@ -1,21 +1,8 @@
- <di class="row">
-                <div class="col-sm-12">
-                    Current Order
-                </div>
-            </di>
-
-             <div class="row">
-                <div class="col-sm-10">
-                   <input class="form-control" type="text" name="cliente" id="cliente" value="">
-                </div>
-                <div class="col-sm-2">
-                    <button class="btn btn-primary"><i class="fa fa-user"></i></button>
-                </div>
 
 
-            </div>
+             
 
-            <div class="row " style="height: 25em; overflow: auto;">   
+            <div class="row m-0 p-0" style="height: 25em; overflow: auto;">   
 
                 <div class="col-sm-12"> 
 
@@ -33,7 +20,7 @@
 
                                 </div>
 
-                                <div class="col-sm-8">
+                                <div class="col-sm-8 p-1">
                                     <p> {{$p->nombre_producto}}</p>
                                     <p> {{$p->referencia_producto}}</p>
                                     <h5 class="precio"> {{$p->precio_base}} x {{$p->cantidad}}</h5>
@@ -50,20 +37,10 @@
 
                         @endforeach
 
-
-                         
-
-
-
-
                     @endif
 
 
                 </div>
-
-                
-
-                
 
             </div>  
 

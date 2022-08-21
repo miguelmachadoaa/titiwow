@@ -53,20 +53,39 @@ Punto de Venta
 {{-- Page content --}}
 @section('content')
 
+<audio class="audio">
+    <source src="{{url('assets/sounds/scanner-beep-checkout.mp3')}}" type="audio/mp3" style="display: none;">
+</audio>
+
 <div class="container-fluid contain_body">
 
     <div class="row">
+
+        <div class=" col-sm-12">
+
+            <div class="row barcode">
+
+            @include('pos.barcode')
+                
+
+            </div>
+
+
+        </div>
+
         
-        <div class="col-sm-8 panelprincipal" style="height: 38em;
-overflow: auto;">
+        <div class="col-sm-8 panelprincipal" style="height: 38em; overflow: auto;">
             
             @include('pos.dashboard')
 
         </div> 
-        <div class="col-sm-4 ordenactual" >
-            
-           @include('pos.ordenactual')
 
+
+
+
+        <div class="col-sm-4 ordenactual" >
+
+           @include('pos.ordenactual')
 
         </div> 
 
@@ -88,11 +107,73 @@ overflow: auto;">
 
 
 <script>
-    
+
+
     $(document).ready(function(){
+
+    $(".audio")[0].play();
+
+
+        $('#barcode').focus();
+
+         $(document).on('keydown', 'body', function(event) {
+            if(event.keyCode==182){ //F1
+                event.preventDefault();
+
+                $('#barcode').focus();
+             }
+         });
+
+
+      $(document).on('keypress', '#barcode', function(e) {
+        if(e.which == 13) {
+
+            termino=$('#barcode').val();
+
+            base=$('#base').val();
+
+
+            $.ajax({
+                    type: "POST",
+                    data:{termino},
+                    url: base+"/pos/buscarproducto",
+                    dataType: 'JSON',
+                        
+                    complete: function(datos){     
+
+                        $('#barcode').val('');
+
+
+                        console.log(datos);
+
+                       // alert(datos.responseJSON.mensaje);
+                       // 
+                       if(datos.responseJSON.status=='productos'){
+
+                            $('.panelprincipal').html((datos.responseJSON.data));
+
+                       }else{
+
+                            $('.ordenactual').html((datos.responseJSON.data));
+                            termino=$('#barcode').val('');
+                       }
+
+                        
+                    }
+
+                });
+
+
+
+          
+        }
+      });
 
 
         function getcarrito () {
+
+            base=$('#base').val();
+
             $.ajax({
                     type: "POST",
                     data:{},
@@ -131,6 +212,49 @@ overflow: auto;">
         });
 
 
+         $(document).on('click', '.asignacliente', function(){
+
+            id=$(this).data('id');
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/asignacliente",
+                        
+                    complete: function(datos){     
+
+                        $('.barcode').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
+         $(document).on('click', '.removecliente', function(){
+
+            id=$(this).data('id');
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/removecliente",
+                        
+                    complete: function(datos){     
+
+                        $('.barcode').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
+
         $(document).on('click', '.saveproducto', function(){
 
             nombre_producto=$("#nombre_producto").val();
@@ -151,6 +275,33 @@ overflow: auto;">
                     }
 
                 });
+
+        });
+
+
+        $(document).on('click', '.savecliente', function(){
+
+            nombre_cliente=$("#nombre_cliente").val();
+            telefono_cliente=$("#telefono_cliente").val();
+            email_cliente=$("#email_cliente").val();
+            cedula_cliente=$("#cedula_cliente").val();
+
+            base=$('#base').val();
+
+
+            alert(nombre_cliente);
+
+            $.ajax({
+                type: "POST",
+                data:{nombre_cliente, telefono_cliente, email_cliente, cedula_cliente},
+                url: base+"/pos/addcliente",
+                    
+                complete: function(datos){     
+
+                    $('.panelprincipal').html((datos.responseText));
+                }
+
+            });
 
         });
 

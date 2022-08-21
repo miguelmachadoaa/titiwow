@@ -16,9 +16,17 @@ Route::get('pos/categorias', 'PosController@categorias')->name('categorias');
 Route::get('pos/productos', 'PosController@productos')->name('productos');
 Route::get('pos/clientes', 'PosController@clientes')->name('clientes');
 Route::get('pos/opciones', 'PosController@opciones')->name('opciones');
+
+Route::get('pos/addcliente', 'PosController@addcliente')->name('addcliente');
+Route::post('pos/addcliente', 'PosController@postcliente')->name('postcliente');
+Route::post('pos/buscarcliente', 'PosController@buscarcliente')->name('buscarcliente');
+Route::post('pos/asignacliente', 'PosController@asignacliente')->name('asignacliente');
+Route::post('pos/removecliente', 'PosController@removecliente')->name('removecliente');
+
 Route::get('pos/addproducto', 'PosController@addproducto')->name('addproducto');
 Route::post('pos/addproducto', 'PosController@postaddproducto')->name('postaddproducto');
 Route::post('pos/buscarproducto', 'PosController@buscarproducto')->name('buscarproducto');
+
 Route::post('pos/addtocart', 'PosController@addtocart')->name('addtocart');
 Route::post('pos/deltocart', 'PosController@deltocart')->name('deltocart');
 Route::post('pos/vaciarcart', 'PosController@vaciarcart')->name('vaciarcart');

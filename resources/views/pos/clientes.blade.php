@@ -10,7 +10,8 @@
                             <input class="form-control"  type="text">
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-primary buscarcliente"><i class="fa fa-search"></i></button>
+                           <button data-id="addcliente" class="btn btn-primary cajita"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                   
@@ -21,16 +22,18 @@
 
                     @foreach($clientes as $c)
 
-                    <div class="row @if($loop->index%2==0) odd @endif">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-8">
+                    <div class="row cajasombra mt-2 @if($loop->index%2==0) odd @endif">
+                        <div class="col-sm-5">
                             <p style="margin: 0">{{$c->first_name.' '.$c->last_name}}</p>
+                        </div>
+                        <div class="col-sm-5">
                             <p style="margin: 0">{{$c->email}}</p>
                             <p style="margin: 0">{{$c->telefono_cliente}}</p>
                         </div>
                         <div class="col-sm-2 ">
                             
-                            <button class="btn btn-primary mt-2"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-primary mt-2 editcliente"><i class="fa fa-edit"></i></button>
+                            <button data-id="{{$c->id}}" class="btn btn-primary mt-2   asignacliente"><i class="fa fa-chevron-right"></i></button>
                         </div>
                     </div>
                     @endforeach

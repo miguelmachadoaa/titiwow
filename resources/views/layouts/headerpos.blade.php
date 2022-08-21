@@ -62,7 +62,7 @@
 
          <div id="content" class="p-1 p-md-1">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!--nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
 
             <button type="button" id="sidebarCollapse" class="btn btn-primary">
@@ -90,5 +90,5 @@
               </ul>
             </div>
           </div>
-        </nav>
+        </nav-->
 

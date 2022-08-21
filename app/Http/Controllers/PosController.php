@@ -418,7 +418,10 @@ class PosController extends JoshController
         }
 
 
-    return view('pos.categorias');
+        $categorias = AlpCategorias::get();
+
+
+      return view('pos.categorias', compact('categorias'));
 
   }
 
@@ -442,7 +445,11 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/clientes');
         }
 
-        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente','alp_clientes.genero_cliente as genero_cliente')
+        $clientes =  User::select('users.*','roles.name as name_role',
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'alp_clientes.doc_cliente as doc_cliente',
+          'alp_clientes.genero_cliente as genero_cliente'
+        )
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
@@ -453,6 +460,85 @@ class PosController extends JoshController
     return view('pos.clientes', compact('clientes'));
 
   }
+
+   public function asignacliente(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/clientes ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/clientes');
+        }
+
+        $cliente =  User::select('users.*','roles.name as name_role',
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'alp_clientes.doc_cliente as doc_cliente',
+          'alp_clientes.genero_cliente as genero_cliente'
+        )
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('users.id', '=', $request->id)
+        ->first();
+
+
+        if(isset($cliente->id)){
+
+             $cart= \Session::get('cart');
+
+             $cart['cliente']=$cliente;
+
+             \Session::put('cart', $cart);
+
+        }
+
+
+    return view('pos.barcode', compact('cart'));
+
+  }
+
+
+  public function removecliente(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/clientes ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/clientes');
+        }
+
+
+       $cart= \Session::get('cart');
+
+       $cart['cliente']=null;
+
+       \Session::put('cart', $cart);
+
+
+      return view('pos.barcode', compact('cart'));
+
+  }
+
+
+
 
   public function addproducto(Request $request)
   {
@@ -479,6 +565,91 @@ class PosController extends JoshController
     return view('pos.addproducto', compact( 'categorias', 'impuestos'));
 
   }
+
+
+   public function addcliente(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addcliente ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addcliente');
+        }
+
+       $categorias=AlpCategorias::where('estado_registro', '1')->get();
+       $impuestos=AlpImpuestos::where('estado_registro', '1')->get();
+
+
+    return view('pos.addcliente', compact( 'categorias', 'impuestos'));
+
+  }
+
+
+    public function postcliente(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addcliente ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addcliente');
+        }
+
+        $usuario=User::create([
+          'first_name'=>$request->nombre_cliente,
+          'email'=>$request->email_cliente,
+          'password'=>md5($request->nombre_cliente),
+       ]);
+
+
+        $cliente=AlpClientes::create(
+          [
+            'id_user_client'=>$usuario->id,
+            'id_type_doc'=>'1',
+            'doc_cliente'=>$request->cedula_cliente,
+            'telefono_cliente'=>$request->telefono_cliente,
+            'genero_cliente'=>'1',
+            'id_user'=>$user->id
+          ]
+        );
+
+
+          $role = Sentinel::findRoleById(10);
+
+          $role->users()->attach($usuario);
+
+          $activation = Activation::exists($usuario);
+
+           $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente','alp_clientes.genero_cliente as genero_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)
+        ->get();
+
+
+      return view('pos.clientes', compact('clientes'));
+    
+
+  }
+
 
 
   public function postaddproducto(Request $request)
@@ -541,7 +712,14 @@ class PosController extends JoshController
 
   }
 
-
+  /**
+   *
+   * Method Post 
+   * uri /pos/buscarproducto
+   * data
+   *   termino string 
+   * 
+   */
 
   public function buscarproducto(Request $request)
   {
@@ -568,7 +746,69 @@ class PosController extends JoshController
           ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
           ->get();
 
-        return view('pos.productos', compact('productos'));
+          if(count($productos)=='1'){
+
+            $p=AlpProductos::
+          #where('estado_registro', '1')
+          Where('nombre_producto', 'like', '%'.$request->termino.'%')
+          ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
+          ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
+          ->first();
+
+
+            $cart= \Session::get('cart');
+
+
+            if(isset($p->id)){
+
+              if(isset($cart['productos'][$p->id])){
+
+                $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+
+                $cart['productos'][$p->id]=$p;
+
+              }else{
+
+                $p->cantidad=1;
+
+                $cart['productos'][$p->id]=$p;
+
+              }
+
+            }else{
+
+                $error="No se encontro producto";
+
+            }
+
+            $cart=$this->calculoCart($cart);
+
+            \Session::put('cart', $cart);
+
+
+
+            $view= View::make('pos.ordenactual', compact('cart'));
+
+            $data=$view->render();
+
+            $res = array('status' => 'carrito', 'error'=>'0', 'mensaje'=>'Produco agregado al carrito', 'data'=>$data );
+
+            return json_encode($res);
+
+
+          }else{
+            
+
+            $view= View::make('pos.productos', compact('productos'));
+
+            $data=$view->render();
+
+            $res = array('status' => 'productos', 'error'=>'0', 'mensaje'=>'productos encontrados', 'data'=>$data );
+
+            return json_encode($res);
+
+          }
+
 
   }
 
@@ -593,16 +833,13 @@ class PosController extends JoshController
         }
 
 
-
           $cart= \Session::get('cart');
 
           $p=AlpProductos::where('id', $request->id)->first();
 
-
           if(isset($p->id)){
 
             if(isset($cart['productos'][$p->id])){
-
 
               $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
 
@@ -610,16 +847,11 @@ class PosController extends JoshController
 
             }else{
 
-
-
               $p->cantidad=1;
 
               $cart['productos'][$p->id]=$p;
 
-
-
             }
-
 
           }else{
 
@@ -1059,13 +1291,13 @@ public function addpago(Request $request)
         }
 
 
-        \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+        \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null]);
 
         $cart= \Session::get('cart');
 
         $cart=$this->calculoCart($cart);
 
-        $orden=AlpOrdenes::where('id', $orden->id)->with('detalles', 'pagos', 'user')->first();
+        $orden=AlpOrdenes::where('id', $orden->id)->with('detalles', 'pagos', 'cliente')->first();
 
         return view('pos.resumen', compact('orden'));
 

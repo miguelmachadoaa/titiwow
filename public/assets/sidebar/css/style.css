@@ -8370,12 +8370,14 @@ box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 
 .orden-producto .col-sm-8 p{
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
+  font-size: 0.8em;
 }
 
 .orden-producto .col-sm-8 h5{
   line-height: 1;
   margin-bottom: 8px;
+  font-size: 1em;
 }
 
 
