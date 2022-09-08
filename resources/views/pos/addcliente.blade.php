@@ -17,6 +17,16 @@
                   
                 </div>
 
+                 <div class="col-sm-12 reserror"> 
+
+         @if(!isset($caja->id))
+            <div class="alert alert-danger mt-2"> Debe abrir caja para poder procesar una compra </div>
+        @endif
+
+    </div>
+
+    
+
                 <div class="col-sm-12">
                         
                     <form>

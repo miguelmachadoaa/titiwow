@@ -93,7 +93,7 @@ class AlpOrdenesController extends JoshController
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-          $ordenes = AlpOrdenes::where('id', '1')->get();
+        $ordenes = AlpOrdenes::where('id', '1')->get();
 
         // Show the page
         return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
@@ -603,12 +603,139 @@ public function compramasupdate()
      
 
 
+     public function data()
+    {
+       
+    
+           $ordenes = AlpOrdenes::select(
+            'alp_ordenes.*', 
+            'alp_clientes.telefono_cliente as telefono_cliente',
+            'users.first_name as first_name', 
+            'users.last_name as last_name', 
+            'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 
+            'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 
+            'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 
+            'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 
+            'alp_ordenes_pagos.json as json'
+          )
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+         // ->where('alp_ordenes.estatus', '7')
+          ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes.id', 'desc')
+          ->limit(2000)
+          ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+       
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+              
+              
+
+                                          
+              $nombre_almacen='N/A';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
+
+             
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
+                 $origen,
+                 number_format($row->monto_total,2), 
+                 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
 
 
 
 
     
-    public function data()
+    public function dataOLD()
     {
 
 
@@ -696,15 +823,12 @@ public function compramasupdate()
         
       }
 
-
-
             // code...
           }else{
             $ordenes=AlpOrdenes::where('id', '-1')->get();
           }
 
      
-
 
 
          
@@ -3124,7 +3248,7 @@ public function compramasupdate()
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('users.id', '=', $orden->id_user)->first();
+        ->where('users.id', '=', $orden->id_cliente)->first();
 
 
           $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
@@ -3167,21 +3291,17 @@ public function compramasupdate()
           }
 
 
-          $tickets = AlpTicket::select('alp_ticket.*', 'alp_departamento.nombre_departamento as nombre_departamento', 'alp_urgencia.nombre_urgencia as nombre_urgencia', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        /*  $tickets = AlpTicket::select('alp_ticket.*', 'alp_departamento.nombre_departamento as nombre_departamento', 'alp_urgencia.nombre_urgencia as nombre_urgencia', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
         ->join('alp_departamento', 'alp_ticket.departamento', '=', 'alp_departamento.id')
         ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
         ->join('users', 'alp_ticket.id_user', '=', 'users.id')
         ->where('alp_ticket.orden', '=', $orden->id)
-        ->get();
+        ->get();*/
 
 
-               
+          
 
-
-
-       //   dd(json_decode($orden->send_json_masc, true));
-
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'formapago', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos', 'tickets'  ));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'formapago', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos' ));
 
     }
 

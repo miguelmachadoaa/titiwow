@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpInventario extends Model
+class AlpCajas extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_inventarios';
+    public $table = 'alp_cajas';
     
 
     protected $dates = ['deleted_at'];
@@ -19,12 +19,12 @@ class AlpInventario extends Model
 
     public $fillable = [
         'id',
-        'id_producto',
-        'id_almacen',
-        'cantidad',
-        'operacion',
-        'id_orden',
-        'notas',
+        'monto_inicial',
+        'monto_final',
+        'fecha_inicio',
+        'fecha_cierre',
+        'observacions',
+        'monto_final',
         'estado_registro',
         'id_user'
     ];
@@ -35,7 +35,7 @@ class AlpInventario extends Model
      * @var array
      */
     protected $casts = [
-        'id_producto' => 'string'
+        'id' => 'string'
     ];
 
     /**
@@ -44,6 +44,11 @@ class AlpInventario extends Model
      * @var array
      */
     public static $rules = [
-        'id_producto' => 'required'
+        'id' => 'required'
     ];
+
+      public function cajero()
+    {
+        return $this->hasOne('App\User', 'id', 'id_user');
+    }
 }

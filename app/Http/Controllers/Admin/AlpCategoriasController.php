@@ -236,52 +236,21 @@ class AlpCategoriasController extends JoshController
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'css_categoria' =>$request->css_categoria, 
-            'order' =>$request->order, 
+            'order' =>'1', 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0', 
-            'slug' => $slug,
-            'seo_titulo' =>$request->seo_titulo, 
-            'seo_descripcion' =>$request->seo_descripcion, 
+            'slug' => str_slug($user_id.$request->nombre_categoria),
             'id_user' =>$user_id
         );
 
 
-         
-        $categoria=AlpCategorias::create($data);
+         try {
 
-
-          $i=1;
-
-         $robots='';
-
-        foreach ($input as $key => $value) {
-
-            if (substr($key,0,6)=='robots') {
-
-                if ($i==1) {
-
-                   $robots=$value;
-
-                   $i=0;
-
-                }else{
-
-                    $robots=$robots.' ,'.$value;
-                }
-
-            }
-            # code...
-        }
-
-        $data = array('robots' => $robots);
-
-        $categoria->update($data);
-
-
-
-
-
-
+            $categoria=AlpCategorias::create($data);
+             
+         } catch (Exception $e) {
+             
+         }
 
         if ($categoria->id) {
 

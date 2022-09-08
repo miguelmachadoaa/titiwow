@@ -26,7 +26,7 @@ class CategoriasRequest extends FormRequest {
 		return [
             'nombre_categoria' => 'required|min:3',
             'descripcion_categoria' => 'required|min:3',
-            'slug' => 'required|min:3',
+           // 'slug' => 'required|min:3',
 			'image' => 'image',
 		];
 	}

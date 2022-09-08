@@ -67,20 +67,19 @@ Punto de Venta
 
             @include('pos.barcode')
                 
-
             </div>
+
+            
 
 
         </div>
 
-        
         <div class="col-sm-8 panelprincipal" style="height: 38em; overflow: auto;">
+
             
             @include('pos.dashboard')
 
         </div> 
-
-
 
 
         <div class="col-sm-4 ordenactual" >
@@ -88,7 +87,6 @@ Punto de Venta
            @include('pos.ordenactual')
 
         </div> 
-
 
     </div>
     
@@ -99,6 +97,12 @@ Punto de Venta
 
   
 @endsection
+
+<div class="row">
+    <div class="col-sm-12 d-none" >
+        {{json_encode($cart)}}
+    </div>
+</div>
 
 <!-- Modal Direccion -->
 
@@ -125,7 +129,38 @@ Punto de Venta
          });
 
 
+        $(document).on('keypress', '#cliente', function(e) {
+
+        if(e.which == 13) {
+
+            termino=$('#cliente').val();
+
+            base=$('#base').val();
+
+            $.ajax({
+                    type: "POST",
+                    data:{termino},
+                    url: base+"/pos/buscarcliente",
+                    dataType: 'JSON',
+                        
+                    complete: function(datos){     
+
+                        $('#cliente').val('');
+
+                            $('.panelprincipal').html((datos.responseText));
+
+                    }
+
+                });
+          
+            }
+      });
+
+
+
+
       $(document).on('keypress', '#barcode', function(e) {
+
         if(e.which == 13) {
 
             termino=$('#barcode').val();
@@ -151,10 +186,12 @@ Punto de Venta
                        if(datos.responseJSON.status=='productos'){
 
                             $('.panelprincipal').html((datos.responseJSON.data));
+                            $('reserror').html('');
 
                        }else{
 
                             $('.ordenactual').html((datos.responseJSON.data));
+
                             termino=$('#barcode').val('');
                        }
 
@@ -168,6 +205,82 @@ Punto de Venta
           
         }
       });
+
+
+      $(document).on('keypress', '#terminopedido', function(e) {
+        
+        if(e.which == 13) {
+
+            termino=$(this).val();
+
+            let expresion = new RegExp(`${termino}.*`, "i");
+
+            $('.pedidos').each(function(index){
+
+                    let ban=0;
+
+                    console.log(index);
+
+                    let data = $(this).data('json');
+
+                    console.log(data);
+
+                      // look for the entry with a matching `code` value
+                      if (expresion.test(data.monto_total) ||  expresion.test(data.cliente.first_name) ||  expresion.test(data.cliente.last_name) ||  expresion.test(data.referencia) ||  expresion.test(data.id)){
+
+                        $(this).fadeIn();
+
+                      }else{
+
+                        $(this).fadeOut();
+
+                      }
+
+            }) ;
+          
+        }
+
+
+      });
+
+
+       $(document).on('keypress', '#terminocliente', function(e) {
+        
+        if(e.which == 13) {
+
+            termino=$(this).val();
+
+            let expresion = new RegExp(`${termino}.*`, "i");
+
+            $('.cliente').each(function(index){
+
+                    let ban=0;
+
+                    console.log(index);
+
+                    let data = $(this).data('json');
+
+                    console.log(data);
+
+                      // look for the entry with a matching `code` value
+                      if (expresion.test(data.first_name) ||  expresion.test(data.first_name) ||  expresion.test(data.telefono_cliente) ||  expresion.test(data.email) ||  expresion.test(data.id)){
+
+                        $(this).fadeIn();
+
+                      }else{
+
+                        $(this).fadeOut();
+
+                      }
+
+            }) ;
+          
+        }
+
+
+      });
+
+
 
 
         function getcarrito () {
@@ -198,11 +311,26 @@ Punto de Venta
 
                 $.ajax({
                     type: "GET",
+                    
                     url: base+"/pos/"+vista,
+
+                    dataType: 'JSON',
                         
                     complete: function(datos){     
 
-                        $('.panelprincipal').html((datos.responseText));
+                        if(datos.responseJSON.status=='dashboard'){
+
+                              $('.panelprincipal').html((datos.responseJSON.data));
+
+                        }else if(datos.responseJSON.status=='login'){
+
+                            location.reload();
+
+                        }else{
+
+                            $('.reserror').html((datos.responseJSON.mensaje));
+
+                        }
 
                         getcarrito();
                     }
@@ -279,6 +407,52 @@ Punto de Venta
         });
 
 
+
+        $(document).on('click', '.savecaja', function(){
+
+            baseinicial=$("#baseinicial").val();
+            observacion=$("#observacion").val();
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{baseinicial, observacion},
+                    url: base+"/pos/postcaja",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
+        $(document).on('click', '.updatecaja', function(){
+
+            id=$("#idcaja").val();
+            basefinal=$("#basefinal").val();
+            observacion=$("#observacion").val();
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{basefinal, observacion,id},
+                    url: base+"/pos/updatecaja",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
         $(document).on('click', '.savecliente', function(){
 
             nombre_cliente=$("#nombre_cliente").val();
@@ -289,7 +463,7 @@ Punto de Venta
             base=$('#base').val();
 
 
-            alert(nombre_cliente);
+           // alert(nombre_cliente);
 
             $.ajax({
                 type: "POST",
@@ -316,10 +490,24 @@ Punto de Venta
                     type: "POST",
                     data:{id},
                     url: base+"/pos/addtocart",
+                    dataType: 'JSON',
                         
-                    complete: function(datos){     
+                    complete: function(datos){
 
-                        $('.ordenactual').html((datos.responseText));
+                        console.log(datos);
+                        console.log(datos.responseJSON);
+
+                        if(datos.responseJSON.status=='carrito'){
+
+                            $('.ordenactual').html((datos.responseJSON.data));
+
+                        }else if(datos.responseJSON.status=='error'){
+
+                            $('.reserror').html('<div class="alert alert-danger">'+datos.responseJSON.mensaje+'</div>');
+
+                            termino=$('#barcode').val('');
+                        }     
+
                     }
 
                 });
@@ -466,6 +654,7 @@ Punto de Venta
              id=$('#id_forma_pago').val();
              name=$('#nombre_forma_pago').val();
              monto=$('#monto_pago').val();
+             referencia=$('#referencia').val();
 
              if(id==0){
 
@@ -476,7 +665,7 @@ Punto de Venta
 
                 $.ajax({
                     type: "POST",
-                    data:{id, name, monto},
+                    data:{id, name, monto, referencia},
                     url: base+"/pos/addpago",
                         
                     complete: function(datos){     
@@ -527,6 +716,68 @@ Punto de Venta
                     type: "POST",
                     data:{id},
                     url: base+"/pos/detalleorden",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
+         $(document).on('click', '.detallecategoria', function(){
+
+            id=$(this).data('id');
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/detallecategoria",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+        $(document).on('click', '.detallecaja', function(){
+
+            id=$(this).data('id');
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/detallecaja",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
+        $(document).on('click', '.cerrarcaja', function(){
+
+            id=$(this).data('id');
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/cerrarcaja",
                         
                     complete: function(datos){     
 

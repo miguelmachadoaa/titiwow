@@ -16,6 +16,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+
+        view()->composer('*', function($view) {
+
+
+            $this->config = AlpConfiguracion::where('alp_configuracion_general.id', '1')->first();
+                
+                $view->with('configuracion',$this->config);
+            });
+
         /*$this->config = AlpConfiguracion::where('alp_configuracion_general.id', '1')->first();
 
             view()->composer('layouts.header', function($view) {
@@ -37,10 +46,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('marcas', AlpMenuDetalle::menus(3));
             });
 
-            view()->composer('*', function($view) {
-                
-                $view->with('configuracion',$this->config);
-            });
+            
             
             view()->composer('layouts.footer', function($view) {
                 $view->with('footermenu', AlpMenuDetalle::menus(7));

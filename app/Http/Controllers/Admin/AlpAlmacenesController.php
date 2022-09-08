@@ -103,18 +103,8 @@ class AlpAlmacenesController extends JoshController
 
       $user = Sentinel::getUser();
 
-      if ($user->almacen=='0') {
         
-          $almacenes = AlpAlmacenes::all();
-       
-        }else{
-      
-          $almacenes = AlpAlmacenes::where('id', $user->almacen)->get();
-
-      }
-
-       
-        
+        $almacenes = AlpAlmacenes::all();
          
         $data = array();
 
@@ -1008,7 +998,7 @@ class AlpAlmacenesController extends JoshController
         'id_user'=>$user->id,
       ]);
 
-      #  \Session::put('almacen', $id);
+     #  \Session::put('almacen', $id);
         
       #  \Session::put('inventario', []);
 
@@ -1016,7 +1006,7 @@ class AlpAlmacenesController extends JoshController
 
      #   Excel::import(new AlmacenImport, $archivo);
 
-      #  Excel::import(new AlmacenInventarioImport, $archivo);
+      #  Excel::import(new AlmacenInventarioImport($id), $archivo);
        
         return Redirect::route('admin.almacenes.index')->with('success', trans('El inventario se esta actualizando en este Momento'));
     }
@@ -1566,22 +1556,44 @@ public function addproducto($id, $producto)
               $user = Sentinel::getUser();
 
 
-              $p=AlpAlmacenProducto::where('id_producto', $producto)->where('id_almacen', $id)->first();
+              if ($producto=='0') {
+                
+                $ps=AlpProductos::all();
 
-              if (isset($p->id)) {
-                # code...
+                foreach($ps as $p){
+
+                  AlpAlmacenProducto::create(
+                    [
+                      'id_producto' => $p->id, 
+                      'id_almacen' => $id, 
+                      'id_user' => $user->id, 
+                    ]);
+
+                }
+
               }else{
 
-                $data = array(
-              'id_producto' => $producto, 
-              'id_almacen' => $id, 
-              'id_user' => $user->id, 
-            );
 
-            AlpAlmacenProducto::create($data);
+                $p=AlpAlmacenProducto::where('id_producto', $producto)->where('id_almacen', $id)->first();
+
+                if (isset($p->id)) {
+                  # code...
+                }else{
+
+                  $data = array(
+                    'id_producto' => $producto, 
+                    'id_almacen' => $id, 
+                    'id_user' => $user->id, 
+                  );
+
+                  AlpAlmacenProducto::create($data);
+                }
 
 
               }
+
+
+              
     
 
           return json_encode( array('data' => 'true' ));

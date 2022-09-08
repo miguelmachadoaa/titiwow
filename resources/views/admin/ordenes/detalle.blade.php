@@ -256,41 +256,10 @@ Orden {{$orden->id}}
                                         </tr>
                                     @endif
 
-
-
-
-
                                 @else
 
 
-
-
-
-
-
-                                   <tr>
-                                        <td><b> Origen</b></td>
-                                        <td>
-                                           Web
-                                        </td>
-                                    </tr>
-
-
-
-
-
-
-
                                 @endif
-
-
-
-
-
-
-
-
-
 
                      <tr>
                          <td>Ubicacion </td>
@@ -324,21 +293,7 @@ Orden {{$orden->id}}
 
 
 
-                     @if(isset($envio->id))
-
-                        <tr>
-                            <td>Fecha de Entrega Pedido </td>
-                            <td>{{ date("d/m/Y", strtotime($envio->fecha_envio))}}</td>
-                        </tr>
-
-                     @else
-
-                        <tr>
-                            <td>Fecha de Entrega Pedido </td>
-                            <td>NO Hay envio definido</td>
-                        </tr>
-
-                     @endif
+                    
 
                       <tr>
                          <td>Fecha de Creación de la Orden </td>
@@ -436,7 +391,7 @@ Orden {{$orden->id}}
 
                             <tr>
                                  <td><b>Origen: </b></td>
-                                 <td>Web</td>
+                                 <td>POS</td>
                              </tr>
 
                          @endif
@@ -454,26 +409,10 @@ Orden {{$orden->id}}
 
                          @endif
 
-                            <tr>
+                            <!--tr>
                                  <td>Tracking: </td>
                                  <td><a href="{{secure_url('/tracking/'.$orden->token)}}" class="button button-blue" target="_blank">URL Tracking</a></td>
-                             </tr>
-
-                             @if(is_null($orden->send_json_masc))
-
-                             @else
-
-
-                             <tr>
-                                 <td>Datos Velocity</td>
-                                 <td><button class="btn btn-primary datosmasc">Ver Datos Enviados a Velocity </button></td>
-                             </tr>
-
-
-                             @endif
-
-
-                          
+                             </tr-->
 
                          
                          
@@ -482,115 +421,7 @@ Orden {{$orden->id}}
                  
              </table>
 
-             @if(is_null($orden->send_json_masc))
-
-             @else
-
-             <div class="col-sm-12 divdatosmasc hidden">
-
-             <H1>Datos Enviados</H1>
-
-                    
-                    @foreach(json_decode($orden->send_json_masc, true) as $key => $value)
-
-                        @if(is_array($value))
-
-                        <p>{{$key.' :'}}</p>
-
-                            @foreach($value as $key2 => $value2)
-
-                                @if(is_array($value2))
-
-                                <p style="margin-left: 2em;">{{$key2}}</p>
-
-                                    @foreach($value2 as $key3 => $value3)
-
-                                    <p style="margin-left: 4em;">
-                                        {{$key3.' : '.$value3}}
-                                    </p>
-
-                                    @endforeach
-
-
-                                @else
-
-                                  <p style="margin-left: 2em;">
-                                    {{$key2.' : '.$value2}}
-                                </p>
-
-                                @endif
-
-                              
-
-                            @endforeach
-
-                        @else
-
-                         <p>
-                            {{$key.' : '.$value}}
-                        </p>
-
-                        @endif
-                       
-
-                       
-                    @endforeach
-
-                    <H1>Respuesta de Velocity</H1>
-
-
-                    @foreach(json_decode($orden->json, true) as $key => $value)
-
-                        @if(is_array($value))
-
-                        <p>{{$key.' :'}}</p>
-
-                            @foreach($value as $key2 => $value2)
-
-                                @if(is_array($value2))
-
-                                <p style="margin-left: 2em;">{{$key2}}</p>
-
-                                    @foreach($value2 as $key3 => $value3)
-
-                                    <p style="margin-left: 4em;">
-                                        {{$key3.' : '.$value3}}
-                                    </p>
-
-                                    @endforeach
-
-
-                                @else
-
-                                <p style="margin-left: 2em;">
-                                    {{$key2.' : '.$value2}}
-                                </p>
-
-                                @endif
-
-                            
-
-                            @endforeach
-
-                        @else
-
-                        <p>
-                            {{$key.' : '.$value}}
-                        </p>
-
-                        @endif
-
-
-
-                        @endforeach
-
-
-
-                 
-             </div>
-
-             @endif
-</div>
+        </div>
 
              <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
 
@@ -598,7 +429,7 @@ Orden {{$orden->id}}
              @if($user->id==1 )
 
 
-             <!--a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a-->
+             <!--a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a>
              <br>
 
 
@@ -606,7 +437,7 @@ Orden {{$orden->id}}
 
 
 
-             <a style="margin-top: 1em; " href="{{secure_url('admin/ordenes/'.$orden->id.'/cancelarcompramas' )}}" class="btn btn-danger">Cancelar Orden Compramas</a>
+             <a style="margin-top: 1em; " href="{{secure_url('admin/ordenes/'.$orden->id.'/cancelarcompramas' )}}" class="btn btn-danger">Cancelar Orden Compramas</a-->
 
              @endif
 
@@ -628,9 +459,8 @@ Orden {{$orden->id}}
 <br>
 <br>
 
-    @if(count($tickets)==0 )
+    @if(isset($tickets) )
 
-    @else
 
      <div class="row">
         <div class="col-lg-12">
@@ -749,6 +579,9 @@ Orden {{$orden->id}}
         </div>
     </div>
     <!-- row-->
+
+    @else
+
 
     @endif
 
@@ -1363,7 +1196,7 @@ Orden {{$orden->id}}
     @endif
 
 
-
+<!--
 
      <div class="row">
                     <div class="col-md-12">
@@ -1376,7 +1209,6 @@ Orden {{$orden->id}}
                                 
                             </div>
                             <div class="panel-body">
-                                <!--timeline-->
                                 <div class="row">
                                     <ul class="timeline">
 
@@ -1439,7 +1271,6 @@ Orden {{$orden->id}}
 
                                     </ul>
                                 </div>
-                                <!--timeline ends-->
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,9 @@
                         
                         <div class="col-sm-4">
 
+                            <h5>Formas de Pago</h5>
+
+
                             @foreach($formaspago as $fp)
 
                                 <button data-id="{{$fp->id}}" data-name="{{$fp->nombre_forma_pago}}" class="btn btn-primary w-100 my-2 setpago">{{$fp->nombre_forma_pago}}</button>
@@ -19,6 +22,9 @@
                         </div>
 
                         <div class="col-sm-4">
+
+                            <h5></h5>
+
 
                             @if($cart['resto']<=0)
 
@@ -46,8 +52,12 @@
                                     <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{$cart['total']-$cart['pagado']}}">
                                 </div>
 
+                                <div class="col-sm-12 my-2">
+                                    <input class="form-control" type="number" id="referencia" name="referencia" value="" placeholder="Referencia">
+                                </div>
+
                                 <div class="col-sm-12">
-                                    <button class="btn btn-primary addpago">Agegar</button>
+                                    <button class="btn btn-primary addpago mb-2">Agegar</button>
                                 </div>
 
                                 
@@ -77,14 +87,16 @@
 
                           @foreach($cart['pagos'] as $pago )
 
-                          <div class="row">
+                          <div class="row cajasombra">
 
                             <div class="col-sm-10">
 
-                                    <p> {{$pago['id']}} / {{$pago['name']}}/ {{$pago['monto']}} </p>
+                                    <p class="m-0"><b>Id:</b>{{$pago['id']}}</p>
+                                    <p class="m-0"><b>Tipo:</b>{{$pago['name']}}</p>
+                                    <p class="m-0"><b>Monto:</b>{{$pago['monto']}}</p>
 
                             </div>
-                            <div class="col-sm-2"> 
+                            <div class="col-sm-2 p-0"> 
                                     <button data-id="{{$loop->index}}" class="btn btn-danger delpago"> <i class="fa fa-trash"> </i>   </button>
                                     
                             </div>
@@ -103,8 +115,6 @@
                     </div>
                   
                 </div>
-
-                
 
                
             </div>

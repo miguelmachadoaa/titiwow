@@ -7,23 +7,23 @@
             Escritorio
         </a>
     </li>
-    <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
+    <!--li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
         <a target="_blank" href="{{  secure_url('/') }}">
             <i class="livicon" data-name="angle-wide-right-alt" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             Ver Pagina
         </a>
-    </li>
+    </li-->
 
 
     @if (Sentinel::getUser()->hasAnyAccess(['tomapedidos.*']))
-        <li {!! (Request::is('admin/tomapedidos*') ? 'class="active"' : '') !!}>
+        <!--li {!! (Request::is('admin/tomapedidos*') ? 'class="active"' : '') !!}>
             <a class="oculta-menu" href="{!! secure_url('admin/tomapedidos') !!}">
             <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
              POS
             </a>
-    </li>
+    </li-->
     @endif
 
 
@@ -39,7 +39,7 @@
 
 
 
-    <li {!! (Request::is('admin/ticket*') ? 'class="active"' : '') !!}>
+    <!--li {!! (Request::is('admin/ticket*') ? 'class="active"' : '') !!}>
             <a href="{!! secure_url('admin/ticket') !!}">
             <i class="livicon" data-name="help" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
@@ -65,7 +65,7 @@
 
 
         </ul>
-    </li>
+    </li-->
 
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
@@ -79,96 +79,96 @@
         <ul class="sub-menu">
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.filtrar']))
-                <li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
+                <!---li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.filtrar') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Buscar Orden
                 </a>
-            </li>
+            </li-->
             @endif
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.espera']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.espera') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes en Espera
                 </a>
-            </li>
+            </li-->
             @endif
            
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.recibidos']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.recibidos') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Recibidas
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.aprobados']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.aprobados') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Aprobadas
                 </a>
-            </li>
+            </li-->
             @endif
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.facturados']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.facturados') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Facturadas
                 </a>
-            </li>
+            </li-->
             @endif
 
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.entregados']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.entregados') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Entregadas
                 </a>
-            </li>
+            </li-->
             @endif
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.enviados']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.enviados') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Enviados
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.cancelados']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.cancelados') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Canceladas
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.empresas']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.empresas') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Empresas
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.consolidado']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.consolidado') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Consolidado del Dia
                 </a>
-            </li>
+            </li-->
             @endif
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.index']))
@@ -181,42 +181,42 @@
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.descuento']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!---li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.descuento') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes con Descuentos
                 </a>
-            </li>
+            </li-->
             @endif
 
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.nomina']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.nomina') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Recibidas Nomina
                 </a>
-            </li>
+            </li-->
             @endif
 
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.almacen']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.almacen') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Recibidas almacen
                 </a>
-            </li>
+            </li-->
             @endif
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.compramas']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.compramas') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Compramas
                 </a>
-            </li>
+            </li-->
             @endif
 
             
@@ -422,7 +422,7 @@
 
     @if (Sentinel::getUser()->hasAnyAccess(['envios.*']))
 
-     <li class="{{ Request::is('admin/envios*') ? 'active' : '' }}">
+     <!--li class="{{ Request::is('admin/envios*') ? 'active' : '' }}">
         <a href="#">
             <i class="livicon" data-name="truck" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
@@ -441,7 +441,7 @@
             
            
         </ul>
-    </li>
+    </li-->
 
     @endif
 
@@ -708,14 +708,14 @@
     @endif
     
     @if (Sentinel::getUser()->hasAnyAccess(['menus.*']))
-        <ul class="sub-menu">
+        <!--ul class="sub-menu">
             <li {!! (Request::is('admin/menus*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.menus.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Menus
                 </a>
             </li>
-        </ul>
+        </ul-->
     @endif
     @if (Sentinel::getUser()->hasAnyAccess(['documentos.*']))
         <ul class="sub-menu">
@@ -953,7 +953,7 @@
 
     @if (Sentinel::getUser()->hasAnyAccess(['alpinistas.index']))
 
-        <li {!! (Request::is('admin/alpinistas') ? 'class="active"' : '') !!}>
+        <!--li {!! (Request::is('admin/alpinistas') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="users" data-size="18" data-c="#F89A14" data-hc="#F89A14"
                 data-loop="true"></i>
@@ -979,12 +979,12 @@
                     Retirar Alpinistas
                 </a>
             </li>
-        </ul>
+        </ul-->
     @endif
 
     @if (Sentinel::getUser()->hasAnyAccess(['facturasmasivas.index']))
 
-        <li {!! (Request::is('admin/facturasmasivas') ? 'class="active"' : '') !!}>
+        <!--li {!! (Request::is('admin/facturasmasivas') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="inbox" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                 data-loop="true"></i>
@@ -1004,7 +1004,7 @@
                     Cargar Facturas
                 </a>
             </li>
-        </ul>
+        </ul-->
     @endif
 
 
@@ -1047,33 +1047,33 @@
 
         @if (Sentinel::getUser()->hasAnyAccess(['reportes.lifemiles']))
 
-            <li {!! (Request::is('admin/reportes/lifemiles') ? 'class="active" id="active"' : '') !!}>
+            <!--li {!! (Request::is('admin/reportes/lifemiles') ? 'class="active" id="active"' : '') !!}>
             <a href="{{ secure_url('admin/reportes/lifemiles') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Reporte Cupones Lifemiles
             </a>
-            </li>
+            </li-->
         @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.abandonado']))
 
-            <li {!! (Request::is('admin/reportes/abandonado') ? 'class="active" id="active"' : '') !!}>
+            <!--li {!! (Request::is('admin/reportes/abandonado') ? 'class="active" id="active"' : '') !!}>
             <a href="{{ secure_url('admin/reportes/abandonado') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Reporte de Pedidos Incompletos
             </a>
-            </li>
+            </li-->
             @endif
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.acceso']))
 
-            <li {!! (Request::is('admin/reportes/acceso') ? 'class="active" id="active"' : '') !!}>
+            <!--li {!! (Request::is('admin/reportes/acceso') ? 'class="active" id="active"' : '') !!}>
             <a href="{{ secure_url('admin/reportes/acceso') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Reporte Acceso de Usuarios
             </a>
-            </li>
+            </li-->
             @endif
 
 
@@ -1093,12 +1093,12 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.bono']))
 
-                 <li {!! (Request::is('admin/reportes/bono') ? 'class="active" id="active"' : '') !!}>
+                 <!--li {!! (Request::is('admin/reportes/bono') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/bono') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte uso de bono
                     </a>
-                </li>
+                </li-->
             @endif
 
 
@@ -1137,73 +1137,73 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductosalmacen']))
 
-                <li {!! (Request::is('admin/reportes/listadoproductosalmacen') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/listadoproductosalmacen') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/listadoproductosalmacen') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Listado de Productos Rappi
                 </a>
-                </li>
+                </li-->
             @endif
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
-                 <li {!! (Request::is('admin/reportes/masterfile') ? 'class="active" id="active"' : '') !!}>
+                 <!--li {!! (Request::is('admin/reportes/masterfile') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/masterfile') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Clientes
                     </a>
-                </li>
+                </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileamigos']))
 
-                 <li {!! (Request::is('admin/reportes/masterfileamigos') ? 'class="active" id="active"' : '') !!}>
+                 <!--li {!! (Request::is('admin/reportes/masterfileamigos') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/masterfileamigos') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Amigos
                     </a>
-                </li>
+                </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileembajadores']))
 
-                 <li {!! (Request::is('admin/reportes/masterfileembajadores') ? 'class="active" id="active"' : '') !!}>
+                 <!--li {!! (Request::is('admin/reportes/masterfileembajadores') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/masterfileembajadores') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Embajadores
                     </a>
-                </li>
+                </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
 
-                 <li {!! (Request::is('admin/reportes/logistica') ? 'class="active" id="active"' : '') !!}>
+                 <!--li {!! (Request::is('admin/reportes/logistica') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/logistica') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Logistica Ventas Ecommerce
                     </a>
-                </li>
+                </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.consolidado']))
 
-                 <li {!! (Request::is('admin/reportes/consolidado') ? 'class="active" id="active"' : '') !!}>
+                 <!---li {!! (Request::is('admin/reportes/consolidado') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/consolidado') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Consolidado
                     </a>
-                </li>
+                </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
 
-                 <li {!! (Request::is('admin/reportes/registrados') ? 'class="active" id="active"' : '') !!}>
+                 <!--li {!! (Request::is('admin/reportes/registrados') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/registrados') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Lista de Usuarios
                     </a>
-                </li>
+                </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventas']))
@@ -1218,41 +1218,41 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productos']))
 
-                <li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
+                <!---li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta por Productos/Combos
-                </a>
+                </a-->
             </li>
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
 
-                <li {!! (Request::is('admin/reportes/cuponesdescuento') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/cuponesdescuento') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/cuponesdescuento') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cupones de Descuento
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.carritos']))
-                <li {!! (Request::is('admin/reportes/carrito') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/carrito') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/carrito') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Carritos Abandonados
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.financiero']))
 
-                <li {!! (Request::is('admin/reportes/financiero') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/financiero') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Conciliacion Financiera Bogotá
                 </a>
-            </li>
+            </li-->
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventastotales']))
@@ -1288,76 +1288,76 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosb']))
 
-                <li {!! (Request::is('admin/reportes/productosb') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/productosb') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/productosb') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos B
                 </a>
-            </li>
+            </li-->
             @endif
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosc']))
 
-                <li {!! (Request::is('admin/reportes/productosc') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/productosc') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/productosc') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos C
                 </a>
-            </li>
+            </li-->
             @endif
 
 
              @if (Sentinel::getUser()->hasAnyAccess(['reportes.nomina']))
 
-                <li {!! (Request::is('admin/reportes/nomina') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/nomina') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/nomina') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Reporte ventas por Almacen
                 </a>
-            </li>
+            </li-->
             @endif
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleventa']))
 
-                <li {!! (Request::is('admin/reportes/detalleventa') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/detalleventa') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/detalleventa') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Reporte  detalles ventas
                 </a>
-            </li>
+            </li-->
             @endif
 
 
                @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleclientes']))
 
-                <li {!! (Request::is('admin/reportes/detalleclientes') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/detalleclientes') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/detalleclientes') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte  detalles clientes con compras
                     </a>
-                </li>
+                </li-->
             @endif
 
 
              @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
 
-                <li {!! (Request::is('admin/reportes/inventariopordia') ? 'class="active" id="active"' : '') !!}>
+                <!--li {!! (Request::is('admin/reportes/inventariopordia') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/inventariopordia') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte  Inventario por Dia
                     </a>
-                </li>
+                </li-->
             @endif
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
 
-            <li {!! (Request::is('admin/reportes/almacenes/1/gestionar') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/almacenes/1/gestionar') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Inventario Actual Bogotá
-                </a>
-            </li>
+                <!--li {!! (Request::is('admin/reportes/almacenes/1/gestionar') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ secure_url('admin/reportes/almacenes/1/gestionar') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Inventario Actual Bogotá
+                    </a>
+                </li-->
             @endif
 
             
@@ -1374,7 +1374,7 @@
     @if (Sentinel::getUser()->hasAnyAccess(['blog.*']))
 
      
-    <li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>
+    <!--li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18"
                data-loop="true"></i>
@@ -1401,14 +1401,14 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li-->
 
     @endif
     
     @if (Sentinel::getUser()->hasAnyAccess(['cms.*']))
 
      
-    <li {!! (( Request::is('admin/cms') ||  Request::is('admin/cms/create')) || Request::is('admin/cms/*') ? 'class="active"' : '') !!}>
+    <!--li {!! (( Request::is('admin/cms') ||  Request::is('admin/cms/create')) || Request::is('admin/cms/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18"
                data-loop="true"></i>
@@ -1430,7 +1430,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li-->
 
     @endif
 
@@ -1440,7 +1440,7 @@
 
     @if (Sentinel::getUser()->hasAnyAccess(['urgencias.index']))
 
-     <li {!! (Request::is('admin/ticket') || Request::is('admin/ticket/create') || Request::is('admin/user_profile') || Request::is('admin/ticket/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
+     <!--li {!! (Request::is('admin/ticket') || Request::is('admin/ticket/create') || Request::is('admin/user_profile') || Request::is('admin/ticket/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="users" data-size="18" data-c="#F89A14" data-hc="#F89A14"
                data-loop="true"></i>
@@ -1475,7 +1475,7 @@
             
 
         </ul>
-    </li>
+    </li-->
 
     @endif
    

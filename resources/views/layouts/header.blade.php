@@ -112,7 +112,7 @@
 
 <body>
 
- 
+    @php $menus = []; @endphp
 
 
     @if (App::environment('production')) 

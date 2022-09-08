@@ -31,7 +31,7 @@ class ProductosMasivosImport implements ToCollection
                                     'descripcion_corta' => $row[1], 
                                     'descripcion_larga' => $row[1], 
                                     'enlace_youtube' => '', 
-                                    'id_categoria_default' => '1', 
+                                    'id_categoria_default' => $row[2], 
                                     'id_marca' => '1', 
                                     'precio_base' => $row[3], 
                                     'unidad' => '', 
@@ -52,15 +52,22 @@ class ProductosMasivosImport implements ToCollection
                                     'descripcion_corta' => $row[1], 
                                     'descripcion_larga' => $row[1], 
                                     'enlace_youtube' => '', 
-                                    'id_categoria_default' => '1', 
+                                    'id_categoria_default' =>$row[2],  
                                     'id_marca' => '1', 
                                     'precio_base' => $row[3], 
                                     'unidad' => '', 
                                     'cantidad' => $row[5], 
                                 );
 
+                                if (is_null($data_create['nombre_producto'])) {
+                                    
+                                }else{
 
-                               $producto= AlpProductos::create($data_create);
+                                    $producto= AlpProductos::create($data_create);
+
+                                }
+
+
 
 
 

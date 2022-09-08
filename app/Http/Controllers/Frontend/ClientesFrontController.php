@@ -25,6 +25,7 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpClientesHistory;
+use App\Models\AlpCajas;
 use App\Http\Requests\DireccionRequest;
 
 use App\Models\AlpAbonosDisponible;
@@ -72,6 +73,7 @@ class ClientesFrontController extends Controller
         verifi si esta logueado        */
 
         $dt = Carbon::now(); 
+
 
         if (Sentinel::check()) {
 
@@ -126,9 +128,7 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-
             $puntos = array();
-
 
             if ($role->role_id=='10') {
 
@@ -140,7 +140,6 @@ class ClientesFrontController extends Controller
             ->first();
 
                 if (isset($puntos_cliente->id)) {
-
 
                     if ($puntos_cliente->puntos<250000) {
                         $puntos['nivel']='1';
@@ -237,7 +236,11 @@ class ClientesFrontController extends Controller
           }
 
 
-            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios', 'total'));
+          $caja=AlpCajas::where('id_user', $user_id)->where('estado_registro', '1')->first();
+
+
+
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion', 'barrios', 'total', 'caja'));
     
             }else{
 

@@ -81,6 +81,7 @@ use App\Models\AlpCarrito;
 use App\Models\AlpCarritoDetalle;
 use App\Models\AlpFormaspago;
 use App\Models\AlpPagos;
+use App\Models\AlpCajas;
 
 
 use App\User;
@@ -129,7 +130,7 @@ use Carbon\Carbon;
 
 use Intervention\Image\Facades\Image;
 
-
+use \Cache;
 
 
 class PosController extends JoshController
@@ -144,7 +145,9 @@ class PosController extends JoshController
         
         if (!\Session::has('cart')) {
 
-          \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+          $inv=$this->inventario();
+
+          \Session::put('cart', ['inventario'=>$inv,'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
 
         }
 
@@ -170,7 +173,30 @@ class PosController extends JoshController
         }
 
 
-    return view('pos.dashboard');
+        if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+          $view= View::make('pos.dashboard', compact('caja'));
+
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
+
+
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+      
 
   }
 
@@ -193,7 +219,30 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/opciones');
         }
 
-    return view('pos.opciones');
+        if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+          $view= View::make('pos.opciones', compact('caja'));
+
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
+
+
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+    
 
   }
 
@@ -216,18 +265,31 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/carritos');
         }
 
-      /*  $carritos=AlpCarrito::select('alp_carrito.*', 'alp_carrito_detalle.id_producto', 'alp_carrito_detalle.cantidad')
-        ->join('alp_carrito_detalle', 'alp_carrito.id', '=', 'alp_carrito_detalle.id_carrito')
-        ->join('alp_productos', 'alp_carrito_detalle.id_producto', '=', 'alp_productos.id')
-        ->where('alp_carrito.id_user', $user->id)
-        ->get();*/
 
-        $carritos=AlpCarrito::with('detalles')->get();
+        if (isset($user->id)) {
 
-     #   dd(json_encode($carritos));
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+          $carritos=AlpCarrito::with('detalles')->get();
+
+          $view= View::make('pos.carritos', compact('carritos', 'caja'));
+
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
+
+        }else{
 
 
-    return view('pos.carritos', compact('carritos'));
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
 
   }
 
@@ -250,23 +312,238 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/delcarrito');
         }
 
-      /*  $carritos=AlpCarrito::select('alp_carrito.*', 'alp_carrito_detalle.id_producto', 'alp_carrito_detalle.cantidad')
-        ->join('alp_carrito_detalle', 'alp_carrito.id', '=', 'alp_carrito_detalle.id_carrito')
-        ->join('alp_productos', 'alp_carrito_detalle.id_producto', '=', 'alp_productos.id')
-        ->where('alp_carrito.id_user', $user->id)
-        ->get();*/
-
         AlpCarrito::where('id', $request->id)->delete();
 
-
         $carritos=AlpCarrito::with('detalles')->get();
-
-     #   dd(json_encode($carritos));
 
 
     return view('pos.carritos', compact('carritos'));
 
   }
+
+
+
+    public function caja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/caja ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/caja');
+        }
+
+
+       if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+           if (isset($caja->id)) {
+
+              $cajas = AlpCajas::where('id_user', $user->id)->with('cajero')->orderBy('id', 'desc')->get();
+
+
+              $view= View::make('pos.caja', compact('caja','cajas'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+              
+            }else{
+
+                $view= View::make('pos.dashboard', compact('caja'));
+
+                $data=$view->render();
+
+                $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+                return json_encode($res);
+            }
+
+        }else{
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+        }
+
+  }
+
+
+
+
+  public function addcaja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/addcaja ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/addcaja');
+        }
+
+      
+
+
+    return view('pos.addcaja');
+
+  }
+
+
+   public function postcaja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/caja ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/caja');
+        }
+
+        AlpCajas::create([
+          'monto_inicial'=>$request->baseinicial,
+          'fecha_inicio'=>now(),
+          'id_user'=>$user->id
+        ]);
+
+
+
+        $cajas = AlpCajas::where('id_user', $user->id)->with('cajero')->orderBy('id', 'desc')->get();
+
+
+
+    return view('pos.caja', compact('cajas'));
+
+  }
+
+
+  public function updatecaja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/caja ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/caja');
+        }
+
+        $caja=AlpCajas::where('id', $request->id)->first();
+
+
+
+        $caja->update([
+          'monto_final'=>$request->basefinal,
+          'observaciones'=>$request->observacion,
+          'fecha_cierre'=>now(),
+          'estado_registro'=>'2',
+          'id_user'=>$user->id
+        ]);
+
+
+
+        $cajas = AlpCajas::where('id_user', $user->id)->with('cajero')->orderBy('id', 'desc')->get();
+
+
+
+    return view('pos.caja', compact('cajas'));
+
+  }
+
+
+     public function detallecaja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/reportes ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/reportes');
+        }
+
+        $caja = AlpCajas::where('id', $request->id)->with('cajero')->first();
+
+        $pagos=AlpPagos::select('alp_ordenes_pagos.*',  DB::raw('SUM(monto_pago) as total_pagos'))
+        ->join('alp_ordenes', 'alp_ordenes_pagos.id_orden', '=', 'alp_ordenes.id')
+        ->where('alp_ordenes_pagos.id_user', $user->id)
+        ->where('alp_ordenes.id_caja', '=', $request->id)
+        ->with('formapago')->groupBy('id_forma_pago')
+        ->get();
+
+
+
+    return view('pos.detallecaja', compact('pagos', 'caja'));
+
+  }
+
+
+   public function cerrarcaja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/reportes ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/reportes');
+        }
+
+        $caja = AlpCajas::where('id', $request->id)->with('cajero')->first();
+
+
+    return view('pos.cerrarcaja', compact( 'caja'));
+
+  }
+
 
 
     public function pedidos(Request $request)
@@ -289,13 +566,123 @@ class PosController extends JoshController
 
 
 
-        $ordenes = AlpOrdenes::where('id_user', $user->id)->with('cliente', 'cajero', 'estado')->get();
+         if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+           if (isset($caja->id)) {
+
+              $ordenes = AlpOrdenes::where('id_user', $user->id)->where('id_caja', $caja->id)->with('cliente', 'cajero', 'estado')->orderBy('id', 'desc')->get();
+
+              $view= View::make('pos.pedidos', compact('ordenes', 'caja'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+
+              // code...
+            }else{
+
+              $view= View::make('pos.dashboard', compact('caja'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+            }
+
+          
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+        
+
+
+
+
+  }
+
+
+    public function buscarpedido(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/pedidos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/pedidos');
+        }
+
+        $keyword=$request->termino;
 
 
 
     return view('pos.pedidos', compact('ordenes'));
 
   }
+
+
+   public function buscarcliente(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/pedidos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/pedidos');
+        }
+
+        
+        $clientes =  User::select('users.*','roles.name as name_role',
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'alp_clientes.doc_cliente as doc_cliente',
+          'alp_clientes.genero_cliente as genero_cliente'
+        )
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)
+        ->where('users.first_name', 'like', '%'.$request->termino.'%')
+        ->orWhere('users.last_name', 'like', '%'.$request->termino.'%')
+        ->orWhere('users.email', 'like', '%'.$request->termino.'%')
+        ->orWhere('users.id', 'like', '%'.$request->termino.'%')
+        ->orWhere('alp_clientes.telefono_cliente', 'like', '%'.$request->termino.'%')
+        ->orWhere('alp_clientes.doc_cliente', 'like', '%'.$request->termino.'%')
+        ->get();
+
+
+    return view('pos.clientes', compact('clientes'));
+
+  }
+
+
+
 
 
     public function detalleorden(Request $request)
@@ -360,12 +747,50 @@ class PosController extends JoshController
         }
 
 
-        $pagos=AlpPagos::where('id_user', $user->id)->with('formapago')->get();
-
-        #dd(json_encode($pagos));
+        if (isset($user->id)) {
 
 
-    return view('pos.transacciones', compact('pagos'));
+           $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+            if(isset($caja->id)){
+
+              $pagos=AlpPagos::join('alp_ordenes', 'alp_ordenes_pagos.id_orden', '=', 'alp_ordenes.id')
+              ->where('alp_ordenes.id_caja', $caja->id)
+              ->where('alp_ordenes_pagos.id_user', $user->id)->with('formapago')->get();
+
+
+               $view= View::make('pos.transacciones', compact('caja', 'pagos'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+
+            }else{
+
+              $view= View::make('pos.dashboard', compact('caja'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+
+            }
+
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+
+
 
   }
 
@@ -389,12 +814,60 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/reportes');
         }
 
-        $pagos=AlpPagos::select('alp_ordenes_pagos.*',  DB::raw('SUM(monto_pago) as total_pagos'))->where('id_user', $user->id)->with('formapago')->groupBy('id_forma_pago')->get();
+      
 
-       # dd(json_encode($pagos));
+       
 
 
-    return view('pos.reportes', compact('pagos'));
+        if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+
+
+           if(isset($caja->id)){
+
+            $pagos=AlpPagos::select('alp_ordenes_pagos.*',  DB::raw('SUM(monto_pago) as total_pagos'))
+            ->join('alp_ordenes', 'alp_ordenes_pagos.id_orden', '=', 'alp_ordenes.id')
+              ->where('alp_ordenes.id_caja', $caja->id)
+              ->with('formapago')
+              ->groupBy('alp_ordenes_pagos.id_forma_pago')
+              ->get();
+
+
+              $view= View::make('pos.reportes', compact('caja', 'pagos'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+
+
+            }else{
+
+                $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+                $view= View::make('pos.dashboard', compact('caja'));
+
+                $data=$view->render();
+
+                $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+                return json_encode($res);
+
+            }
+
+
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+        }
+
 
   }
 
@@ -418,10 +891,73 @@ class PosController extends JoshController
         }
 
 
-        $categorias = AlpCategorias::get();
+       
+
+      if (isset($user->id)) {
+
+          $categorias = AlpCategorias::get();
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+          $view= View::make('pos.categorias', compact('caja', 'categorias'));
+
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
 
 
-      return view('pos.categorias', compact('categorias'));
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+
+
+  }
+
+   public function detallecategoria(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/productos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/productos');
+        }
+        $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+         if (isset($caja->id)) {
+
+          $productos=AlpProductos::where('estado_registro', '1')->where('id_categoria_default', $request->id)->get();
+
+
+          return view('pos.detallecategoria', compact('productos'));
+
+          // code...
+        }else{
+
+           $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+            return view('pos.dashboard', compact('caja'));
+        }
+
+
+          
 
   }
 
@@ -445,19 +981,52 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/clientes');
         }
 
-        $clientes =  User::select('users.*','roles.name as name_role',
-          'alp_clientes.telefono_cliente as telefono_cliente',
-          'alp_clientes.doc_cliente as doc_cliente',
-          'alp_clientes.genero_cliente as genero_cliente'
-        )
-        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-        ->join('role_users', 'users.id', '=', 'role_users.user_id')
-        ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('role_users.role_id', '<>', 1)
-        ->get();
 
 
-    return view('pos.clientes', compact('clientes'));
+        if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+           if (isset($caja->id)) {
+
+             $clientes =  User::select('users.*','roles.name as name_role',
+                'alp_clientes.telefono_cliente as telefono_cliente',
+                'alp_clientes.doc_cliente as doc_cliente',
+                'alp_clientes.genero_cliente as genero_cliente'
+              )
+              ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+              ->join('role_users', 'users.id', '=', 'role_users.user_id')
+              ->join('roles', 'role_users.role_id', '=', 'roles.id')
+              ->where('role_users.role_id', '<>', 1)
+              ->get();
+
+
+              $view= View::make('pos.clientes', compact('caja','clientes'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+              
+            }else{
+
+                $view= View::make('pos.dashboard', compact('caja'));
+
+                $data=$view->render();
+
+                $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+                return json_encode($res);
+            }
+
+        }else{
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+        }
 
   }
 
@@ -705,12 +1274,60 @@ class PosController extends JoshController
           activity()
           ->withProperties($request->getContent())->log('PosController/productos');
         }
+          
+        $cart= \Session::get('cart');
 
-          $productos=AlpProductos::where('estado_registro', '1')->get();
+        $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
-    return view('pos.productos', compact('productos'));
+        
+
+
+        if (isset($user->id)) {
+
+           if (isset($caja->id)) {
+
+            $productos=AlpProductos::where('estado_registro', '1')->get();
+
+            $view= View::make('pos.productos', compact('caja','productos', 'cart'));
+
+            $data=$view->render();
+
+            $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+            return json_encode($res);
+
+
+              
+            }else{
+
+                $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+                $view= View::make('pos.dashboard', compact('caja'));
+
+                $data=$view->render();
+
+                $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+                return json_encode($res);
+            }
+
+
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+          
 
   }
+
+
+
 
   /**
    *
@@ -739,12 +1356,16 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/buscarproducto');
         }
 
+        $cart= \Session::get('cart');
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+
           $productos=AlpProductos::
           #where('estado_registro', '1')
-          Where('nombre_producto', 'like', '%'.$request->termino.'%')
-          ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
-          ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
+          Where('referencia_producto', 'like', $request->termino)
           ->get();
+
 
           if(count($productos)=='1'){
 
@@ -779,6 +1400,11 @@ class PosController extends JoshController
 
                 $error="No se encontro producto";
 
+
+                $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
+
+                return json_encode($res);
+
             }
 
             $cart=$this->calculoCart($cart);
@@ -799,7 +1425,7 @@ class PosController extends JoshController
           }else{
             
 
-            $view= View::make('pos.productos', compact('productos'));
+            $view= View::make('pos.productos', compact('productos', 'cart', 'caja'));
 
             $data=$view->render();
 
@@ -812,6 +1438,9 @@ class PosController extends JoshController
 
   }
 
+
+
+  
 
 
     public function addtocart(Request $request)
@@ -839,23 +1468,47 @@ class PosController extends JoshController
 
           if(isset($p->id)){
 
-            if(isset($cart['productos'][$p->id])){
+            if (isset($cart['inventario'][$p->id])) {
+              
 
-              $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+               if(isset($cart['productos'][$p->id])){
 
-              $cart['productos'][$p->id]=$p;
+                  if($cart['productos'][$p->id]>($p->cantidad+1)){
+
+                    $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+
+                    $cart['productos'][$p->id]=$p;
+
+                  }
+
+                  
+
+                }else{
+
+                  $p->cantidad=1;
+
+                  $cart['productos'][$p->id]=$p;
+
+                }
 
             }else{
 
-              $p->cantidad=1;
+              $error="Producto sin inventario";
 
-              $cart['productos'][$p->id]=$p;
+              $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
 
+              return json_encode($res);
             }
+
+           
 
           }else{
 
               $error="No se encontro producto";
+
+              $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
+
+              return json_encode($res);
 
           }
 
@@ -863,7 +1516,14 @@ class PosController extends JoshController
 
         \Session::put('cart', $cart);
 
-        return view('pos.ordenactual', compact('cart'));
+
+        $view= View::make('pos.ordenactual', compact('cart'));
+
+        $data=$view->render();
+
+        $res = array('status' => 'carrito', 'error'=>'0', 'mensaje'=>'Produco agregado al carrito', 'data'=>$data );
+
+        return json_encode($res);
 
   }
 
@@ -999,7 +1659,7 @@ class PosController extends JoshController
         }
 
 
-        \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+        \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
 
         return view('pos.ordenactual', compact('cart'));
 
@@ -1026,7 +1686,7 @@ class PosController extends JoshController
 
 
 
-          \Session::put('cart', ['productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+          \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
 
         $cart= \Session::get('cart');
 
@@ -1073,14 +1733,29 @@ class PosController extends JoshController
         }
 
        # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
-
-
-        $cart= \Session::get('cart');
-
-        $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
-
+       # 
        
-        return view('pos.pagar', compact('cart', 'formaspago'));
+        $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+        if(isset($caja->id)){
+
+          $cart= \Session::get('cart');
+
+          $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+
+         
+          return view('pos.pagar', compact('cart', 'formaspago'));
+
+        }else{
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+            return view('pos.dashboard', compact('caja'));
+        }
+
+
+
+        
 
   }
 
@@ -1103,15 +1778,13 @@ public function addpago(Request $request)
           ->withProperties($request->getContent())->log('PosController/addpago');
         }
 
-       # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
-
-
         $cart= \Session::get('cart');
 
         $cart['pagos'][]=[
           'id'=>$request->id,
           'name'=>$request->name,
           'monto'=>$request->monto,
+          'referencia'=>$request->referencia,
         ];
 
          $cart=$this->calculoCart($cart);
@@ -1214,15 +1887,28 @@ public function addpago(Request $request)
         }
 
         
+        $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
+        if(isset($caja->id)){
+
+        }else{
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+            return view('pos.dashboard', compact('caja'));
+        }
 
         $cart= \Session::get('cart');
+
+        if(!isset($cart['cliente']['id'])){
+          $cart['cliente']['id']='1';
+        }
 
         
         $orden=AlpOrdenes::create([
           'referencia'=>time(),
           'referencia_mp'=>time(),
-          'id_cliente'=>9,
+          'id_cliente'=>$cart['cliente']['id']?$cart['cliente']['id']:1,
           'id_address'=>1,
           'id_forma_envio'=>1,
           'id_forma_pago'=>1,
@@ -1253,7 +1939,8 @@ public function addpago(Request $request)
           'lifemiles_id'=>0, 
           'estatus'=>1,
           'estatus_pago'=>2,
-          'id_user'=>$user->id
+          'id_user'=>$user->id,
+          'id_caja'=>$caja->id,
         ]);
 
 
@@ -1270,6 +1957,17 @@ public function addpago(Request $request)
             'valor_impuesto'=>'0.19',
             'monto_impuesto'=>0,
             'id_combo'=>0,
+            'id_user'=>$user->id
+          ]);
+
+
+          AlpInventario::create([
+            'id_almacen'=>'1',
+            'id_producto'=>$p->id,
+            'cantidad'=>$p->cantidad,
+            'operacion'=>'2',
+            'id_orden'=>$orden->id,
+            'notas'=>'Orden '.$orden->id,
             'id_user'=>$user->id
           ]);
 
@@ -1291,7 +1989,7 @@ public function addpago(Request $request)
         }
 
 
-        \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null]);
+        \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null]);
 
         $cart= \Session::get('cart');
 
@@ -1363,6 +2061,69 @@ public function addpago(Request $request)
       return $cart;
 
   }
+
+private function inventario()
+    {
+
+
+     #  $id_almacen=$this->getAlmacen();
+       $id_almacen='1';
+
+        $entradas = AlpInventario::groupBy('id_producto')
+          ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+          ->join('alp_almacen_producto', 'alp_inventarios.id_producto', '=', 'alp_almacen_producto.id_producto')
+          ->where('alp_inventarios.operacion', '1')
+          ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+          ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+          ->whereNull('alp_almacen_producto.deleted_at')
+          ->groupBy('alp_inventarios.id_almacen')
+              #->whereNull('alp_inventarios.deleted_at')
+          ->get();
+
+
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+              ->groupBy('alp_inventarios.id_almacen')
+              #->whereNull('alp_inventarios.deleted_at')
+              ->get();
+
+
+              foreach ($salidas as $row) {
+
+
+
+                if (isset($inv[$row->id_producto])) {
+
+                  $inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
+
+                }else{
+
+                  $inv[$row->id_producto]=0;
+
+                }
+
+                #$inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+
+    }
+
+
+
+
 
 
 

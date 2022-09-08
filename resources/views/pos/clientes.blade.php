@@ -7,7 +7,7 @@
                             <a  data-id="dashboard" class=" btn btn-primary cajita" href="#"><i class="fa fa-home"></i></a>
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control"  type="text">
+                            <input class="form-control"  type="text" id="terminocliente" name="terminocliente">
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-primary buscarcliente"><i class="fa fa-search"></i></button>
@@ -17,12 +17,20 @@
                   
                 </div>
 
+                 <div class="col-sm-12 reserror"> 
+
+         @if(!isset($caja->id))
+            <div class="alert alert-danger mt-2"> Debe abrir caja para poder procesar una compra </div>
+        @endif
+
+    </div>
+
                 <div class="col-sm-12">
                     
 
                     @foreach($clientes as $c)
 
-                    <div class="row cajasombra mt-2 @if($loop->index%2==0) odd @endif">
+                    <div data-json="{{json_encode($c)}}" class="row cajasombra cliente mt-2 @if($loop->index%2==0) odd @endif">
                         <div class="col-sm-5">
                             <p style="margin: 0">{{$c->first_name.' '.$c->last_name}}</p>
                         </div>

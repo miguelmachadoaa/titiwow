@@ -56,6 +56,7 @@ class AlpOrdenes extends Model
         'lifemiles_id', 
         'estatus',
         'estatus_pago',
+        'id_caja',
         'id_user'
     ];
 

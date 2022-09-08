@@ -13,9 +13,17 @@ Route::get('pos/pedidos', 'PosController@pedidos')->name('pedidos');
 Route::get('pos/transacciones', 'PosController@transacciones')->name('transacciones');
 Route::get('pos/reportes', 'PosController@reportes')->name('reportes');
 Route::get('pos/categorias', 'PosController@categorias')->name('categorias');
+Route::post('pos/detallecategoria', 'PosController@detallecategoria')->name('detallecategoria');
 Route::get('pos/productos', 'PosController@productos')->name('productos');
 Route::get('pos/clientes', 'PosController@clientes')->name('clientes');
 Route::get('pos/opciones', 'PosController@opciones')->name('opciones');
+Route::get('pos/caja', 'PosController@caja')->name('caja');
+Route::get('pos/addcaja', 'PosController@addcaja')->name('addcaja');
+Route::post('pos/postcaja', 'PosController@postcaja')->name('postcaja');
+Route::post('pos/detallecaja', 'PosController@detallecaja')->name('detallecaja');
+Route::post('pos/cerrarcaja', 'PosController@cerrarcaja')->name('cerrarcaja');
+Route::post('pos/updatecaja', 'PosController@updatecaja')->name('updatecaja');
+
 
 Route::get('pos/addcliente', 'PosController@addcliente')->name('addcliente');
 Route::post('pos/addcliente', 'PosController@postcliente')->name('postcliente');

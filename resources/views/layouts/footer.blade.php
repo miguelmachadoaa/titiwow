@@ -1,3 +1,4 @@
+
 @if ($configuracion->popup==1)
 
     <div class="modal fade" id="EdadModal" role="dialog" aria-labelledby="modalLabeldanger" style="margin-top: 10%">
