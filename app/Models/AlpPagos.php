@@ -24,6 +24,8 @@ class AlpPagos extends Model
         'id_estatus_pago',
         'monto_pago',
         'json',
+        'ticket',
+        'referencia',
         'estado_registro',
         'id_user'
     ];

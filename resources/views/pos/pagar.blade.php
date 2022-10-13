@@ -1,6 +1,5 @@
 <div class="row">
 
-
             <div  class="row m-0">
 
                 <div class="col-sm-12 " style="margin-top: 1em;">
@@ -17,7 +16,13 @@
 
                                 <button data-id="{{$fp->id}}" data-name="{{$fp->nombre_forma_pago}}" class="btn btn-primary w-100 my-2 setpago">{{$fp->nombre_forma_pago}}</button>
 
-                            @endforeach                           
+                            @endforeach     
+
+                            <button data-id="999" data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef ">Sitef</button>    
+
+
+
+                                         
 
                         </div>
 
@@ -46,10 +51,11 @@
                                     <h5 class="datapago">Seleccione Forma de Pago</h5>
                                     <input type="hidden" id="id_forma_pago" name="id_forma_pago" value="0">
                                     <input type="hidden" id="nombre_forma_pago" name="nombre_forma_pago" value="0">
+                                    <input type="hidden" id="ticket" name="ticket" value="0">
                                 </div>
                                 
                                 <div class="col-sm-12 my-2">
-                                    <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{$cart['total']-$cart['pagado']}}">
+                                    <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{($cart['total']*8)-$cart['pagado']}}">
                                 </div>
 
                                 <div class="col-sm-12 my-2">
@@ -66,13 +72,10 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div id="res"></div>
+                                    <div id="res" style="width: 100%;"></div>
                                 </div>
                             </div>
                            
-
-
-
                             @endif
 
                             
@@ -113,8 +116,22 @@
                         </div>
                        
                     </div>
+
+
+                     <div class="row">
+                                
+
+                        <div class="resSitef" style="width: 100%;">
+                            
+                        </div>
+
+                    </div> 
                   
                 </div>
 
                
             </div>
+
+
+
+<input type="hidden" id="referencia" name="referencia" value="{{$cart['referencia']}}">

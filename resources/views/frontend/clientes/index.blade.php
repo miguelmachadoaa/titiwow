@@ -13,6 +13,20 @@ Punto de Venta
   <link rel="canonical" href="{{secure_url('clientes')}}" />
 
     <style type="text/css">
+
+        .btn-medium-100 {
+            min-height: 120px;
+            line-height: 60px;
+            min-width: 100% !important;
+            margin-bottom: 1em;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: #fff !important;
+            box-shadow: 2px 2px 2px #ddd;
+            padding: 0em 1em;
+        }
+
+
         
         .btn-medium {
             height: 120px;
@@ -95,6 +109,7 @@ Punto de Venta
 
 <input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
 
+
   
 @endsection
 
@@ -116,7 +131,6 @@ Punto de Venta
     $(document).ready(function(){
 
     $(".audio")[0].play();
-
 
         $('#barcode').focus();
 
@@ -199,9 +213,6 @@ Punto de Venta
                     }
 
                 });
-
-
-
           
         }
       });
@@ -655,6 +666,7 @@ Punto de Venta
              name=$('#nombre_forma_pago').val();
              monto=$('#monto_pago').val();
              referencia=$('#referencia').val();
+             ticket=$('#ticket').val();
 
              if(id==0){
 
@@ -665,7 +677,7 @@ Punto de Venta
 
                 $.ajax({
                     type: "POST",
-                    data:{id, name, monto, referencia},
+                    data:{id, name, monto, referencia, ticket},
                     url: base+"/pos/addpago",
                         
                     complete: function(datos){     
@@ -834,5 +846,271 @@ Punto de Venta
 
     });
 </script>
+
+
+
+
+
+
+
+<script>
+
+
+            j = getSitef('http://localhost:5000',$);
+            
+            a = getSitef('http://localhost:5000', axios);
+
+            j.on('statusMessage', (data) => {
+
+                
+                $('.resSitef').html('<div class="btn-medium-100">'+data+'</div>');
+
+
+                console.info('datos statusMessage:',data)
+
+            })
+            j.on('transactionCompleted', (data) => {
+
+                console.info('datos transactionCompleted:',data);
+
+                console.log(data.responseValues[122]);
+
+                $('.resSitef').html('<div class="btn-medium-100">'+data.responseValues[122]+'</div>');
+
+
+              //  $('.resSitef').html(data.responseValues[122]);
+
+                $('#referencia').val(data.responseValues[134]);
+
+                $('#ticket').val(data.responseValues[122]);
+
+                referencia=$('#referencia').val();
+
+                console.info('datos referencia:'+referencia);
+
+                 j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
+
+                 $( ".addpago" ).trigger( "click" );
+
+            })
+            j.on('transactionError', (data) => {
+
+                $('.resSitef').html(data);
+
+                j.finalizarTransaccion({confirmationFlag:1});
+
+                console.info('datos transactionError:', data)
+            })
+            j.on('transactionCanceled', (data) => {
+
+                 $('.resSitef').html(data);
+
+                 j.finalizarTransaccion({confirmationFlag:1});
+
+                console.info('datos transactionCanceled:', data)
+            })
+            j.on('confirm', (data,resolver) => {
+
+                console.log('confirmar');
+
+                console.log(data);
+
+                $('.resSitef').html(data);
+
+                if(data='DEBE COLECTAR MONTO DEL CAMBIO'){
+
+                    resolver('1')
+
+                }else if('INTRODUZCA EL CODIGO DE SUPERVISOR'){
+
+                    resolver('1')
+                
+                }else{
+
+                    //$('.resSitef').html('<div class="btn-medium-100">'+data+'</div>');
+
+                    const ret = window.confirm(data)
+
+                    resolver(ret?'0':'1')
+
+                }
+
+                
+            })
+            j.on('prompt', (data, resolver) => {
+
+                console.log('prompt');
+
+                console.log(data);
+
+
+                 res='';
+
+                res=res+'<h3 class="mt-2">'+data+'</h3>  <input type="number" class="form-control mb-2" placeholder="'+data+'" name="promtdata" id="promtdata">  <button class="btn btn-primary promtbtn mb-2 mt-2" >Enviar</button>';
+
+                 //$('.resSitef').html(res);
+
+                 $('.resSitef').html('<div class="btn-medium-100">'+res+'</div>');
+
+
+                 $(document).on('click', '.promtbtn', function(){
+
+                    resolver(String($('#promtdata').val()));
+
+                 })
+
+
+               // const ret = window.prompt(data)
+
+            })
+            j.on('alert', (data, resolver) => {
+
+                console.log('alert');
+
+                console.log(data);
+
+                 $('.resSitef').html(data);
+
+                 if(data=='TRANS PENDIENTE'){
+                    
+                    res='<button class="btn btn-primary m-1 finalizar" >Finalizar Transaccion Pendiente</button>';
+
+                     $('.resSitef').html(res);
+
+                     referencia=$('#referencia').val();
+
+                     j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
+
+                 }
+
+                window.alert(data);
+
+
+                resolver(1)
+            })
+            j.on('select', (data, resolver) => {
+
+                console.log('select');
+
+                console.log(data);
+
+                    res='';
+
+                    res=res+'<h3>'+data.title+'</h3>';
+
+
+                    for(let i=0; i< data.items.length; i++){
+
+                        if(data.items[i].text=='CHEQUE'){
+
+                        }else if(data.items[i].text=='CONFIRMACION DE PRE-AUTORIZACION'){
+                        }else if(data.items[i].text=='PRE-AUTORIZACION'){
+                        }else if(data.items[i].text=='REGISTRO DE PROPINA'){
+                        }else if(data.items[i].text=='DEVOLUCION - PLATCO'){
+                        }else if(data.items[i].text=='ESPECIAL'){
+                        }else if(data.items[i].text=='LEALTAD'){
+                        }else if(data.items[i].text=='OTRA CUENTA'){
+                        }else if(data.items[i].text=='Carga forcada de tabelas no pinpad (Servidor)'){
+
+                        }else if(data.items[i].text=='VISTA'){
+
+                            resolver('1');
+
+                        }else{
+
+                            if (data.items[i].text=='AHORRO') {
+
+                                res=res+'<button class="btn btn-primary m-1 esperadata " data-id="'+data.items[i].value+'"> CUENTA AHORRO </button>';
+
+                           
+                            }else{
+
+                                res=res+'<button class="btn btn-primary m-1 esperadata" data-id="'+data.items[i].value+'">'+data.items[i].text+'</button>';
+                            }
+
+                            
+
+                        }
+                        
+                    }
+
+
+                    //$('.resSitef').html(res);
+
+                     $('.resSitef').html('<div class="btn-medium-100 p-2">'+res+'</div>');
+
+                $(document).on('click', '.esperadata', function(){
+
+                    if($(this).hasClass('btncuenta')){
+                        $('#id_forma_pago').val($(this).data('id'));
+                        $('#id_forma_pago').val($(this).text());
+                    }
+
+                    resolver(String($(this).data('id')));
+
+                });
+
+
+               // const ret = window.prompt(data.title+':'+JSON.stringify(data.items));
+               // resolver(ret);
+                
+            })
+
+
+            $(document).on('click','.pagarSitef',  function(){
+
+                monto=parseFloat($('#monto_pago').val());
+
+                referencia=$('#referencia').val();
+
+                console.log('referencia :'+referencia);
+
+                j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
+
+                j.iniciarPago({saleInvoice:referencia,value:monto,operator:'test'});
+
+            });
+
+
+            $(document).on('click','.cancelarOrden',  function(){
+
+                monto=parseFloat($('#monto_pago').val());
+
+                referencia=$('#referencia').val();
+
+                console.log('referencia :'+referencia);
+                
+                j.anularTransaccion({saleInvoice:referencia, invoiceDate:'20220922',confirmationFlag:1});
+
+            })
+
+
+            $(document).on('click','.finalizar',  function(){
+
+                monto=parseFloat($('#monto_pago').val());
+                
+                referencia=$('#referencia').val();
+
+                console.log('referencia :'+referencia);
+                
+                j.finalizarTransaccion({confirmationFlag:1})
+
+            })
+
+
+            $(document).on('click','.mostrarMenu',  function(){
+
+                j.menu({saleInvoice:'07',value:1.90,operator:'test'});
+
+            })
+
+
+            $(document).on('click','.verificarPinPad',  function(){
+
+                j.verificarPinPad();
+
+            })
+
+        </script>
   
 @stop

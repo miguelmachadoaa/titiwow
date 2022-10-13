@@ -147,7 +147,7 @@ class PosController extends JoshController
 
           $inv=$this->inventario();
 
-          \Session::put('cart', ['inventario'=>$inv,'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+          \Session::put('cart', ['inventario'=>$inv,'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'referencia'=>time()]);
 
         }
 
@@ -1659,7 +1659,7 @@ class PosController extends JoshController
         }
 
 
-        \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+        \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'referencia'=>time()]);
 
         return view('pos.ordenactual', compact('cart'));
 
@@ -1686,7 +1686,7 @@ class PosController extends JoshController
 
 
 
-          \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
+          \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[],'pagos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'referencia'=>time()]);
 
         $cart= \Session::get('cart');
 
@@ -1737,6 +1737,8 @@ class PosController extends JoshController
        
         $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
+         $cart= \Session::get('cart');
+
         if(isset($caja->id)){
 
           $cart= \Session::get('cart');
@@ -1744,7 +1746,7 @@ class PosController extends JoshController
           $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
 
          
-          return view('pos.pagar', compact('cart', 'formaspago'));
+          return view('pos.pagar', compact('cart', 'formaspago', 'cart'));
 
         }else{
 
@@ -1785,6 +1787,7 @@ public function addpago(Request $request)
           'name'=>$request->name,
           'monto'=>$request->monto,
           'referencia'=>$request->referencia,
+          'ticket'=>$request->ticket,
         ];
 
          $cart=$this->calculoCart($cart);
@@ -1906,8 +1909,8 @@ public function addpago(Request $request)
 
         
         $orden=AlpOrdenes::create([
-          'referencia'=>time(),
-          'referencia_mp'=>time(),
+          'referencia'=>$cart['referencia'],
+          'referencia_mp'=>$cart['referencia'],
           'id_cliente'=>$cart['cliente']['id']?$cart['cliente']['id']:1,
           'id_address'=>1,
           'id_forma_envio'=>1,
@@ -1981,6 +1984,8 @@ public function addpago(Request $request)
             'id_forma_pago'=>$pago['id'],
             'id_estatus_pago'=>'2',
             'monto_pago'=>$pago['monto'],
+            'referencia'=>$pago['referencia'],
+            'ticket'=>$pago['ticket'],
             'json'=>json_encode($cart['pagos']),
             'estado_registro'=>'1',
             'id_user'=>$user->id
@@ -1989,7 +1994,7 @@ public function addpago(Request $request)
         }
 
 
-        \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null]);
+        \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null, 'referencia'=>time()]);
 
         $cart= \Session::get('cart');
 
@@ -2121,6 +2126,53 @@ private function inventario()
 
     }
 
+
+
+   public function puntodeventa(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/puntodeventa ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/puntodeventa');
+        }
+
+
+        if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+          $view= View::make('pos.puntodeventa', compact('caja'));
+
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
+
+
+        }else{
+
+
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+      
+
+  }
 
 
 

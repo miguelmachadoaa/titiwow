@@ -99,6 +99,19 @@
 
                             </div>  
 
+
+                              <div class="col-sm-6"> 
+
+                                <p class="m-0"> <b> Total Bs.: </b></p>
+
+                            </div> 
+
+                            <div class="col-sm-6 text-right">  
+
+                                    <p class="m-0"> {{number_format($cart['total']*8,2)}}</p>
+
+                            </div>  
+
                         </div> 
 
 

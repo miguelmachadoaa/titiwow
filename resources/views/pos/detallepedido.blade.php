@@ -25,6 +25,8 @@
 
                             <div class="cajasombra">
 
+                            <h3><input type="hidden" id="referencia" name="referencia" value="{{$orden->referencia}}">Referencia: {{$orden->referencia}}</h3>
+
                         <div class="col-sm-12"><h5>Vendedor</h5></div>
 
                                 
@@ -122,7 +124,15 @@
                 </div>
 
 
+
+
                  <div class="col-sm-12 mt-2">
+
+                     <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <div class="resSitef"></div>
+                        </div>
+                    </div>
                     
                     <div class="row">
                         
@@ -174,12 +184,19 @@
                                 <div class="col-sm-6">{{$orden->monto_total}}</div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-sm-6"><button class="btn btn-danger cancelarOrden">Cancelar Orden</button></div>
+                                <div class="col-sm-6"><button class="btn btn-success">Reimprimir</button></div>
+                            </div>
+
                             </div>
 
                             
                         </div>
 
                     </div>
+
+                   
                 </div>
 
 
