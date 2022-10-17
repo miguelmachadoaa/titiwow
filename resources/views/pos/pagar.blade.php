@@ -18,7 +18,7 @@
 
                             @endforeach     
 
-                            <button data-id="999" data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef ">Sitef</button>    
+                            <button data-id="999" data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef setpago ">Sitef</button>    
 
 
 
@@ -131,7 +131,5 @@
 
                
             </div>
-
-
 
 <input type="hidden" id="referencia" name="referencia" value="{{$cart['referencia']}}">

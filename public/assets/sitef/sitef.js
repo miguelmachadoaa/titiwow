@@ -79,7 +79,7 @@ function getSitef(host, ajaxLib) {
 			res = await ajax.get(`${host}/api/verificarPinPad`);
 			ret = res.data;
 			//
-			emit("statusMessage", { ret, status: ret == 1 ? 'PinPad Ok' : 'PinPad No Ok' })
+			emit("MessageVerificar", { ret, status: ret == 1 ? 'PinPad Ok' : 'PinPad No Ok' })
 			return ret
 	    
 

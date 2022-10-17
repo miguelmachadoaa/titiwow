@@ -402,9 +402,17 @@ class PosController extends JoshController
         }
 
       
+         $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+          $view= View::make('pos.addcaja', compact('caja'));
 
 
-    return view('pos.addcaja');
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
+
 
   }
 
@@ -1277,24 +1285,31 @@ class PosController extends JoshController
           
         $cart= \Session::get('cart');
 
-        $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+        if (isset($cart['inventario'])) {
+          // code...
+        }else{
 
-        
+          $cart['inventario']=$this->inventario();
+
+          \Session::put('cart', $cart);
+        }
+
+        $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
 
         if (isset($user->id)) {
 
            if (isset($caja->id)) {
 
-            $productos=AlpProductos::where('estado_registro', '1')->get();
+              $productos=AlpProductos::where('estado_registro', '1')->get();
 
-            $view= View::make('pos.productos', compact('caja','productos', 'cart'));
+              $view= View::make('pos.productos', compact('caja','productos', 'cart'));
 
-            $data=$view->render();
+              $data=$view->render();
 
-            $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
 
-            return json_encode($res);
+              return json_encode($res);
 
 
               
@@ -1463,6 +1478,19 @@ class PosController extends JoshController
 
 
           $cart= \Session::get('cart');
+
+           if (isset($cart['inventario'])) {
+          // code...
+        }else{
+
+          $cart['inventario']=$this->inventario();
+
+          \Session::put('cart', $cart);
+        }
+
+
+
+
 
           $p=AlpProductos::where('id', $request->id)->first();
 
@@ -1742,6 +1770,14 @@ class PosController extends JoshController
         if(isset($caja->id)){
 
           $cart= \Session::get('cart');
+
+          if (isset($cart['referencia'])) {
+            // code...
+          }else{
+            $cart['referencia']=time();
+            \Session::put('cart', $cart);
+
+          }
 
           $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
 

@@ -30,42 +30,39 @@
                 <div class="col-sm-12"> 
                     <div class="row" style="padding: 1em;">   
 
-
                          @foreach($productos as $p)
 
-                         @if($p->precio_base>0)
+                            @if($p->precio_base>0)
 
-                            @if(isset($cart['inventario'][$p->id]))
+                                @if(isset($cart['inventario'][$p->id]))
 
-                            <div class="col-sm-4 ">   
+                                <div class="col-sm-4 ">   
 
-                                <div class="row producto" data-id="{{$p->id}}">   
+                                    <div class="row producto" data-id="{{$p->id}}">   
 
-                                    <div class="col-sm-4 p-0" > 
+                                        <div class="col-sm-4 p-0" > 
 
-                                        <img style="width: 100%" src="{{url('uploads/productos/'.$p->imagen_producto)}}" alt="">
+                                            <img style="width: 100%" src="{{url('uploads/productos/'.$p->imagen_producto)}}" alt="">
 
-                                        <span class="existencia">  {{$cart['inventario'][$p->id]}}</span>
+                                            <span class="existencia">  {{$cart['inventario'][$p->id]}}</span>
 
-                                     </div>
-                                    <div class="col-sm-8">
-                                        <p> {{$p->nombre_producto}}</p>
-                                        <p> {{$p->referencia_producto}}</p>
-                                        <h5 class="precio"> {{$p->precio_base}} </h5>
-                                    </div>
+                                         </div>
+                                        <div class="col-sm-8">
+                                            <p> {{$p->nombre_producto}}</p>
+                                            <p> {{$p->referencia_producto}}</p>
+                                            <h5 class="precio"> {{$p->precio_base}} </h5>
+                                        </div>
 
+                                    </div>  
 
-                                </div>  
-
-
-                           </div>   
+                               </div>   
 
 
-                           @endif
+                            @endif
 
 
 
-                        @endif
+                            @endif
                         @endforeach
 
                     </div>

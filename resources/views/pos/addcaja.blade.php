@@ -31,16 +31,14 @@
                               
 
                               <div class="form-group">
-                                <label for="precio">Base Inicial </label>
+                                <label for="precio">Monto Base Inicial </label>
                                 <input type="text" class="form-control" id="baseinicial" name="baseinicial" placeholder="Base Inicial">
                               </div>
 
                             <div class="form-group">
-                                <label for="precio">Base Inicial </label>
+                                <label for="precio">Observacion </label>
                                 <textarea class="form-control" id="observacion" name="observacion"></textarea>
                               </div>
-
-
 
 
                               <div class="form-group">

@@ -860,6 +860,16 @@ Punto de Venta
             
             a = getSitef('http://localhost:5000', axios);
 
+            j.on('MessageVerificar', (data) => {
+
+                
+                $('.resSitef').html('<div class="btn-medium-100">'+data.status+'</div>');
+
+
+                console.info('datos MessageVerificar:',data.status)
+
+            })
+
             j.on('statusMessage', (data) => {
 
                 
@@ -869,6 +879,7 @@ Punto de Venta
                 console.info('datos statusMessage:',data)
 
             })
+
             j.on('transactionCompleted', (data) => {
 
                 console.info('datos transactionCompleted:',data);
