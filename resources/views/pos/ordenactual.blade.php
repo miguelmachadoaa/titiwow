@@ -2,7 +2,7 @@
 
              
 
-            <div class="row m-0 p-0" style="height: 25em; overflow: auto;">   
+            <div class="row m-0 p-0" style="height: 70vh; overflow: auto;">   
 
                 <div class="col-sm-12"> 
 
@@ -107,8 +107,15 @@
                             </div> 
 
                             <div class="col-sm-6 text-right">  
-
-                                    <p class="m-0"> {{number_format($cart['total']*8,2)}}</p>
+                                    @if(isset($cart['total_bs']))
+                                    <p class="m-0">
+                                     {{number_format($cart['total_bs'],2)}}
+                                    </p>
+                                    @else
+                                    <p class="m-0">
+                                     {{number_format(0)}}
+                                    </p>
+                                    @endif
 
                             </div>  
 

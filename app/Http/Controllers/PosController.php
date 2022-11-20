@@ -83,6 +83,8 @@ use App\Models\AlpFormaspago;
 use App\Models\AlpPagos;
 use App\Models\AlpCajas;
 
+use App\Models\AlpTransacciones;
+
 
 use App\User;
 
@@ -346,8 +348,6 @@ class PosController extends JoshController
 
           $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
-           if (isset($caja->id)) {
-
               $cajas = AlpCajas::where('id_user', $user->id)->with('cajero')->orderBy('id', 'desc')->get();
 
 
@@ -359,16 +359,7 @@ class PosController extends JoshController
 
               return json_encode($res);
               
-            }else{
-
-                $view= View::make('pos.dashboard', compact('caja'));
-
-                $data=$view->render();
-
-                $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
-
-                return json_encode($res);
-            }
+            
 
         }else{
 
@@ -1490,24 +1481,23 @@ class PosController extends JoshController
 
 
 
-
-
           $p=AlpProductos::where('id', $request->id)->first();
 
           if(isset($p->id)){
 
             if (isset($cart['inventario'][$p->id])) {
-              
+
+            if (isset($cart['inventario'][$p->id])>0) {
 
                if(isset($cart['productos'][$p->id])){
 
-                  if($cart['productos'][$p->id]>($p->cantidad+1)){
+                  //if($cart['productos'][$p->id]>($p->cantidad+1)){
 
                     $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
 
                     $cart['productos'][$p->id]=$p;
 
-                  }
+                 // }
 
                   
 
@@ -1518,6 +1508,15 @@ class PosController extends JoshController
                   $cart['productos'][$p->id]=$p;
 
                 }
+
+              }else{
+
+                $error="Producto sin inventario";
+
+                $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
+
+                return json_encode($res);
+              }
 
             }else{
 
@@ -1767,6 +1766,8 @@ class PosController extends JoshController
 
          $cart= \Session::get('cart');
 
+         #dd($cart);
+
         if(isset($caja->id)){
 
           $cart= \Session::get('cart');
@@ -1943,6 +1944,16 @@ public function addpago(Request $request)
           $cart['cliente']['id']='1';
         }
 
+        $configuracion= AlpConfiguracion::first();
+
+        $ticket='';
+        $ticket = $ticket.' '.$configuracion->nombre_tienda.'/n';
+        $ticket = $ticket.' '.$configuracion->nombre_tienda.'/n';
+        $ticket = $ticket.' Fecha '.now().'/n';
+
+
+        #dd($cart);
+
         
         $orden=AlpOrdenes::create([
           'referencia'=>$cart['referencia'],
@@ -1982,6 +1993,9 @@ public function addpago(Request $request)
           'id_caja'=>$caja->id,
         ]);
 
+        $ticket = $ticket.' id '.$orden->id.'/n';
+        $ticket = $ticket.' cantidad   descripcion  precio  total /n';
+
 
         foreach($cart['productos'] as $p){
 
@@ -2010,7 +2024,14 @@ public function addpago(Request $request)
             'id_user'=>$user->id
           ]);
 
+          $ticket = $ticket.$p->cantidad.' /n';
+          $ticket = $ticket.$p->nombre_producto.' /n';
+          $ticket = $ticket.$p->precio_base.' /n';
+          $ticket = $ticket.$p->cantidad*$p->precio_base.' /n';
+
         }
+
+        $total_pagos=0;
 
 
         foreach($cart['pagos'] as $pago){
@@ -2027,7 +2048,46 @@ public function addpago(Request $request)
             'id_user'=>$user->id
           ]);
 
+          AlpTransacciones::create([
+            'id_orden'=>$orden->id,
+            'referencia'=>$pago['referencia'],
+            'monto_bs'=>$pago['monto'],
+            'monto_usd'=>0,
+            'id_forma_pago'=>$pago['id'],
+            'tipo'=>'1',
+            'moneda'=>'1',
+            'estado_registro'=>'1',
+            'id_user'=>$user->id
+          ]);
+
+          $total_pagos=$total_pagos+$pago['monto'];
+
         }
+
+        if($total_pagos>$cart['total']){
+
+            $dif=$total_pagos-$cart['total'];
+
+            AlpTransacciones::create([
+              'id_orden'=>$orden->id,
+              'referencia'=>'vuelto',
+              'monto_bs'=>$dif,
+              'monto_usd'=>0,
+              'id_forma_pago'=>1,
+              'tipo'=>'2',
+              'moneda'=>'1',
+              'estado_registro'=>'1',
+              'id_user'=>$user->id
+            ]);
+
+        }
+
+        $ticket = $ticket.'Total: '.$cart['total'].' /n';
+        $ticket = $ticket.'Base: '.$cart['base'].' /n';
+        $ticket = $ticket.'Impuesto:  '.$cart['impuesto'].' /n';
+
+
+        $orden->update(['notas'=>$ticket]);
 
 
         \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null, 'referencia'=>time()]);
@@ -2051,7 +2111,12 @@ public function addpago(Request $request)
       $base=0;
       $impuesto=0;
       $descuento=0;
-      $pagado=0;
+      $pagado_bs=0;
+      $pagado_usd=0;
+      $bs=0;
+      $usd=0;
+
+      $configuracion=AlpConfiguracion::first();
 
       if(isset($cart['productos'])){
 
@@ -2083,19 +2148,20 @@ public function addpago(Request $request)
 
           foreach ($cart['pagos'] as $pago) {
 
-          #  dd($pago['monto']);
+              $pagado_bs=$pagado_bs+$pago['monto'];
 
-              $pagado=$pagado+$pago['monto'];
-
+              $pagado_usd=$pagado_usd+$pago['monto'];
           }
 
       }
 
       $cart['total']=number_format($total,2);
+      $cart['total_bs']=number_format($total*$configuracion->tasa_dolar,2);
       $cart['base']=number_format($base,2);
       $cart['impuesto']=number_format($impuesto,2);
-      $cart['pagado']=number_format($pagado,2);
-      $cart['resto']=number_format($total-$pagado,2);
+      $cart['pagado_bs']=number_format($pagado_bs,2);
+      $cart['pagado_usd']=number_format($pagado_usd,2);
+      $cart['resto']=number_format($total-$pagado_bs,2);
       $cart['descuento']=number_format($descuento,2);
 
 

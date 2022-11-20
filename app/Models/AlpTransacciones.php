@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpFormaspago extends Model
+class AlpTransacciones extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_formas_pagos';
+    public $table = 'alp_transacciones';
     
 
     protected $dates = ['deleted_at'];
@@ -19,9 +19,11 @@ class AlpFormaspago extends Model
 
     public $fillable = [
         'id',
-        'nombre_forma_pago',
-        'descripcion_forma_pago',
-        'orden',
+        'id_orden',
+        'referencia',
+        'monto',
+        'id_forma_pago',
+        'tipo',
         'moneda',
         'estado_registro',
         'id_user'
@@ -33,7 +35,7 @@ class AlpFormaspago extends Model
      * @var array
      */
     protected $casts = [
-        'nombre_forma_pago' => 'string'
+        'id_orden' => 'string'
     ];
 
     /**
@@ -42,6 +44,12 @@ class AlpFormaspago extends Model
      * @var array
      */
     public static $rules = [
-        'nombre_forma_pago' => 'required'
+        'id_orden' => 'required'
     ];
+
+
+    public function formapago()
+    {
+        return $this->hasOne('App\Models\AlpFormaspago', 'id', 'id_forma_pago');
+    }
 }

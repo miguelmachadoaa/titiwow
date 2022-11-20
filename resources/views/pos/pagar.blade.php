@@ -14,11 +14,11 @@
 
                             @foreach($formaspago as $fp)
 
-                                <button data-id="{{$fp->id}}" data-name="{{$fp->nombre_forma_pago}}" class="btn btn-primary w-100 my-2 setpago">{{$fp->nombre_forma_pago}}</button>
+                                <button data-moneda="{{$fp->moneda}}" data-id="{{$fp->id}}" data-name="{{$fp->nombre_forma_pago}}" class="btn btn-primary w-100 my-2 setpago">{{$fp->nombre_forma_pago}}</button>
 
                             @endforeach     
 
-                            <button data-id="999" data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef setpago ">Sitef</button>    
+                            <button data-id="999" data-moneda='1' data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef setpago ">Sitef</button>    
 
 
 
@@ -55,7 +55,7 @@
                                 </div>
                                 
                                 <div class="col-sm-12 my-2">
-                                    <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{($cart['total']*8)-$cart['pagado']}}">
+                                    <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{($cart['total_bs'])-$cart['pagado_bs']}}">
                                 </div>
 
                                 <div class="col-sm-12 my-2">

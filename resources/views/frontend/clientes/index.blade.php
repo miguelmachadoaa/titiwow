@@ -88,7 +88,7 @@ Punto de Venta
 
         </div>
 
-        <div class="col-sm-8 panelprincipal" style="height: 38em; overflow: auto;">
+        <div class="col-sm-8 panelprincipal" style="height: 90vh; overflow: auto;">
 
             
             @include('pos.dashboard')
@@ -104,6 +104,26 @@ Punto de Venta
 
     </div>
     
+</div>
+
+<div class="modal pt" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Transaccion Completada</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bodypt">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary printpt" data-dismiss="modal">Imprimir</button>
+        <button type="button" class="btn btn-danger closept" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -328,6 +348,9 @@ Punto de Venta
                     dataType: 'JSON',
                         
                     complete: function(datos){     
+
+                        console.log(datos);
+                        console.log(datos.responseJSON.status);
 
                         if(datos.responseJSON.status=='dashboard'){
 
@@ -638,6 +661,8 @@ Punto de Venta
                     complete: function(datos){     
 
                         $('.panelprincipal').html((datos.responseText));
+
+                        j.verificarPinPad();
                     }
 
                 });
@@ -855,6 +880,16 @@ Punto de Venta
 
 <script>
 
+        function deshabilitar(){
+            $('.pagarSitef').fadeOut();
+
+            timeout = setTimeout(habilitar, 5000);
+        }
+
+        function habilitar(){
+            $('.pagarSitef').fadeIn();
+        }
+
 
             j = getSitef('http://localhost:5000',$);
             
@@ -872,11 +907,22 @@ Punto de Venta
 
             j.on('statusMessage', (data) => {
 
+                res='<br><button class="btn btn-primary m-1 finalizar" >Finalizar Transaccion</button>';
+
+                if(data=='DESLICE / INSERTE TARJETA EN LECTORA'){
+
+                     $('.resSitef').html('<div class="btn-medium-100">INSERTE TARJETA EN LA LECTORA'+res+'</div>');
+
+                }else{
+
+                     $('.resSitef').html('<div class="btn-medium-100">'+data+'</div>');
+                }
+
                 
                 $('.resSitef').html('<div class="btn-medium-100">'+data+'</div>');
 
 
-                console.info('datos statusMessage:',data)
+                console.info('datos statusMessage:',data);
 
             })
 
@@ -888,37 +934,41 @@ Punto de Venta
 
                 $('.resSitef').html('<div class="btn-medium-100">'+data.responseValues[122]+'</div>');
 
+                $('.bodypt').html('<div class="btn-medium-100">'+data.responseValues[122]+'</div>');
 
-              //  $('.resSitef').html(data.responseValues[122]);
+                $('.pt').modal('show');
 
                 $('#referencia').val(data.responseValues[134]);
 
                 $('#ticket').val(data.responseValues[122]);
 
                 referencia=$('#referencia').val();
+                monto_pago=$('#monto_pago').val();
 
                 console.info('datos referencia:'+referencia);
 
-                 j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
+                 j.finalizarTransaccion({saleInvoice: monto_pago, confirmationFlag:1});
 
-                 $( ".addpago" ).trigger( "click" );
+                 j.finalizarTransaccion({confirmationFlag:1});
+
+                 //$( ".addpago" ).trigger( "click" );
 
             })
             j.on('transactionError', (data) => {
 
-                $('.resSitef').html(data);
+                res='<br><button class="btn btn-primary m-1 finalizar" >Finalizar Transaccion</button>';
+                $('.resSitef').html('<div class="btn-medium-100"> Ha ocurrido un Error en la Transaccion. Por Favor Intente Nuevamente. Si el problema persiste comuniquese con el administrador del Sistema.'+data+res+'</div>');  
 
-                j.finalizarTransaccion({confirmationFlag:1});
+               
 
-                console.info('datos transactionError:', data)
+                console.info('datos transactionError:', data);
             })
             j.on('transactionCanceled', (data) => {
 
                  $('.resSitef').html(data);
 
-                 j.finalizarTransaccion({confirmationFlag:1});
-
                 console.info('datos transactionCanceled:', data)
+
             })
             j.on('confirm', (data,resolver) => {
 
@@ -928,7 +978,7 @@ Punto de Venta
 
                 $('.resSitef').html(data);
 
-                if(data='DEBE COLECTAR MONTO DEL CAMBIO'){
+                /*if(data='DEBE COLECTAR MONTO DEL CAMBIO'){
 
                     resolver('1')
 
@@ -938,13 +988,18 @@ Punto de Venta
                 
                 }else{
 
-                    //$('.resSitef').html('<div class="btn-medium-100">'+data+'</div>');
+                    $('.resSitef').html('<div class="btn-medium-100">'+data+'</div>');
 
-                    const ret = window.confirm(data)
+                    const ret = window.confirm(data);
 
-                    resolver(ret?'0':'1')
+                    resolver(ret?'0':'1');
 
-                }
+                }*/
+
+
+                 const ret = window.confirm(data);
+
+                    resolver(ret?'0':'1');
 
                 
             })
@@ -954,14 +1009,27 @@ Punto de Venta
 
                 console.log(data);
 
+                if(data=='INTRODUZCA EL NUMERO DE LA CEDULA DE INDENTIDAD'){
+                    data='INTRODUZCA EL NUMERO DE LA CEDULA DE IDENTIDAD';
+                }
 
-                 res='';
+                if(data=='INTRODUZCA EL CODIGO DE SUPERVISOR'){
 
-                res=res+'<h3 class="mt-2">'+data+'</h3>  <input type="number" class="form-control mb-2" placeholder="'+data+'" name="promtdata" id="promtdata">  <button class="btn btn-primary promtbtn mb-2 mt-2" >Enviar</button>';
+                    resolver('1');
 
-                 //$('.resSitef').html(res);
+                }else{
 
-                 $('.resSitef').html('<div class="btn-medium-100">'+res+'</div>');
+
+
+                    res='';
+
+                    res=res+'<h3 class="mt-2">'+data+'</h3>  <input type="number" class="form-control mb-2" placeholder="'+data+'" name="promtdata" id="promtdata">  <button class="btn btn-primary promtbtn mb-2 mt-2" >Enviar</button>';
+                    res=res+'<br><button class="btn btn-primary m-1 finalizar" >Finalizar Transaccion</button>';
+
+
+                     $('.resSitef').html('<div class="btn-medium-100">'+res+'</div>');
+
+                }
 
 
                  $(document).on('click', '.promtbtn', function(){
@@ -990,12 +1058,13 @@ Punto de Venta
 
                      referencia=$('#referencia').val();
 
-                     j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
+                    j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1});
+
+                    j.finalizarTransaccion({confirmationFlag:1});
 
                  }
 
                 window.alert(data);
-
 
                 resolver(1)
             })
@@ -1022,7 +1091,7 @@ Punto de Venta
                         }else if(data.items[i].text=='LEALTAD'){
                         }else if(data.items[i].text=='OTRA CUENTA'){
                         }else if(data.items[i].text=='Carga forcada de tabelas no pinpad (Servidor)'){
-
+                        }else if(data.items[i].text=='CONSULTA EXTRAFINANCIAMIENTO - CCC VENEZUELA'){
                         }else if(data.items[i].text=='VISTA'){
 
                             resolver('1');
@@ -1032,8 +1101,9 @@ Punto de Venta
                             if (data.items[i].text=='AHORRO') {
 
                                 res=res+'<button class="btn btn-primary m-1 esperadata " data-id="'+data.items[i].value+'"> CUENTA AHORRO </button>';
-
-                           
+                            //
+                            }else if(data.items[i].text=='Fechamento de lote - Consorcio Venezuela'){
+                                res=res+'<button class="btn btn-primary m-1 esperadata " data-id="'+data.items[i].value+'"> Cierre - Consorcio Venezuela </button>';
                             }else{
 
                                 res=res+'<button class="btn btn-primary m-1 esperadata" data-id="'+data.items[i].value+'">'+data.items[i].text+'</button>';
@@ -1070,13 +1140,15 @@ Punto de Venta
 
             $(document).on('click','.pagarSitef',  function(){
 
+                deshabilitar();
+
                 monto=parseFloat($('#monto_pago').val());
 
                 referencia=$('#referencia').val();
 
                 console.log('referencia :'+referencia);
 
-                j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
+              //  j.finalizarTransaccion({saleInvoice: referencia, confirmationFlag:1})
 
                 j.iniciarPago({saleInvoice:referencia,value:monto,operator:'test'});
 
@@ -1091,20 +1163,24 @@ Punto de Venta
 
                 console.log('referencia :'+referencia);
                 
-                j.anularTransaccion({saleInvoice:referencia, invoiceDate:'20220922',confirmationFlag:1});
+                //j.anularTransaccion({saleInvoice:referencia, invoiceDate:'20220922',confirmationFlag:1});
+
+                j.cancelarTransaccion();
 
             })
 
 
             $(document).on('click','.finalizar',  function(){
 
-                monto=parseFloat($('#monto_pago').val());
+               // monto=parseFloat($('#monto_pago').val());
                 
-                referencia=$('#referencia').val();
+                //referencia=$('#referencia').val();
 
-                console.log('referencia :'+referencia);
+                //console.log('referencia :'+referencia);
                 
-                j.finalizarTransaccion({confirmationFlag:1})
+                j.cancelarTransaccion();
+
+                $('.resSitef').html('<div class="btn-medium-100 p-2">Transacción Finalizada</div>');
 
             })
 
@@ -1120,7 +1196,23 @@ Punto de Venta
 
                 j.verificarPinPad();
 
+            });
+
+            $(document).on('click','.printpt',  function(){
+
+                $( ".addpago" ).trigger( "click" );
+
             })
+
+            $(document).on('click','.closept',  function(){
+
+                $( ".addpago" ).trigger( "click" );
+
+            })
+
+
+            
+
 
         </script>
   
