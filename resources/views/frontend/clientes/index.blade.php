@@ -867,6 +867,28 @@ Punto de Venta
         });
 
 
+         $(document).on('click', '.btnImprimir', function(){
+
+            base=$('#base').val();
+            id=$(this).data('id');
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/imprimir",
+                        
+                    complete: function(datos){     
+
+                        alert(datos.responseText);
+
+                       // $('.ordenactual').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
 
 
     });

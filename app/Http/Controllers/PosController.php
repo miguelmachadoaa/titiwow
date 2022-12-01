@@ -2277,6 +2277,65 @@ private function inventario()
   }
 
 
+   public function imprimir(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/imprimir ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/imprimir');
+        }
+
+
+
+        $orden = AlpOrdenes::where('id_user', $user->id)->where('id', $request->id)->with('cliente', 'cajero', 'estado', 'detalles', 'pagos')->first();
+
+        foreach($orden->detalles as $d){
+
+          $p=AlpProductos::where('id', $d->id_producto)->first();
+
+          $d->producto=$p;
+        }
+
+        foreach($orden->pagos as $pago){
+
+          $f=AlpFormaspago::where('id', $pago->id_forma_pago)->first();
+
+          $pago->formapago=$f;
+
+        }
+
+        $data =  json_encode($orden);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,            "http://localhost:8000/" );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($ch, CURLOPT_POST,           1 );
+        curl_setopt($ch, CURLOPT_POSTFIELDS,     $data); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
+
+        $result = curl_exec($ch);
+
+        return $result;
+
+    #return view('pos.detallepedido', compact('orden'));
+
+  }
+
+
+
+
+
 
 
 

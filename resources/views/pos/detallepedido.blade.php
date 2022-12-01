@@ -186,7 +186,7 @@
 
                             <div class="row">
                                 <div class="col-sm-6"><button class="btn btn-danger cancelarOrden">Cancelar Orden</button></div>
-                                <div class="col-sm-6"><button class="btn btn-success">Reimprimir</button></div>
+                                <div class="col-sm-6"><button data-id="{{$orden->id}}" class="btn btn-success btnImprimir">Reimprimir</button></div>
                             </div>
 
                             </div>
