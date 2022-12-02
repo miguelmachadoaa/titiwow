@@ -61,7 +61,7 @@
                         
                         <div class="col-sm-12">
                     
-                    <button class="btn btn-danger imprimir w-100 my-2">Imprimir</button>
+                    <button data-id="{{$orden->id}}"  class="btn btn-danger imprimir w-100 my-2 btnImprimir">Imprimir</button>
                     <button data-id="productos" class="btn btn-danger cajita w-100 my-2">Nuevo Pedido</button>
                 </div>
 
