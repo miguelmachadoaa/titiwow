@@ -58,5 +58,11 @@
 
                 </div>
 
+                 <div class="col-sm-12  mt-2">
+                    
+                    <button data-id="{{$caja->id}}" class=" btn btn-primary btnImprimirCaja" >Imprimir</button>
+
+                </div>
+
                
             </div>

@@ -50,7 +50,7 @@
                                         <div class="col-sm-8">
                                             <p> {{$p->nombre_producto}}</p>
                                             <p> {{$p->referencia_producto}}</p>
-                                            <h5 class="precio"> {{$p->precio_base}} </h5>
+                                            <h6  class="precio"><small>Usd {{number_format($p->precio_base, 2, ',', '.')}} /Bs. {{number_format($p->precio_base*$configuracion->tasa_dolar, 2, ',', '.')}}</small>  </h6 >
                                         </div>
 
                                     </div>  

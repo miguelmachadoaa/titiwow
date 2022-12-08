@@ -134,6 +134,8 @@ use Intervention\Image\Facades\Image;
 
 use \Cache;
 
+use Illuminate\Support\Facades\Log;
+
 
 class PosController extends JoshController
 {
@@ -1470,6 +1472,8 @@ class PosController extends JoshController
 
           $cart= \Session::get('cart');
 
+          Log::info('cart  '.json_encode($cart));
+
            if (isset($cart['inventario'])) {
           // code...
         }else{
@@ -1543,12 +1547,16 @@ class PosController extends JoshController
 
         \Session::put('cart', $cart);
 
+        Log::info('cart  enviado '.json_encode($cart));
+
 
         $view= View::make('pos.ordenactual', compact('cart'));
 
         $data=$view->render();
 
         $res = array('status' => 'carrito', 'error'=>'0', 'mensaje'=>'Produco agregado al carrito', 'data'=>$data );
+
+
 
         return json_encode($res);
 
@@ -1962,12 +1970,12 @@ public function addpago(Request $request)
           'id_address'=>1,
           'id_forma_envio'=>1,
           'id_forma_pago'=>1,
-          'monto_total'=>$cart['total'],
-          'monto_total_base'=>$cart['base'],
+          'monto_total'=>$cart['total']*$configuracion->tasa_dolar,
+          'monto_total_base'=>$cart['base']*$configuracion->tasa_dolar,
           'monto_descuento'=>0,
-          'base_impuesto'=>$cart['base'],
+          'base_impuesto'=>$cart['base']*$configuracion->tasa_dolar,
           'valor_impuesto'=>'0.19',
-          'monto_impuesto'=>$cart['impuesto'],
+          'monto_impuesto'=>$cart['impuesto']*$configuracion->tasa_dolar,
           'comision_mp'=>0,
           'retencion_fuente_mp'=>0,
           'retencion_iva_mp'=>0,
@@ -1991,6 +1999,7 @@ public function addpago(Request $request)
           'estatus_pago'=>2,
           'id_user'=>$user->id,
           'id_caja'=>$caja->id,
+          'tasa_dolar'=>$configuracion->tasa_dolar
         ]);
 
         $ticket = $ticket.' id '.$orden->id.'/n';
@@ -1999,14 +2008,16 @@ public function addpago(Request $request)
 
         foreach($cart['productos'] as $p){
 
+          $precio_base=$p->precio_base*$configuracion->tasa_dolar;
+
           AlpDetalles::create([
             'id_orden'=>$orden->id,
             'id_producto'=>$p->id,
             'cantidad'=>$p->cantidad,
-            'precio_unitario'=>$p->precio_base,
-            'precio_total'=>$p->precio_base*$p->cantidad,
+            'precio_unitario'=>$precio_base,
+            'precio_total'=>$precio_base*$p->cantidad,
             'precio_base'=>$p->cantidad,
-            'precio_total_base'=>$p->precio_base*$p->cantidad,
+            'precio_total_base'=>$precio_base*$p->cantidad,
             'valor_impuesto'=>'0.19',
             'monto_impuesto'=>0,
             'id_combo'=>0,
@@ -2155,14 +2166,14 @@ public function addpago(Request $request)
 
       }
 
-      $cart['total']=number_format($total,2);
-      $cart['total_bs']=number_format($total*$configuracion->tasa_dolar,2);
-      $cart['base']=number_format($base,2);
-      $cart['impuesto']=number_format($impuesto,2);
-      $cart['pagado_bs']=number_format($pagado_bs,2);
-      $cart['pagado_usd']=number_format($pagado_usd,2);
-      $cart['resto']=number_format($total-$pagado_bs,2);
-      $cart['descuento']=number_format($descuento,2);
+      $cart['total']=($total);
+      $cart['total_bs']=($total*$configuracion->tasa_dolar);
+      $cart['base']=($base);
+      $cart['impuesto']=($impuesto);
+      $cart['pagado_bs']=($pagado_bs);
+      $cart['pagado_usd']=($pagado_usd);
+      $cart['resto']=(($total*$configuracion->tasa_dolar)-$pagado_bs);
+      $cart['descuento']=($descuento);
 
 
       return $cart;
@@ -2296,6 +2307,7 @@ private function inventario()
         }
 
 
+        $configuracion= AlpConfiguracion::first();
 
         $orden = AlpOrdenes::where('id_user', $user->id)->where('id', $request->id)->with('cliente', 'cajero', 'estado', 'detalles', 'pagos')->first();
 
@@ -2313,6 +2325,8 @@ private function inventario()
           $pago->formapago=$f;
 
         }
+
+        $orden->configuracion=$configuracion;
 
         $data =  json_encode($orden);
 
@@ -2334,10 +2348,109 @@ private function inventario()
 
 
 
+   public function imprimircierrecaja(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/imprimir ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/imprimir');
+        }
+
+
+        $configuracion= AlpConfiguracion::first();
+
+        $caja = AlpCajas::where('id', $request->id)->with('cajero')->first();
+
+        $pagos=AlpPagos::select('alp_ordenes_pagos.*',  DB::raw('SUM(monto_pago) as total_pagos'))
+        ->join('alp_ordenes', 'alp_ordenes_pagos.id_orden', '=', 'alp_ordenes.id')
+        ->where('alp_ordenes_pagos.id_user', $user->id)
+        ->where('alp_ordenes.id_caja', '=', $request->id)
+        ->with('formapago')->groupBy('id_forma_pago')
+        ->get();
+
+        $caja->pagos=$pagos;
+
+        $caja->configuracion=$configuracion;
+
+        $data =  json_encode($caja);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,            "http://localhost:8000/cierrecaja.php" );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($ch, CURLOPT_POST,           1 );
+        curl_setopt($ch, CURLOPT_POSTFIELDS,     $data); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
+
+        $result = curl_exec($ch);
+
+        return $result;
+
+    #return view('pos.detallepedido', compact('orden'));
+
+  }
 
 
 
+   public function imprimirpunto(Request $request)
+  {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/imprimir ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/imprimir');
+        }
+
+
+        $configuracion= AlpConfiguracion::first();
+
+        $caja = AlpCajas::where('id', $request->id)->with('cajero')->first();
+
+        $pagos=AlpPagos::select('alp_ordenes_pagos.*',  DB::raw('SUM(monto_pago) as total_pagos'))
+        ->join('alp_ordenes', 'alp_ordenes_pagos.id_orden', '=', 'alp_ordenes.id')
+        ->where('alp_ordenes_pagos.id_user', $user->id)
+        ->where('alp_ordenes.id_caja', '=', $request->id)
+        ->with('formapago')->groupBy('id_forma_pago')
+        ->get();
+
+        $pago = AlpPagos::where('id', $request->id)->first();
+
+        $data =  json_encode($pago);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,            "http://localhost:8000/punto.php" );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($ch, CURLOPT_POST,           1 );
+        curl_setopt($ch, CURLOPT_POSTFIELDS,     $data); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
+
+        $result = curl_exec($ch);
+
+        return $result;
+
+    #return view('pos.detallepedido', compact('orden'));
+
+  }
 
 
 }

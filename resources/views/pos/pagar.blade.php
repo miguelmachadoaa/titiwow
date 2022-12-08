@@ -55,7 +55,11 @@
                                 </div>
                                 
                                 <div class="col-sm-12 my-2">
-                                    <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{($cart['total_bs'])-$cart['pagado_bs']}}">
+                                    <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{
+                                      //  number_format( floatval($cart['total_bs'])-floatval($cart['pagado_bs']) , 2, ',', '.')
+                                      floatval($cart['total_bs'])-floatval($cart['pagado_bs'])
+                                        
+                                    }}">
                                 </div>
 
                                 <div class="col-sm-12 my-2">
@@ -96,7 +100,7 @@
 
                                     <p class="m-0"><b>Id:</b>{{$pago['id']}}</p>
                                     <p class="m-0"><b>Tipo:</b>{{$pago['name']}}</p>
-                                    <p class="m-0"><b>Monto:</b>{{$pago['monto']}}</p>
+                                    <p class="m-0"><b>Monto:</b>{{number_format($pago['monto'],2,',','.')}}</p>
 
                             </div>
                             <div class="col-sm-2 p-0"> 

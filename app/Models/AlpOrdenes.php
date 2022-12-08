@@ -57,6 +57,7 @@ class AlpOrdenes extends Model
         'estatus',
         'estatus_pago',
         'id_caja',
+        'tasa_dolar',
         'id_user'
     ];
 

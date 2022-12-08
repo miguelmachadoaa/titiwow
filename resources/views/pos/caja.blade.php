@@ -42,7 +42,11 @@
                                 @if($c->estado_registro=='1')
                                  <button type="button" data-id="{{$c->id}}" class="btn btn-danger cerrarcaja"><i class="fa fa-power-off"></i></button>
 
+
+
                                 @endif
+
+                                <button data-id="{{$c->id}}" class=" btn btn-primary btnImprimirCaja" ><i class="fa fa-print"></i></button>
                             </div>
 
                         </div>

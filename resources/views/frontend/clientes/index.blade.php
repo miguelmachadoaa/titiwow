@@ -879,7 +879,56 @@ Punto de Venta
                         
                     complete: function(datos){     
 
-                        alert(datos.responseText);
+                       // alert(datos.responseText);
+
+                       // $('.ordenactual').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+         //btnImprimirPunto
+         //
+         
+         $(document).on('click', '.btnImprimirPunto', function(){
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/imprimirpunto",
+                        
+                    complete: function(datos){     
+
+                       // alert(datos.responseText);
+
+                       // $('.ordenactual').html((datos.responseText));
+                    }
+
+                });
+
+        });
+
+
+
+         $(document).on('click', '.btnImprimirCaja', function(){
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+                $.ajax({
+                    type: "POST",
+                    data:{id},
+                    url: base+"/pos/imprimircierrecaja",
+                        
+                    complete: function(datos){     
+
+                       // alert(datos.responseText);
 
                        // $('.ordenactual').html((datos.responseText));
                     }

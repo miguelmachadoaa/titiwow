@@ -23,7 +23,7 @@
                                 <div class="col-sm-8 p-1">
                                     <p> {{$p->nombre_producto}}</p>
                                     <p> {{$p->referencia_producto}}</p>
-                                    <h5 class="precio"> {{$p->precio_base}} x {{$p->cantidad}}</h5>
+                                    <h5 class="precio"> {{number_format($p->precio_base*$configuracion->tasa_dolar,2,'.',',')}} x {{$p->cantidad}}</h5>
                                 </div>
 
                                 <div class="col-sm-2">  
@@ -55,7 +55,7 @@
 
                             <div class="col-sm-6">  
 
-                                    <p class="m-0 text-right"> {{number_format($cart['total']-$cart['impuesto'],2)}}</p>
+                                    <p class="m-0 text-right">Bs. {{number_format(($cart['total']-$cart['impuesto'])*$configuracion->tasa_dolar,2,',','.')}}</p>
 
                             </div>   
 
@@ -68,7 +68,7 @@
 
                             <div class="col-sm-6">  
 
-                                    <p class="m-0 text-right"> {{number_format($cart['base'],2)}}</p>
+                                    <p class="m-0 text-right">Bs. {{number_format($cart['base']*$configuracion->tasa_dolar,2,',','.')}}</p>
 
                             </div>   
 
@@ -82,20 +82,20 @@
 
                             <div class="col-sm-6">  
 
-                                    <p class="m-0 text-right"> {{number_format($cart['impuesto'],2)}}</p>
+                                    <p class="m-0 text-right">Bs. {{number_format($cart['impuesto']*$configuracion->tasa_dolar,2,',','.')}}</p>
 
                             </div>   
 
 
                              <div class="col-sm-6"> 
 
-                                <p class="m-0"> <b> Total: </b></p>
+                                <p class="m-0"> <b> Total Usd: </b></p>
 
                             </div> 
 
                             <div class="col-sm-6 text-right">  
 
-                                    <p class="m-0"> {{number_format($cart['total'],2)}}</p>
+                                    <p class="m-0">Usd. {{number_format($cart['total'], 2, ',', '.')}}</p>
 
                             </div>  
 
@@ -109,11 +109,11 @@
                             <div class="col-sm-6 text-right">  
                                     @if(isset($cart['total_bs']))
                                     <p class="m-0">
-                                     {{number_format($cart['total_bs'],2)}}
+                                    Bs. {{number_format($cart['total_bs'], 2, ',', '.')}}
                                     </p>
                                     @else
                                     <p class="m-0">
-                                     {{number_format(0)}}
+                                     {{number_format(0, 2, ',', '.')}}
                                     </p>
                                     @endif
 
@@ -135,9 +135,9 @@
 
                     <div class="col-sm-8 "> 
                                 @if($cart['total']>0)
-                            <button type="button" class="btn btn-success pagar w-100"> {{number_format($cart['total'],2)}}</button> </div>
+                            <button type="button" class="btn btn-success pagar w-100">Bs. {{number_format($cart['total']*$configuracion->tasa_dolar,2,',','.')}}</button> </div>
                                 @else
-                            <button type="button" class="btn btn-outline-secondary w-100">0,00</button> </div>
+                            <button type="button" class="btn btn-outline-secondary w-100">Bs. 0,00</button> </div>
 
 
                                 @endif

@@ -25,6 +25,8 @@ Route::post('pos/detallecaja', 'PosController@detallecaja')->name('detallecaja')
 Route::post('pos/cerrarcaja', 'PosController@cerrarcaja')->name('cerrarcaja');
 Route::post('pos/updatecaja', 'PosController@updatecaja')->name('updatecaja');
 Route::post('pos/imprimir', 'PosController@imprimir')->name('imprimir');
+Route::post('pos/imprimircierrecaja', 'PosController@imprimircierrecaja')->name('imprimircierrecaja');
+Route::post('pos/imprimirpunto', 'PosController@imprimirpunto')->name('imprimirpunto');
 
 
 Route::get('pos/addcliente', 'PosController@addcliente')->name('addcliente');

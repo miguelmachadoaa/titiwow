@@ -147,6 +147,15 @@
                             <div class="row" >
                                 <div class="col-sm-6">{{$pago->formapago->nombre_forma_pago}}:</div>
                                 <div class="col-sm-6">{{$pago->monto_pago}}</div>
+
+                                @if($pago->id_forma_pago=='999')
+
+                                <div class="col-sm-12">
+                                    <button data-id="{{$pago->id}}" class="btn btn-success btnImprimirPunto">Reimprimir</button>
+                                </div>
+                                
+
+                                @endif
                             </div>
 
                             @endforeach
