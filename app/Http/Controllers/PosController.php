@@ -1827,20 +1827,42 @@ public function addpago(Request $request)
 
         $cart= \Session::get('cart');
 
-        $cart['pagos'][]=[
-          'id'=>$request->id,
-          'name'=>$request->name,
-          'monto'=>$request->monto,
-          'referencia'=>$request->referencia,
-          'ticket'=>$request->ticket,
-        ];
+        $configuracion=AlpConfiguracion::first();
+
+        $forma=AlpFormaspago::where('id', $request->id)->first();
+
+        if ($forma->moneda == '2') {
+
+          $cart['pagos'][]=[
+            'id'=>$request->id,
+            'name'=>$request->name,
+            'monto'=>$request->monto,
+            'moneda'=>$forma->moneda,
+            'valor'=>$request->monto*$configuracion->tasa_dolar,
+            'referencia'=>$request->referencia,
+            'ticket'=>$request->ticket,
+          ];
+          
+        }else{
+
+           $cart['pagos'][]=[
+            'id'=>$request->id,
+            'name'=>$request->name,
+            'monto'=>$request->monto,
+            'moneda'=>$forma->moneda,
+            'valor'=>$request->monto,
+            'referencia'=>$request->referencia,
+            'ticket'=>$request->ticket,
+          ];
+
+
+        }
 
          $cart=$this->calculoCart($cart);
 
         \Session::put('cart', $cart);
 
         $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
-
        
         return view('pos.pagar', compact('cart', 'formaspago'));
 
@@ -1954,14 +1976,6 @@ public function addpago(Request $request)
 
         $configuracion= AlpConfiguracion::first();
 
-        $ticket='';
-        $ticket = $ticket.' '.$configuracion->nombre_tienda.'/n';
-        $ticket = $ticket.' '.$configuracion->nombre_tienda.'/n';
-        $ticket = $ticket.' Fecha '.now().'/n';
-
-
-        #dd($cart);
-
         
         $orden=AlpOrdenes::create([
           'referencia'=>$cart['referencia'],
@@ -2002,9 +2016,6 @@ public function addpago(Request $request)
           'tasa_dolar'=>$configuracion->tasa_dolar
         ]);
 
-        $ticket = $ticket.' id '.$orden->id.'/n';
-        $ticket = $ticket.' cantidad   descripcion  precio  total /n';
-
 
         foreach($cart['productos'] as $p){
 
@@ -2035,11 +2046,6 @@ public function addpago(Request $request)
             'id_user'=>$user->id
           ]);
 
-          $ticket = $ticket.$p->cantidad.' /n';
-          $ticket = $ticket.$p->nombre_producto.' /n';
-          $ticket = $ticket.$p->precio_base.' /n';
-          $ticket = $ticket.$p->cantidad*$p->precio_base.' /n';
-
         }
 
         $total_pagos=0;
@@ -2047,11 +2053,13 @@ public function addpago(Request $request)
 
         foreach($cart['pagos'] as $pago){
 
+
           AlpPagos::create([
             'id_orden'=>$orden->id,
             'id_forma_pago'=>$pago['id'],
             'id_estatus_pago'=>'2',
             'monto_pago'=>$pago['monto'],
+            'valor_pago'=>$pago['valor'],
             'referencia'=>$pago['referencia'],
             'ticket'=>$pago['ticket'],
             'json'=>json_encode($cart['pagos']),
@@ -2062,28 +2070,28 @@ public function addpago(Request $request)
           AlpTransacciones::create([
             'id_orden'=>$orden->id,
             'referencia'=>$pago['referencia'],
-            'monto_bs'=>$pago['monto'],
-            'monto_usd'=>0,
+            'monto'=>$pago['monto'],
+            'valor'=>$pago['valor'],
             'id_forma_pago'=>$pago['id'],
             'tipo'=>'1',
-            'moneda'=>'1',
+            'moneda'=>$pago['moneda'],
             'estado_registro'=>'1',
             'id_user'=>$user->id
           ]);
 
-          $total_pagos=$total_pagos+$pago['monto'];
+          $total_pagos=$total_pagos+$pago['valor'];
 
         }
 
         if($total_pagos>$cart['total']){
 
-            $dif=$total_pagos-$cart['total'];
+            $dif=$total_pagos-($cart['total']*$configuracion->tasa_dolar);
 
             AlpTransacciones::create([
               'id_orden'=>$orden->id,
               'referencia'=>'vuelto',
-              'monto_bs'=>$dif,
-              'monto_usd'=>0,
+              'monto'=>$dif,
+              'valor'=>$dif,
               'id_forma_pago'=>1,
               'tipo'=>'2',
               'moneda'=>'1',
@@ -2092,14 +2100,6 @@ public function addpago(Request $request)
             ]);
 
         }
-
-        $ticket = $ticket.'Total: '.$cart['total'].' /n';
-        $ticket = $ticket.'Base: '.$cart['base'].' /n';
-        $ticket = $ticket.'Impuesto:  '.$cart['impuesto'].' /n';
-
-
-        $orden->update(['notas'=>$ticket]);
-
 
         \Session::put('cart', ['inventario'=>$this->inventario(),'productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0, 'cliente'=>null, 'referencia'=>time()]);
 
@@ -2159,9 +2159,20 @@ public function addpago(Request $request)
 
           foreach ($cart['pagos'] as $pago) {
 
-              $pagado_bs=$pagado_bs+$pago['monto'];
+              if ($pago['moneda']=='2') {
 
-              $pagado_usd=$pagado_usd+$pago['monto'];
+                 $pagado_usd=$pagado_usd+$pago['monto'];
+
+
+              }else{
+
+                $pagado_bs=$pagado_bs+$pago['monto'];
+               
+
+              }
+
+
+              
           }
 
       }
@@ -2172,9 +2183,8 @@ public function addpago(Request $request)
       $cart['impuesto']=($impuesto);
       $cart['pagado_bs']=($pagado_bs);
       $cart['pagado_usd']=($pagado_usd);
-      $cart['resto']=(($total*$configuracion->tasa_dolar)-$pagado_bs);
+      $cart['resto']=(($total*$configuracion->tasa_dolar)-$pagado_bs-($pagado_usd*$configuracion->tasa_dolar));
       $cart['descuento']=($descuento);
-
 
       return $cart;
 
@@ -2449,6 +2459,39 @@ private function inventario()
         return $result;
 
     #return view('pos.detallepedido', compact('orden'));
+
+  }
+
+
+
+     public function cart(Request $request)
+  {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('PosController/cart ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('PosController/cart');
+        }
+
+
+        $cart= \Session::get('cart');
+
+          $view= View::make('pos.cart', compact('cart'));
+
+          $data=$view->render();
+
+          $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+          return json_encode($res);
 
   }
 

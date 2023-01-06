@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 /*POS*/
 
 
+Route::get('pos/cart', 'PosController@cart')->name('cart');
 Route::get('pos/dashboard', 'PosController@dashboard')->name('dashboard');
 Route::get('pos/puntodeventa', 'PosController@puntodeventa')->name('puntodeventa');
 Route::get('pos/carritos', 'PosController@carritos')->name('carritos');

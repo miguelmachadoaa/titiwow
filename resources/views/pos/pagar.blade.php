@@ -20,8 +20,6 @@
 
                             <button data-id="999" data-moneda='1' data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef setpago ">Sitef</button>    
 
-
-
                                          
 
                         </div>
@@ -57,7 +55,7 @@
                                 <div class="col-sm-12 my-2">
                                     <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{
                                       //  number_format( floatval($cart['total_bs'])-floatval($cart['pagado_bs']) , 2, ',', '.')
-                                      floatval($cart['total_bs'])-floatval($cart['pagado_bs'])
+                                      floatval($cart['resto'])
                                         
                                     }}">
                                 </div>

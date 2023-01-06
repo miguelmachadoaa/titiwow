@@ -22,6 +22,7 @@ class AlpTransacciones extends Model
         'id_orden',
         'referencia',
         'monto',
+        'valor',
         'id_forma_pago',
         'tipo',
         'moneda',

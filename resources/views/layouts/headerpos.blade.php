@@ -50,6 +50,10 @@
           <li>
             <a data-id="reportes" href="#" class="cajita"><span class="fa fa-area-chart"></span> Reportes</a>
           </li>
+
+           <li>
+            <a data-id="cart" href="#" class="cajita"><span class="fa fa-area-chart"></span> Cart</a>
+          </li>
           <li>
             <a  href="#" ><span class="fa fa-sign-out"></span> Salir</a>
           </li>

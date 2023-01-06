@@ -95,6 +95,30 @@
                             </div>
                         </div>
 
+                         <div class="form-group  {{ $errors->first('vuelto', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Se usa para dar vuelto
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="vuelto" name="vuelto" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 0 }}"
+                                                >Desactivado</option>
+
+                                        <option value="{{ 1 }}"
+                                                >Activado</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('vuelto', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
 
 
 

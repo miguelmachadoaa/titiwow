@@ -18,7 +18,11 @@ class AlpConfiguracion extends Model
     public $fillable = [
         'id',
         'tasa_dolar',
+        'nombre_impresora',
+        'columnas_impresora',
         'nombre_tienda',
+        'direccion_tienda',
+        'rif_tienda',
         'base_url',
         'limite_amigos',
         'explicacion_precios',

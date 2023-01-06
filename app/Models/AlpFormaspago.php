@@ -23,6 +23,7 @@ class AlpFormaspago extends Model
         'descripcion_forma_pago',
         'orden',
         'moneda',
+        'vuelto',
         'estado_registro',
         'id_user'
     ];

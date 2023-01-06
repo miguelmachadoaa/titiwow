@@ -1115,9 +1115,8 @@ class AlpProductosController extends JoshController
 
         $unidades = AlpUnidades::all();
 
-        $imagenes=AlpProductosImagenes::where('id_producto', $producto->id)->get();
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades', 'imagenes'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades'));
 
     }
 
