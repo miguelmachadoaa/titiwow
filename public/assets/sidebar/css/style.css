@@ -8331,7 +8331,7 @@ a[data-toggle="collapse"] {
   background: #d5d5d5;
 }
 
-.producto{
+.producto, .producto-pesable{
   background: #fff;
 box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 padding: 0.3em;
@@ -8340,7 +8340,7 @@ margin-right: 0.5em;
 cursor: pointer;
 }
 
-.producto .col-sm-8 p{
+.producto .col-sm-8 p, .producto-pesable .col-sm-8 p{
   line-height: 1;
 }
 

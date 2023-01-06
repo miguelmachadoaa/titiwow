@@ -431,37 +431,10 @@
 
                                         </div>
 
-                                        <div class="form-group col-sm-12  clearfix {{ $errors->first('descripcion_larga', 'has-error') }}">
-
-                                            <label class="col-sm-3 col-xs-12 control-label" for="descripcion_larga">@lang('productos/title.description_large')</label>
-
-                                            <div class="col-sm-9 col-xs-12">
-
-                                                <textarea 
-                                                class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical"
-                                                 id="descripcion_larga" 
-                                                 name="descripcion_larga" 
-                                                 placeholder="Descripcion Larga" 
-                                                 rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>{!! $errors->first('descripcion_larga', '<span class="help-block">:message</span>') !!}
-
-                                            </div>
-
-                                            
-
-                                        </div>
+                                       
 
 
-                                        <div class="form-group clearfix {{ $errors->
-                                            first('enlace_youtube', 'has-error') }}">
-                                                <label class="col-md-3 control-label" for="enlace_youtube">Video YouTube</label>
-                                                <div class="col-md-9">
-                                                    <input id="enlace_youtube" name="enlace_youtube" type="text" placeholder="Video YouTube" class="form-control" value="{{ old('enlace_youtube', $producto->enlace_youtube) }}">
-
-                                                    {!! $errors->first('enlace_youtube', '<span class="help-block">:message</span> ') !!}
-
-                                                </div>
-                                            </div>
-
+                                     
 
 
 
@@ -1233,7 +1206,6 @@
     <script src="{{ secure_asset('assets/vendors/jstree/js/jstree.min.js') }}" type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/treeview/js/bootstrap-treeview.min.js') }}" type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
-    <script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
     
@@ -1241,19 +1213,6 @@
 
     <script type="text/javascript">
 
-
-        tinymce.init({
-        selector:'#contenido_digital',
-        width: '100%',
-        height: 300
-    });
-
-
-        tinymce.init({
-        selector:'#descripcion_larga',
-        width: '100%',
-        height: 300
-    });
 
 
 

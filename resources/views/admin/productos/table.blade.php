@@ -6,10 +6,9 @@
      <tr>
         <th>ID</th>
         <th>Nombre de Producto</th>
-        <th>Presentacíon del Producto</th>
         <th>Referencia</th>
         <th>SKU</th>
-        <th>Imagen</th>
+        <th>Pesable</th>
         <th>Categoria Principal</th>
         <th>Precio</th>
         <th>Estado</th>

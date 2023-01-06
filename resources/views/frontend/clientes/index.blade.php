@@ -126,6 +126,34 @@ Punto de Venta
   </div>
 </div>
 
+<div class="modal modalPesable" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ingrese el peso del producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bodypt">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Agregar peso en gramos <small>1kilo = 1000grs</small></label>
+            <input type="hidden" id="modalid" name="modalid" >
+            <input type="number" step="1" min="0" value='0' class="form-control" name="peso" id="peso" aria-describedby="peso">
+           
+          </div>
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary enviarPeso" >Aceptar</button>
+        <button type="button" class="btn btn-danger close" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
 
@@ -517,18 +545,79 @@ Punto de Venta
         $(document).on('click', '.producto', function(){
 
              id=$(this).data('id');
+             cantidad=$('#cantidad_'+id+'').val();
 
             base=$('#base').val();
 
                 $.ajax({
                     type: "POST",
-                    data:{id},
+                    data:{id, cantidad},
                     url: base+"/pos/addtocart",
                     dataType: 'JSON',
                         
                     complete: function(datos){
 
                         console.log(datos);
+                        console.log(datos.responseJSON);
+
+                        if(datos.responseJSON.status=='carrito'){
+
+                            $('.ordenactual').html((datos.responseJSON.data));
+
+                        }else if(datos.responseJSON.status=='error'){
+
+                            $('.reserror').html('<div class="alert alert-danger">'+datos.responseJSON.mensaje+'</div>');
+
+                            termino=$('#barcode').val('');
+                        }     
+
+                    }
+
+                });
+
+        });
+
+        $(document).on('click', '.producto-pesable', function(){
+
+            $('.modalPesable').modal('show');
+
+             id=$(this).data('id');
+
+             $("#modalid").val(id);
+
+        });
+
+
+         $(document).on('click', '.enviarPeso', function(){
+
+
+            id=$('#modalid').val();
+
+            cantidad=$('#peso').val();
+
+            cantidad = cantidad / 1000;
+
+            pesado=true;
+
+            base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id, cantidad},
+                    url: base+"/pos/addtocart",
+                    dataType: 'JSON',
+                        
+                    complete: function(datos){
+
+                            $('.modalPesable').modal('hide');
+
+                            id=$('#modalid').val(0);
+
+                            cantidad=$('#peso').val(0);
+
+
+                        console.log(datos);
+
                         console.log(datos.responseJSON);
 
                         if(datos.responseJSON.status=='carrito'){

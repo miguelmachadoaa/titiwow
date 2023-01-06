@@ -1181,7 +1181,7 @@ footer a:hover, footer a:active{
     display: block;
 }
 /*Productos Listado Inicio*/
-.productos{
+.productos , .producto-pesable{
     margin: 20px 0px;
     min-height: 364px;
 }

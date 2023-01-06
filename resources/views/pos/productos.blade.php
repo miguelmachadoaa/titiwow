@@ -38,7 +38,9 @@
 
                                 <div class="col-sm-4 ">   
 
-                                    <div class="row producto" data-id="{{$p->id}}">   
+                                    <div class="row {{ $p->pesable ? 'producto-pesable' : 'producto'}}" data-id="{{$p->id}}" >   
+
+                                        <input type="hidden" name="cantidad_{{$p->id}}" id="cantidad_{{$p->id}}" value="1">
 
                                         <div class="col-sm-4 p-0" > 
 

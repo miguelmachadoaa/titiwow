@@ -1368,80 +1368,197 @@ class PosController extends JoshController
 
           $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
-
-          $productos=AlpProductos::
-          #where('estado_registro', '1')
-          Where('referencia_producto', 'like', $request->termino)
-          ->get();
+         # dd(substr($request->termino, 8));
 
 
-          if(count($productos)=='1'){
+          if(substr($request->termino,0, 4)=='1000'){
 
-            $p=AlpProductos::
-          #where('estado_registro', '1')
-          Where('nombre_producto', 'like', '%'.$request->termino.'%')
-          ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
-          ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
-          ->first();
+            $id_termino  = intval(substr($request->termino,1, 7));
+
+            $peso = intval(substr($request->termino,8))/1000;
+
+           
+           $p=AlpProductos::
+            #where('estado_registro', '1')
+            Where('id', '=', $id_termino)
+            ->first();
+
+            if (isset($p->id)) {
+            
+
+              $cart= \Session::get('cart');
 
 
-            $cart= \Session::get('cart');
+              if(isset($p->id)){
 
+                if(isset($cart['productos'][$p->id])){
 
-            if(isset($p->id)){
+                  $p->cantidad=$cart['productos'][$p->id]->cantidad+$peso;
 
-              if(isset($cart['productos'][$p->id])){
+                  $cart['productos'][$p->id]=$p;
 
-                $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+                }else{
 
-                $cart['productos'][$p->id]=$p;
+                  $p->cantidad=$peso;
+
+                  $cart['productos'][$p->id]=$p;
+
+                }
 
               }else{
 
-                $p->cantidad=1;
+                  $error="No se encontro producto";
 
-                $cart['productos'][$p->id]=$p;
+
+                  $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
+
+                  return json_encode($res);
 
               }
 
+              $cart=$this->calculoCart($cart);
+
+              \Session::put('cart', $cart);
+
+
+
+              $view= View::make('pos.ordenactual', compact('cart'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'carrito', 'error'=>'0', 'mensaje'=>'Produco agregado al carrito', 'data'=>$data );
+
+              return json_encode($res);
+
+
+
+
+
+
+
+
+
             }else{
 
-                $error="No se encontro producto";
+                $productos=AlpProductos::
+                #where('estado_registro', '1')
+                Where('nombre_producto', 'like', '%'.$request->termino.'%')
+                ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
+                ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
+                ->get();
 
 
-                $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
+
+                $view= View::make('pos.productos', compact('productos', 'cart', 'caja'));
+
+                $data=$view->render();
+
+                $res = array('status' => 'productos', 'error'=>'0', 'mensaje'=>'productos encontrados', 'data'=>$data );
 
                 return json_encode($res);
-
             }
-
-            $cart=$this->calculoCart($cart);
-
-            \Session::put('cart', $cart);
-
-
-
-            $view= View::make('pos.ordenactual', compact('cart'));
-
-            $data=$view->render();
-
-            $res = array('status' => 'carrito', 'error'=>'0', 'mensaje'=>'Produco agregado al carrito', 'data'=>$data );
-
-            return json_encode($res);
+           
 
 
           }else{
+
+
+            //no es generado por la balanza 
+            //
             
 
-            $view= View::make('pos.productos', compact('productos', 'cart', 'caja'));
+            $productos=AlpProductos::
+            #where('estado_registro', '1')
+            Where('referencia_producto', 'like', $request->termino)
+            ->get();
 
-            $data=$view->render();
 
-            $res = array('status' => 'productos', 'error'=>'0', 'mensaje'=>'productos encontrados', 'data'=>$data );
+            if(count($productos)=='1'){
 
-            return json_encode($res);
+              $p=AlpProductos::
+            #where('estado_registro', '1')
+            Where('nombre_producto', 'like', '%'.$request->termino.'%')
+            ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
+            ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
+            ->first();
+
+
+              $cart= \Session::get('cart');
+
+
+              if(isset($p->id)){
+
+                if(isset($cart['productos'][$p->id])){
+
+                  $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+
+                  $cart['productos'][$p->id]=$p;
+
+                }else{
+
+                  $p->cantidad=1;
+
+                  $cart['productos'][$p->id]=$p;
+
+                }
+
+              }else{
+
+                  $error="No se encontro producto";
+
+
+                  $res = array('status' => 'error', 'error'=>'1', 'mensaje'=>$error, 'data'=>null );
+
+                  return json_encode($res);
+
+              }
+
+              $cart=$this->calculoCart($cart);
+
+              \Session::put('cart', $cart);
+
+
+
+              $view= View::make('pos.ordenactual', compact('cart'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'carrito', 'error'=>'0', 'mensaje'=>'Produco agregado al carrito', 'data'=>$data );
+
+              return json_encode($res);
+
+
+            }else{
+
+
+
+              $productos=AlpProductos::
+              #where('estado_registro', '1')
+              Where('nombre_producto', 'like', '%'.$request->termino.'%')
+              ->orWhere('referencia_producto', 'like', '%'.$request->termino.'%')
+              ->orWhere('precio_base', 'like', '%'.$request->termino.'%')
+              ->get();
+
+
+
+              $view= View::make('pos.productos', compact('productos', 'cart', 'caja'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'productos', 'error'=>'0', 'mensaje'=>'productos encontrados', 'data'=>$data );
+
+              return json_encode($res);
+
+            }
+
+
+
 
           }
+
+
+
+          
 
 
   }
@@ -1497,7 +1614,7 @@ class PosController extends JoshController
 
                   //if($cart['productos'][$p->id]>($p->cantidad+1)){
 
-                    $p->cantidad=$cart['productos'][$p->id]->cantidad+1;
+                    $p->cantidad=$cart['productos'][$p->id]->cantidad+$request->cantidad;
 
                     $cart['productos'][$p->id]=$p;
 
@@ -1507,7 +1624,7 @@ class PosController extends JoshController
 
                 }else{
 
-                  $p->cantidad=1;
+                  $p->cantidad=$request->cantidad;
 
                   $cart['productos'][$p->id]=$p;
 

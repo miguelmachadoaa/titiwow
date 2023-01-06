@@ -173,11 +173,11 @@ class AlpProductosController extends JoshController
             if (Sentinel::getUser()->hasAnyAccess(['productos.edit'])) {
                 if ($alpProductos->sugerencia == 1) {
               $sugerencia=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'>
- <button title='Sugerencia' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>   </button></div>";
-            }else{
+             <button title='Sugerencia' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>   </button></div>";
+                        }else{
 
-                   $sugerencia="  
-<div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
+                               $sugerencia="  
+            <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
 
             }
           }else{
@@ -190,10 +190,9 @@ class AlpProductosController extends JoshController
                $data[]= array(
                  $alpProductos->id, 
                  $alpProductos->nombre_producto, 
-                 $alpProductos->presentacion_producto, 
                  $alpProductos->referencia_producto, 
                  $alpProductos->referencia_producto_sap, 
-                 $imagen, 
+                 $alpProductos->pesable ? 'NO' : 'SI', 
                  $alpProductos->nombre_categoria, 
                  number_format($alpProductos->precio_base,2), 
                  $estado, 
@@ -533,7 +532,7 @@ class AlpProductosController extends JoshController
             'imagen_producto' =>$imagen, 
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
-            'slug' => str_slug(strtolower ($request->slug)), 
+            'slug' => str_slug(strtolower ($request->nombre_producto)), 
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
             'id_impuesto' =>$request->id_impuesto, 
@@ -551,9 +550,18 @@ class AlpProductosController extends JoshController
          
         $producto=AlpProductos::create($data);
 
+        $data = array(
+            'id_producto' => $producto->id, 
+            'id_almacen' => '1', 
+            'id_user' => $user->id, 
+          );
+
+          AlpAlmacenProducto::create($data);
+
         /*se guarda inventario*/
 
         $data_inventario = array(
+            'id_almacen' => '1', 
             'id_producto' => $producto->id, 
             'cantidad' => $request->inventario_inicial, 
             'operacion' => '1', //1: credito, 2: dedito
@@ -721,7 +729,7 @@ class AlpProductosController extends JoshController
         $producto->update($data);
 
 
-        AlpProductosImagenes::where('id_producto', $request->id_imagen)->update(['id_producto'=>$producto->id]);
+     #   AlpProductosImagenes::where('id_producto', $request->id_imagen)->update(['id_producto'=>$producto->id]);
 
         if ($producto->id) {
 
