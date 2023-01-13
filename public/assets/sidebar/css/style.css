@@ -8384,5 +8384,12 @@ box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 .cajasombra{
   background: #fff;
 box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-padding: 1em;
+padding: 1px;
+}
+
+.tecla-control{
+  position: absolute;
+  left: 2em;
+  font-size: 0.8em;
+  color: #ccc;
 }

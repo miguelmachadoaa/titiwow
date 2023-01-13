@@ -13,7 +13,8 @@
         <div class="row">
 
             <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
-                <a data-id="dashboard" href="#" class=" btn-medium cajita">
+            <span class="tecla-control">Ctrl+d</span>
+                <a data-id="dashboard" href="#" class=" btn-medium cajita ctrl-d">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-home"></i></div>
                     <div class="col-sm-12">Dashboard</div>
@@ -25,7 +26,9 @@
 
 
             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 col-md-3 text-center">
-                <a data-id="carritos" href="#" class=" btn-medium cajita">
+            <span class="tecla-control">Ctrl+c</span>
+
+                <a data-id="carritos" href="#" class=" btn-medium cajita ctrl-c">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" >
                         <i class=" mt-4 fa fa-shopping-cart"></i></div>
@@ -36,7 +39,8 @@
                 </a>
             </div>    
             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
-                <a data-id="pedidos" href="#" class=" btn-medium cajita">
+                <span class="tecla-control">Ctrl+q</span>
+                <a data-id="pedidos" href="#" class=" btn-medium cajita ctrl-q">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-usd"></i></div>
                     <div class="col-sm-12">Pedidos </div>

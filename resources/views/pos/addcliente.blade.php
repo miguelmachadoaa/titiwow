@@ -58,6 +58,9 @@
                                 <button type="button" class="btn btn-primary savecliente">Guardar</button>
                               </div>
 
+                              <div class="form-group rescliente">
+                                
+                              </div>
                     </form>
                     
 

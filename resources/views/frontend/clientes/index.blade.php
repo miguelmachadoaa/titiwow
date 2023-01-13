@@ -517,27 +517,50 @@ Punto de Venta
 
         $(document).on('click', '.savecliente', function(){
 
+
+            $('.rescliente').html('');
+
             nombre_cliente=$("#nombre_cliente").val();
             telefono_cliente=$("#telefono_cliente").val();
             email_cliente=$("#email_cliente").val();
             cedula_cliente=$("#cedula_cliente").val();
 
+            console.log('nombre_cliente');
+            console.log(nombre_cliente);
+            console.log('telefono_cliente');
+            console.log(telefono_cliente);
+            console.log('email_cliente');
+            console.log(email_cliente);
+            console.log('cedula_cliente');
+            console.log(cedula_cliente);
+
+
             base=$('#base').val();
+
+            if(nombre_cliente == '' || nombre_cliente == undefined || nombre_cliente == null || cedula_cliente == '' || cedula_cliente == undefined || cedula_cliente == null || telefono_cliente == '' || telefono_cliente == undefined || telefono_cliente == null){
+                $('.rescliente').html('<div class="alert alert-danger">Todos los campos son obligatorios</div>');
+            }else{
+
+
+                $.ajax({
+                    type: "POST",
+                    data:{nombre_cliente, telefono_cliente, email_cliente, cedula_cliente},
+                    url: base+"/pos/addcliente",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+
+            }
 
 
            // alert(nombre_cliente);
 
-            $.ajax({
-                type: "POST",
-                data:{nombre_cliente, telefono_cliente, email_cliente, cedula_cliente},
-                url: base+"/pos/addcliente",
-                    
-                complete: function(datos){     
-
-                    $('.panelprincipal').html((datos.responseText));
-                }
-
-            });
+            
 
         });
 
@@ -1025,6 +1048,27 @@ Punto de Venta
                 });
 
         });
+
+
+
+        document.addEventListener('keydown', (event) => {
+            console.log(event.keyCode);
+            if (event.ctrlKey) {
+                if (event.keyCode == 67 || event.keyCode == 97) {
+                    console.log("You have just pressed Ctrl + a/A!");
+
+                    $('.ctrl-c').trigger('click');
+                }
+
+                if (event.keyCode == 68) {
+
+                    event.preventDefault();
+                    console.log("You have just pressed Ctrl + a/A!");
+
+                    $('.ctrl-d').trigger('click');
+                }
+            }
+        }, false);
 
 
 

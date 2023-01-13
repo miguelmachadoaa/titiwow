@@ -98,6 +98,13 @@ class AlpOrdenes extends Model
 
     }
 
+    public function transacciones()
+    {
+
+        return $this->hasMany('App\Models\AlpTransacciones', 'id_orden', 'id');
+
+    }
+
      public function cliente()
     {
         return $this->hasOne('App\User', 'id', 'id_cliente');

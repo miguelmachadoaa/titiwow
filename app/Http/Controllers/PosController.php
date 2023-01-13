@@ -999,6 +999,7 @@ class PosController extends JoshController
               ->join('role_users', 'users.id', '=', 'role_users.user_id')
               ->join('roles', 'role_users.role_id', '=', 'roles.id')
               ->where('role_users.role_id', '<>', 1)
+              ->orderBy('alp_clientes.id', 'desc')
               ->get();
 
 
@@ -1155,11 +1156,49 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/addcliente');
         }
 
-       $categorias=AlpCategorias::where('estado_registro', '1')->get();
-       $impuestos=AlpImpuestos::where('estado_registro', '1')->get();
+
+        if (isset($user->id)) {
+
+          $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
+
+           if (isset($caja->id)) {
+
+            $categorias=AlpCategorias::where('estado_registro', '1')->get();
+
+            $impuestos=AlpImpuestos::where('estado_registro', '1')->get();
+      
+              $view= View::make('pos.addcliente', compact( 'categorias', 'impuestos'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
+
+              return json_encode($res);
+
+              // code...
+            }else{
+
+              $view= View::make('pos.dashboard', compact('caja'));
+
+              $data=$view->render();
+
+              $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'No se encontro caja', 'data'=>$data );
+
+              return json_encode($res);
+            }
+
+          
+        }else{
 
 
-    return view('pos.addcliente', compact( 'categorias', 'impuestos'));
+            $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
+
+            return json_encode($res);
+
+
+        }
+
+      
 
   }
 
@@ -1182,9 +1221,15 @@ class PosController extends JoshController
           ->withProperties($request->getContent())->log('PosController/addcliente');
         }
 
+        if(empty($request->email_cliente)){
+          $email = time().'@titiwow.com';
+        }else{
+          $email = $request->email_cliente;
+        }
+
         $usuario=User::create([
           'first_name'=>$request->nombre_cliente,
-          'email'=>$request->email_cliente,
+          'email'=>$email,
           'password'=>md5($request->nombre_cliente),
        ]);
 
@@ -1212,6 +1257,7 @@ class PosController extends JoshController
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('role_users.role_id', '<>', 1)
+        ->orderBy('alp_clientes.id', 'desc')
         ->get();
 
 
@@ -1599,8 +1645,6 @@ class PosController extends JoshController
 
           \Session::put('cart', $cart);
         }
-
-
 
           $p=AlpProductos::where('id', $request->id)->first();
 
@@ -2209,10 +2253,10 @@ public function addpago(Request $request)
               'referencia'=>'vuelto',
               'monto'=>$dif,
               'valor'=>$dif,
-              'id_forma_pago'=>1,
+              'id_forma_pago'=>0,
               'tipo'=>'2',
               'moneda'=>'1',
-              'estado_registro'=>'1',
+              'estado_registro'=>'0',
               'id_user'=>$user->id
             ]);
 
@@ -2224,9 +2268,13 @@ public function addpago(Request $request)
 
         $cart=$this->calculoCart($cart);
 
-        $orden=AlpOrdenes::where('id', $orden->id)->with('detalles', 'pagos', 'cliente')->first();
+        $orden=AlpOrdenes::where('id', $orden->id)->with('detalles', 'pagos', 'cliente', 'transacciones')->first();
 
-        return view('pos.resumen', compact('orden'));
+        $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+
+      #  dd($orden);
+
+        return view('pos.resumen', compact('orden', 'formas_pago'));
 
   }
 
@@ -2294,14 +2342,14 @@ public function addpago(Request $request)
 
       }
 
-      $cart['total']=($total);
-      $cart['total_bs']=($total*$configuracion->tasa_dolar);
-      $cart['base']=($base);
-      $cart['impuesto']=($impuesto);
-      $cart['pagado_bs']=($pagado_bs);
-      $cart['pagado_usd']=($pagado_usd);
-      $cart['resto']=(($total*$configuracion->tasa_dolar)-$pagado_bs-($pagado_usd*$configuracion->tasa_dolar));
-      $cart['descuento']=($descuento);
+      $cart['total']=number_format($total,2);
+      $cart['total_bs']=number_format($total*$configuracion->tasa_dolar,2);
+      $cart['base']=number_format($base,2);
+      $cart['impuesto']=number_format($impuesto,2);
+      $cart['pagado_bs']=number_format($pagado_bs,2);
+      $cart['pagado_usd']=number_format($pagado_usd,2);
+      $cart['resto']=number_format(($total*$configuracion->tasa_dolar)-$pagado_bs-($pagado_usd*$configuracion->tasa_dolar),2);
+      $cart['descuento']=number_format($descuento,2);
 
       return $cart;
 

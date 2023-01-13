@@ -30,18 +30,19 @@
 
                     @foreach($clientes as $c)
 
-                    <div data-json="{{json_encode($c)}}" class="row cajasombra cliente mt-2 @if($loop->index%2==0) odd @endif">
-                        <div class="col-sm-5">
+                    <div data-json="{{json_encode($c)}}" class="row cajasombra cliente mt-1 @if($loop->index%2==0) odd @endif">
+                        <div class="col-sm-4">
                             <p style="margin: 0">{{$c->first_name.' '.$c->last_name}}</p>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-3">
                             <p style="margin: 0">{{$c->email}}</p>
+                        </div>
+                        <div class="col-sm-3">
                             <p style="margin: 0">{{$c->telefono_cliente}}</p>
                         </div>
                         <div class="col-sm-2 ">
-                            
-                            <button class="btn btn-primary mt-2 editcliente"><i class="fa fa-edit"></i></button>
-                            <button data-id="{{$c->id}}" class="btn btn-primary mt-2   asignacliente"><i class="fa fa-chevron-right"></i></button>
+                            <button class="btn btn-primary  editcliente"><i class="fa fa-edit"></i></button>
+                            <button data-id="{{$c->id}}" class="btn btn-primary    asignacliente"><i class="fa fa-chevron-right"></i></button>
                         </div>
                     </div>
                     @endforeach
