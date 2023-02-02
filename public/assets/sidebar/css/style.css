@@ -8393,3 +8393,20 @@ padding: 1px;
   font-size: 0.8em;
   color: #ccc;
 }
+
+
+.btn.btn-primary:hover, .btn.btn-primary:focus {
+    background: #000 !important;
+    border-color: #000 !important;
+}
+
+.btn.btn-default:hover, .btn.btn-default:focus {
+    background: #000 !important;
+    border-color: #000 !important;
+}
+
+
+.btn.btn-success:hover, .btn.btn-success:focus {
+    background: #000 !important;
+    border-color: #000 !important;
+}

@@ -14,7 +14,7 @@
 
             <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
             <span class="tecla-control">Ctrl+d</span>
-                <a data-id="dashboard" href="#" class=" btn-medium cajita ctrl-d">
+                <a tabindex="1" data-id="dashboard" href="#" class=" btn-medium cajita ctrl-d">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-home"></i></div>
                     <div class="col-sm-12">Dashboard</div>
@@ -28,7 +28,7 @@
             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 col-md-3 text-center">
             <span class="tecla-control">Ctrl+c</span>
 
-                <a data-id="carritos" href="#" class=" btn-medium cajita ctrl-c">
+                <a tabindex="2" data-id="carritos" href="#" class=" btn-medium cajita ctrl-c">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" >
                         <i class=" mt-4 fa fa-shopping-cart"></i></div>
@@ -38,7 +38,7 @@
 
                 </a>
             </div>    
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
+            <div tabindex="3"  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
                 <span class="tecla-control">Ctrl+q</span>
                 <a data-id="pedidos" href="#" class=" btn-medium cajita ctrl-q">
                     <div class="row">
@@ -47,7 +47,7 @@
                     </div>
                 </a>
             </div> 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">   
+            <div tabindex="4"  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">   
                 <a data-id="transacciones" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-shopping-cart"></i></div>
@@ -56,7 +56,7 @@
                 </a>
             </div> 
 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="5" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="reportes" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-area-chart"></i></div>
@@ -65,7 +65,7 @@
                 </a>
             </div> 
 
-            <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="6" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a  data-id="categorias"  href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-tag"></i></div>
@@ -74,7 +74,7 @@
                 </a>
             </div> 
 
-             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+             <div tabindex="7" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="productos" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-table"></i></div>
@@ -83,7 +83,7 @@
                 </a>
             </div> 
 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="8" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="clientes" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-users"></i></div>
@@ -93,7 +93,7 @@
             </div> 
 
 
-             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+             <div tabindex="9" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="opciones" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-cog"></i></div>
@@ -102,7 +102,7 @@
                 </a>
             </div> 
 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="10" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="caja" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-shopping-bag"></i></div>
@@ -112,7 +112,7 @@
             </div>
 
 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="11" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="puntodeventa" href="#" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-shopping-bag"></i></div>
@@ -122,7 +122,7 @@
             </div>
 
 
-              <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+              <div tabindex="12" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="" href="#" class=" btn-medium verificarPinPad">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-shopping-bag"></i></div>
@@ -132,7 +132,7 @@
             </div>
 
 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="13" class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="salir" target="_blank" href="{{secure_url('/admin')}}" class=" btn-medium ">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-cog"></i></div>
@@ -143,7 +143,7 @@
          
 
 
-            <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
+            <div tabindex="14"  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a data-id="salir" href="{{secure_url('logout')}}" class=" btn-medium ">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-sign-out"></i></div>

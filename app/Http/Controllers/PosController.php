@@ -84,6 +84,7 @@ use App\Models\AlpPagos;
 use App\Models\AlpCajas;
 
 use App\Models\AlpTransacciones;
+use App\Models\AlpBancos;
 
 
 use App\User;
@@ -1950,9 +1951,10 @@ class PosController extends JoshController
           }
 
           $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+          $bancos=AlpBancos::where('estado_registro', '1')->get();
 
          
-          return view('pos.pagar', compact('cart', 'formaspago', 'cart'));
+          return view('pos.pagar', compact('cart', 'formaspago', 'cart', 'bancos'));
 
         }else{
 
@@ -2024,8 +2026,10 @@ public function addpago(Request $request)
         \Session::put('cart', $cart);
 
         $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
+
+         $bancos=AlpBancos::where('estado_registro', '1')->get();
        
-        return view('pos.pagar', compact('cart', 'formaspago'));
+        return view('pos.pagar', compact('cart', 'formaspago', 'bancos'));
 
   }
 
@@ -2063,8 +2067,9 @@ public function addpago(Request $request)
 
         $formaspago=AlpFormaspago::where('estado_registro', '1')->get();
 
+        $bancos=AlpBancos::where('estado_registro', '1')->get();
        
-        return view('pos.pagar', compact('cart', 'formaspago'));
+        return view('pos.pagar', compact('cart', 'formaspago', 'bancos'));
 
   }
 
@@ -2274,7 +2279,7 @@ public function addpago(Request $request)
 
       #  dd($orden);
 
-        return view('pos.resumen', compact('orden', 'formas_pago'));
+        return view('pos.resumen', compact('orden', 'formaspago'));
 
   }
 
@@ -2657,6 +2662,241 @@ private function inventario()
           $res = array('status' => 'dashboard', 'error'=>'0', 'mensaje'=>'', 'data'=>$data );
 
           return json_encode($res);
+
+  }
+
+
+  
+public function pagomoviltoken()
+  {
+
+      if (Sentinel::check()) {
+
+        $user = Sentinel::getUser();
+
+        activity($user->full_name)
+          ->performedOn($user)
+          ->causedBy($user)->log('PosController/pagomoviltoken ');
+
+      }else{
+
+        activity()->log('PosController/pagomoviltoken');
+      }
+
+      $configuracion = AlpConfiguracion::first();
+
+      $datos = [];
+      $datos['username']='titiwao';
+      $datos['password']='61ab3dace693f40d37f4d9a4ab1d9ce9';
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'http://20.231.111.55:8098/sitef/apiToken');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res =   json_decode($result);
+
+      if(isset($res->data->token)){
+        return $res->data->token;
+      }else{
+        return null;
+      }
+
+  }
+
+
+
+ 
+
+   public function buscarpago(Request $request)
+  {
+
+      if (Sentinel::check()) {
+
+        $user = Sentinel::getUser();
+
+        activity($user->full_name)
+          ->performedOn($user)
+          ->causedBy($user)->log('PosController/buscarpago ');
+
+      }else{
+
+        activity()->log('PosController/buscarpago');
+      }
+
+      $configuracion = AlpConfiguracion::first();
+
+      $token = $this->pagomoviltoken();
+
+      $telefono = $request->telefono;
+
+      #dd()
+
+      if (substr($request->telefono, 0, 1)=='0') {
+        $telefono= substr($request->telefono, 1);
+      }
+
+      $datos = [];
+      $datos['username']='titiwao';
+      $datos['token']=md5($token);
+      $datos['idBranch']='33';
+      $datos['codeStall']='001';
+      $datos['amount']='2.00';
+      $datos['telefonoDebito']='58'.$telefono;
+      $datos['paymentReference']=$request->referencia;
+     // $datos['trxDate']='2023-01-29';
+      $datos['trxDate']=date('Y-m-d');
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'http://20.231.111.55:8098/sitefAuth/getBusqueda');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Authorization: Bearer '.$token;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res =   json_decode($result);
+
+     # dd($res);
+
+      if (isset($res->data->transaction_list)) {
+
+        $res = array('status' => true, 'error'=>'0', 'mensaje'=>'', 'data'=>$res->data->transaction_list[0] );
+
+         #dd($res->data->transaction_list[0]);
+
+       }else{
+
+        #dd($res->data->error_list[0]->description);
+         $res = array('status' => false, 'error'=>'0', 'mensaje'=>$res->data->error_list[0]->description, 'data'=>[] );
+
+       }
+
+       return $res;
+
+  }
+
+
+   public function sendvuelto(Request $request)
+  {
+
+      if (Sentinel::check()) {
+
+        $user = Sentinel::getUser();
+
+        activity($user->full_name)
+          ->performedOn($user)
+          ->causedBy($user)->log('PosController/sendvuelto ');
+
+      }else{
+
+        activity()->log('PosController/sendvuelto');
+      }
+
+      $configuracion = AlpConfiguracion::first();
+
+      $token = $this->pagomoviltoken();
+
+
+    
+      
+
+    #  dd($request->all());
+
+      $monto = $request->monto*-1;
+
+      $telefono = $request->telefono;
+
+      #dd()
+
+      if (substr($request->telefono, 0, 1)=='0') {
+        $telefono= substr($request->telefono, 1);
+      }
+
+      $datos = [];
+      $datos['username']='titiwao';
+      $datos['token']=md5($token);
+      $datos['idBranch']='33';
+      $datos['codeStall']='001';
+      $datos['amount']=$monto;
+      $datos['destinationId']=$request->tipodoc.$request->cedula;
+      $datos['destinationMobileNumber']='58'.$telefono;
+      $datos['destinationBank']=substr($request->banco, 1);
+     # $datos['invoiceNumber']=$request->referencia;
+      $datos['invoiceNumber']=time();
+
+    #  dd($datos);
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'http://20.231.111.55:8098/sitefAuth/setVuelto');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Authorization: Bearer '.$token;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res =   json_decode($result);
+
+     
+      #$res = array('status' => true, 'error'=>'0', 'mensaje'=>'Transacción Procesada', 'data'=>['authorization_code'=>'182951','amount'=>'1.85' ] );
+    
+     # return $res;
+
+    /*return json_decode(json_encode('{"status":true,"error":"0","mensaje":"Transacci\u00f3n Procesada","data":{"processing_date":"2023-01-29 06:11:58 VET","trx_status":"approved","trx_internal_status":"0000","trx_type":"vuelto","authorization_code":"182951","payment_method":"p2p","payment_reference":502939200239,"invoice_number":"1674987510","amount":1.85,"service_fee":0,"currency":"ves"}}'), true); */
+     
+
+      if (isset($res->data->transaction_c2p_response)) {
+
+        $res = array('status' => true, 'error'=>'0', 'mensaje'=>'Transacción Procesada', 'data'=>$res->data->transaction_c2p_response );
+
+       # dd($res->data->transaction_c2p_response);
+
+       }else{
+
+        if (isset($res->data->error_list)) {
+          $res = array('status' => false, 'error'=>'0', 'mensaje'=>$res->data->error_list[0]->description, 'data'=>[] );
+        }else{
+          $res = array('status' => false, 'error'=>'0', 'mensaje'=>'Trasanccion Fallida: '.json_encode($res, true), 'data'=>[] );
+        }
+
+        #dd($res->data->error_list[0]->description);
+         
+
+       }
+
+       return $res;
 
   }
 

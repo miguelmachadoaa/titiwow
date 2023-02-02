@@ -1,5 +1,5 @@
 <div class="col-sm-8">
-    <input class="form-control" type="text" id="barcode" name="barcode" value="" placeholder="Barcode / Nombre / Sku">
+    <input tabindex="0" class="form-control" type="text" id="barcode" name="barcode" value="" placeholder="Barcode / Nombre / Sku">
 </div>
 
 <div class="col-sm-4 ">
@@ -11,12 +11,12 @@
             @if(isset($cart['cliente']->id))
 
 
-                 <input class="form-control" type="text" name="cliente" id="cliente" value="{{$cart['cliente']->first_name.' '.$cart['cliente']->lat_name}}" disabled="" placeholder="Buscar Cliente">   
+                 <input tabindex="1" class="form-control" type="text" name="cliente" id="cliente" value="{{$cart['cliente']->first_name.' '.$cart['cliente']->lat_name}}" disabled="" placeholder="Buscar Cliente">   
 
 
             @else
 
-                <input class="form-control" type="text" name="cliente" id="cliente" value="" placeholder="Buscar Cliente">
+                <input tabindex="1"  class="form-control" type="text" name="cliente" id="cliente" value="" placeholder="Buscar Cliente">
 
             @endif
 

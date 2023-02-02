@@ -200,7 +200,6 @@ class AlpClientesController extends JoshController
               if ($id_rol=='13') {
 
                  $actions = " 
-
                  <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
@@ -211,14 +210,10 @@ class AlpClientesController extends JoshController
                      <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
-
                  <a href='".secure_url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
 
                      Aplicar Abono
-                 </a>
-
-
-                  ";
+                 </a> ";
 
 
                 # code...
@@ -226,7 +221,6 @@ class AlpClientesController extends JoshController
 
 
                  $actions = " 
-
                  <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
@@ -243,7 +237,6 @@ class AlpClientesController extends JoshController
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>
 
-
                  <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>
 
 
@@ -255,29 +248,12 @@ class AlpClientesController extends JoshController
 
                 </div>
 
-
                 <a href='".secure_url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
 
                      Aplicar Abono
-                 </a>
-
-
-
-
-
-                 ";
+                 </a> ";
 
               }
-
-
-
-
-
-
-
-
-               
-
 
                $data[]= array(
                  $cliente->id, 
@@ -332,10 +308,6 @@ class AlpClientesController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-
-
-
-      
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')

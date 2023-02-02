@@ -183,11 +183,17 @@ Punto de Venta
         $('#barcode').focus();
 
          $(document).on('keydown', 'body', function(event) {
-            if(event.keyCode==182){ //F1
+            if(event.keyCode==18){  //F10
                 event.preventDefault();
 
                 $('#barcode').focus();
              }
+
+             if(event.keyCode==121){  //F10
+                event.preventDefault();
+
+                $('.pagar').trigger('click');
+             }  
          });
 
 
@@ -383,6 +389,8 @@ Punto de Venta
                         if(datos.responseJSON.status=='dashboard'){
 
                               $('.panelprincipal').html((datos.responseJSON.data));
+
+                              $('#barcode').focus();
 
                         }else if(datos.responseJSON.status=='login'){
 
@@ -788,11 +796,223 @@ Punto de Venta
 
             id=$(this).data('id');
 
-            $('.datapago').html('Forma de Pago '+name);
+            $('.datapago').html(name);
 
             $('#id_forma_pago').val(id);
 
             $('#nombre_forma_pago').val(name);
+
+            console.log(id+ ' '+name);
+
+            if(id=='5'){
+
+                $('.buscarpago').fadeIn();
+                $('.buscartelefono').fadeIn();
+                $('.addpago').fadeIn();
+
+            }else{
+
+                $('.buscarpago').fadeOut();
+                $('.buscartelefono').fadeOut();
+                $('.addpago').fadeIn();
+            }
+
+        });
+
+
+        $(document).on('click', '.vuelto', function(){
+
+           var name=$(this).data('name');
+
+           var id=$(this).data('id');
+
+            $('.datapago').html(name);
+
+            $('#id_forma_pago_vuelto').val(id);
+
+            $('#nombre_forma_pago_vuelto').val(name);
+
+            console.log(id+ ' '+name);
+
+            if(id=='5'){
+
+                $('.vueltofieldbanco').fadeIn();
+                $('.vueltofieldtelefono').fadeIn();
+                $('.vueltofieldtipodoc').fadeIn();
+                $('.vueltofieldcedula').fadeIn();
+                $('.sendvuelto').fadeIn();
+                $('#monto_vuelto').fadeIn();
+                $('.addvuelto').fadeOut();
+
+            }else{
+
+                $('.vueltofieldbanco').fadeOut();
+                $('.vueltofieldtelefono').fadeOut();
+                $('.vueltofieldtipodoc').fadeOut();
+                $('.vueltofieldcedula').fadeOut();
+                $('.sendvuelto').fadeOut();
+                $('#monto_vuelto').fadeIn();
+                $('.addvuelto').fadeIn();
+            }
+
+        });
+
+
+         $(document).on('click', '.sendvuelto', function(){
+
+             id=$('#id_forma_pago_vuelto').val();
+             name=$('#nombre_forma_pago_vuelto').val();
+             monto=$('#monto_vuelto').val();
+             referencia=$('#referencia').val();
+             telefono=$('#telefonov').val();
+             cedula=$('#cedula').val();
+             tipodoc=$('#tipodoc').val();
+             banco=$('#banco').val();
+
+             if(id==0){
+
+                $('#res').html('<div class="alert alert-danger ">Debe seleccionar una forma de pago </div>')
+             }else{
+
+                 base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id, name, monto, referencia, telefono,tipodoc, banco, cedula},
+                    url: base+"/pos/sendvuelto",
+                        
+                    complete: function(datos){   
+
+                        data = datos.responseJSON;  
+
+
+                        console.log('datos');
+                        console.log(datos);
+                        console.log('data');
+                        console.log(data);
+
+                        if (data.status) {
+
+                            console.log(data.data.authorization_code);
+
+                             $('.vueltofieldbanco').fadeOut();
+                            $('.vueltofieldtelefono').fadeOut();
+                            $('.vueltofieldtipodoc').fadeOut();
+                            $('.vueltofieldcedula').fadeOut();
+                            $('.sendvuelto').fadeOut();
+                            $('#monto_vuelto').fadeIn();
+                            $('.addvuelto').fadeIn();
+
+                         //   $('#monto_pago').val(data.data.amount);
+                          //  $('#referencia').val(data.data.authorization_code);
+                            $('#ticket_vuelto').val(datos.responseText);
+                            $('#resvuelto').html('<div class="alert alert-success "> Pago Enviado Ref #'+data.data.authorization_code+' </div>');
+                            $('.buscarpago').fadeOut();
+                            $('.buscartelefono').fadeOut();
+                            $('.addvuelto').fadeIn();
+                            //$( ".addvuelto" ).trigger( "click" );
+
+                        }else{
+
+                            $('#resvuelto').html('<div class="alert alert-danger ">'+data.mensaje+'</div>');
+
+                        }
+
+                        //$('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+             }
+
+        });
+
+
+         $(document).on('click', '.addvuelto', function(){
+
+             id=$('#id_forma_pago_vuelto').val();
+             name=$('#nombre_forma_pago_vuelto').val();
+             monto=$('#monto_vuelto').val();
+             referencia=$('#referencia').val();
+             ticket=$('#ticket').val();
+
+             if(id==0){
+
+                $('#res').html('<div class="alert alert-danger ">Debe seleccionar una forma de pago </div>')
+             }else{
+
+                 base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id, name, monto, referencia, ticket},
+                    url: base+"/pos/addpago",
+                        
+                    complete: function(datos){     
+
+                        $('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+             }
+
+        });
+
+
+
+
+
+
+        $(document).on('click', '.buscarpago', function(){
+
+             id=$('#id_forma_pago').val();
+             name=$('#nombre_forma_pago').val();
+             monto=$('#monto_pago').val();
+             referencia=$('#referencia').val();
+             telefono=$('#telefono').val();
+             ticket=$('#ticket').val();
+
+             $('#res').html('');
+
+             if(id==0){
+
+                $('#res').html('<div class="alert alert-danger ">Debe seleccionar una forma de pago </div>')
+             }else{
+
+                 base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id, name, monto, referencia, telefono},
+                    url: base+"/pos/buscarpago",
+                        
+                    complete: function(datos){   
+
+                        data = datos.responseJSON;  
+
+                        if (data.status) {
+
+                            $('#monto_pago').val(data.data.amount);
+                            $('#referencia').val(data.data.authorization_code);
+                            $('#ticket').val(datos.responseText);
+                            $('#res').html('<div class="alert alert-success "> Pago Aprobado </div>');
+                            $('.buscarpago').fadeOut();
+                            $('.buscartelefono').fadeOut();
+                            $('.addpago').fadeIn();
+
+                        }else{
+
+                            $('#res').html('<div class="alert alert-danger ">'+data.mensaje+'</div>');
+
+                        }
+
+                        //$('.panelprincipal').html((datos.responseText));
+                    }
+
+                });
+
+             }
 
         });
 
@@ -824,11 +1044,7 @@ Punto de Venta
 
                 });
 
-
              }
-
-
-           
 
         });
 

@@ -2,7 +2,6 @@
 
                 <div class="col-sm-3"></div>
 
-
                 <div class="col-sm-6 cajasombra" style="margin-top: 1em; padding:1em;">
 
                     <div class="row">
@@ -62,20 +61,31 @@
                             <div class="col-sm-12">
                                 
                                 <h4>Seleccione la forma de pago para dar vuleto</h4>
+
+                                @foreach( $formaspago as $fp)
+
+                                    @if($fp->vuelto=='1')
+
+                                        @if($fp->moneda=='1')
+
+                                            <button class="btn btn-success w-100 mb-2"> {{$fp->nombre_forma_pago}} Bs. {{$t->monto}}</button>
+
+                                        @else
+
+                                            <button class="btn btn-success w-100 mb-2"> {{$fp->nombre_forma_pago}} Usd. {{$t->monto / $configuracion->tasa_dolar}}</button>
+
+                                        @endif
+
+                                    @endif
                                 
-                                <button class="btn btn-success w-100 mb-2"> Vuelto Usd. {{number_format($t->monto / $configuracion->tasa_dolar,2)}}</button>
-                                
-                                <button class="btn btn-success w-100 mb-2"> Vuelto Efectivo Bs. {{$t->monto}}</button>
-                                
-                                <button class="btn btn-success w-100 mb-2"> Vuelto Pago Movil  {{$t->monto}}</button>
+                                @endforeach
                                 
                             </div>
 
                         @endif 
 
                     @endforeach
-
-
+    
                     </div>
 
                     <div class="row">
