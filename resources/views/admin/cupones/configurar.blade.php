@@ -9,9 +9,9 @@ Editar Cupon
 {{-- page level styles --}}
 @section('header_styles')
 
-<link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-<link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 @stop
 
 {{-- Content --}}
@@ -22,7 +22,7 @@ Editar Cupon
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -522,7 +522,7 @@ Editar Cupon
         </div>
     </div>
 
-    <input type="hidden" value="{{secure_url('/')}}" id="base" name="base">
+    <input type="hidden" value="{{url('/')}}" id="base" name="base">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <!-- row-->
 </section>
@@ -532,7 +532,7 @@ Editar Cupon
 
 @section('footer_scripts')
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
 <script >
     

@@ -5,12 +5,12 @@
     <title>Olvidé Mi Contraseña | Alpina Go!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- global level css -->
-    <link href="{{ secure_asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
     <!-- end of global level css -->
     <!-- page level css -->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/login.css') }}" />
-    <link href="{{ secure_asset('assets/vendors/iCheck/css/square/blue.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/login.css') }}" />
+    <link href="{{ asset('assets/vendors/iCheck/css/square/blue.css') }}" rel="stylesheet"/>
     <!-- end of page level css -->
 
 </head>
@@ -31,9 +31,9 @@
                 <a class="hiddenanchor" id="toforgot"></a>
                 <div id="wrapper">
                     <div id="login" class="animate form">
-                        <form method="post" action="{{ secure_url('admin/forgot-password',compact(['userId','passwordResetCode'])) }}" class="form-horizontal">
+                        <form method="post" action="{{ url('admin/forgot-password',compact(['userId','passwordResetCode'])) }}" class="form-horizontal">
                             <h3 >
-                                <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina Go!">
+                                <img src="{{ asset('assets/img/login.png') }}" alt="Alpina Go!">
                                 <br>Olvidé Mi Contraseña</h3>
                                 <!-- CSRF Token -->
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -81,7 +81,7 @@
                                 <input type="submit" value="Cambiar Contraseña" class="btn btn-success" />
                             </p>
                             <p class="change_link">
-                                <a href="{{ secure_url('admin') }}">
+                                <a href="{{ url('admin') }}">
                                     <button type="button" class="btn btn-responsive botton-alignment btn-danger btn-sm">Cancelar</button>
                                 </a>
                                 <!--a href="#toregister">
@@ -97,15 +97,15 @@
     </div>
     
     <!-- global js -->
-    <script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
     <!-- Bootstrap -->
-    <script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
     <!--livicons-->
-    <script src="{{ secure_asset('assets/js/raphael-min.js') }}"></script>
-    <script src="{{ secure_asset('assets/js/livicons-1.4.min.js') }}"></script>
-    <script src="{{ secure_asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/raphael-min.js') }}"></script>
+    <script src="{{ asset('assets/js/livicons-1.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
 
     <!-- end of global js -->
 </body>

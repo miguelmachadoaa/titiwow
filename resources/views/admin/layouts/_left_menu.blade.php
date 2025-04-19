@@ -1,14 +1,14 @@
 <ul id="menu" class="page-sidebar-menu">
 
     <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
-        <a href="{{  secure_url('admin') }}">
+        <a href="{{  url('admin') }}">
             <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                data-loop="true"></i>
             Escritorio
         </a>
     </li>
     <!--li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
-        <a target="_blank" href="{{  secure_url('/') }}">
+        <a target="_blank" href="{{  url('/') }}">
             <i class="livicon" data-name="angle-wide-right-alt" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             Ver Pagina
@@ -18,7 +18,7 @@
 
     @if (Sentinel::getUser()->hasAnyAccess(['tomapedidos.*']))
         <!--li {!! (Request::is('admin/tomapedidos*') ? 'class="active"' : '') !!}>
-            <a class="oculta-menu" href="{!! secure_url('admin/tomapedidos') !!}">
+            <a class="oculta-menu" href="{!! url('admin/tomapedidos') !!}">
             <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
              POS
@@ -29,7 +29,7 @@
 
     @if (Sentinel::getUser()->hasAnyAccess(['lifemiles.*']))
         <li {!! (Request::is('admin/lifemiles*') ? 'class="active"' : '') !!}>
-            <a href="{!! secure_url('admin/lifemiles') !!}">
+            <a href="{!! url('admin/lifemiles') !!}">
             <i class="livicon" data-name="rocket" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
              Lifemiles
@@ -40,7 +40,7 @@
 
 
     <!--li {!! (Request::is('admin/ticket*') ? 'class="active"' : '') !!}>
-            <a href="{!! secure_url('admin/ticket') !!}">
+            <a href="{!! url('admin/ticket') !!}">
             <i class="livicon" data-name="help" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
                data-loop="true"></i>
              Mesa de Soporte
@@ -50,14 +50,14 @@
             <ul class="sub-menu">
 
                 <li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
-                    <a href="{!! secure_url('admin/ticket') !!}">
+                    <a href="{!! url('admin/ticket') !!}">
                         <i class="fa fa-angle-double-right"></i>
                     Tickets Abiertos
                     </a>
                 </li>
 
                 <li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
-                    <a href="{!! secure_url('admin/ticket/cerrados') !!}">
+                    <a href="{!! url('admin/ticket/cerrados') !!}">
                         <i class="fa fa-angle-double-right"></i>
                     Tickets Cerrados
                     </a>
@@ -412,7 +412,7 @@
 @endif
 @if (Sentinel::getUser()->hasAnyAccess(['almacenes.*']))
  <li {!! (Request::is('admin/almacenes') ? 'class="active"' : '') !!}>
-        <a href="{{  secure_url('admin/almacenes') }}">
+        <a href="{{  url('admin/almacenes') }}">
             <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                data-loop="true"></i>
             Almacenes
@@ -586,7 +586,7 @@
     @if (Sentinel::getUser()->hasAnyAccess(['estatuspagos.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/estatuspagos*') ? 'class="active"' : '') !!}>
-                <a href="{!! secure_url('admin/estatuspagos') !!}">
+                <a href="{!! url('admin/estatuspagos') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Estatus Pagos
                 </a>
@@ -760,7 +760,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['activity_log.*']))
                 <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
-                        <a href="{{  secure_url('admin/activity_log') }}">
+                        <a href="{{  url('admin/activity_log') }}">
                             <i class="livicon" data-name="eye-open" data-size="18" data-c="#F89A14" data-hc="#F89A14"
                                data-loop="true"></i>
                            Log de Actividades
@@ -781,19 +781,19 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/inbox') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/inbox') }}">
+                <a href="{{ url('admin/inbox') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Inbox
                 </a>
             </li>
             <li {!! (Request::is('admin/compose') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/compose') }}">
+                <a href="{{ url('admin/compose') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Compose
                 </a>
             </li>
             <li {!! (Request::is('admin/view_mail') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/view_mail') }}">
+                <a href="{{ url('admin/view_mail') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Single Mail
                 </a>
@@ -806,7 +806,7 @@
     @if (Sentinel::getUser()->hasAnyAccess(['tasks.*']))
 
         <li {!! (Request::is('admin/tasks') ? 'class="active"' : '') !!}>
-            <a href="{{ secure_url('admin/tasks') }}">
+            <a href="{{ url('admin/tasks') }}">
                 <i class="livicon" data-c="#EF6F6C" data-hc="#EF6F6C" data-name="list-ul" data-size="18"
                    data-loop="true"></i>
                 Tareas
@@ -828,13 +828,13 @@
             </a>
             <ul class="sub-menu">
                 <li {!! (Request::is('admin/users') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/users') }}">
+                    <a href="{{ url('admin/users') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Usuarios
                     </a>
                 </li>
                 <li {!! (Request::is('admin/users/create') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/users/create') }}">
+                    <a href="{{ url('admin/users/create') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Crear Nuevo Usuario
                     </a>
@@ -846,7 +846,7 @@
                     </a>
                 </li>
                 <li {!! (Request::is('admin/deleted_users') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/deleted_users') }}">
+                    <a href="{{ url('admin/deleted_users') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Usuarios Eliminados
                     </a>
@@ -873,7 +873,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
                 <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/clientes') }}">
+                <a href="{{ url('admin/clientes') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes
                 </a>
@@ -881,9 +881,9 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.empresas']))
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
                 <li {!! (Request::is('admin/clientes/empresas/list') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/clientes/empresas/list') }}">
+                <a href="{{ url('admin/clientes/empresas/list') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Empresas
                 </a>
@@ -891,9 +891,9 @@
 
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.inactivos']))
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
                 <li {!! (Request::is('admin/clientes/inactivos') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/clientes/inactivos') }}">
+                <a href="{{ url('admin/clientes/inactivos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Inactivo
                 </a>
@@ -901,9 +901,9 @@
 
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.rechazados']))
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
                 <li {!! (Request::is('admin/clientes/rechazados') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/clientes/rechazados') }}">
+                <a href="{{ url('admin/clientes/rechazados') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Rechazados
                 </a>
@@ -911,10 +911,10 @@
 
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.create']))
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
 
              <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/clientes/create') }}">
+                <a href="{{ url('admin/clientes/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Crear Nuevo Cliente
                 </a>
@@ -922,7 +922,7 @@
            
 
              <li {!! (Request::is('admin/clientes/saldo') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/clientes/saldo') }}">
+                    <a href="{{ url('admin/clientes/saldo') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Clientes Saldo
                     </a>
@@ -931,7 +931,7 @@
 
 
              <li {!! (Request::is('admin/clientes/cargar') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/clientes/cargar') }}">
+                    <a href="{{ url('admin/clientes/cargar') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Cargar Clientes
                     </a>
@@ -939,7 +939,7 @@
 
 
                 <li {!! (Request::is('admin/clientes/cargarsaldo') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/clientes/cargarsaldo') }}">
+                    <a href="{{ url('admin/clientes/cargarsaldo') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Cargar Saldo Clientes
                     </a>
@@ -962,19 +962,19 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/alpinistas') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/alpinistas') }}">
+                <a href="{{ url('admin/alpinistas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Lista de Alpinistas
                 </a>
             </li>
             <li {!! (Request::is('admin/alpinistas/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/alpinistas/create') }}">
+                <a href="{{ url('admin/alpinistas/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cargar Alpinistas
                 </a>
             </li>
             <li {!! (Request::is('admin/alpinistas/destroy') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/alpinistas/show') }}">
+                <a href="{{ url('admin/alpinistas/show') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Retirar Alpinistas
                 </a>
@@ -993,13 +993,13 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/facturasmasivas') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/facturasmasivas') }}">
+                <a href="{{ url('admin/facturasmasivas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Lista de Facturas Cargadas
                 </a>
             </li>
             <li {!! (Request::is('admin/facturasmasivas/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/facturasmasivas/create') }}">
+                <a href="{{ url('admin/facturasmasivas/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cargar Facturas
                 </a>
@@ -1019,13 +1019,13 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/groups') }}">
+                <a href="{{ url('admin/groups') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Group List
                 </a>
             </li>
             <li {!! (Request::is('admin/groups/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/groups/create') }}">
+                <a href="{{ url('admin/groups/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Add New Group
                 </a>
@@ -1045,20 +1045,20 @@
         </a>
         <ul class="sub-menu">
 
-        @if (Sentinel::getUser()->hasAnyAccess(['reportes.lifemiles']))
+        @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
             <!--li {!! (Request::is('admin/reportes/lifemiles') ? 'class="active" id="active"' : '') !!}>
-            <a href="{{ secure_url('admin/reportes/lifemiles') }}">
+            <a href="{{ url('admin/reportes/lifemiles') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Reporte Cupones Lifemiles
             </a>
             </li-->
         @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.abandonado']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
             <!--li {!! (Request::is('admin/reportes/abandonado') ? 'class="active" id="active"' : '') !!}>
-            <a href="{{ secure_url('admin/reportes/abandonado') }}">
+            <a href="{{ url('admin/reportes/abandonado') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Reporte de Pedidos Incompletos
             </a>
@@ -1066,10 +1066,10 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.acceso']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
             <!--li {!! (Request::is('admin/reportes/acceso') ? 'class="active" id="active"' : '') !!}>
-            <a href="{{ secure_url('admin/reportes/acceso') }}">
+            <a href="{{ url('admin/reportes/acceso') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Reporte Acceso de Usuarios
             </a>
@@ -1080,10 +1080,10 @@
            
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventario']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <li {!! (Request::is('admin/reportes/inventario') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/inventario') }}">
+                    <a href="{{ url('admin/reportes/inventario') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte Inventario
                     </a>
@@ -1091,10 +1091,10 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.bono']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!--li {!! (Request::is('admin/reportes/bono') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/bono') }}">
+                    <a href="{{ url('admin/reportes/bono') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte uso de bono
                     </a>
@@ -1102,20 +1102,20 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.precio']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <li {!! (Request::is('admin/reportes/precio') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/precio') }}">
+                    <a href="{{ url('admin/reportes/precio') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Precio de Producto
                     </a>
                 </li>
             @endif
 
-             @if (Sentinel::getUser()->hasAnyAccess(['reportes.clientes']))
+             @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <li {!! (Request::is('admin/reportes/clientes') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/clientes') }}">
+                    <a href="{{ url('admin/reportes/clientes') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Clientes por Ciudad
                     </a>
@@ -1124,10 +1124,10 @@
 
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductos']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <li {!! (Request::is('admin/reportes/listadoproductos') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/listadoproductos') }}">
+                    <a href="{{ url('admin/reportes/listadoproductos') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Listado de Productos
                     </a>
@@ -1135,10 +1135,10 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductosalmacen']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/listadoproductosalmacen') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/listadoproductosalmacen') }}">
+                <a href="{{ url('admin/reportes/listadoproductosalmacen') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Listado de Productos Rappi
                 </a>
@@ -1146,129 +1146,129 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!--li {!! (Request::is('admin/reportes/masterfile') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/masterfile') }}">
+                    <a href="{{ url('admin/reportes/masterfile') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Clientes
                     </a>
                 </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileamigos']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!--li {!! (Request::is('admin/reportes/masterfileamigos') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/masterfileamigos') }}">
+                    <a href="{{ url('admin/reportes/masterfileamigos') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Amigos
                     </a>
                 </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileembajadores']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!--li {!! (Request::is('admin/reportes/masterfileembajadores') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/masterfileembajadores') }}">
+                    <a href="{{ url('admin/reportes/masterfileembajadores') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Embajadores
                     </a>
                 </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!--li {!! (Request::is('admin/reportes/logistica') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/logistica') }}">
+                    <a href="{{ url('admin/reportes/logistica') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Logistica Ventas Ecommerce
                     </a>
                 </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.consolidado']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!---li {!! (Request::is('admin/reportes/consolidado') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/consolidado') }}">
+                    <a href="{{ url('admin/reportes/consolidado') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Consolidado
                     </a>
                 </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                  <!--li {!! (Request::is('admin/reportes/registrados') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/registrados') }}">
+                    <a href="{{ url('admin/reportes/registrados') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Lista de Usuarios
                     </a>
                 </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventas']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <li {!! (Request::is('admin/reportes/ventas') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/ventas') }}">
+                <a href="{{ url('admin/reportes/ventas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por Usuario
                 </a>
             </li>
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productos']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!---li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/productos') }}">
+                <a href="{{ url('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta por Productos/Combos
                 </a-->
             </li>
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/cuponesdescuento') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/cuponesdescuento') }}">
+                <a href="{{ url('admin/reportes/cuponesdescuento') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cupones de Descuento
                 </a>
             </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.carritos']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
                 <!--li {!! (Request::is('admin/reportes/carrito') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/carrito') }}">
+                <a href="{{ url('admin/reportes/carrito') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Carritos Abandonados
                 </a>
             </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.financiero']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/financiero') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/financiero') }}">
+                <a href="{{ url('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Conciliacion Financiera Bogotá
                 </a>
             </li-->
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventastotales']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <li {!! (Request::is('admin/reportes/ventastotales') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/ventastotales') }}">
+                <a href="{{ url('admin/reportes/ventastotales') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas con Impuesto
                 </a>
             </li>
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventasdescuento']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <li {!! (Request::is('admin/reportes/ventasdescuento') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/ventasdescuento') }}">
+                    <a href="{{ url('admin/reportes/ventasdescuento') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Descuento en Ventas
 
@@ -1276,20 +1276,20 @@
                 </li>
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productostotales']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <li {!! (Request::is('admin/reportes/productostotales') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/productostotales') }}">
+                <a href="{{ url('admin/reportes/productostotales') }}">
                     <i class="fa fa-angle-double-right"></i>
                     SellOut
                 </a>
             </li>
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosb']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/productosb') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/productosb') }}">
+                <a href="{{ url('admin/reportes/productosb') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos B
                 </a>
@@ -1297,10 +1297,10 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosc']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/productosc') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/productosc') }}">
+                <a href="{{ url('admin/reportes/productosc') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos C
                 </a>
@@ -1308,10 +1308,10 @@
             @endif
 
 
-             @if (Sentinel::getUser()->hasAnyAccess(['reportes.nomina']))
+             @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/nomina') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/nomina') }}">
+                <a href="{{ url('admin/reportes/nomina') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Reporte ventas por Almacen
                 </a>
@@ -1319,10 +1319,10 @@
             @endif
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleventa']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/detalleventa') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/reportes/detalleventa') }}">
+                <a href="{{ url('admin/reportes/detalleventa') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Reporte  detalles ventas
                 </a>
@@ -1330,10 +1330,10 @@
             @endif
 
 
-               @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleclientes']))
+               @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/detalleclientes') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/detalleclientes') }}">
+                    <a href="{{ url('admin/reportes/detalleclientes') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte  detalles clientes con compras
                     </a>
@@ -1341,19 +1341,19 @@
             @endif
 
 
-             @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
+             @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/inventariopordia') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/inventariopordia') }}">
+                    <a href="{{ url('admin/reportes/inventariopordia') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte  Inventario por Dia
                     </a>
                 </li-->
             @endif
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
                 <!--li {!! (Request::is('admin/reportes/almacenes/1/gestionar') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/almacenes/1/gestionar') }}">
+                    <a href="{{ url('admin/reportes/almacenes/1/gestionar') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Inventario Actual Bogotá
                     </a>
@@ -1383,19 +1383,19 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/blogcategory') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/blogcategory') }}">
+                <a href="{{ url('admin/blogcategory') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Blog Category List
                 </a>
             </li>
             <li {!! (Request::is('admin/blog') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/blog') }}">
+                <a href="{{ url('admin/blog') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Blog List
                 </a>
             </li>
             <li {!! (Request::is('admin/blog/create') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/blog/create') }}">
+                <a href="{{ url('admin/blog/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Add New Blog
                 </a>
@@ -1418,13 +1418,13 @@
         <ul class="sub-menu">
            
             <li {!! (Request::is('admin/cms') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/cms') }}">
+                <a href="{{ url('admin/cms') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Lista de Páginas
                 </a>
             </li>
             <li {!! (Request::is('admin/cms/create') ? 'class="active"' : '') !!}>
-                <a href="{{ secure_url('admin/cms/create') }}">
+                <a href="{{ url('admin/cms/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Nueva Página
                 </a>
@@ -1454,7 +1454,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['departamentos.index']))
                 <li {!! (Request::is('admin/departamentos/') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/departamentos/') }}">
+                <a href="{{ url('admin/departamentos/') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Areas
                 </a>
@@ -1464,7 +1464,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['urgencias.index']))
                 <li {!! (Request::is('admin/urgencias') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/urgencias') }}">
+                <a href="{{ url('admin/urgencias') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Niveles de Urgencia
                 </a>

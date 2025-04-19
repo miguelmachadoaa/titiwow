@@ -8,9 +8,9 @@ Configuracion Ancheta
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -21,7 +21,7 @@ Configuracion Ancheta
     <h1>Configuracion Ancheta</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Escritorio
             </a>
         </li>
@@ -49,7 +49,7 @@ Configuracion Ancheta
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
 
 
-                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$producto->id.'/storecategoria') }}">
+                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/productos/'.$producto->id.'/storecategoria') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -104,7 +104,7 @@ Configuracion Ancheta
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ secure_url('admin/productos/'.$producto->id.'/edit') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/productos/'.$producto->id.'/edit') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">Crear</button>
@@ -188,11 +188,11 @@ Configuracion Ancheta
                             <td>{{($c->cantidad_maxima)}}</td>
                             <td>
 
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-success">Gestionar</i></a>
+                                <a  href="{{url('admin/productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-success">Gestionar</i></a>
 
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/eliminarcategoria')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
+                                <a  href="{{url('admin/productos/'.$c->id.'/eliminarcategoria')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
 
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/editarcategoria')}}" class="btn btn-info"><i class=" fa fa-pencil"></i></a>
+                                <a  href="{{url('admin/productos/'.$c->id.'/editarcategoria')}}" class="btn btn-info"><i class=" fa fa-pencil"></i></a>
 
                             </td>
                         </tr>
@@ -221,15 +221,15 @@ Configuracion Ancheta
  </div>
 </section>
 
-<input type="hidden" name="base" id="base" value="{{secure_url('/')}}">
+<input type="hidden" name="base" id="base" value="{{url('/')}}">
 @stop
 
 
 @section('footer_scripts')
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 

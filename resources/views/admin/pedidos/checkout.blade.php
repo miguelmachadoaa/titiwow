@@ -16,13 +16,13 @@ Pedidos
 
 @section('header_styles')
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
 
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -44,7 +44,7 @@ Pedidos
 
         <li>
 
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
 
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
 
@@ -72,7 +72,7 @@ Pedidos
 
 
 
-         <form action="{{secure_url('admin/tomapedidos/procesar')}}" method="post" >
+         <form action="{{url('admin/tomapedidos/procesar')}}" method="post" >
 
 
 
@@ -96,7 +96,7 @@ Pedidos
 
                 <div class="panel-body" style="padding-top: 0;">
 
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                     <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                      <div class="row clientecompra table-responsive" style="padding-top: 0;">
 
@@ -136,7 +136,7 @@ Pedidos
 
                 <div class="panel-body" style="padding-top: 0;">
 
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                     <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
 
 
@@ -180,7 +180,7 @@ Pedidos
 
 
 
-<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" value="{{url('/')}}">
 
 
 
@@ -231,7 +231,7 @@ Pedidos
 
 
 
-                         <form action="{{ secure_url('admin/tomapedidos/postdireccion') }}" method="POST" id="dir_form" name="dir_form">
+                         <form action="{{ url('admin/tomapedidos/postdireccion') }}" method="POST" id="dir_form" name="dir_form">
 
 
 
@@ -537,7 +537,7 @@ Pedidos
 
 
 
-                         <form action="{{ secure_url('admin/tomapedidos/postregistro') }}" method="POST" id="reg_form" name="reg_form">
+                         <form action="{{ url('admin/tomapedidos/postregistro') }}" method="POST" id="reg_form" name="reg_form">
 
 
 
@@ -914,9 +914,9 @@ Pedidos
 
                         
 
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
@@ -1025,19 +1025,19 @@ Pedidos
 
 </div>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
-
-
-
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom_checkout.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+
+
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom_checkout.js') }}"></script>
+
+<script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 

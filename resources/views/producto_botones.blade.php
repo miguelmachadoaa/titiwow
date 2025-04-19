@@ -61,7 +61,7 @@
                     data-marca="{{ $producto->nombre_marca }}" 
                     data-sku="{{ $producto->referencia_producto_sap }}" 
                     data-ean="{{ $producto->referencia_producto }}"
-                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                    data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
 
                 @endif

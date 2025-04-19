@@ -30,7 +30,7 @@
             @elseif($row->tipo_producto == 3)
             <td>Ancheta</td>
             @endif
-            <td>{!! secure_url('uploads/productos/'.$row->imagen_producto) !!}</td>
+            <td>{!! url('uploads/productos/'.$row->imagen_producto) !!}</td>
           
         </tr>
         @if($row->tipo_producto == 2)

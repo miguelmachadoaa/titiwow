@@ -11,18 +11,18 @@ Carrito de Compras
 
 <!-- modal css -->
 
-    <link href="{{ secure_asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
 
-     <!--<link href="{{ secure_asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
+     <!--<link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
     
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
     <style type="text/css">
         
@@ -99,7 +99,7 @@ div.overlay > div {
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -109,7 +109,7 @@ div.overlay > div {
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{secure_url('productos')}}">Checkout</a>
+                    <a href="{{url('productos')}}">Checkout</a>
                 </li>
             </ol>
            
@@ -133,7 +133,7 @@ div.overlay > div {
 
         </div>
 
-        {!! Form::open(['url' => secure_url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+        {!! Form::open(['url' => url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
 
             <div class="row direcciones" style="text-align: left;">
 
@@ -295,7 +295,7 @@ div.overlay > div {
 
                     <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img class="img-responsive" src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" >
+                        <img class="img-responsive" src="{{ url('/uploads/files/mercado-pago.jpg') }}" >
 
                     </div>
 
@@ -392,7 +392,7 @@ div.overlay > div {
 
                     <div class="col-sm-4 col-xs-12" style="background-color:#3c763d;color:#ffffff;">
 
-                       <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                       <form action="{{ url('/order/creditcard') }}" method="POST">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
                             data-public-key="{{ $configuracion->public_key_mercadopago }}"
@@ -475,7 +475,7 @@ div.overlay > div {
 
                         <div class="hidden-xs col-sm-2 ">
 
-                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="3em" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
+                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="3em" src="{{ url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
 
                         </div>
 
@@ -614,7 +614,7 @@ div.overlay > div {
 
 <p style="text-align: center;">
 
-    <a class="btn btn-danger" href="{{secure_url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+    <a class="btn btn-danger" href="{{url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
 
 </p>
@@ -634,9 +634,9 @@ div.overlay > div {
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+                        <form method="POST" action="{{url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -677,9 +677,9 @@ div.overlay > div {
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
+                        <form method="POST" action="{{url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -803,11 +803,11 @@ div.overlay > div {
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
 
@@ -986,7 +986,7 @@ $('.sendCupon').click(function () {
 
     <!-- modal js -->
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/modal/js/classie.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/modal/js/classie.js')}}"></script>
     <script>
         $("#stack2,#stack3").on('hidden.bs.modal', function (e) {
             $('body').addClass('modal-open');

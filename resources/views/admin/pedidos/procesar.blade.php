@@ -7,8 +7,8 @@ Pedidos
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -19,7 +19,7 @@ Pedidos
     <h1>Pedidos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -44,7 +44,7 @@ Pedidos
                 </div>
                 <br />
                 <div class="panel-body" style="padding-top: 0;">
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                     <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                      <div class="row" style="padding-top: 0;">
 
@@ -61,11 +61,11 @@ Pedidos
                             
                             <h3 > <b>Enlace para pago</b>  </h3>
 
-                            <p>{{secure_url('pedidos/'.$compra->token.'/pago')}} 
+                            <p>{{url('pedidos/'.$compra->token.'/pago')}} 
                                 <button type="button" class="btn btn-info btnCopiar" style="margin-left: 1em;">Copiar </button>
                             </p>
 
-                            <input type="hidden" id="copy_url" name="copy_url" value="{{secure_url('pedidos/'.$compra->token.'/pago')}}">
+                            <input type="hidden" id="copy_url" name="copy_url" value="{{url('pedidos/'.$compra->token.'/pago')}}">
 
                         </div>
 
@@ -86,8 +86,8 @@ Pedidos
                                      <tbody>
                                          @foreach($detalles as $row)
                                             <tr>
-                                                <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="{{secure_url('/uploads/productos/60/'.$row->imagen_producto)}}"></a></td>
-                                                <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+                                                <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" ><img height="60px" src="{{url('/uploads/productos/60/'.$row->imagen_producto)}}"></a></td>
+                                                <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
                                                 <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                                                 <td> {{ $row->cantidad }} </td>
                                                 <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
@@ -139,7 +139,7 @@ Pedidos
                         </div>
 
                         <div class="col-sm-12">
-                            <a class="btn btn-primary" href="{{secure_url('admin/tomapedidos/')}}">Realizar Otro Pedido</a>
+                            <a class="btn btn-primary" href="{{url('admin/tomapedidos/')}}">Realizar Otro Pedido</a>
                         </div>
                          
                             
@@ -163,7 +163,7 @@ Pedidos
     </div>    <!-- row-->
 </section>
 
-<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" value="{{url('/')}}">
 
 
 @stop
@@ -182,9 +182,9 @@ Pedidos
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -252,8 +252,8 @@ Pedidos
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

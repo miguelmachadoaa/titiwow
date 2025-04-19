@@ -7,8 +7,8 @@ Estatus Envios
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -18,7 +18,7 @@ Estatus Envios
     <h1>Estatus Envios</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -38,12 +38,12 @@ Estatus Envios
                        Estatus Envios
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/estatusenvios/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Estatus Envios</a>
+                    <a href="{{ url('admin/estatusenvios/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Estatus Envios</a>
                     </div>
                 </div>
                 <br />
                 <div class="panel-body">
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                     <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                     @if ($estatus->count() >= 1)
                         <div class="table-responsive">
@@ -100,8 +100,8 @@ Estatus Envios
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

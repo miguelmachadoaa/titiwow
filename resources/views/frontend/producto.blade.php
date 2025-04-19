@@ -6,7 +6,7 @@
 
                         <div class="text-align:center;" >
 
-                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive"></a>
+                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive"></a>
 
                            <!--p>{{$producto->order}}</p> 
                                 <p>{{$producto->updated_at}}</p-->
@@ -18,7 +18,7 @@
 
                                     @if($inventario[$producto->id]<=0)
 
-                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                     @endif
 
@@ -30,13 +30,13 @@
 
                                     @if( $combos[$producto->id]=='0' || $inventario[$producto->id]==0)
 
-                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                     @endif
 
                                 @else
 
-                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                 @endif
 
@@ -234,7 +234,7 @@
                                     @endif
                                     data-marca="{{ $producto->nombre_marca }}" 
                                     data-name="{{ $producto->nombre_producto }}" 
-                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
                                     class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                     @else
@@ -252,7 +252,7 @@
                                         @endif
                                         data-marca="{{ $producto->nombre_marca }}" 
                                         data-name="{{ $producto->nombre_producto }}" 
-                                        data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                        data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
 
                                     class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
@@ -269,7 +269,7 @@
                                         
                                         data-marca="{{ $producto->nombre_marca }}" 
                                          data-name="{{ $producto->nombre_producto }}" 
-                                         data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                         data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                     @endif
 
@@ -288,7 +288,7 @@
                                     @endif
                                     data-marca="{{ $producto->nombre_marca }}" 
                                     data-name="{{ $producto->nombre_producto }}" 
-                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
                                     class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                 
                                 @endif
@@ -343,7 +343,7 @@
                                     @endif
                                     data-marca="{{ $producto->nombre_marca }}" 
                                     data-name="{{ $producto->nombre_producto }}" 
-                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
                                     class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                     @else
@@ -361,7 +361,7 @@
                                     @endif
                                     data-marca="{{ $producto->nombre_marca }}" 
                                     data-name="{{ $producto->nombre_producto }}" 
-                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
                                     class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                     <a data-slug="{{ $producto->slug }}" 
                                         data-sku="{{ $producto->referencia_producto_sap }}"
@@ -376,7 +376,7 @@
                                         
                                         data-marca="{{ $producto->nombre_marca }}" 
                                         data-name="{{ $producto->nombre_producto }}" 
-                                        data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                        data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                     @endif
 
@@ -396,7 +396,7 @@
                                     @endif
                                     data-marca="{{ $producto->nombre_marca }}" 
                                     data-name="{{ $producto->nombre_producto }}" 
-                                    data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                    data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
                                     class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                 
                                 @endif
@@ -416,7 +416,7 @@
                                 @endif
                                 data-marca="{{ $producto->nombre_marca }}" 
                                 data-name="{{ $producto->nombre_producto }}" 
-                                data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"
+                                data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"
                                 class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                             
                             @endif

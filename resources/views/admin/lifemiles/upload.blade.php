@@ -11,9 +11,9 @@ Cargar Codigos
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -71,7 +71,7 @@ Cargar Codigos
     <h1>Cargar Codigos </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000">git </i>
                Inicio
             </a>
@@ -93,7 +93,7 @@ Cargar Codigos
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/lifemiles/'.$lifemile ->id.'/postupload') }}">
+                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/lifemiles/'.$lifemile ->id.'/postupload') }}">
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -124,7 +124,7 @@ Cargar Codigos
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     
-                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/lifemiles/') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ url('admin/lifemiles/') }}">
                                         Cancelar
                                     </a>
 
@@ -141,15 +141,15 @@ Cargar Codigos
     </div>    <!-- row-->
 </section>
 
-<input type="hidden" name="base" id="base" value="{{  secure_url('/') }}">
+<input type="hidden" name="base" id="base" value="{{  url('/') }}">
 
 @stop
 @section('footer_scripts')
 
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 

@@ -7,7 +7,7 @@
 <br>
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/admin/ordenes') }}" class="button button-blue " target="_blank">Ver Ordenes
+    <a  href="{{ url('/admin/ordenes') }}" class="button button-blue " target="_blank">Ver Ordenes
 </a>
 </p>
 

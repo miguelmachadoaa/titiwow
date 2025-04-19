@@ -3,7 +3,7 @@
       <div class="form-group {{ $errors->first('tomapedidos_terminos', 'has-error') }} checkbox">
           <label style="padding: 0;">
 
-              <input type="checkbox" name="tomapedidos_terminos" id="tomapedidos_terminos" value="1" require>  Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Tomapedidos de Alpina Go.</a> 
+              <input type="checkbox" name="tomapedidos_terminos" id="tomapedidos_terminos" value="1" require>  Acepto los <a href="{{ url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Tomapedidos de Alpina Go.</a> 
           </label>
           {!! $errors->first('tomapedidos_terminos', '<span class="help-block">:message</span>') !!}
       </div>
@@ -65,7 +65,7 @@
                                   <div class="panel-body">
 
                                     <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{secure_url('/uploads/files/pse.jpg')}}">
+                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{url('/uploads/files/pse.jpg')}}">
                                     </p>
 
                                     <div data-id="2" class="pse col-sm-6 col-xs-12  btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
@@ -100,7 +100,7 @@
                                   <div class="panel-body">
 
                                        <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{secure_url('/uploads/files/tdc.jpg')}}">
+                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{url('/uploads/files/tdc.jpg')}}">
                                         </p> 
 
                                      <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12 btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
@@ -122,7 +122,7 @@
                                 <form action="../order/creditcard" method="POST" class="form_creditcard">
 
                                   <script
-                                   src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
+                                   src="{{url('assets/js/web-tokenize-checkout.js')}}"
 
                                     data-public-key="{{ $almacen->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
@@ -144,7 +144,7 @@
 
                                   <script
                                     
-                                    src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
+                                    src="{{url('assets/js/web-tokenize-checkout.js')}}"
 
                                     data-public-key="{{ $almacen->public_key_mercadopago }}"
                                     data-button-label="Pagar"
@@ -180,7 +180,7 @@
 
 
                                        <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{secure_url('/uploads/files').'/'.$pm['id'].'.jpg' }}">
+                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{url('/uploads/files').'/'.$pm['id'].'.jpg' }}">
                                         </p> 
 
                                      <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">

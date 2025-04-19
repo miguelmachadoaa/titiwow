@@ -60,13 +60,13 @@ class AlpTipoDocumentosController extends JoshController
         foreach($documentos as $row){
 
 
-        $actions = " <a href='".secure_url('admin/documentos/'.$row->id.'/edit')."'>
+        $actions = " <a href='".url('admin/documentos/'.$row->id.'/edit')."'>
                                                 <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar Documentos'></i>
                                             </a>
 
 
                                             
-                                            <a href='".secure_url('admin/documentos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <a href='".url('admin/documentos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
                                             <i class='livicon' data-name='remove-alt' data-size='18'
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>

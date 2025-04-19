@@ -9,17 +9,17 @@ Mis Invitaciones a Amigos
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
-     <link href="{{ secure_asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
+     <link href="{{ asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
 
-     <!--<link href="{{ secure_asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
+     <!--<link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
 
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -29,17 +29,17 @@ Mis Invitaciones a Amigos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes/miscompras') }}">Invitaciones </a>
+                    <a href="{{ url('clientes/miscompras') }}">Invitaciones </a>
                 </li>
 
                
@@ -62,7 +62,7 @@ Mis Invitaciones a Amigos
 
                 <div class="col-sm-8">  <h3>   Mis Invitaciones a Amigos  </h3> </div>
                 
-                <div class="col-sm-4">  <a class="btn btn-info addAmigo" href="{{ secure_url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Amigo</a> </div>
+                <div class="col-sm-4">  <a class="btn btn-info addAmigo" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Amigo</a> </div>
 
         </div>  
         
@@ -122,11 +122,11 @@ Mis Invitaciones a Amigos
                         </td>
 
                         <td>
-                            <a href=" {!! secure_url('/').'/registroembajadores/'.$row->token  !!}  ">Enlace</a>
+                            <a href=" {!! url('/').'/registroembajadores/'.$row->token  !!}  ">Enlace</a>
                         </td>
 
                         <td>    
-                                <button data-id="{{ $row->id }}" data-url="{{ secure_url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
+                                <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
 
                         </td>
                     </tr>
@@ -147,7 +147,7 @@ Mis Invitaciones a Amigos
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -160,9 +160,9 @@ Mis Invitaciones a Amigos
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
+                        <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
 
@@ -238,11 +238,11 @@ Mis Invitaciones a Amigos
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
     <script>

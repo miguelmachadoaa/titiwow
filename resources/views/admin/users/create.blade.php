@@ -9,12 +9,12 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css -->
-    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
     <!--end of page level css-->
 @stop
 
@@ -41,7 +41,7 @@
         <h1>Agregar Usuario</h1>
         <ol class="breadcrumb">
             <li>
-                <a href="{{ secure_url('admin') }}">
+                <a href="{{ url('admin') }}">
                     <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                     Dashboard
                 </a>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        <form id="commentForm" action="{{ secure_url('admin/users/create') }}"
+                        <form id="commentForm" action="{{ url('admin/users/create') }}"
                               method="POST" enctype="multipart/form-data" class="form-horizontal">
                             <!-- CSRF Token -->
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -304,19 +304,19 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
-    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/js/pages/adduser.js') }}"></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>
     <script>
         function formatState (state) {
             if (!state.id) { return state.text; }
             var $state = $(
-                '<span><img src="{{ secure_asset('assets/img/countries_flags') }}/'+ state.element.value.toLowerCase() + '.png" class="img-flag" width="20px" height="20px" /> ' + state.text + '</span>'
+                '<span><img src="{{ asset('assets/img/countries_flags') }}/'+ state.element.value.toLowerCase() + '.png" class="img-flag" width="20px" height="20px" /> ' + state.text + '</span>'
             );
             return $state;
 

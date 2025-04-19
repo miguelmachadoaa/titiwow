@@ -59,7 +59,7 @@
 <p>Puedes ver el detalle de tu compra y  Rastrearla en la seccion de mis compras en tu area de cliente.</p>
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/clientes') }}" class="button button-blue " target="_blank">Ir a Area de Cliente.</a>
+    <a  href="{{ url('/clientes') }}" class="button button-blue " target="_blank">Ir a Area de Cliente.</a>
 </p>
 
 <p>Gracias,</p><br>

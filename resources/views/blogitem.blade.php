@@ -9,7 +9,7 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/blog.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/blog.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -19,7 +19,7 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -97,7 +97,7 @@
                 <!-- //Media left section End -->
                 <!-- Comment Section Start -->
                 <h3>Leave a Comment</h3>
-                {!! Form::open(array('url' => secure_url('blogitem/'.$blog->id.'/comment'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
+                {!! Form::open(array('url' => url('blogitem/'.$blog->id.'/comment'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
 
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     {!! Form::text('name', null, array('class' => 'form-control input-lg','required' => 'required', 'placeholder'=>'Your name')) !!}
@@ -133,7 +133,7 @@
                         <ul class="media-list media-xs media-dotted">
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ secure_asset('assets/images/authors/avatar1.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ asset('assets/images/authors/avatar1.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">
@@ -150,7 +150,7 @@
                             <hr>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ secure_asset('assets/images/authors/avatar4.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ asset('assets/images/authors/avatar4.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">
@@ -167,7 +167,7 @@
                             <hr>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ secure_asset('assets/images/authors/avatar5.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ asset('assets/images/authors/avatar5.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">

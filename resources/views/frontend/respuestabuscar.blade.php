@@ -9,13 +9,13 @@
 
       <div class="row hidden-xs" >
             <div class="col-sm-12" style="margin-top:20px">
-                <a target="_blank" href="{{$banner->enlace_categoria}}"><img style="width: 100%;"  src="{{secure_url('/assets/images/'.$banner->banner_categoria)}}" alt=""></a>
+                <a target="_blank" href="{{$banner->enlace_categoria}}"><img style="width: 100%;"  src="{{url('/assets/images/'.$banner->banner_categoria)}}" alt=""></a>
             </div>
         </div>
 
         <div class="row visible-xs" >
             <div class="col-sm-12" style="margin-top:20px">
-               <a  target="_blank" href="{{$banner->enlace_categoria}}"><img  style="width: 100%;" src="{{secure_url('/assets/images/'.$banner->banner_movil_categoria)}}" alt=""></a> 
+               <a  target="_blank" href="{{$banner->enlace_categoria}}"><img  style="width: 100%;" src="{{url('/assets/images/'.$banner->banner_movil_categoria)}}" alt=""></a> 
             </div>
         </div>
 
@@ -147,7 +147,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
-                    <form method="GET" action="{{ secure_url('buscar') }}">
+                    <form method="GET" action="{{ url('buscar') }}">
                         <div class="row">
                             <div class="col-sm-12  col-xs-12 col-lg-8">
                                 <div class="input-group"> 

@@ -39,10 +39,10 @@ Productos @parent
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -51,7 +51,7 @@ Productos @parent
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -73,11 +73,11 @@ Productos @parent
         <!-- Categoria 1 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat1" style="background-image:url({{ secure_url('/').'/assets/img/categorias/leche.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat1" style="background-image:url({{ url('/').'/assets/img/categorias/leche.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Leche</h2>
-                            <a href="{{ secure_url('categoria/leche') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/leche') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -186,11 +186,11 @@ Productos @parent
         <!-- Categoria 2 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat2" style="background-image: url({{ secure_url('/').'/assets/img/categorias/lacteos.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat2" style="background-image: url({{ url('/').'/assets/img/categorias/lacteos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Lácteos</h2>
-                            <a href="{{ secure_url('categoria/lacteos') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/lacteos') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -257,11 +257,11 @@ Productos @parent
          <!-- Categoria 3 -->
          <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat3" style="background-image: url({{ secure_url('/').'/assets/img/categorias/quesos.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat3" style="background-image: url({{ url('/').'/assets/img/categorias/quesos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Quesos</h2>
-                            <a href="{{ secure_url('categoria/quesos') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/quesos') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -331,11 +331,11 @@ Productos @parent
          <!-- Categoria 4 -->
          <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat4" style="background-image: url({{ secure_url('/').'/assets/img/categorias/postres.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat4" style="background-image: url({{ url('/').'/assets/img/categorias/postres.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Postres y Dulces</h2>
-                            <a href="{{ secure_url('categoria/postres-dulces') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/postres-dulces') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -406,11 +406,11 @@ Productos @parent
         <!-- Categoria 5 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat5" style="background-image: url({{ secure_url('/').'/assets/img/categorias/esparcibles.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat5" style="background-image: url({{ url('/').'/assets/img/categorias/esparcibles.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Esparcibles e Ingredientes</h2>
-                            <a href="{{ secure_url('categoria/esparcibles-ingredientes') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/esparcibles-ingredientes') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -481,11 +481,11 @@ Productos @parent
         <!-- Categoria 6 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat6" style="background-image: url({{ secure_url('/').'/assets/img/categorias/jugos.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat6" style="background-image: url({{ url('/').'/assets/img/categorias/jugos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Bebidas de Fruta</h2>
-                            <a href="{{ secure_url('categoria/bebidas-frutas') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/bebidas-frutas') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -557,11 +557,11 @@ Productos @parent
         <!-- Categoria 7 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat7" style="background-image: url({{ secure_url('/').'/assets/img/categorias/finness.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat7" style="background-image: url({{ url('/').'/assets/img/categorias/finness.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Línea Finesse</h2>
-                            <a href="{{ secure_url('categoria/finesse') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/finesse') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -633,11 +633,11 @@ Productos @parent
         <!-- Categoria 8 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat8" style="background-image: url({{ secure_url('/').'/assets/img/categorias/baby.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat8" style="background-image: url({{ url('/').'/assets/img/categorias/baby.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Alpina Baby</h2>
-                            <a href="{{ secure_url('categoria/alpina-baby') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/alpina-baby') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -709,11 +709,11 @@ Productos @parent
         <!-- Categoria 9 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat9" style="background-image: url({{ secure_url('/').'/assets/img/categorias/no-lacteos.jpg' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat9" style="background-image: url({{ url('/').'/assets/img/categorias/no-lacteos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>No Lácteos</h2>
-                            <a href="{{ secure_url('categoria/no-lacteos') }}" class="botones_cat boton_cat">VER TODOS</a>                                
+                            <a href="{{ url('categoria/no-lacteos') }}" class="botones_cat boton_cat">VER TODOS</a>                                
                         </div>
                     </div>
                 </div>
@@ -798,7 +798,7 @@ Productos @parent
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ secure_url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
                     </div>
                 </div>
             </div>
@@ -813,8 +813,8 @@ Productos @parent
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
 
     <script>
         jQuery(document).ready(function () {

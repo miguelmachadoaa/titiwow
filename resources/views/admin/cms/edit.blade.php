@@ -8,10 +8,10 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <!--end of page level css-->
 @stop
@@ -39,7 +39,7 @@
     <!--main content-->
     <div class="row">
         <div class="the-box no-border">
-           {!! Form::model($cms, ['url' => secure_url('admin/cms/' . $cms->id), 'method' => 'put', 'class' => 'bf']) !!}
+           {!! Form::model($cms, ['url' => url('admin/cms/' . $cms->id), 'method' => 'put', 'class' => 'bf']) !!}
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group {{ $errors->first('titulo_pagina', 'has-error') }}">
@@ -162,13 +162,13 @@
 @stop
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/ckeditor.js') }}"  type="text/javascript"></script>
-    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/jquery.js') }}"  type="text/javascript" ></script>
-    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/config.js') }}"  type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" ></script>
+    <script  src="{{ asset('assets/vendors/ckeditor/js/ckeditor.js') }}"  type="text/javascript"></script>
+    <script  src="{{ asset('assets/vendors/ckeditor/js/jquery.js') }}"  type="text/javascript" ></script>
+    <script  src="{{ asset('assets/vendors/ckeditor/js/config.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/pages/add_newblog.js') }}" ></script>
     <script type="text/javascript" >
         // CKEditor Standard
         $('textarea#texto_pagina').ckeditor({

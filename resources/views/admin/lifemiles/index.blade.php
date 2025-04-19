@@ -7,8 +7,8 @@ Lifemiles
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -19,7 +19,7 @@ Lifemiles
     <h1>Lifemiles</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -39,7 +39,7 @@ Lifemiles
                        Lifemiles
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/lifemiles/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Campaña Lifemiles</a>
+                    <a href="{{ url('admin/lifemiles/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Campaña Lifemiles</a>
                     </div>
                 </div>
                 <br />
@@ -96,23 +96,23 @@ Lifemiles
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
-                                            <a href="{{ secure_url('admin/lifemiles/'.$row->id.'/edit') }}">
+                                            <a href="{{ url('admin/lifemiles/'.$row->id.'/edit') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar abono"></i>
                                             </a>
 
 
-                                            <a href="{{ secure_url('admin/lifemiles/'.$row->id) }}">
+                                            <a href="{{ url('admin/lifemiles/'.$row->id) }}">
                                                 <i class="livicon" data-name="eye-open" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="ver abono"></i>
                                             </a>
 
 
-                                            <a href="{{ secure_url('admin/lifemiles/'.$row->id.'/upload') }}">
+                                            <a href="{{ url('admin/lifemiles/'.$row->id.'/upload') }}">
                                                 <i class="livicon" data-name="upload" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="ver abono"></i>
                                             </a>
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ secure_url('admin/lifemiles/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ url('admin/lifemiles/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -136,7 +136,7 @@ Lifemiles
     </div>    <!-- row-->
 </section>
 
-<input type="hidden" id="base" name="base" valeu="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" valeu="{{url('/')}}">
 
 
 @stop
@@ -162,8 +162,8 @@ Lifemiles
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

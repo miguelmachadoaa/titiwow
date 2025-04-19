@@ -147,7 +147,7 @@ class AlpTicketController extends JoshController
            }
 
 
-        $actions = "<a class='btn btn-primary btn-xs' href='".secure_url('admin/ticket/'.$row->id)."' target='_blank'>
+        $actions = "<a class='btn btn-primary btn-xs' href='".url('admin/ticket/'.$row->id)."' target='_blank'>
                       ver detalles
                   </a> ";
 
@@ -235,7 +235,7 @@ class AlpTicketController extends JoshController
              }
   
   
-          $actions = "<a class='btn btn-primary btn-xs' href='".secure_url('admin/ticket/'.$row->id)."' target='_blank'>
+          $actions = "<a class='btn btn-primary btn-xs' href='".url('admin/ticket/'.$row->id)."' target='_blank'>
                         ver detalles
                     </a> ";
   

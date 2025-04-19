@@ -50,10 +50,10 @@ Resultado de la Búsqueda @parent
 @section('header_styles')
 
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -62,11 +62,11 @@ Resultado de la Búsqueda @parent
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     </a>
                 </li>
                 <li >
@@ -99,13 +99,13 @@ Resultado de la Búsqueda @parent
 
       <div class="row hidden-xs" >
             <div class="col-sm-12" style="margin-top:20px">
-                <a target="_blank" href="{{$banner->enlace_categoria}}"><img style="width: 100%;"  src="{{secure_url('/assets/images/'.$banner->banner_categoria)}}" alt=""></a>
+                <a target="_blank" href="{{$banner->enlace_categoria}}"><img style="width: 100%;"  src="{{url('/assets/images/'.$banner->banner_categoria)}}" alt=""></a>
             </div>
         </div>
 
         <div class="row visible-xs" >
             <div class="col-sm-12" style="margin-top:20px">
-               <a  target="_blank" href="{{$banner->enlace_categoria}}"><img  style="width: 100%;" src="{{secure_url('/assets/images/'.$banner->banner_movil_categoria)}}" alt=""></a> 
+               <a  target="_blank" href="{{$banner->enlace_categoria}}"><img  style="width: 100%;" src="{{url('/assets/images/'.$banner->banner_movil_categoria)}}" alt=""></a> 
             </div>
         </div>
 
@@ -237,7 +237,7 @@ Resultado de la Búsqueda @parent
             </div>
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
-                    <form method="GET" action="{{ secure_url('buscar') }}">
+                    <form method="GET" action="{{ url('buscar') }}">
                         <div class="row">
                             <div class="col-sm-12  col-xs-12 col-lg-8">
                                 <div class="input-group"> 
@@ -273,7 +273,7 @@ Resultado de la Búsqueda @parent
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ secure_url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
                     </div>
                 </div>
             </div>
@@ -290,8 +290,8 @@ Resultado de la Búsqueda @parent
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
 
     <script>
         jQuery(document).ready(function () {

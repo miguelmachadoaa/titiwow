@@ -133,16 +133,16 @@ class AlpProductosController extends JoshController
             if (Sentinel::getUser()->hasAnyAccess(['productos.edit'])) {
 
               if ($alpProductos->estado_registro == 1) {
-                $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
+                $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
               }
 
               if ($alpProductos->estado_registro == 2) {
-                $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
+                $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
               }
 
 
               if ($alpProductos->estado_registro == 0) {
-                $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
+                $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
               }
             }else{
               if ($alpProductos->estado_registro == 1) {
@@ -152,23 +152,23 @@ class AlpProductosController extends JoshController
               }
 
             }
-                 $actions = "   <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
+                 $actions = "   <a href='".url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
                      <i class='livicon' data-name='info' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>";
 
               if (Sentinel::getUser()->hasAnyAccess(['productos.edit'])) {
-                  $actions = $actions."   <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
+                  $actions = $actions."   <a href='".url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a> 
-                 <a href='".secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' )."' data-toggle='modal' data-target='#delete_confirm'>
+                 <a href='".url('admin/productos/'.$alpProductos->id.'/confirm-delete' )."' data-toggle='modal' data-target='#delete_confirm'>
                   <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i>  </a> ";
                  }
 
                /*  if ($alpProductos->destacado == 1) {
-              $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".secure_url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
+              $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
             }else{
 
-                   $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
+                   $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
             }*/
             if (Sentinel::getUser()->hasAnyAccess(['productos.edit'])) {
                 if ($alpProductos->sugerencia == 1) {
@@ -532,7 +532,7 @@ class AlpProductosController extends JoshController
             'imagen_producto' =>$imagen, 
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
-            'slug' => str_slug(strtolower ($request->nombre_producto)), 
+            'slug' => str_slug(strtolower ($request->nombre_producto)),
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
             'id_impuesto' =>$request->id_impuesto, 
@@ -1199,7 +1199,7 @@ class AlpProductosController extends JoshController
                 'imagen_producto' =>$imagen, 
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'slug' => str_slug(strtolower ($request->slug)), 
+                'slug' => str_slug(strtolower ($request->nombre_producto)), 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca,
                 'id_impuesto' =>$request->id_impuesto,
@@ -1228,7 +1228,7 @@ class AlpProductosController extends JoshController
                 'contenido_digital' =>$request->contenido_digital,
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'slug' => str_slug(strtolower ($request->slug)), 
+                'slug' => str_slug(strtolower ($request->nombre_producto)), 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'precio_base' =>$request->precio_base,
                 'id_impuesto' =>$request->id_impuesto,                
@@ -2116,40 +2116,40 @@ class AlpProductosController extends JoshController
 
 
             if ($alpProductos->estado_registro == 1) {
-              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
             }
 
             if ($alpProductos->estado_registro == 2) {
-              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
             }
 
 
                  $actions = " 
                   
-                  <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
+                  <a href='".url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
                      <i class='livicon' data-name='info' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
-                 <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
+                 <a href='".url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>";
 
 
                  if ($alpProductos->destacado == 1) {
-              $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".secure_url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
+              $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
             }else{
 
-                   $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
+                   $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
 
 
             }
 
                 if ($alpProductos->sugerencia == 1) {
               $sugerencia=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'>
- <button title='Sugerencia' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>   </button></div>";
+ <button title='Sugerencia' data-url='".url('productos/sugerencia')."' data-sugerencia='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>   </button></div>";
             }else{
 
                    $sugerencia="  
-<div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
+<div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
 
             }
 
@@ -2959,7 +2959,7 @@ class AlpProductosController extends JoshController
 
             
 
-            $imagen="<img src='".secure_url('uploads/productos/60/'.$alpProductos->imagen_producto)."' height='60px'>";
+            $imagen="<img src='".url('uploads/productos/60/'.$alpProductos->imagen_producto)."' height='60px'>";
 
             if ($alpProductos->id_grupo_destacado==1) {
               $grupo='Index';
@@ -2970,11 +2970,11 @@ class AlpProductosController extends JoshController
 
 
              if ($alpProductos->estado_registro == 1) {
-              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
             }
 
             if ($alpProductos->estado_registro == 2) {
-              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
             }
 
           
@@ -3051,7 +3051,7 @@ class AlpProductosController extends JoshController
             $extension = $file->extension()?: 'png';
             $picture = str_random(10) . '.' . $extension;    
             $destinationPath = public_path('/uploads/productos/' . $picture);
-            Image::make($file)->resize(600, 600)->save($destinationPath);            
+            $file->move($destinationPath, $picture);    
             $imagen = $picture;
 
         }

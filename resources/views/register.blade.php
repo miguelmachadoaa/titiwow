@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="canonical" href="{{secure_url('registro')}}" />
+    <link rel="canonical" href="{{url('registro')}}" />
 
 
     <title>Registro | Alpina Go! </title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
@@ -29,10 +29,10 @@
     </style>
     <!--end of global css-->
     <!--page level css starts-->
-    <!--link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" /-->
-    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/register.css') }}">
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <!--link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" /-->
+    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/register.css') }}">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of page level css-->
     @if (App::environment('production')) 
 
@@ -65,14 +65,14 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina GO!"></a>
+            <a href="{{ url('/') }}"><img src="{{ asset('assets/images/logo_go.png') }}" alt="Alpina GO!"></a>
             <div class="clearfix"></div>
             <h3 class="text-primary">Registro Alpina Go!</h3>
             <!-- Notifications -->
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ secure_url('registro') }}" method="POST" id="reg_form" name="reg_form" autocomplete="off">
+            <form action="{{ url('registro') }}" method="POST" id="reg_form" name="reg_form" autocomplete="off">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -154,13 +154,13 @@
                
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
+                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('terminos_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="terminos_cliente" id="terminos_cliente" value="1" require> Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a>
+                        <input type="checkbox" name="terminos_cliente" id="terminos_cliente" value="1" require> Acepto los <a href="{{ url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a>
                     </label>
                     {!! $errors->first('terminos_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -175,7 +175,7 @@
                             <button id="btnsubmit" name="btnsubmit" type="button" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
-                            <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
+                            <a class="btn btn-block btn-danger" href="{{ url('/') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                 </div>
@@ -183,12 +183,12 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ secure_url('login') }}"> Ingresar</a>
+                            Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ url('login') }}"> Ingresar</a>
                         </div>
                     </div>
                 </div>
             </form>
-            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
         </div>
         <!--div>
             <div class="form-group">
@@ -199,7 +199,7 @@
                             <p>En virtud de lo anterior, autorizo de manera previa, expresa, informada e inequívoca a ALPINA PRODUCTOS ALIMENTICIOS S.A. para que trate los datos que suministro en este documento para los fines señalados anteriormente. Adicionalmente, autorizo la transferencia o transmisión nacional e internacional de mis datos.</p>
                             <p>Declaro que los datos de terceros, los suministro tras haber obtenido previamente su autorización y en virtud de mi relación de parentesco con ellos.</p>
                 </p>
-                            <p><a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" style="color:#ffffff !important;" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> | <a href="{{ secure_asset('uploads/files/politica_de_tratamiento_de_la_informacion.pdf') }}" class="menu-item" style="color:#ffffff !important;" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a>
+                            <p><a href="{{ url('paginas/terminos-condiciones')}}" class="menu-item" style="color:#ffffff !important;" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> | <a href="{{ asset('uploads/files/politica_de_tratamiento_de_la_informacion.pdf') }}" class="menu-item" style="color:#ffffff !important;" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a>
 </p>
                         </div>
                     </div>
@@ -234,12 +234,12 @@
 </div>
 <!--global js starts-->
 <script src='https://www.google.com/recaptcha/api.js?render=explicit'></script>
-<script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
-<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<!--script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
+<script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom.js') }}"></script>
+<script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
 
 <script>

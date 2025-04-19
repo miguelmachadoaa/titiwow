@@ -10,7 +10,7 @@
 <link rel="canonical" href="{{$url}}" />
 <meta property="og:title" content="{{ $producto->seo_titulo }}| Alpina GO!">
 <meta property="og:description" content="{{ $producto->seo_descripcion }}">
-<meta property="og:image" content="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" />
+<meta property="og:image" content="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" />
 <meta property="og:url" content="{{$url}}" />
 <meta name="description" content="{{$producto->seo_descripcion}}"/>
 
@@ -19,7 +19,7 @@
 <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
 <meta name="twitter:description" content="{{ $producto->seo_descripcion }}">
 <meta name="twitter:title" content="{{ $producto->seo_titulo }}">
-<meta name="twitter:image" content="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}">
+<meta name="twitter:image" content="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}">
 
 @endif
 
@@ -47,7 +47,7 @@
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "{{$producto->nombre_producto}}",
-        "image": "{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}",
+        "image": "{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}",
         
         "description": "{{$producto->descripcion_corta}}",
         "sku": "{{$producto->referencia_producto}}",
@@ -77,12 +77,12 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/cart.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/bootstrap-rating/bootstrap-rating.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/bootstrap-rating/bootstrap-rating.css') }}">
     <!--end of page level css-->
 
 
@@ -94,13 +94,13 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                         @foreach($catprincipal as $catp)
-                        <a href="{{ secure_url('categoria/'.$catp->categ_slug) }}" alt="Ver Categoría"> {{ $catp->nombre_categoria }}</a>
+                        <a href="{{ url('categoria/'.$catp->categ_slug) }}" alt="Ver Categoría"> {{ $catp->nombre_categoria }}</a>
                         @endforeach
                 </li>
                 <li >
@@ -126,7 +126,7 @@
                         <div class="product_wrapper">
 
 
-                            <!--img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}}" title="{{ $producto->nombre_producto}}"/-->
+                            <!--img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}}" title="{{ $producto->nombre_producto}}"/-->
 
 
                             
@@ -139,7 +139,7 @@
                         @php $active='';  @endphp
 
                         <div class="item active">
-                          <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{$producto->seo_titulo}}" title="{{$producto->seo_titulo}}" >
+                          <img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{$producto->seo_titulo}}" title="{{$producto->seo_titulo}}" >
 
                       </div>
 
@@ -147,7 +147,7 @@
 
 
                          <div class="item ">
-                          <img src="{{ secure_url('/').'/uploads/productos/'.$ima->imagen_producto }}"  alt="{{$ima->alt}}" title="{{$ima->title}}" >
+                          <img src="{{ url('/').'/uploads/productos/'.$ima->imagen_producto }}"  alt="{{$ima->alt}}" title="{{$ima->title}}" >
                           
                         </div>
 
@@ -176,14 +176,14 @@
                         @php $active='';  @endphp
 
                         <div style="margin-bottom: 1em;"  data-target="#carousel-example-generic" data-slide-to="0" class="active col-xs-3 col-sm-2">
-                            <img class="img img-responsive" style="border: 1px solid rgba(0,0,0,0.1) " src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"   alt="{{$producto->seo_titulo}}" title="{{$producto->seo_titulo}}" >
+                            <img class="img img-responsive" style="border: 1px solid rgba(0,0,0,0.1) " src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}"   alt="{{$producto->seo_titulo}}" title="{{$producto->seo_titulo}}" >
                         </div>
 
                             @foreach($imagenes as $ima)
 
 
                                 <div  style="margin-bottom: 1em;" data-target="#carousel-example-generic" data-slide-to="{{$loop->iteration}}" class="{{$active}} col-xs-3 col-sm-2">
-                                    <img class="img img-responsive" style="border: 1px solid rgba(0,0,0,0.1) " src="{{ secure_url('/').'/uploads/productos/'.$ima->imagen_producto }}"   alt="{{$ima->alt}}" title="{{$ima->title}}" >
+                                    <img class="img img-responsive" style="border: 1px solid rgba(0,0,0,0.1) " src="{{ url('/').'/uploads/productos/'.$ima->imagen_producto }}"   alt="{{$ima->alt}}" title="{{$ima->title}}" >
                                 </div>
 
                             @php $active='';  @endphp
@@ -237,7 +237,7 @@
 
                                     @if($inventario[$producto->id]<=0)
 
-                                        <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+                                        <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="">
 
                                     @endif
 
@@ -249,13 +249,13 @@
 
                                     @if( $combos[$producto->id]=='0' || $inventario[$producto->id]==0)
 
-                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                     @endif
 
                                 @else
 
-                                        <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+                                        <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="">
 
                                 @endif
 
@@ -310,13 +310,13 @@
                             @endif
 
 
-                        <b>Marca:</b> <a href="{{ secure_url('marcas/'.$producto->marca_slug) }}" class="marca_single" >{{ $producto->nombre_marca}}</a> <br />
+                        <b>Marca:</b> <a href="{{ url('marcas/'.$producto->marca_slug) }}" class="marca_single" >{{ $producto->nombre_marca}}</a> <br />
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
                             @if($loop->last)
-                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" class="categoria_single">{{ $cats->nombre_categoria }}</a>.
+                            <a href="{{ url('categoria/'.$cats->categ_slug) }}" class="categoria_single">{{ $cats->nombre_categoria }}</a>.
                             @else
-                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" class="categoria_single">{{ $cats->nombre_categoria }}</a>,
+                            <a href="{{ url('categoria/'.$cats->categ_slug) }}" class="categoria_single">{{ $cats->nombre_categoria }}</a>,
                             @endif
                         @endforeach
                        <br />
@@ -573,14 +573,14 @@
 
                                                          @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')
 
-                                                          <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+                                                          <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
 
                                                         @else
 
                                                             @if(isset($combos[$producto->id]) && !is_numeric($combos[$producto->id]) )
 
 
-                                                             <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+                                                             <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
 
                                                             @else
 
@@ -612,7 +612,7 @@
 
                             <div class="col-sm-12" style="padding:0; margin:0;">
                         
-                        <a href="#" target="_blank"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></a>
+                        <a href="#" target="_blank"><img src="{{url('uploads/files/banner-750x100.jpg')}}" alt="banner"></a>
 
                     </div>
 
@@ -749,7 +749,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ secure_url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
                     </div>
                 </div>
             </div>
@@ -767,12 +767,12 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!--page level js start-->
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-rating/bootstrap-rating.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-rating/bootstrap-rating.js') }}"></script>
    
     <!--page level js start-->
 
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
 
     <script>
         jQuery(document).ready(function () {

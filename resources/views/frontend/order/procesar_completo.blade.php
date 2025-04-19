@@ -11,16 +11,16 @@ Carro de Productos
 
 <!-- modal css -->
 
-    <link href="{{ secure_asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
 
-     <!--<link href="{{ secure_asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
+     <!--<link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
     <style>
         
@@ -49,7 +49,7 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -59,7 +59,7 @@ Carro de Productos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{secure_url('productos')}}">Resumen del Pedido</a>
+                    <a href="{{url('productos')}}">Resumen del Pedido</a>
                 </li>
             </ol>
         </div>
@@ -112,8 +112,8 @@ Carro de Productos
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/60/{{$row->imagen_producto}}"></a></td>
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+                            <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/60/{{$row->imagen_producto}}"></a></td>
+                            <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
                             <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
                             <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
@@ -169,7 +169,7 @@ Carro de Productos
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="label label-seguir"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir"  href="{{ url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
          </div>
      </div>
 
@@ -187,11 +187,11 @@ Carro de Productos
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
 
@@ -214,7 +214,7 @@ Carro de Productos
 
     <!-- modal js -->
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/modal/js/classie.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/modal/js/classie.js')}}"></script>
     <script>
         $("#stack2,#stack3").on('hidden.bs.modal', function (e) {
             $('body').addClass('modal-open');

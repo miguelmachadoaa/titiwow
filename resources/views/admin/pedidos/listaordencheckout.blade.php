@@ -1,6 +1,6 @@
 @if(isset($cart))
 
- <h3>Detalle de Compra  <a class="btn btn-link" href="{{secure_url('admin/tomapedidos/')}}"><i class="fa fa-edit"></i></a></h3>
+ <h3>Detalle de Compra  <a class="btn btn-link" href="{{url('admin/tomapedidos/')}}"><i class="fa fa-edit"></i></a></h3>
 
     @if(count($cart))
 
@@ -10,7 +10,7 @@
 
         <div class="row">
             
-            <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>   
+            <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>   
             <div class="col-sm-10 col-xs-10 ">
                 <p><b>{{$p->nombre_producto}}</b></p>
                 <p class="">{{number_format($p->precio_oferta,0,',','.')}} x {{$p->cantidad}} </p>
@@ -29,7 +29,7 @@
 
         @if(isset($cart['id_cliente']) && isset($cart['id_direccion']))
 
-            <a  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg procesarTomapedidos" >Finalizar Compra</a>
+            <a  href="{{url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg procesarTomapedidos" >Finalizar Compra</a>
 
         @else
 

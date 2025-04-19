@@ -9,11 +9,11 @@ Página No Encontrada
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/jquery.circliful.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/animate/animate.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/jquery.circliful.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
 
     <!--end of page level css-->
 @stop
@@ -23,11 +23,11 @@ Página No Encontrada
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
                     </a>
                 </li>
                 <li>
@@ -52,10 +52,10 @@ Página No Encontrada
                 </div>
                 <div class="row">
                 <div class="col-md-12 col-sm-12 text-center hidden-xs">
-                <a href="{{ secure_url('/') }}"><img src="{{ secure_url('/').'/assets/images/404-alpina.jpg' }}" title="404 Página no encontrada" alt="404 Página no encontrada" class="img-responsive"></a>
+                <a href="{{ url('/') }}"><img src="{{ url('/').'/assets/images/404-alpina.jpg' }}" title="404 Página no encontrada" alt="404 Página no encontrada" class="img-responsive"></a>
                 </div>
                 <div class="col-md-12 col-sm-12 text-center visible-xs">
-                <a href="{{ secure_url('/') }}"><img src="{{ secure_url('/').'/assets/images/404-alpinam.jpg' }}" title="404 Página no encontrada" alt="404 Página no encontrada" class="img-responsive"></a>
+                <a href="{{ url('/') }}"><img src="{{ url('/').'/assets/images/404-alpinam.jpg' }}" title="404 Página no encontrada" alt="404 Página no encontrada" class="img-responsive"></a>
                 </div>
             </div>
             </div>

@@ -36,10 +36,10 @@ Editar Configuración General
                 </div>
                 <div class="panel-body">
 
-         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                     
                     
-                        {!! Form::model($configuracion, ['url' => secure_url('admin/configuracion/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($configuracion, ['url' => url('admin/configuracion/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
@@ -1290,7 +1290,7 @@ Editar Configuración General
 
 
 @section('footer_scripts')
-<script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/xc42s73lybz8ddwbc0x2r96zo5xzespl3acfc8ealrda9eox/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 
 <script >

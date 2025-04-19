@@ -120,7 +120,7 @@
                                 @endif
                                 <td>{{ date('d/m/Y H:i:s', strtotime($row->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="{{secure_url('/admin/ordenes/'.$row->id.'/detalle')}}" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="{{url('/admin/ordenes/'.$row->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
 

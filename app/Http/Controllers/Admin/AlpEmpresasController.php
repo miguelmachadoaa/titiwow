@@ -84,36 +84,36 @@ class AlpEmpresasController extends JoshController
            if ($row->estado_registro=='1') {
 
              $estatus=" <div class='estatus_".$row->id."'>
- <button data-url='".secure_url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
+ <button data-url='".url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
 </div>";
 
            }else{
 
             $estatus="<div class='estatus_".$row->id."'>
-<button data-url='".secure_url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
+<button data-url='".url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
  </div>";
 
            }
 
-        $actions = "   <a href='".secure_url('admin/empresas/'.$row->id.'/invitaciones')."'>
+        $actions = "   <a href='".url('admin/empresas/'.$row->id.'/invitaciones')."'>
                                                 <i class='livicon' data-name='plus' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Invitaciones'></i>
                                             </a>
 
 
-                                            <a href='".secure_url('admin/empresas/'.$row->id.'/edit')."'>
+                                            <a href='".url('admin/empresas/'.$row->id.'/edit')."'>
                                                 <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
                                             </a>
 
                                           
 
                                             
-                                            <a href='".secure_url('admin/empresas/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <a href='".url('admin/empresas/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
                                             <i class='livicon' data-name='remove-alt' data-size='18'
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
                                              </a>";
 
-                $imagen="<img style='width:  80px;' src='".secure_url('uploads/empresas/'.$row->imagen)."' class='img-responsive' alt='Image'>";
+                $imagen="<img style='width:  80px;' src='".url('uploads/empresas/'.$row->imagen)."' class='img-responsive' alt='Image'>";
 
 
                $data[]= array(

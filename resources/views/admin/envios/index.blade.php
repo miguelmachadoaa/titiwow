@@ -7,8 +7,8 @@ Envios
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 {{-- Content --}}
@@ -44,7 +44,7 @@ Envios
                 <div class="panel-body">
 
                     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
-            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+            <input type="hidden" name="base" id="base" value="{{ url('/') }}" />
 
 
                     @if ($envios->count() >= 1)
@@ -93,9 +93,9 @@ Envios
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('envios/confirmar')}}" id="estatusEnviosForm" name="estatusEnviosForm" class="form-horizontal">
+                        <form method="POST" action="{{url('envios/confirmar')}}" id="estatusEnviosForm" name="estatusEnviosForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                             <input type="hidden" name="envio_id" id="envio_id" value="">
 
                             {{ csrf_field() }}
@@ -151,17 +151,17 @@ Envios
 @section('footer_scripts')
 
 
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
 
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
 
- <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
+ <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
  
- <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+ <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
 
-  <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
     <script>
 

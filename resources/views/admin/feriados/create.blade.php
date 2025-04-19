@@ -14,7 +14,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -47,7 +47,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/feriados/create') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ url('admin/feriados/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}

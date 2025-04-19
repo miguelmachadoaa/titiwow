@@ -128,7 +128,7 @@ class AlpInventarioController extends JoshController
 
           foreach($productos as $row){
 
-                $actions = "  <a class='btn btn-xs btn-info' href='".secure_url('admin/inventario/'.$row->id.'/edit')."'> Gestionar  </a>";
+                $actions = "  <a class='btn btn-xs btn-info' href='".url('admin/inventario/'.$row->id.'/edit')."'> Gestionar  </a>";
 
             if ($row->estado_registro == 1) {
               $estado="<span  class='btn btn-xs btn-primary' style='font-size: 12px !important;' >Activo</span>";
@@ -213,7 +213,7 @@ class AlpInventarioController extends JoshController
 
           foreach($productos as $row){
 
-                $actions = "  <a class='btn btn-xs btn-info' href='".secure_url('admin/inventario/'.$row->id.'/edit')."'> Gestionar  </a>";
+                $actions = "  <a class='btn btn-xs btn-info' href='".url('admin/inventario/'.$row->id.'/edit')."'> Gestionar  </a>";
 
             if ($row->estado_registro == 1) {
               $estado="<span  class='btn btn-xs btn-primary' style='font-size: 12px !important;' >Activo</span>";

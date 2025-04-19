@@ -7,10 +7,10 @@
 
     <!--global js starts-->
     
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/lib.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/lib.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
 
 
     <!--global js end-->

@@ -32,7 +32,7 @@
                                     </div>
                                     
                                     <div style="">
-                                    <img src="{{secure_url('uploads/productos/'.$pro->imagen_producto)}}" alt="">
+                                    <img src="{{url('uploads/productos/'.$pro->imagen_producto)}}" alt="">
 
                                      @if($pro->precio_oferta==$pro->precio_base)
 
@@ -54,7 +54,7 @@
                                 margin-top: 1em;    padding-top: 1em;">{{$pro->nombre_producto}}</p>
                                    
                                    <div style="">
-                                    <img src="{{secure_url('uploads/productos/'.$pro->imagen_producto)}}" alt="">
+                                    <img src="{{url('uploads/productos/'.$pro->imagen_producto)}}" alt="">
 
                                     @if($pro->precio_oferta==$pro->precio_base)
 

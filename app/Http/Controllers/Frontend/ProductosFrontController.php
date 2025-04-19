@@ -466,7 +466,7 @@ class ProductosFrontController extends Controller
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        $url=secure_url('/categorias');
+        $url=url('/categorias');
 
 
 
@@ -754,7 +754,7 @@ class ProductosFrontController extends Controller
       $role=Roles::where('id', $rol)->first();
 
      
-      $url=secure_url('producto/'.$slug);
+      $url=url('producto/'.$slug);
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
@@ -931,7 +931,7 @@ class ProductosFrontController extends Controller
 
         $combos=$this->combos();
 
-        $url=secure_url('categoria/'.$slug);
+        $url=url('categoria/'.$slug);
 
         return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria', 'almacen', 'destacados'));
 
@@ -1013,7 +1013,7 @@ class ProductosFrontController extends Controller
 
            $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-           $url=secure_url('marcas/'.$slug);
+           $url=url('marcas/'.$slug);
 
            $marcaun = AlpMarcas::where('slug','=', $slug)->firstOrFail();
 
@@ -1096,7 +1096,7 @@ class ProductosFrontController extends Controller
            $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
 
-           $url=secure_url('/productos');
+           $url=url('/productos');
 
 
         return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
@@ -1185,7 +1185,7 @@ class ProductosFrontController extends Controller
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-          $url=secure_url('buscar?buscar='.$termino);
+          $url=url('buscar?buscar='.$termino);
 
         return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'banner'));
 
@@ -1207,7 +1207,7 @@ class ProductosFrontController extends Controller
         $cms = AlpCms::where('slug','=', $slug)->firstOrFail();
 
 
-        $url=secure_url('paginas/'.$slug);
+        $url=url('paginas/'.$slug);
 
         return \View::make('frontend.pagina_single', compact('cms', 'url'));
         
@@ -1661,7 +1661,7 @@ class ProductosFrontController extends Controller
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-          $url=secure_url('buscar?buscar='.$termino);
+          $url=url('buscar?buscar='.$termino);
 
         return \View::make('frontend.respuestabuscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'banner'));
 

@@ -10,10 +10,10 @@ En el siguiente enlace puede realizar el proceso de pago del mismo.
   
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('pedidos/'.$orden->token.'/pago')}}" class="button button-blue " target="_blank">Pagar Orden </a>
+    <a  href="{{ url('pedidos/'.$orden->token.'/pago')}}" class="button button-blue " target="_blank">Pagar Orden </a>
 </p>
 
-Si el enlace no funciona puede dirigirse a est URL {{secure_url('pedidos/'.$orden->token.'/pago')}}.
+Si el enlace no funciona puede dirigirse a est URL {{url('pedidos/'.$orden->token.'/pago')}}.
 
 
 Gracias,<br>

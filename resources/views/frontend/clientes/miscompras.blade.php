@@ -10,11 +10,11 @@ Mis Compras
 {{-- page level styles --}}
 @section('header_styles')
 
- <link rel="canonical" href="{{secure_url('miscompras')}}" />
+ <link rel="canonical" href="{{url('miscompras')}}" />
 
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -23,17 +23,17 @@ Mis Compras
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes/') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes/') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('miscompras/') }}">Compras </a>
+                    <a href="{{ url('miscompras/') }}">Compras </a>
                 </li>
             </ol>
         </div>
@@ -124,7 +124,7 @@ Mis Compras
 
                                                     @if($row->estatus=='8')
 
-                                                        <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
+                                                        <a  class="btn  btn-xs btn-info" href="{{ url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
 
                                                     @endif
 
@@ -141,12 +141,12 @@ Mis Compras
 
                             @endif 
                             
-                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
+                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>
                             
                                 @if($row->token!=null)
-                                 <a class="btn btn-success btn-xs " data-url="{{ secure_url('detallecompra/'.$row->token) }}" data-id="{{ $row->id }}" href="{{ secure_url('detallecompra/'.$row->token) }}" target="_blank"> Detalle
+                                 <a class="btn btn-success btn-xs " data-url="{{ url('detallecompra/'.$row->token) }}" data-id="{{ $row->id }}" href="{{ url('detallecompra/'.$row->token) }}" target="_blank"> Detalle
                                  </a>
                                  @endif
 
@@ -189,7 +189,7 @@ Mis Compras
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -233,9 +233,9 @@ Mis Compras
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
                             {{ csrf_field() }}
@@ -282,7 +282,7 @@ Mis Compras
                     <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
                         
                         <div class="col-sm-2" style="padding-top: 3%;">
-                            <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
+                            <img style="width:100% ; max-width: 90px;" src="{{url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                         </div>
                         <div class="col-sm-4" style="padding-top: 3%;">
                             <p>{{$cr->nombre_producto}}</p>
@@ -303,7 +303,7 @@ Mis Compras
 
                         <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
                             <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item">
-                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{secure_url('assets/images/borrar.png')}}" alt="">
+                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{url('assets/images/borrar.png')}}" alt="">
                             </a>
                         </div>
 
@@ -322,7 +322,7 @@ Mis Compras
     </div>
 
 
-<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+<input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
 
 
@@ -330,9 +330,9 @@ Mis Compras
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
 

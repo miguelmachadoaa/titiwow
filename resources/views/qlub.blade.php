@@ -51,17 +51,17 @@ Conoce el QLUB del Queso Alpina |  @parent
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/animate/animate.min.css') }}" />
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/jquery.circliful.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/jquery.circliful.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
 
     <style>
     
@@ -91,7 +91,7 @@ Conoce el QLUB del Queso Alpina |  @parent
         @foreach($sliders as $s)
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="El Qlub">
+                    <img src="{{ asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="El Qlub">
                 </a>
             </div>
         @endforeach
@@ -103,7 +103,7 @@ Conoce el QLUB del Queso Alpina |  @parent
             @if($s->imagen_slider_mobile!='0')
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive" alt="El Qlub!">
+                    <img src="{{ asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive" alt="El Qlub!">
                 </a>
             </div>
             @endif
@@ -142,7 +142,7 @@ Conoce el QLUB del Queso Alpina |  @parent
 
                                 <div class="col-sm-12" style="padding:0; margin:0;">
                                     
-                                    <a target="_blank" href="#"><img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner" title="banner"></a>
+                                    <a target="_blank" href="#"><img src="{{url('uploads/files/banner-300x100.jpg')}}" alt="banner" title="banner"></a>
 
                                 </div>
 
@@ -170,10 +170,10 @@ Conoce el QLUB del Queso Alpina |  @parent
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center hidden-xs">
-                    <a href="#" ><img src="{{ secure_url('/').'/assets/images/ancheta_d.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
+                    <a href="#" ><img src="{{ url('/').'/assets/images/ancheta_d.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
                 </div>
                 <div class="col-md-12 col-sm-12 text-center visible-xs">
-                    <a href="#" ><img src="{{ secure_url('/').'/assets/images/ancheta_m.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
+                    <a href="#" ><img src="{{ url('/').'/assets/images/ancheta_m.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
                 </div>
             </div>
         </div>
@@ -199,7 +199,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
             </div>
             <div class="col-xs-12 col-md-12 col-sm-12 text-center imgqlub" style="padding: 0;margin: 0;">
-                <img src="{{ secure_url('/').'/assets/images/el_qlub.png' }}" alt="Qlub" title="Qlub" class="img-responsive">   
+                <img src="{{ url('/').'/assets/images/el_qlub.png' }}" alt="Qlub" title="Qlub" class="img-responsive">   
             </div>
         </div>
     </div>
@@ -207,14 +207,14 @@ Conoce el QLUB del Queso Alpina |  @parent
         
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
-                <img src="{{secure_url('assets/images/galerias_exp.png')}}" alt="banner" title="banner">
+                <img src="{{url('assets/images/galerias_exp.png')}}" alt="banner" title="banner">
             </div>
             <div class="col-md-12 col-sm-12 wow pulse" data-wow-duration="1.5s">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
-                                <a href="{{ route('categoria', 'maridajes-de-el-qlub') }}" alt="Kits de Maridaje de el QLUB"><img src="{{ secure_url('/').'/uploads/categorias/maridaje_qlub.jpg' }}" alt="" title="" class="imgRedonda">   </a>
+                                <a href="{{ route('categoria', 'maridajes-de-el-qlub') }}" alt="Kits de Maridaje de el QLUB"><img src="{{ url('/').'/uploads/categorias/maridaje_qlub.jpg' }}" alt="" title="" class="imgRedonda">   </a>
                                 <h2 class="categorias_qlub">Kits de Maridaje<h2>
                                 <a href="{{ route('categoria', 'maridajes-de-el-qlub') }}" class="botones_qlub boton_qlub" alt="Kits de Maridaje de el QLUB">VER TODOS</a>                             
                             </div>
@@ -223,7 +223,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
-                                <a href="{{ route('categoria', 'productos-de-el-qlub') }}" alt="Productos de el QLUB"><img src="{{ secure_url('/').'/uploads/categorias/productos_qlub.png' }}" alt="" title="" class="imgRedonda">   </a>
+                                <a href="{{ route('categoria', 'productos-de-el-qlub') }}" alt="Productos de el QLUB"><img src="{{ url('/').'/uploads/categorias/productos_qlub.png' }}" alt="" title="" class="imgRedonda">   </a>
                                 <h2 class="categorias_qlub">Productos<h2>   
                                 <a href="{{ route('categoria', 'productos-de-el-qlub') }}" class="botones_qlub boton_qlub" alt="Productos de el QLUB">VER TODOS</a>                             
                             </div>
@@ -232,7 +232,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
-                            <a href="{{ route('categoria', 'experiencias-de-el-qlub') }}" alt="Experiencias de el QLUB"><img src="{{ secure_url('/').'/uploads/categorias/experiencias_qlub.jpg' }}" alt="" title="" class="imgRedonda">    </a>
+                            <a href="{{ route('categoria', 'experiencias-de-el-qlub') }}" alt="Experiencias de el QLUB"><img src="{{ url('/').'/uploads/categorias/experiencias_qlub.jpg' }}" alt="" title="" class="imgRedonda">    </a>
                                 <h2 class="categorias_qlub">Experiencias<h2> 
                                 <a href="{{ route('categoria', 'experiencias-de-el-qlub') }}" class="botones_qlub boton_qlub" alt="Experiencias de el QLUB">VER TODOS</a>                             
                             </div>
@@ -251,7 +251,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                 <div class="col-md-12 col-sm-12 text-center">
                     <div class="separador_qlub"></div>
                     <br />
-                    <img src="{{secure_url('assets/images/productos_exp.png')}}" alt="banner" title="banner">
+                    <img src="{{url('assets/images/productos_exp.png')}}" alt="banner" title="banner">
                 </div>
                 <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
                     <div class="products">
@@ -277,13 +277,13 @@ Conoce el QLUB del Queso Alpina |  @parent
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
                                                         <div class="productos_qlub">
                                                             <div class="text-align:center;">
-                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                                                                 @if(isset($inventario[$producto->id]))
 
                                                                     @if($inventario[$producto->id]<=0)
 
-                                                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                                                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                                                     @endif
 
@@ -530,7 +530,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                     
                                                                          data-marca="{{ $producto->nombre_marca }}"     
                                                                          
-                                                                         data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                                                         data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
 
                                                                          @endif
@@ -584,13 +584,13 @@ Conoce el QLUB del Queso Alpina |  @parent
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
                                                         <div class="productos_qlub">
                                                             <div class="text-align:center;">
-                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                                                                 @if(isset($inventario[$producto->id]))
 
                                                                     @if($inventario[$producto->id]<=0)
 
-                                                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                                                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                                                     @endif
 
@@ -824,7 +824,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                                                                          data-categoria="{{ $producto->nombre_categoria }}" 
                     
                     data-marca="{{ $producto->nombre_marca }}" 
-                     data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                     data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                                                     @endif
 
@@ -874,7 +874,7 @@ Conoce el QLUB del Queso Alpina |  @parent
             <div class="container cont_categorias">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 text-center">
-                        <img src="{{ secure_url('/').'/assets/images/expertos_queseros.png' }}" alt="" title="">   
+                        <img src="{{ url('/').'/assets/images/expertos_queseros.png' }}" alt="" title="">   
                     </div>
                 </div>
             </div>
@@ -901,7 +901,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                 </div>
                 <div class="modal-footer">
                     <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                    <a href="{{ secure_url('order/detail') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                    <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Pagar</a>
                 </div>
             </div>
         </div>
@@ -909,7 +909,7 @@ Conoce el QLUB del Queso Alpina |  @parent
 
 <!-- Modal Direccion -->
 
-<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+<input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
 @include('frontend.includes.newcart')
 
@@ -920,14 +920,14 @@ Conoce el QLUB del Queso Alpina |  @parent
 {{-- footer scripts --}}
 @section('footer_scripts')
     <!-- page level js starts-->
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/jquery.circliful.js') }}"></script>
-      <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/jquery.circliful.js') }}"></script>
+      <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/carousel.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/index.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/index.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
 
       <script>
         jQuery(document).ready(function () {

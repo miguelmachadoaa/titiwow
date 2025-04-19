@@ -8,9 +8,9 @@ Agregar Productos a Categoria de Ancheta
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -21,7 +21,7 @@ Agregar Productos a Categoria de Ancheta
     <h1>Agregar Productos a Categoria de Ancheta </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Escritorio
             </a>
         </li>
@@ -49,7 +49,7 @@ Agregar Productos a Categoria de Ancheta
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
 
 
-                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$categoria->id.'/storeproductoancheta') }}">
+                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/productos/'.$categoria->id.'/storeproductoancheta') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -80,7 +80,7 @@ Agregar Productos a Categoria de Ancheta
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ secure_url('admin/productos/'.$categoria->id_ancheta.'/ancheta') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/productos/'.$categoria->id_ancheta.'/ancheta') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">Crear</button>
@@ -155,7 +155,7 @@ Agregar Productos a Categoria de Ancheta
                         <tr>
                             <td>{{$pro->id}}</td>
                             <td>
-                                <img src='{{secure_url('/uploads/productos/60/'.$pro->imagen_producto)}}' height='60px'>
+                                <img src='{{url('/uploads/productos/60/'.$pro->imagen_producto)}}' height='60px'>
                             </td>
 
                             <td>
@@ -168,7 +168,7 @@ Agregar Productos a Categoria de Ancheta
 
                             <td>
 
-                                <a  href="{{secure_url('admin/productos/'.$pro->id.'/eliminarproductoacheta')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
+                                <a  href="{{url('admin/productos/'.$pro->id.'/eliminarproductoacheta')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
 
                             </td>
                         </tr>
@@ -197,20 +197,20 @@ Agregar Productos a Categoria de Ancheta
  </div>
 
 
-<a class="btn btn-primary" href="{{secure_url('admin/productos/'.$categoria->id_ancheta.'/ancheta')}}">Volver</a>
+<a class="btn btn-primary" href="{{url('admin/productos/'.$categoria->id_ancheta.'/ancheta')}}">Volver</a>
 
 
 </section>
 
-<input type="hidden" name="base" id="base" value="{{secure_url('/')}}">
+<input type="hidden" name="base" id="base" value="{{url('/')}}">
 @stop
 
 
 @section('footer_scripts')
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 

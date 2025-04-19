@@ -10,11 +10,11 @@ Categoria {{$categoria->id}}
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -26,7 +26,7 @@ Categoria {{$categoria->id}}
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -48,7 +48,7 @@ Categoria {{$categoria->id}}
                 </div>
                 <div class="panel-body">
                     
-                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/categorias/'.$categoria->id.'/storeson') }}">
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/categorias/'.$categoria->id.'/storeson') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -102,7 +102,7 @@ Categoria {{$categoria->id}}
 
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
 
-                                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
+                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
 
                                 </div>
 
@@ -276,7 +276,7 @@ Categoria {{$categoria->id}}
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ secure_url('admin/categorias') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/categorias') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">Crear</button>
@@ -329,16 +329,16 @@ Categoria {{$categoria->id}}
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
-                                            <a href="{{ secure_url('admin/categorias/'.$row->id.'/detalle') }}">
+                                            <a href="{{ url('admin/categorias/'.$row->id.'/detalle') }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <a href="{{ secure_url('admin/categorias/'.$row->id.'/editson') }}">
+                                            <a href="{{ url('admin/categorias/'.$row->id.'/editson') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ secure_url('admin/categorias/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ url('admin/categorias/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -368,15 +368,15 @@ Categoria {{$categoria->id}}
 @section('footer_scripts')
 <!-- begining of page level js -->
 <!--edit blog-->
-<script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-<script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
 <script>
 

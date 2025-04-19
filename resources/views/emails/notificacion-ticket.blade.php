@@ -25,7 +25,7 @@
 
                             @else
 
-                            <p>Adjunto <a class="btn btn-info" target="_blank" href="{{ secure_url('uploads/ticket/'.$c->archivo)}}">Ver Archivo </a> </p>
+                            <p>Adjunto <a class="btn btn-info" target="_blank" href="{{ url('uploads/ticket/'.$c->archivo)}}">Ver Archivo </a> </p>
                             
                             @endif 
                         
@@ -37,7 +37,7 @@
             @endif
 
             <p style="text-aling:center">
-            <a  href="{{ secure_url('/admin/ticket') }}" class="button button-blue " target="_blank">Ir a mesa de soporte</a>
+            <a  href="{{ url('/admin/ticket') }}" class="button button-blue " target="_blank">Ir a mesa de soporte</a>
 
             </p>
 

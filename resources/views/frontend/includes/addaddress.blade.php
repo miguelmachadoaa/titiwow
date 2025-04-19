@@ -19,7 +19,7 @@
 
                         <h3 style="text-align: center;margin-bottom: 1em;">Agregar Dirección</h3>
                         
-                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
+                        <form method="POST" action="{{url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
 
                             {{ csrf_field() }}

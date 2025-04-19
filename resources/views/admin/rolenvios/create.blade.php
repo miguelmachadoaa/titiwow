@@ -8,8 +8,8 @@
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
 
 @stop
 
@@ -21,7 +21,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -54,7 +54,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/rolenvios/create') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ url('admin/rolenvios/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
@@ -111,7 +111,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/rolenvios') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/rolenvios') }}">
                                     Cancelar
                                 </a>
 
@@ -132,8 +132,8 @@
 
 @section('footer_scripts')
 
-    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" ></script>
-    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ secure_asset('assets/js/pages/form_examples.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" ></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form_examples.js') }}"></script>
 
 @stop

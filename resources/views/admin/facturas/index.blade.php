@@ -8,8 +8,8 @@ Carga de Facturas Masivas
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 {{-- Content --}}
@@ -18,7 +18,7 @@ Carga de Facturas Masivas
     <h1>Facturas Masivas</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -38,7 +38,7 @@ Carga de Facturas Masivas
                        Carga de Facturas Masivas
                     </h4>
                     <div class="pull-right">
-                        <a href="{{ secure_url('admin/facturasmasivas/create') }}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Cargar Facturas</a>
+                        <a href="{{ url('admin/facturasmasivas/create') }}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Cargar Facturas</a>
                     </div>
                 </div>
                 <br />
@@ -97,8 +97,8 @@ Carga de Facturas Masivas
 
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
 

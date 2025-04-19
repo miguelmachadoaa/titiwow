@@ -7,8 +7,8 @@ Empresa - Invitaciones
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 {{-- Content --}}
@@ -67,10 +67,10 @@ Empresa - Invitaciones
                                     <td>{!! $row->nombre_amigo!!}</td>
                                     <td>{!! $row->apellido_amigo !!}</td>
                                     <td>{!! $row->email_amigo !!}</td>
-                                    <!--td><a href=" {!! secure_url('/').'/registroafiliado/'.$row->token  !!}  ">Enlace</a></td-->
+                                    <!--td><a href=" {!! url('/').'/registroafiliado/'.$row->token  !!}  ">Enlace</a></td-->
                                     <td>
                                             
-                                            <a class="delAmigo"  data-id="{{ $row->id }}" data-url="{{ secure_url('admin/empresas/delamigo') }}" href="#" data-toggle="modal" >
+                                            <a class="delAmigo"  data-id="{{ $row->id }}" data-url="{{ url('admin/empresas/delamigo') }}" href="#" data-toggle="modal" >
                                             <i class="fa fa-trash"></i>
                                            
                                              </a>
@@ -90,7 +90,7 @@ Empresa - Invitaciones
                     </div> 
 
                     <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ secure_url('admin/empresas') }}">Regresar</a>
+                    <a class="btn btn-default" href="{{ url('admin/empresas') }}">Regresar</a>
 
             </p>
                     </div>
@@ -111,9 +111,9 @@ Empresa - Invitaciones
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
+                        <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                             <input type="hidden" name="id_empresa" id="id_empresa" value="">
 
                             {{ csrf_field() }}
@@ -208,10 +208,10 @@ Empresa - Invitaciones
     </div>
 </div>
 
-<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

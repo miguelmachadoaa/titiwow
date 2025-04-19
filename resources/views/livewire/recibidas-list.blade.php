@@ -108,7 +108,7 @@
                                 <td><span class='label label-success' >{{ $recibida->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($recibida->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs" href="{{secure_url('/admin/ordenes/'.$recibida->id.'/detalle')}}" target='_blank'>
+                                    <a class="btn btn-primary btn-xs" href="{{url('/admin/ordenes/'.$recibida->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
                                     @if($id_rol == 1 || $id_rol == 15 )

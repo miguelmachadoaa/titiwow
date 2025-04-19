@@ -9,8 +9,8 @@ Area clientes
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
     <style type="text/css">
         
@@ -58,12 +58,12 @@ Area clientes
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li>
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 
@@ -110,7 +110,7 @@ Area clientes
 
         <div class="col-sm-12 text-center">
             
-            <form class="form" method="post" action="{{secure_url('postbono')}}">
+            <form class="form" method="post" action="{{url('postbono')}}">
                 
                 {{ csrf_field() }}
 
@@ -187,7 +187,7 @@ Area clientes
 
  <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
 
-<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+<input type="hidden" name="base" id="base" value="{{ url('/') }}" />
 
 
   
@@ -229,7 +229,7 @@ Area clientes
                     <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
                         
                         <div class="col-sm-2" style="padding-top: 3%;">
-                            <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
+                            <img style="width:100% ; max-width: 90px;" src="{{url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                         </div>
                         <div class="col-sm-4" style="padding-top: 3%;">
                             <p>{{$cr->nombre_producto}}</p>
@@ -250,7 +250,7 @@ Area clientes
 
                         <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
                             <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item">
-                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{secure_url('assets/images/borrar.png')}}" alt="">
+                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{url('assets/images/borrar.png')}}" alt="">
                             </a>
                         </div>
 
@@ -283,7 +283,7 @@ Area clientes
 @section('footer_scripts')
 
 
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             new WOW().init();

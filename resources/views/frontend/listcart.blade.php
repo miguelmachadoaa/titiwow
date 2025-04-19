@@ -45,7 +45,7 @@
 
                 <div class="col-sm-12">
                     <p>
-                        <a class="btn btn-primary" href="{{secure_url('cart/direccion')}}">Agregar Dirección de Envio </a>
+                        <a class="btn btn-primary" href="{{url('cart/direccion')}}">Agregar Dirección de Envio </a>
                     </p>
                 </div>
 
@@ -65,7 +65,7 @@
 
                 <div class="col-sm-12 alert alert-danger">
 
-                <h4 style="">Debes Eliminar los productos que no están disponible para su dirección de envío, o asignar una dirección  que concuerde con la ubicación seleccionada en la tienda.  <a style="color: #fff;" href="{{secure_url('misdirecciones')}}"> Ir a mis direcciones</a> </h4>
+                <h4 style="">Debes Eliminar los productos que no están disponible para su dirección de envío, o asignar una dirección  que concuerde con la ubicación seleccionada en la tienda.  <a style="color: #fff;" href="{{url('misdirecciones')}}"> Ir a mis direcciones</a> </h4>
 
             </div>
 
@@ -79,7 +79,7 @@
 
 
 
-        <a style="color: #d9534f !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar Carrito</a>
+        <a style="color: #d9534f !important; " class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar Carrito</a>
 
         @if(count($cart))
 
@@ -219,7 +219,7 @@
                             </div>
 
                             <div class="col-sm-2 col-xs-3">
-                                <a class="btn btn-danger btn-xs" href="{{secure_url('cart/delete', [$row->slug])}}">Borrar</a>
+                                <a class="btn btn-danger btn-xs" href="{{url('cart/delete', [$row->slug])}}">Borrar</a>
                             </div>
 
 
@@ -408,9 +408,9 @@
 
         <p style="text-align: center;">
 
-            <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-             <a class="btn btn-cart sendDetail btn-checkout" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+             <a class="btn btn-cart sendDetail btn-checkout" href="{{url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
          </p> 
 
@@ -424,7 +424,7 @@
 
         <p style="text-align: center;">
            
-            <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 

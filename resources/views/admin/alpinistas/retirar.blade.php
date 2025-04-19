@@ -59,7 +59,7 @@ Retirar Alpinistas
     <h1>Retirar Alpinistas</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -81,7 +81,7 @@ Retirar Alpinistas
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/alpinistas/retirar') }}">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/alpinistas/retirar') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
                             <div class="row">
@@ -95,7 +95,7 @@ Retirar Alpinistas
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     
-                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/alpinistas') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ url('admin/alpinistas') }}">
                                         Cancelar
                                     </a>
 

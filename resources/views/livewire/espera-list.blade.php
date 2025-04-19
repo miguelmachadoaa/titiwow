@@ -112,7 +112,7 @@
                                 <td><span class='label label-success' >{{ $espera->estatus_nombre }}</span></td>
                                 <td>{{ date('d/m/Y H:i:s', strtotime($espera->created_at )) }}</td>
                                 <td>                  
-                                    <a class="btn btn-primary btn-xs"href="{{secure_url('/admin/ordenes/'.$espera->id.'/detalle')}}" target='_blank'>
+                                    <a class="btn btn-primary btn-xs"href="{{url('/admin/ordenes/'.$espera->id.'/detalle')}}" target='_blank'>
                                     ver detalles
                                     </a>
 

@@ -20,13 +20,13 @@
                 
                         <div class="text-align:center;">
                     
-                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                             @if(isset($inventario[$producto->id]))
                             
                                 @if($inventario[$producto->id]<=0)
 
-                                    <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                    <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                 @endif
 
@@ -152,13 +152,13 @@
             
             <div class="text-align:center;">
                 
-                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                 @if(isset($inventario[$producto->id]))
 
                     @if($inventario[$producto->id]<=0)
 
-                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                        <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                     @endif
 

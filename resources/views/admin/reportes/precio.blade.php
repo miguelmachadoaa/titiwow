@@ -8,9 +8,9 @@ Precios Productos
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -21,7 +21,7 @@ Precios Productos
     <h1>Export Precios de Productos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Escritorio
             </a>
         </li>
@@ -51,7 +51,7 @@ Precios Productos
 
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
                     
-                        <form class="" method="post" action="{{secure_url('admin/reportes/exportprecio')}}">
+                        <form class="" method="post" action="{{url('admin/reportes/exportprecio')}}">
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -130,15 +130,15 @@ Precios Productos
  </div>
 </section>
 
-<input type="hidden" name="base" id="base" value="{{secure_url('/')}}">
+<input type="hidden" name="base" id="base" value="{{url('/')}}">
 @stop
 
 
 @section('footer_scripts')
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 

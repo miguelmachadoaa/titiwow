@@ -19,7 +19,7 @@ Contact
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -52,7 +52,7 @@ Contact
                 <div id="notific">
                 @include('notifications')
                 </div>
-                <form class="contact" id="contact" action="{{secure_url('contact')}}" method="POST">
+                <form class="contact" id="contact" action="{{url('contact')}}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="form-group">
                         <input type="text" name="contact-name" class="form-control input-lg" placeholder="Your name" required>

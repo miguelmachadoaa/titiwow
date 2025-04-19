@@ -30,8 +30,8 @@ Carrito de Compras
 
 
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -40,7 +40,7 @@ Carrito de Compras
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -68,7 +68,7 @@ Carrito de Compras
 
         <h3>Gracias por registrarte en nuestra tienda y hacer parte de Alpina Go, ya puedes disfrutar de nuestros deliciosos productos.</h3>
 
-        <p style="width: 100%; text-align: center"><a href="{{secure_url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
+        <p style="width: 100%; text-align: center"><a href="{{url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
     </div>
 
     @else
@@ -81,7 +81,7 @@ Carrito de Compras
 
         <h3>Gracias por registrarte en nuestra tienda y hacer parte de Alpina Go, ya puedes disfrutar de nuestros deliciosos productos.</h3>
 
-        <p style="width: 100%; text-align: center"><a href="{{secure_url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
+        <p style="width: 100%; text-align: center"><a href="{{url('clientes')}}" class="btn btn-primary">Ir al Área de Cliente</a></p>   
     </div>
 
 
@@ -137,7 +137,7 @@ Carrito de Compras
                     <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
                         
                         <div class="col-sm-2" style="padding-top: 3%;">
-                            <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
+                            <img style="width:100% ; max-width: 90px;" src="{{url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                         </div>
                         <div class="col-sm-4" style="padding-top: 3%;">
                             <p>{{$cr->nombre_producto}}</p>
@@ -158,7 +158,7 @@ Carrito de Compras
 
                         <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
                             <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item">
-                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{secure_url('assets/images/borrar.png')}}" alt="">
+                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{url('assets/images/borrar.png')}}" alt="">
                             </a>
                         </div>
 
@@ -190,7 +190,7 @@ Carrito de Compras
 
 
 
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             new WOW().init();

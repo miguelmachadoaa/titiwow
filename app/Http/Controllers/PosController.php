@@ -1336,7 +1336,6 @@ class PosController extends JoshController
 
         $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
-
         if (isset($user->id)) {
 
            if (isset($caja->id)) {
@@ -1351,8 +1350,6 @@ class PosController extends JoshController
 
               return json_encode($res);
 
-
-              
             }else{
 
                 $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
@@ -1368,7 +1365,6 @@ class PosController extends JoshController
 
 
         }else{
-
 
             $res = array('status' => 'login', 'error'=>'1', 'mensaje'=>'Usuario no logueado', 'data'=>null );
 

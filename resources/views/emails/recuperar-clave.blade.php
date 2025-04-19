@@ -6,7 +6,7 @@
 
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url($data['forgotPasswordUrl']) }}" class="button button-blue " target="_blank">Restablecer Contraseña</a>
+    <a  href="{{ url($data['forgotPasswordUrl']) }}" class="button button-blue " target="_blank">Restablecer Contraseña</a>
 </p>
 
 <p>Si no ha solicitado esto, ignore este correo electrónico. Su contraseña no cambiará hasta que acceda al enlace anterior y cree una nueva.</p>

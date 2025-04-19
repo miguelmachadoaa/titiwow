@@ -19,6 +19,6 @@
 
 
     <button class="btn btn-default" id="btnCarrito" >
-        <img   src="{{secure_url('assets/images/carrito-compras.png')}}" alt="">
+        <img   src="{{url('assets/images/carrito-compras.png')}}" alt="">
         <span class="badgecarrito cantidadCarrito">0</span>
     </button>

@@ -8,11 +8,11 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="the-box no-border">
                 <!-- errors -->
-                {!! Form::open(array('url' => secure_url('admin/news'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
+                {!! Form::open(array('url' => url('admin/news'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <div class="row">
                     <div class="col-sm-8">
@@ -68,7 +68,7 @@
                             <label class="control-label col-xs-12">@lang('blog/form.lb-featured-img')</label>
                             <div class="col-xs-12 fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
                                          class="img-responsive"/>
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
@@ -105,10 +105,10 @@
 @section('footer_scripts')
     <!-- begining of page level js -->
     <!--edit blog-->
-    <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"
+    <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"
             type="text/javascript"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
-    <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 @stop

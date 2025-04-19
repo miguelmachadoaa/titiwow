@@ -200,17 +200,19 @@ class AlpClientesController extends JoshController
               if ($id_rol=='13') {
 
                  $actions = " 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
+
+                 <a href='".url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
 
                      Aplicar Abono
                  </a> ";
@@ -221,23 +223,25 @@ class AlpClientesController extends JoshController
 
 
                  $actions = " 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
 
-                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
+                  <a href='".url("admin/clientes/".$cliente->id."/edit")."'>
 
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>
 
-                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>
+
+                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>
 
 
                  <div id='botones_".$cliente->id."'>
@@ -248,7 +252,8 @@ class AlpClientesController extends JoshController
 
                 </div>
 
-                <a href='".secure_url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
+
+                <a href='".url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
 
                      Aplicar Abono
                  </a> ";
@@ -404,18 +409,18 @@ class AlpClientesController extends JoshController
 
                  $actions = " 
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
 
-                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
+                  <a href='".url("admin/clientes/".$cliente->id."/edit")."'>
 
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>
@@ -579,18 +584,18 @@ class AlpClientesController extends JoshController
 
                  $actions = " 
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
 
-                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
+                  <a href='".url("admin/clientes/".$cliente->id."/edit")."'>
 
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>
@@ -752,24 +757,24 @@ class AlpClientesController extends JoshController
 
                  $actions = " 
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
 
-                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
+                  <a href='".url("admin/clientes/".$cliente->id."/edit")."'>
 
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>
 
 
-                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'>
+                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".url("admin/clientes/".$cliente->id."/delete")."'>
                                         <i class='livicon' data-name='remove-alt' data-size='18'
                                             data-loop='true' data-c='#f56954' data-hc='#f56954'
                                             title='Eliminar'></i>
@@ -2100,12 +2105,12 @@ class AlpClientesController extends JoshController
 
                  $actions = " 
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a> ";
@@ -2117,7 +2122,7 @@ class AlpClientesController extends JoshController
 
                  $actions = " 
 
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                 <a href='".url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
                  </a>";

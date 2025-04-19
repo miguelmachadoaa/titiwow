@@ -237,7 +237,7 @@ class AuthController extends JoshController
 
            // $data->user_name = $user->first_name .' ' .$user->last_name;
 
-           // $data->forgotPasswordUrl = secure_url::route('forgot-password-confirm', [$user->id, $reminder->code]);
+           // $data->forgotPasswordUrl = url::route('forgot-password-confirm', [$user->id, $reminder->code]);
 
 
             $data=[

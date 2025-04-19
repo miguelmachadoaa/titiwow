@@ -14,7 +14,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -49,7 +49,7 @@
                     @endif
 
 
-                    <form method="POST" action="{{secure_url('admin/clientes/upddir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal     ">
+                    <form method="POST" action="{{url('admin/clientes/upddir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal     ">
 
                      {{ csrf_field() }}
 
@@ -183,7 +183,7 @@
 
                         <button class="btn btn-primary" type="submit" >Editar </button>
 
-                        <a class="btn btn-danger" href="{{secure_url('admin/clientes')}}">Volver</a>
+                        <a class="btn btn-danger" href="{{url('admin/clientes')}}">Volver</a>
 
                     </div>
 
@@ -197,7 +197,7 @@
     </div>
     <!-- row-->
 
-    <input type="hidden" name="base" id="base" value="{{secure_url('/')}}">
+    <input type="hidden" name="base" id="base" value="{{url('/')}}">
 </section>
 @stop
 

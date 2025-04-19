@@ -10,17 +10,17 @@ Menu {{$menu->id}}
 {{-- page level styles --}}
 @section('header_styles')
 
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 
-    <link href="{{ secure_asset('assets/css/pages/sortable.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/pages/sortable.css') }}" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -32,7 +32,7 @@ Menu {{$menu->id}}
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -54,7 +54,7 @@ Menu {{$menu->id}}
                 </div>
                 <div class="panel-body">
                     
-                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/menus/'.$menu->id.'/storeson') }}">
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/menus/'.$menu->id.'/storeson') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -169,7 +169,7 @@ Menu {{$menu->id}}
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/menus/') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/menus/') }}">
                                     Cancelar
                                 </a>
 
@@ -239,16 +239,16 @@ Menu {{$menu->id}}
                                     
                                     <td>
                                             
-                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/submenu' ) }}">
+                                            <a href="{{ url('admin/menus/'.$row->id.'/submenu' ) }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/editson' ) }}">
+                                            <a href="{{ url('admin/menus/'.$row->id.'/editson' ) }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Menu "></i>
                                             </a>
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/confirm-delete-detalle') }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ url('admin/menus/'.$row->id.'/confirm-delete-detalle') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -269,7 +269,7 @@ Menu {{$menu->id}}
 
 
                     <p style="text-align: center;"> 
-                    <a class="btn btn-danger" href="{{ secure_url('admin/menus') }}">Regresar</a>
+                    <a class="btn btn-danger" href="{{ url('admin/menus') }}">Regresar</a>
 
             </p>
 
@@ -280,7 +280,7 @@ Menu {{$menu->id}}
     </div>    <!-- row-->
 </section>
 
-<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" value="{{url('/')}}">
 @stop
 
 
@@ -299,22 +299,22 @@ Menu {{$menu->id}}
 
 <!-- begining of page level js -->
 <!--edit blog-->
-<script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-<script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/nestable-list/jquery.nestable.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/html5sortable/html.sortable.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/ui-nestable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/nestable-list/jquery.nestable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/html5sortable/html.sortable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/pages/ui-nestable.js') }}"></script>
 
 
 

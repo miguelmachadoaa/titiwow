@@ -7,10 +7,10 @@ Pedidos
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
     
 @stop
@@ -21,7 +21,7 @@ Pedidos
     <h1>Pedidos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -46,7 +46,7 @@ Pedidos
                
                 </div>
 
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                     <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                      <div class="row clientecompra table-responsive" style="">
 
@@ -80,7 +80,7 @@ Pedidos
                     @if(isset($cart['id_cliente']))
 
 
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                     <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                      <div class="row" style="padding-top: 0;">
 
@@ -182,7 +182,7 @@ Pedidos
 
 
 
-<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" value="{{url('/')}}">
 
 
 @stop
@@ -205,7 +205,7 @@ Pedidos
 
                     <div class="modal-body">
 
-                         <form action="{{ secure_url('admin/tomapedidos/postdireccion') }}" method="POST" id="dir_form" name="dir_form">
+                         <form action="{{ url('admin/tomapedidos/postdireccion') }}" method="POST" id="dir_form" name="dir_form">
 
                         <div class="row">
 
@@ -471,7 +471,7 @@ Pedidos
 
 
 
-                         <form action="{{ secure_url('admin/tomapedidos/postregistro') }}" method="POST" id="reg_form" name="reg_form">
+                         <form action="{{ url('admin/tomapedidos/postregistro') }}" method="POST" id="reg_form" name="reg_form">
 
 
 
@@ -848,9 +848,9 @@ Pedidos
 
                         
 
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
@@ -963,9 +963,9 @@ Pedidos
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -1131,13 +1131,13 @@ Pedidos
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
-<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom_checkout.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom_checkout.js') }}"></script>
 
-<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+<script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 <script>
@@ -1190,7 +1190,7 @@ Pedidos
         $('#buscar').val('');
         $('#marca').val('').select2();
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
 
@@ -1210,7 +1210,7 @@ Pedidos
         $('#categoria').val('').select2();
 
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>');
 
              base=$('#base').val();
 
@@ -1244,7 +1244,7 @@ Pedidos
 
     $('.btn_buscar').on('click', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>');
 
         $('#categoria').val('').select2();
         $('#marca').val('').select2();
@@ -1267,7 +1267,7 @@ Pedidos
 
     $('.reset_buscar').on('click', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
 
@@ -1289,7 +1289,7 @@ Pedidos
 
     $(document).on('click','.addproductoancheta', function(){
 
-        $('.bodyancheta').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>')
+        $('.bodyancheta').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>')
 
         base=$('#base').val();
 
@@ -1791,7 +1791,7 @@ Pedidos
 
     $('#id_address').on('change', function(){
 
-        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+        $('.lista_de_productos').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>');
 
 
         base=$('#base').val();
@@ -1880,7 +1880,7 @@ Pedidos
 
     $('.btn_buscar_cliente').on('click', function(){
 
-        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{secure_url('assets/images/loader.gif')}}"></p>');
+        $('.lista_clientes').html('<p style="text-align: center;"  ><img style="width:100px;" src="{{url('assets/images/loader.gif')}}"></p>');
 
         base=$('#base').val();
 
