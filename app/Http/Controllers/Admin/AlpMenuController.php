@@ -68,13 +68,13 @@ class AlpMenuController extends JoshController
         foreach($menus as $row){
 
            
-        $actions = "      <a href='".secure_url('admin/menus/'.$row->id.'/detalle')."'>
+        $actions = "      <a href='".url('admin/menus/'.$row->id.'/detalle')."'>
                                                 <i class='livicon' data-name='plus' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Detalle'></i>
                                             </a>
 
 
 
-                                            <a href='".secure_url('admin/menus/'.$row->id.'/edit')."'>
+                                            <a href='".url('admin/menus/'.$row->id.'/edit')."'>
                                                 <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
                                             </a>
 
@@ -82,13 +82,13 @@ class AlpMenuController extends JoshController
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href='".secure_url('admin/menus/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <a href='".url('admin/menus/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
                                             <i class='livicon' data-name='remove-alt' data-size='18'
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
                                              </a>
 
-                                             <a href='".secure_url('admin/menus/'.$row->id.'/ordenar')."'>
+                                             <a href='".url('admin/menus/'.$row->id.'/ordenar')."'>
                                                 <i class='livicon' data-name='list' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Ordenar Menu'></i>
                                             </a>
 
@@ -493,7 +493,7 @@ class AlpMenuController extends JoshController
             
             $menu = AlpMenu::find($id);
 
-            $confirm_route = secure_url('admin/menus/'.$id.'/delete');
+            $confirm_route = url('admin/menus/'.$id.'/delete');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
@@ -513,7 +513,7 @@ class AlpMenuController extends JoshController
             
             $menu = AlpDetalleSubmenu::find($id);
 
-            $confirm_route = secure_url('admin/menus/'.$id.'/deletedetalle');
+            $confirm_route = url('admin/menus/'.$id.'/deletedetalle');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {

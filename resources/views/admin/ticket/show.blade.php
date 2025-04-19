@@ -8,11 +8,11 @@ Detalle Ticket
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
 
 @stop
 
@@ -25,7 +25,7 @@ Detalle Ticket
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -78,7 +78,7 @@ Detalle Ticket
                             <p><b>Usuario:</b> {{$ticket->first_name.' '.$ticket->last_name}}</p>
                             <p><b>Email:</b> {{$ticket->email}}</p>
                             <p><b>Origen:</b> {{$ticket->origen}}</p>
-                            <p><b>Orden de Compra:</b>  <a class='btn btn-primary btn-xs' href='{{secure_url("admin/ordenes/".$ticket->orden."/detalle")}}' target='_blank'>Ver {{ $ticket->orden }} </a></p>
+                            <p><b>Orden de Compra:</b>  <a class='btn btn-primary btn-xs' href='{{url("admin/ordenes/".$ticket->orden."/detalle")}}' target='_blank'>Ver {{ $ticket->orden }} </a></p>
 
                             
                             
@@ -143,7 +143,7 @@ Detalle Ticket
 
                         <div class="col-sm-12">
                             
-                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$ticket->archivo)}}">Ver Archivo</a> </h3>
+                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{url('uploads/ticket/'.$ticket->archivo)}}">Ver Archivo</a> </h3>
 
                         </div>
 
@@ -175,7 +175,7 @@ Detalle Ticket
                 </div>
                 <div class="panel-body">
 
-                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/ticket/'.$ticket->id.'/postcomentario') }}">
+                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/ticket/'.$ticket->id.'/postcomentario') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                  <div class="row">
                     
@@ -250,7 +250,7 @@ Detalle Ticket
 
                         <div class="form-group col-sm-12" style="margin-top: 1em;">
 
-                             <a class="btn btn-danger" href="{{secure_url('admin/ticket')}}">Volver</a>
+                             <a class="btn btn-danger" href="{{url('admin/ticket')}}">Volver</a>
 
 
                             <button type="submit" class="btn btn-success">Responder</button>
@@ -313,7 +313,7 @@ Detalle Ticket
 
 
 
-   <input type="hidden" value="{{secure_url('/')}}" id="base" name="base">
+   <input type="hidden" value="{{url('/')}}" id="base" name="base">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
     <!-- row-->
@@ -327,7 +327,7 @@ Detalle Ticket
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title" id="modalLabeldanger">Actualizar ticket</h4>
                     </div>
-                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
+                     <form method="POST" enctype="multipart/form-data" action="{{url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
                     <div class="modal-body">
                         
                        
@@ -424,7 +424,7 @@ Detalle Ticket
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title" id="modalLabeldanger">Actualizar Ticket</h4>
                     </div>
-                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
+                     <form method="POST" enctype="multipart/form-data" action="{{url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
                     <div class="modal-body">
 
                             <input type="hidden" name="id_ticket_modal" id="id_ticket_modal" value="">
@@ -515,7 +515,7 @@ Detalle Ticket
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title" id="modalLabeldanger">Reasignar Ticket</h4>
                     </div>
-                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="departamentoForm" name="departamentoForm" class="form-horizontal">
+                     <form method="POST" enctype="multipart/form-data" action="{{url('admin/ticket/storerespuesta')}}" id="departamentoForm" name="departamentoForm" class="form-horizontal">
                     <div class="modal-body">
                         
                        
@@ -582,17 +582,17 @@ Detalle Ticket
 @stop
 @section('footer_scripts')
 
-<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
- <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
- <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
+ <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+ <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 
 

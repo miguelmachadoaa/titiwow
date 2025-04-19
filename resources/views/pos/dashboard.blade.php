@@ -129,7 +129,7 @@
 
 
             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
-                <a data-id="salir" target="_blank" href="{{secure_url('/admin')}}" class=" btn-medium ">
+                <a data-id="salir" target="_blank" href="{{url('/admin')}}" class=" btn-medium ">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-cog"></i></div>
                     <div class="col-sm-12">Admin</div>
@@ -140,7 +140,7 @@
 
 
             <div  class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
-                <a data-id="salir" href="{{secure_url('logout')}}" class=" btn-medium ">
+                <a data-id="salir" href="{{url('logout')}}" class=" btn-medium ">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class=" mt-4 fa fa-sign-out"></i></div>
                     <div class="col-sm-12">Salir</div>

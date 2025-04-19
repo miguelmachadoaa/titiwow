@@ -40,7 +40,7 @@
             <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
                 
                 <div class="col-sm-2" style="padding-top: 3%;">
-                    <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
+                    <img style="width:100% ; max-width: 90px;" src="{{url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                 </div>
                 <div class="col-sm-4" style="padding-top: 3%;">
                     <p class="visible-xs" style="margin:0"><small><b>Producto</b></small></p>
@@ -125,7 +125,7 @@
         <button data-dismiss="modal" aria-label="Close" style="width:100%" class="btn btn-success" >Seguir Comprando </button>
     </div>
     <div class="col-xs-6">
-        <a style="width:100%" href="{{secure_url('cart/show')}}" class="btn btn-primary" >Ir a pagar </a>
+        <a style="width:100%" href="{{url('cart/show')}}" class="btn btn-primary" >Ir a pagar </a>
         
     </div>
 </div>

@@ -9,10 +9,10 @@
 {{-- page level styles --}}
 @section('header_styles')
     <meta name="csrf_token" content="{{ csrf_token() }}">
-    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
-    <link href="{{ secure_asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet"/>
 
-    <link href="{{ secure_asset('assets/css/pages/user_profile.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/pages/user_profile.css') }}" rel="stylesheet"/>
 @stop
 
 
@@ -79,11 +79,11 @@
                                     <!-- /.box-body -->
                                 </div>
 
-                                <a class="btn btn-info btn-xs" href="{{ secure_url('admin/clientes/editdir/'.$direccion->id) }}">Editar</a>
+                                <a class="btn btn-info btn-xs" href="{{ url('admin/clientes/editdir/'.$direccion->id) }}">Editar</a>
 
 
                                 @if ($direccion->default_address=='0')
-                                    <a class="btn btn-success btn-xs" href="{{ secure_url('admin/clientes/setdir/'.$direccion->id) }}">Definir por Defecto</a>
+                                    <a class="btn btn-success btn-xs" href="{{ url('admin/clientes/setdir/'.$direccion->id) }}">Definir por Defecto</a>
                                 @endif
 
                             </div>
@@ -114,9 +114,9 @@
 
             <div class="col-sm-12">
                 
-                <a class="btn btn-primary" href="{{ secure_url('admin/clientes/adddir/'.$user->id) }}">Agregar Dirección</a>
+                <a class="btn btn-primary" href="{{ url('admin/clientes/adddir/'.$user->id) }}">Agregar Dirección</a>
 
-                <a class="btn btn-default" href="{{ secure_url('admin/clientes') }}">Volver</a>
+                <a class="btn btn-default" href="{{ url('admin/clientes') }}">Volver</a>
 
             </div>
 
@@ -128,8 +128,8 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- Bootstrap WYSIHTML5 -->
-    <script  src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
-        <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script  src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
         
 

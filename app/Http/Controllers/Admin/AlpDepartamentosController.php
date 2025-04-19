@@ -77,18 +77,18 @@ class AlpDepartamentosController extends JoshController
            
 
 
-                 $actions = " <a href='".secure_url('admin/departamentos/'.$row->id.'/edit')."'>
+                 $actions = " <a href='".url('admin/departamentos/'.$row->id.'/edit')."'>
                                                 <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
                                             </a>
                                             
 
-                                            <a href='".secure_url('admin/departamentos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <a href='".url('admin/departamentos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
                                             <i class='livicon' data-name='remove-alt' data-size='18'
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
                                              </a>
                                              
-                                             <!--a href='".secure_url('admin/departamentos/'.$row->id.'/gestionar')."'>
+                                             <!--a href='".url('admin/departamentos/'.$row->id.'/gestionar')."'>
                                                 <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Gestionar Departamento'></i>
                                             </a-->
 

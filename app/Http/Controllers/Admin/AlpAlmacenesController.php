@@ -113,43 +113,43 @@ class AlpAlmacenesController extends JoshController
           if ($row->estado_registro=='1') {
 
              $estatus=" <div class='estatus_".$row->id."'>
-             <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
+             <button data-url='".url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
             </div>";
 
           }else{
 
                         $estatus="<div class='estatus_".$row->id."'>
-            <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
+            <button data-url='".url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
              </div>";
 
            }
 
         $actions = " 
-              <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
+              <a href='".url('admin/almacenes/'.$row->id.'/gestionar')."'>
                               <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Gestionar Almacen'></i>
                       </a>
 
 
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/upload')."'>
+                      <a href='".url('admin/almacenes/'.$row->id.'/upload')."'>
                               <i class='livicon' data-name='arrow-circle-up' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
                       </a>
 
 
-                      <!--a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
+                      <!--a href='".url('admin/almacenes/'.$row->id.'/roles')."'>
                               <i class='livicon' data-name='users' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
                       </a-->
                       
 
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
+                      <a href='".url('admin/almacenes/'.$row->id.'/edit')."'>
                               <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Almacen'></i>
                       </a>
 
 
-                        <a href='".secure_url('admin/almacenes/'.$row->id.'')."'>
+                        <a href='".url('admin/almacenes/'.$row->id.'')."'>
                               <i class='livicon' data-name='eye-open' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Datos del almacen'></i>
                       </a>  
 
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
+                      <a href='".url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
                         data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i>
 
                       </a>";
@@ -1471,7 +1471,7 @@ class AlpAlmacenesController extends JoshController
           foreach($cs as $row){
 
               $imagen='<figure>
-                        <img style="width: 60px;" src="'.secure_url('uploads/productos/'.$row->imagen_producto).'" data-src="'.secure_url('uploads/productos/60/'.$row->imagen_producto).'" alt="img">
+                        <img style="width: 60px;" src="'.url('uploads/productos/'.$row->imagen_producto).'" data-src="'.url('uploads/productos/60/'.$row->imagen_producto).'" alt="img">
                     </figure>';
 
 

@@ -20,7 +20,7 @@
 
             <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y se calculara la fecha de entrega una vez aprobado el pago.</h5>
 
-            <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
+            <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{url('clientes')}}">Perfil</a> 
 
 
 
@@ -43,8 +43,8 @@
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/60/{{$row->imagen_producto}}"></a></td>
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+                            <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/60/{{$row->imagen_producto}}"></a></td>
+                            <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
                             <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
                             <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
@@ -100,7 +100,7 @@
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="label label-seguir"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir"  href="{{ url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
          </div>
      </div>
 

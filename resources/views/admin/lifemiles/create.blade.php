@@ -10,9 +10,9 @@
 @section('header_styles')
     
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -24,7 +24,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -56,7 +56,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/lifemiles/create') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ url('admin/lifemiles/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
@@ -185,7 +185,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/lifemiles') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/lifemiles') }}">
                                     Cancelar
                                 </a>
 
@@ -205,7 +205,7 @@
 
 @section('footer_scripts')
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
 
 <script type="text/javascript">

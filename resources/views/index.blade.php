@@ -51,17 +51,17 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/animate/animate.min.css') }}" />
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/jquery.circliful.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/jquery.circliful.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
     
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
     <style>
@@ -97,7 +97,7 @@
                 data-position="{{$s->order}}" 
                 data-json="{{json_encode($datalayer_slider_id[$s->id])}}" 
                 class="btnSlider" href="#" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
+                    <img src="{{ asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
                 </a>
             </div>
         @endforeach
@@ -115,7 +115,7 @@
                 data-creative="home" 
                 data-position="{{$s->order}}"  
                 data-json="{{json_encode($datalayer_slider_id[$s->id])}}" class="btnSlider" href="#" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive"  alt="Alpina Go!">
+                    <img src="{{ asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive"  alt="Alpina Go!">
                 </a>
             </div>
             @endif
@@ -154,7 +154,7 @@
 
                                 <div class="col-sm-12" style="padding:0; margin:0;">
                                     
-                                    <a target="_blank" href="#"><img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner" title="banner"></a>
+                                    <a target="_blank" href="#"><img src="{{url('uploads/files/banner-300x100.jpg')}}" alt="banner" title="banner"></a>
 
                                 </div>
 
@@ -182,10 +182,10 @@
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center hidden-xs">
-                    <a href="#" ><img src="{{ secure_url('/').'/assets/images/ancheta_d.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
+                    <a href="#" ><img src="{{ url('/').'/assets/images/ancheta_d.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
                 </div>
                 <div class="col-md-12 col-sm-12 text-center visible-xs">
-                    <a href="#" ><img src="{{ secure_url('/').'/assets/images/ancheta_m.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
+                    <a href="#" ><img src="{{ url('/').'/assets/images/ancheta_m.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
                 </div>
             </div>
         </div>
@@ -278,13 +278,13 @@
                                             
                                                     <div class="text-align:center;">
                                                 
-                                                        <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                                                        <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                                                         @if(isset($inventario[$producto->id]))
                                                         
                                                             @if($inventario[$producto->id]<=0)
 
-                                                                <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                                                <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                                             @endif
 
@@ -410,13 +410,13 @@
                                         
                                         <div class="text-align:center;">
                                             
-                                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                                             @if(isset($inventario[$producto->id]))
 
                                                 @if($inventario[$producto->id]<=0)
 
-                                                    <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
+                                                    <img class="agotado" style="" src="{{ url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
                                                 @endif
 
@@ -601,7 +601,7 @@
                                     <div class="col-md-2 col-sm-6 col-xs-6" >
                                         <div class="brands">
                                             <a href="{{ route('marcas', [$marca->slug]) }}" >
-                                                    <img src="{{ secure_url('/').'/uploads/marcas/'.$marca->imagen_marca }}" class="img-responsive" title="{{ $marca->nombre_marca }}" alt="{{ $marca->nombre_marca }}">
+                                                    <img src="{{ url('/').'/uploads/marcas/'.$marca->imagen_marca }}" class="img-responsive" title="{{ $marca->nombre_marca }}" alt="{{ $marca->nombre_marca }}">
                                             </a>
                                         </div>
                                     </div>
@@ -647,7 +647,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                    <a href="{{ secure_url('order/detail') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                    <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Pagar</a>
                 </div>
             </div>
         </div>
@@ -655,7 +655,7 @@
 
 <!-- Modal Direccion -->
 
-<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+<input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
 @include('frontend.includes.newcart')
 
@@ -663,21 +663,21 @@
 {{-- footer scripts --}}
 @section('footer_scripts')
     <!-- page level js starts-->
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/jquery.circliful.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/jquery.circliful.js') }}"></script>
     
-      <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+      <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" ></script>
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}"></script>
 
    
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/carousel.js') }}"></script>
 
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/index.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/index.js') }}"></script>
     
-    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
 
       <script>
         jQuery(document).ready(function () {

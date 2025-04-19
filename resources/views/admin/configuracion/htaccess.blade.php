@@ -36,10 +36,10 @@ Editar Htaccess
                 </div>
                 <div class="panel-body">
 
-         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                     
                     
-                         <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="{{ secure_url('admin/configuracion/posthtaccess') }}">
+                         <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="{{ url('admin/configuracion/posthtaccess') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

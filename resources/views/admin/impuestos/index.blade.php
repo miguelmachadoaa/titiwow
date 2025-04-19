@@ -7,8 +7,8 @@ Impuestos
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -19,7 +19,7 @@ Impuestos
     <h1>Impuestos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -39,7 +39,7 @@ Impuestos
                        Impuestos
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/impuestos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Impuestos</a>
+                    <a href="{{ url('admin/impuestos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Impuestos</a>
                     </div>
                 </div>
                 <br />
@@ -71,7 +71,7 @@ Impuestos
 
 
 
-                                            <a href="{{ secure_url('admin/impuestos/'.$row->id.'/edit') }}">
+                                            <a href="{{ url('admin/impuestos/'.$row->id.'/edit') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar impuestos"></i>
                                             </a>
 
@@ -79,7 +79,7 @@ Impuestos
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ secure_url('admin/impuestos/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ url('admin/impuestos/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -129,8 +129,8 @@ Impuestos
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

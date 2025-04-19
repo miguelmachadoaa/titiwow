@@ -1,6 +1,6 @@
 @include('emails.header')
 
-<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>
+<p style="text-align: center;"><img src="{{ url('assets/img/login.png') }}"></p>
 
 
 
@@ -15,7 +15,7 @@ AlpinaGO es el portal exclusivo de comercio electrónico de Alpina. Recuerda que
 
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/registroafiliado/'.$token) }}" class="button button-blue " target="_blank">Registrarme</a>
+    <a  href="{{ url('/registroafiliado/'.$token) }}" class="button button-blue " target="_blank">Registrarme</a>
 </p>
 
 

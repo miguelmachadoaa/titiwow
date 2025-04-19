@@ -36,10 +36,10 @@ Editar Configuracion Seo
                 </div>
                 <div class="panel-body">
 
-         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                     
                     
-                        {!! Form::model($configuracion, ['url' => secure_url('admin/basica/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($configuracion, ['url' => url('admin/basica/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

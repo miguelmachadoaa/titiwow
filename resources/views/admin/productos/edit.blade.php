@@ -6,33 +6,33 @@
 @stop
 
 @section('header_styles')
-<link href="{{ secure_asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
     
     
-    <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
     
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
     <!-- stilos para la carga de imagen  -->
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
 
     <!-- fin stilos para la carga de imagen  -->
 
 
 <!-- stilos para arbol de categorias -->
 
-    <link href="{{ secure_asset('assets/vendors/jstree/css/style.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/jstree/css/style.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css" />
     
-    <link href="{{ secure_asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
     <!-- fin stilos para arbol de categorias -->
 
     <!--end of page level css-->
@@ -52,7 +52,7 @@
      <h1>@lang('productos/title.edit')</h1>
      <ol class="breadcrumb">
          <li>
-             <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+             <a href="{{ url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                  @lang('general.dashboard')
              </a>
          </li>
@@ -82,11 +82,11 @@
                     @endif
        
 
-        {!! Form::model($producto, ['url' => secure_url('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm', 'files'=> true]) !!}
+        {!! Form::model($producto, ['url' => url('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm', 'files'=> true]) !!}
 
       
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                 <div class="row ">
                     <div class="col-sm-3 col-xs-12 pd-2">
@@ -340,7 +340,7 @@
                                 <div id="addAncheta" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         
-                                            <a class="btn btn-primary" href="{{secure_url('admin/productos/'.$producto->id.'/ancheta')}}">Configurar Ancheta</a>
+                                            <a class="btn btn-primary" href="{{url('admin/productos/'.$producto->id.'/ancheta')}}">Configurar Ancheta</a>
 
                                             
 
@@ -486,7 +486,7 @@
 
                                     @else
                                         
-                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                        <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
                                              class="img-responsive"/>
 
                                     @endif
@@ -1188,7 +1188,7 @@
 
         {!! Form::close() !!}
 
-        <a class="btn btn-default" href="{{ secure_url('/admin/productos') }}">@lang('button.back')</a>
+        <a class="btn btn-default" href="{{ url('/admin/productos') }}">@lang('button.back')</a>
 
         </div>
 
@@ -1204,53 +1204,53 @@
     
   
     <!-- js para la carga de imahenes  -->
-<script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-<script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
     <!-- fin  js para la carga de imahenes  -->
 
     
-    <script src="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>
-    <script src="{{ secure_asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>
+    <script src="{{ asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
 
     
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
    
 
 
      <!-- Arbol de categorias -->
-    <script src="{{ secure_asset('assets/vendors/jstree/js/jstree.min.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/treeview/js/bootstrap-treeview.min.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
-    <script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="{{ asset('assets/vendors/jstree/js/jstree.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/treeview/js/bootstrap-treeview.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="https://cdn.tiny.cloud/1/xc42s73lybz8ddwbc0x2r96zo5xzespl3acfc8ealrda9eox/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-    <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
     
-   <!-- <script src="{{ secure_asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
+   <!-- <script src="{{ asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
     <script type="text/javascript">
 
 
         tinymce.init({
-        selector:'#contenido_digital',
+        selector:'#contenido_digital2',
         width: '100%',
         height: 300
     });
 
 
         tinymce.init({
-        selector:'#descripcion_larga',
+        selector:'#descripcion_larga2',
         width: '100%',
         height: 300
     });

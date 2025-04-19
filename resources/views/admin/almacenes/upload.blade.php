@@ -11,9 +11,9 @@ Actualizar Almacen
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -71,7 +71,7 @@ Actualizar Almacen
     <h1>Actualizar Almacen</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -93,7 +93,7 @@ Actualizar Almacen
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/almacenes/'.$almacen->id.'/postupload') }}">
+                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/almacenes/'.$almacen->id.'/postupload') }}">
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -114,7 +114,7 @@ Actualizar Almacen
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <a class="btn btn-link" target="_blank" href="{{secure_url('reportes/exportinventarioalmacen/'.$almacen->id)}}">Descargar Archivo de Inventario Actual del Almacen </a>
+                                    <a class="btn btn-link" target="_blank" href="{{url('reportes/exportinventarioalmacen/'.$almacen->id)}}">Descargar Archivo de Inventario Actual del Almacen </a>
 
                                     <div class="alert alert-danger ">
                                     IMPORTANTE: Los productos que se muestran en el archivo descargado son los que actualmente se encuentran activos en el almacén, al igual que el inventario, recomendamos modificar el mismo archivo con el nuevo inventario y subirlo. Trate de no copiar y pegar contenido de otros archivos, ya que este puede traer formatos ocultos y la carga del inventario no quedará de forma correcta.
@@ -130,7 +130,7 @@ Actualizar Almacen
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     
-                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/almacenes/') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ url('admin/almacenes/') }}">
                                         Cancelar
                                     </a>
 
@@ -147,15 +147,15 @@ Actualizar Almacen
     </div>    <!-- row-->
 </section>
 
-<input type="hidden" name="base" id="base" value="{{  secure_url('/') }}">
+<input type="hidden" name="base" id="base" value="{{  url('/') }}">
 
 @stop
 @section('footer_scripts')
 
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 

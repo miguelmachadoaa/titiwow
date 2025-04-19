@@ -9,15 +9,15 @@
 {{-- page level styles --}}
 @section('header_styles')
 
- <link rel="canonical" href="{{secure_url('mi-cuenta')}}" />
+ <link rel="canonical" href="{{url('mi-cuenta')}}" />
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/iCheck/css/minimal/blue.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
-{{--    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>--}}
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/user_account.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/iCheck/css/minimal/blue.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
+{{--    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/user_account.css') }}">
 
 @stop
 
@@ -27,12 +27,12 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li>
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 
@@ -60,7 +60,7 @@
                         </div>
 
                         @if(isset($user->id))
-                        {!! Form::model($user, ['url' => secure_url('mi-cuenta'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
+                        {!! Form::model($user, ['url' => url('mi-cuenta'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
                            
@@ -289,7 +289,7 @@
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+                                    <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
                                     <button class="btn btn-primary" type="submit">Guardar</button>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@
     <div class="form-group">
         <div class="col-lg-offset-10 col-lg-2" style="margin-bottom:20px;">
             @if(empty($cliente->cod_alpinista))
-                <a style="color: red !important;" href="{{ secure_url('#') }}" class="btn btn-link delete" type="button">
+                <a style="color: red !important;" href="{{ url('#') }}" class="btn btn-link delete" type="button">
                  Eliminar Cuenta 
                 </a>
             @endif
@@ -337,9 +337,9 @@
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="aprobarOrdenForm" name="aprobarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="aprobarOrdenForm" name="aprobarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                            
                             <div class="row">
                                 <div class="col-sm-1"></div>
@@ -375,12 +375,12 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/user_account.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/moment/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/user_account.js') }}"></script>
 
     <script type="text/javascript">
 

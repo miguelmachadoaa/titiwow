@@ -14,7 +14,7 @@ Editar Impuestos
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -36,7 +36,7 @@ Editar Impuestos
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($impuestos, ['url' => secure_url('admin/impuestos/'. $impuestos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($impuestos, ['url' => url('admin/impuestos/'. $impuestos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
@@ -74,7 +74,7 @@ Editar Impuestos
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/impuestos') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/impuestos') }}">
                                     Cancelar
                                 </a>
 

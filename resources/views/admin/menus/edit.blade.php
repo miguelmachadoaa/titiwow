@@ -10,11 +10,11 @@ Editar Menu
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -26,7 +26,7 @@ Editar Menu
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -48,7 +48,7 @@ Editar Menu
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($menu, ['url' => secure_url('admin/menus/'. $menu->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($menu, ['url' => url('admin/menus/'. $menu->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
@@ -72,7 +72,7 @@ Editar Menu
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/menus') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/menus') }}">
                                     Cancelar
                                 </a>
 
@@ -97,14 +97,14 @@ Editar Menu
 @section('footer_scripts')
 <!-- begining of page level js -->
 <!--edit blog-->
-<script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-<script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
 @stop

@@ -79,9 +79,9 @@
                 data-name="{{ $producto->nombre_producto }}" 
                 data-categoria="{{ $producto->nombre_categoria }}" 
                 data-marca="{{ $producto->nombre_marca }}" 
-                data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
+                data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
                 class="btn btn-md btn-cart addtocart" 
-                href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito</a>
+                href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito</a>
 
         @else
         <a 
@@ -91,9 +91,9 @@
                 data-name="{{ $producto->nombre_producto }}" 
                 data-categoria="{{ $producto->nombre_categoria }}" 
                 data-marca="{{ $producto->nombre_marca }}" 
-                data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
+                data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
                 class="btn btn-md btn-cart addtocart" 
-                href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
         @endif
 

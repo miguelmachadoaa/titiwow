@@ -12,7 +12,7 @@
 
             <div class="row">
 
-                <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>            
+                <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>            
                 
                 <div class="col-sm-10 col-xs-10">
 
@@ -110,7 +110,7 @@
 
         @if($total_venta>0)
 
-            <a style="width:100%"  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg" >Hacer Pedido</a>
+            <a style="width:100%"  href="{{url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg" >Hacer Pedido</a>
         
         @endif
 

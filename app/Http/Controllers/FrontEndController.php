@@ -961,7 +961,7 @@ class FrontEndController extends JoshController
 
         
 
-        $url=secure_url('/contacto');
+        $url=url('/contacto');
 
 
 
@@ -1248,7 +1248,7 @@ class FrontEndController extends JoshController
 
        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-       $url=secure_url('/');
+       $url=url('/');
 
 
         $sliders=AlpSliders::select('alp_slider.*')
@@ -1551,7 +1551,7 @@ class FrontEndController extends JoshController
 
        //dd($inventario);
 
-       $url=secure_url('/');
+       $url=url('/');
 
         $sliders=AlpSliders::select('alp_slider.*')
         ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
@@ -2339,7 +2339,7 @@ class FrontEndController extends JoshController
 
                 if ($id_empresa==0) {
 
-                    return secure_url('login');
+                    return url('login');
 
                    # return redirect('login')->with('success', trans('auth/message.signup.success'));
 
@@ -2361,7 +2361,7 @@ class FrontEndController extends JoshController
 
                      $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
 
-                     return secure_url('login');
+                     return url('login');
 
                      #return redirect('login?registro='.$user->id)->with('success', trans($mensaje));
 
@@ -2415,20 +2415,20 @@ class FrontEndController extends JoshController
 
             if(count($cart)>0){
 
-              return secure_url('/cart/show');
+              return url('/cart/show');
 
             }else{
 
-              return secure_url('/registro/gracias');
+              return url('/registro/gracias');
             }
   
           }else{
 
-            return secure_url('/registro/gracias');
+            return url('/registro/gracias');
 
           }
 
-              return secure_url('/clientes');
+              return url('/clientes');
 
               #return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
 
@@ -4508,11 +4508,11 @@ public function getApiUrl($endpoint, $jsessionid)
 
             'enlace_youtube' => $p->enlace_youtube, 
 
-            'imagen_producto' => secure_url('uploads/productos/'.$p->imagen_producto), 
+            'imagen_producto' => url('uploads/productos/'.$p->imagen_producto), 
 
             'slug' => $p->slug, 
 
-            'enlace_producto' => secure_url('producto/'.$p->slug), 
+            'enlace_producto' => url('producto/'.$p->slug), 
 
             'precio_base' => $p->precio_base, 
 

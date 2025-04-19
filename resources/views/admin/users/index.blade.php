@@ -8,8 +8,8 @@ Lista de usuarios
 
 {{-- page level styles --}}
 @section('header_styles')
-<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-<link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+<link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -19,7 +19,7 @@ Lista de usuarios
     <h1>Usuarios</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin.dashboard') }}">
+            <a href="{{ url('admin.dashboard') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Dashboard
             </a>
@@ -63,14 +63,14 @@ Lista de usuarios
         </div>
     </div>    <!-- row-->
 
-    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+    <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 </section>
 @stop
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
 
 <script>
     $(function() {

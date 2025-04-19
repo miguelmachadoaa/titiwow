@@ -11,9 +11,9 @@
           <div class="media-left">
             <a href="#">
                 @if(is_null($c->pic))
-              <img class="media-object" style="width: 60px;" src="{{secure_url('/uploads/users/default.jpg')}}" alt="{{$c->first_name}}">
+              <img class="media-object" style="width: 60px;" src="{{url('/uploads/users/default.jpg')}}" alt="{{$c->first_name}}">
               @else
-                <img class="media-object"style="width: 60px;"  src="{{secure_url('/uploads/users/'.$c->pic)}}" alt="{{$c->first_name}}">
+                <img class="media-object"style="width: 60px;"  src="{{url('/uploads/users/'.$c->pic)}}" alt="{{$c->first_name}}">
               @endif
             </a>
           </div>
@@ -46,7 +46,7 @@
                         @else
 
                         <div class="col-sm-12">
-                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$c->archivo)}}">Ver Archivo </a> </h3>
+                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{url('uploads/ticket/'.$c->archivo)}}">Ver Archivo </a> </h3>
 
                         </div>
 
@@ -71,9 +71,9 @@
           <div class="media-left">
             <a href="#">
                 @if(is_null($r->pic))
-              <img class="media-object" style="width: 60px;" src="{{secure_url('/uploads/users/default.jpg')}}" alt="{{$r->first_name}}">
+              <img class="media-object" style="width: 60px;" src="{{url('/uploads/users/default.jpg')}}" alt="{{$r->first_name}}">
               @else
-                <img class="media-object"style="width: 60px;"  src="{{secure_url('/uploads/users/'.$r->pic)}}" alt="{{$r->first_name}}">
+                <img class="media-object"style="width: 60px;"  src="{{url('/uploads/users/'.$r->pic)}}" alt="{{$r->first_name}}">
               @endif
             </a>
           </div>
@@ -106,7 +106,7 @@
                         @else
 
                         <div class="col-sm-12">
-                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$r->archivo)}}">Ver Archivo </a> </h3>
+                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{url('uploads/ticket/'.$r->archivo)}}">Ver Archivo </a> </h3>
 
                         </div>
 
@@ -132,9 +132,9 @@
           <div class="media-left">
             <a href="#">
                 @if(is_null($rr->pic))
-              <img class="media-object" style="width: 60px;" src="{{secure_url('/uploads/users/default.jpg')}}" alt="{{$rr->first_name}}">
+              <img class="media-object" style="width: 60px;" src="{{url('/uploads/users/default.jpg')}}" alt="{{$rr->first_name}}">
               @else
-                <img class="media-object"style="width: 60px;"  src="{{secure_url('/uploads/users/'.$rr->pic)}}" alt="{{$rr->first_name}}">
+                <img class="media-object"style="width: 60px;"  src="{{url('/uploads/users/'.$rr->pic)}}" alt="{{$rr->first_name}}">
               @endif
             </a>
           </div>
@@ -167,7 +167,7 @@
                         @else
 
                         <div class="col-sm-12">
-                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$rr->archivo)}}">Ver Archivo </a> </h3>
+                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{url('uploads/ticket/'.$rr->archivo)}}">Ver Archivo </a> </h3>
 
                         </div>
 

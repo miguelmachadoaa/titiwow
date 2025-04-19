@@ -21,23 +21,23 @@ Carrito de Compras
 {{-- page level styles --}}
 @section('header_styles')
 
- <link rel="canonical" href="{{secure_url('order/detail')}}" />
+ <link rel="canonical" href="{{url('order/detail')}}" />
 
 
 <!-- modal css -->
 
-    <link href="{{ secure_asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
 
-     <!--<link href="{{ secure_asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
+     <!--<link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
     
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
     <style type="text/css">
         
@@ -127,7 +127,7 @@ div.overlay > div {
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -137,7 +137,7 @@ div.overlay > div {
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{secure_url('productos')}}">Checkout</a>
+                    <a href="{{url('productos')}}">Checkout</a>
                 </li>
             </ol>
            
@@ -200,7 +200,7 @@ div.overlay > div {
 
 <p style="text-align: center;">
 
-    <a class="btn btn-danger" href="{{secure_url('/cart/vaciar')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+    <a class="btn btn-danger" href="{{url('/cart/vaciar')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
 </p>
 
@@ -217,7 +217,7 @@ div.overlay > div {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
-        <form id="form-checkout" class="form-horizontal" method="POST" action="{{secure_url('/order/creditcard')}}">
+        <form id="form-checkout" class="form-horizontal" method="POST" action="{{url('/order/creditcard')}}">
 
 
 
@@ -386,7 +386,7 @@ div.overlay > div {
             </div>
             <div class="modal-body" style="    padding: 2em;">
 
-                <form method="POST" action="{{secure_url('cart/storedir')}}" id="addPseForm" name="addPseForm" class="form-horizontal">
+                <form method="POST" action="{{url('cart/storedir')}}" id="addPseForm" name="addPseForm" class="form-horizontal">
 
                     <h3>Ingrese los siguientes datos para procesar su compra.</h3>
 
@@ -509,9 +509,9 @@ div.overlay > div {
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('cart/addcuponform')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+                        <form method="POST" action="{{url('cart/addcuponform')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -631,7 +631,7 @@ div.overlay > div {
                     <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
                         
                         <div class="col-sm-2" style="padding-top: 3%;">
-                            <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
+                            <img style="width:100% ; max-width: 90px;" src="{{url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                         </div>
                         <div class="col-sm-4" style="padding-top: 3%;">
                             <p>{{$cr->nombre_producto}}</p>
@@ -652,7 +652,7 @@ div.overlay > div {
 
                         <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
                             <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item">
-                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{secure_url('assets/images/borrar.png')}}" alt="">
+                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{url('assets/images/borrar.png')}}" alt="">
                             </a>
                         </div>
 
@@ -727,11 +727,11 @@ div.overlay > div {
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
-    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
@@ -952,7 +952,7 @@ div.overlay > div {
 
         $('.addDescuentoIcg').on('click', function(){
 
-            $(location).attr("href", '{{secure_url('cart/adddescuentoicg')}}');
+            $(location).attr("href", '{{url('cart/adddescuentoicg')}}');
 
         });
 
@@ -1924,7 +1924,7 @@ $('.sendCupon').click(function () {
 
     <!-- modal js -->
 
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/modal/js/classie.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/modal/js/classie.js')}}"></script>
     <script>
         $("#stack2,#stack3").on('hidden.bs.modal', function (e) {
             $('body').addClass('modal-open');

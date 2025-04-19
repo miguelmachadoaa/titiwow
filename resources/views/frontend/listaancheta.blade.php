@@ -28,7 +28,7 @@
 <div class="row">
         <div class="col-sm-12">
 
-         <!--a   class="btn btn-md btn-danger reiniciarAncheta" href="{{secure_url('cart/reiniciarancheta')}}" alt="Reiniciar Ancheta ">Reiniciar Ancheta </a-->
+         <!--a   class="btn btn-md btn-danger reiniciarAncheta" href="{{url('cart/reiniciarancheta')}}" alt="Reiniciar Ancheta ">Reiniciar Ancheta </a-->
 
          @if(isset($producto->slug))
         
@@ -36,7 +36,7 @@
             data-slug="{{ $producto->slug }}" 
             data-price="{{ intval($total) }}" 
             data-id="{{ $producto->id }}" 
-            data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-primary btn-md btn-cart addtocartunaancheta" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Agregar Ancheta </a>
+            data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-primary btn-md btn-cart addtocartunaancheta" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Agregar Ancheta </a>
 
         @else
 

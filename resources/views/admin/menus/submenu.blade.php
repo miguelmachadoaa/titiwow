@@ -10,11 +10,11 @@ Sub Menu {{$detalle->id}}
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -26,7 +26,7 @@ Sub Menu {{$detalle->id}}
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -48,7 +48,7 @@ Sub Menu {{$detalle->id}}
                 </div>
                 <div class="panel-body">
                     
-                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/menus/'.$detalle->id.'/storesub') }}">
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/menus/'.$detalle->id.'/storesub') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -156,7 +156,7 @@ Sub Menu {{$detalle->id}}
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/menus') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/menus') }}">
                                     Cancelar
                                 </a>
 
@@ -233,7 +233,7 @@ Sub Menu {{$detalle->id}}
                                             </a>
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                           <a href="{{ secure_url('admin/menus/'.$row->id.'/confirm-delete-detalle') }}" data-toggle="modal" data-target="#delete_confirm">
+                                           <a href="{{ url('admin/menus/'.$row->id.'/confirm-delete-detalle') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -257,7 +257,7 @@ Sub Menu {{$detalle->id}}
     </div>    <!-- row-->
 </section>
 
-<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" value="{{url('/')}}">
 
 
 @stop
@@ -276,15 +276,15 @@ Sub Menu {{$detalle->id}}
 
 <!-- begining of page level js -->
 <!--edit blog-->
-<script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-<script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
 
 <script>

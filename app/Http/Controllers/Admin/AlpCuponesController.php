@@ -82,18 +82,18 @@ class AlpCuponesController extends JoshController
 
         foreach($cupones as $row){
 
-            $actions = "   <a href='".secure_url('/admin/cupones/'.$row->id.'/edit')."'>
+            $actions = "   <a href='".url('/admin/cupones/'.$row->id.'/edit')."'>
             <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Cupon'></i>
         </a>
 
-        <a href='".secure_url('admin/cupones/'.$row->id.'/configurar')."'>
+        <a href='".url('admin/cupones/'.$row->id.'/configurar')."'>
             <i class='livicon' data-name='gear' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Configurar Cupon'></i>
         </a>
 
 
         <!-- let's not delete 'Admin' group by accident -->
         
-        <a href='".secure_url('/admin/cupones/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+        <a href='".url('/admin/cupones/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
         <i class='livicon' data-name='remove-alt' data-size='18'
             data-loop='true' data-c='#f56954' data-hc='#f56954'
             title='Eliminar'></i>

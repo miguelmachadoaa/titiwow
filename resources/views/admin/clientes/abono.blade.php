@@ -9,12 +9,12 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css -->
-    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
     <!--end of page level css-->
 @stop
 
@@ -60,7 +60,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        {!! Form::model($user, ['url' => secure_url('admin/clientes/'. $user->id.'/abono'), 'method' => 'post', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
+                        {!! Form::model($user, ['url' => url('admin/clientes/'. $user->id.'/abono'), 'method' => 'post', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
                             {{ csrf_field() }}
 
                             <input type="hidden" name="id_cliente" id="id_cliente" value="{{ $user->id }}">
@@ -83,7 +83,7 @@
                             <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/clientes') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/clientes') }}">
                                     Cancelar
                                 </a>
 
@@ -174,15 +174,15 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
-    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
-    <script src="{{ secure_asset('assets/js/pages/editclientes.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/editclientes.js') }}"></script>
 
 @stop
 

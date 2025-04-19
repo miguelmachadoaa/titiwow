@@ -20,7 +20,7 @@
 @if($categoria->imagen_categoria==0)
     <meta property="og:image" content="{{ $configuracion->seo_image }}" />
 @else
-    <meta property="og:image" content="{{ secure_url('uploads/categorias/'.$categoria->imagen_categoria )}}" />
+    <meta property="og:image" content="{{ url('uploads/categorias/'.$categoria->imagen_categoria )}}" />
 @endif
 <meta property="og:url" content="{{$url}}" />
 
@@ -32,7 +32,7 @@
 <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
 <meta name="twitter:description" content="{{$categoria->seo_descripcion}}">
 <meta name="twitter:title" content="{{ $categoria->seo_titulo}}">
-<meta name="twitter:image" content="{{ secure_url('/').'/uploads/categorias/'.$categoria->imagen_categoria }}">
+<meta name="twitter:image" content="{{ url('/').'/uploads/categorias/'.$categoria->imagen_categoria }}">
 
 @endif
 
@@ -64,10 +64,10 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -76,11 +76,11 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     </a>
                 </li>
                 <li >
@@ -117,13 +117,13 @@
 
             <div class="row hidden-xs" >
                 <div class="col-sm-12" style="margin-top:20px">
-                    <a target="_blank" href="{{$categoria->enlace_categoria}}"><img style="width: 100%; height: auto;"  src="{{secure_url('/assets/images/'.$categoria->banner_categoria)}}" alt=""></a>
+                    <a target="_blank" href="{{$categoria->enlace_categoria}}"><img style="width: 100%; height: auto;"  src="{{url('/assets/images/'.$categoria->banner_categoria)}}" alt=""></a>
                 </div>
             </div>
 
             <div class="row visible-xs" >
                 <div class="col-sm-12" style="margin-top:20px">
-                   <a target="_blank" href="{{$categoria->enlace_categoria}}"><img  style="width: 100%; height: auto;" src="{{secure_url('/assets/images/'.$categoria->banner_movil_categoria)}}" alt=""></a> 
+                   <a target="_blank" href="{{$categoria->enlace_categoria}}"><img  style="width: 100%; height: auto;" src="{{url('/assets/images/'.$categoria->banner_movil_categoria)}}" alt=""></a> 
                 </div>
             </div>
 
@@ -357,7 +357,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ secure_url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
                     </div>
                 </div>
             </div>
@@ -376,8 +376,8 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
 
     <script>
         jQuery(document).ready(function () {

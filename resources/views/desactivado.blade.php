@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login | Alpina Go!</title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">    <!--end of global css-->
     <!--end of global css-->
     <!--page level css starts-->
-    <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
-    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/login.css') }}">
-    <link rel="stylesheet" href=" {{ secure_asset('assets/css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" />
+    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/login.css') }}">
+    <link rel="stylesheet" href=" {{ asset('assets/css/font-awesome.min.css') }}">
     <!--end of page level css-->
 
 </head>
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1 text-center">
-            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
+            <a href="{{ url('/') }}"><img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
             <h3 class="text-primary">Mi Perfil</h3>
                 <!-- Notifications -->
                 <div id="notific">
@@ -46,7 +46,7 @@
                     <div class="form-group">
                         
                         <div class="col-md-6">
-                            <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
+                            <a class="btn btn-block btn-danger" href="{{ url('/') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -62,11 +62,11 @@
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/bootstrap.min.js') }}"></script>
-<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/login_custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/frontend/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/frontend/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/frontend/login_custom.js') }}"></script>
 <!--global js end-->
 </body>
 </html>

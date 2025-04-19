@@ -17,8 +17,8 @@
                             {!!'<g:id>'.$p->id.'</g:id>'!!}
                             {!!'<g:title>'.$p->nombre_producto.'</g:title>'!!}
                             {!!'<g:description>'.$p->descripcion_corta.'</g:description>'!!}
-                            {!!'<g:link>'.secure_url('producto/'.$p->slug).'</g:link>'!!}
-                            {!!'<g:image_link>'.secure_url('/uploads/productos/'.$p->imagen_producto).'</g:image_link>'!!}
+                            {!!'<g:link>'.url('producto/'.$p->slug).'</g:link>'!!}
+                            {!!'<g:image_link>'.url('/uploads/productos/'.$p->imagen_producto).'</g:image_link>'!!}
                             {!!'<g:brand>'.$p->nombre_marca.'</g:brand>'!!}
                             {!!'<g:condition>new</g:condition>'!!}
                             {!!'<g:availability>in stock</g:availability>'!!}

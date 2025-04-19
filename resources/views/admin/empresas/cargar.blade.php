@@ -9,9 +9,9 @@ Cargar Invitaciones Masivas de Empresas
 {{-- page level styles --}}
 @section('header_styles')
 
-<link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
-<link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
     <style>
 
@@ -64,7 +64,7 @@ Cargar Invitaciones Masivas de Empresas
     <h1>Cargar Invitaciones Masivas de Empresas</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -86,7 +86,7 @@ Cargar Invitaciones Masivas de Empresas
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/invitacionesmasivas/import') }}">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/invitacionesmasivas/import') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">                 
                             <div class="row">
@@ -100,7 +100,7 @@ Cargar Invitaciones Masivas de Empresas
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     
-                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/facturasmasivas') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ url('admin/facturasmasivas') }}">
                                         Cancelar
                                     </a>
 
@@ -124,7 +124,7 @@ Cargar Invitaciones Masivas de Empresas
 @section('footer_scripts')
 
 
-        <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
         <script>      
         $(document).ready(function(){
             $('#empresa').select2();

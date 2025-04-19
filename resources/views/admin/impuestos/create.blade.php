@@ -14,7 +14,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -46,7 +46,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/impuestos/create') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ url('admin/impuestos/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                
-                                <a class="btn btn-danger" href="{{ secure_url('admin./impuestos') }}">
+                                <a class="btn btn-danger" href="{{ url('admin./impuestos') }}">
                                     Cancelar
                                 </a>
 

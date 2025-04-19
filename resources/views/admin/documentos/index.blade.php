@@ -7,8 +7,8 @@ Tipos de Documentos
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 {{-- Content --}}
@@ -17,7 +17,7 @@ Tipos de Documentos
     <h1>Tipos de Documentos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -37,13 +37,13 @@ Tipos de Documentos
                        Tipos de Documentos
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/documentos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Tipos de Documentos</a>
+                    <a href="{{ url('admin/documentos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Tipos de Documentos</a>
                     </div>
                 </div>
                 <br />
                 <div class="panel-body">
 
-                    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                    <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                     @if ($documentos->count() >= 1)
                         <div class="table-responsive">
@@ -100,8 +100,8 @@ Tipos de Documentos
     </div>
 </div>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

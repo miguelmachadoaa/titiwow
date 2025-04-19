@@ -915,7 +915,7 @@ public function addproducto(Request $request)
           foreach($prods as $row){
 
               $imagen='<figure>
-                        <img style="width: 60px;" src="'.secure_url('uploads/productos/'.$row->imagen_producto).'" data-src="'.secure_url('uploads/productos/60/'.$row->imagen_producto).'" alt="img">
+                        <img style="width: 60px;" src="'.url('uploads/productos/'.$row->imagen_producto).'" data-src="'.url('uploads/productos/60/'.$row->imagen_producto).'" alt="img">
                     </figure>';
 
 

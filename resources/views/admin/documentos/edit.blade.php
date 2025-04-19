@@ -14,7 +14,7 @@ Editar Tipo de Documentos
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -36,7 +36,7 @@ Editar Tipo de Documentos
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($documentos, ['url' => secure_url('admin/documentos/'. $documentos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($documentos, ['url' => url('admin/documentos/'. $documentos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

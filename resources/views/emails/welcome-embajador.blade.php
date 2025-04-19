@@ -10,7 +10,7 @@ Hola  {{ $name.' '.$lastname }}
 
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/misamigos') }}" class="button button-blue " target="_blank">Referir Amigos </a>
+    <a  href="{{ url('/misamigos') }}" class="button button-blue " target="_blank">Referir Amigos </a>
 </p>
 
 Esperamos que sigas disfrutando de la experiencia Alpina Go! Y recuerda:

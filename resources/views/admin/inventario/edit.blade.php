@@ -8,8 +8,8 @@ Agregar Inventario
 
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -23,7 +23,7 @@ Agregar Inventario
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -46,7 +46,7 @@ Agregar Inventario
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($producto, ['url' => secure_url('admin/inventario/'. $producto->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($producto, ['url' => url('admin/inventario/'. $producto->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -223,7 +223,7 @@ Agregar Inventario
 
                                     @if(isset($movimiento->orden))
 
-                                    <td><a target="_blank" href="{{secure_url('admin/ordenes/'.$movimiento->orden->id_orden.'/detalle')}}">{{$movimiento->orden->id_orden}}</a></td>
+                                    <td><a target="_blank" href="{{url('admin/ordenes/'.$movimiento->orden->id_orden.'/detalle')}}">{{$movimiento->orden->id_orden}}</a></td>
 
                                     @else
 
@@ -257,8 +257,8 @@ Agregar Inventario
 @stop
 
 @section('footer_scripts')
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 <script>
 

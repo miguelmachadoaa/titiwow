@@ -9,8 +9,8 @@ Compras Mis Referidos
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -19,19 +19,19 @@ Compras Mis Referidos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
 
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes/miscompras') }}">Compras  </a>
+                    <a href="{{ url('clientes/miscompras') }}">Compras  </a>
                 </li>
         </div>
     </div>
@@ -89,7 +89,7 @@ Compras Mis Referidos
                         <td>    
                                
 
-                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
+                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>
 
@@ -147,7 +147,7 @@ Compras Mis Referidos
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             new WOW().init();

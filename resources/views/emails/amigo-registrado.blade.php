@@ -9,7 +9,7 @@
 Puedes ver el status de cada uno de tus referidos entrando a tu perfil:
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/') }}" class="button button-blue " target="_blank">Visitar Página </a>
+    <a  href="{{ url('/') }}" class="button button-blue " target="_blank">Visitar Página </a>
 </p>
 
 

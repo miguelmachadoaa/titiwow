@@ -14,7 +14,7 @@ Editar Transportistas
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -36,7 +36,7 @@ Editar Transportistas
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($transportistas, ['url' => secure_url('admin/transportistas/'. $transportistas->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($transportistas, ['url' => url('admin/transportistas/'. $transportistas->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
@@ -71,7 +71,7 @@ Editar Transportistas
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/transportistas') }}">
+                                <a class="btn btn-danger" href="{{ url('admin/transportistas') }}">
                                     Cancelar
                                 </a>
 

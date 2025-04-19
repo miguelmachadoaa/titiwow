@@ -1,6 +1,6 @@
 @include('emails.header')
 
-<!--<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>-->
+<!--<p style="text-align: center;"><img src="{{ url('assets/img/login.png') }}"></p>-->
 
  
  Buen dia <br>

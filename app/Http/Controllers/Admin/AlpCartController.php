@@ -309,7 +309,7 @@ class AlpCartController extends JoshController
 
         $inventario=$this->inventario();
         
-        $url=secure_url('cart/show');
+        $url=url('cart/show');
         
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
@@ -470,7 +470,7 @@ class AlpCartController extends JoshController
 
         $inventario=$this->inventario();
         
-        $url=secure_url('cart/show');
+        $url=url('cart/show');
         
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
@@ -1068,7 +1068,7 @@ class AlpCartController extends JoshController
       //  $payment->token = $request['token'];
         $payment->description = 'Pago de Orden '. $orden->id;
         $payment->payment_method_id = 'pse';
-        $payment->callback_url=secure_url('/order/pse');
+        $payment->callback_url=url('/order/pse');
         $payment->external_reference = $orden->referencia_mp;
         $payment->additional_info = array(
           "ip_address"=>$ip,
@@ -2120,7 +2120,7 @@ class AlpCartController extends JoshController
 
            $idc=$compra->id*1024;
 
-          $response = array('estado' => 'aprobado', 'mensaje'=> secure_url('cart/'.$idc.'/gracias?pago=aprobado'));
+          $response = array('estado' => 'aprobado', 'mensaje'=> url('cart/'.$idc.'/gracias?pago=aprobado'));
 
           #  return json_encode($response);
           
@@ -2647,15 +2647,15 @@ class AlpCartController extends JoshController
 
               "back_urls" => [
 
-                "success" => secure_url('/order/success'),
+                "success" => url('/order/success'),
 
-                "failure" => secure_url('/order/failure'),
+                "failure" => url('/order/failure'),
 
-                "pending" => secure_url('/order/pending')
+                "pending" => url('/order/pending')
 
               ],
 
-              "notification_url" =>secure_url('/order/mercadopago'),
+              "notification_url" =>url('/order/mercadopago'),
 
               "external_reference" =>time()
 
@@ -2873,7 +2873,7 @@ class AlpCartController extends JoshController
 
           }
 
-          $url=secure_url('order/detail');
+          $url=url('order/detail');
 
           $bono_disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
               ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
@@ -3323,7 +3323,7 @@ class AlpCartController extends JoshController
                 
                 $idc=$compra->id*1024;
 
-                return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+                return url('cart/'.$idc.'/gracias?pago=pendiente');
 
                 \Session::forget('pagando');
 
@@ -3571,7 +3571,7 @@ class AlpCartController extends JoshController
                    \Session::put('aviso_bono', 'Pago aplicado satisfactoriamente, puede asignar un nuevo pago para completar la compra');
 
 
-                   return secure_url('order/detail');
+                   return url('order/detail');
                   
                 }
 
@@ -3579,7 +3579,7 @@ class AlpCartController extends JoshController
 
                 \Session::put('aviso_bono', 'El monto que intenta aplicar es mayor al monto de la compra por favor verifique e intente nuevamente.');
 
-                return secure_url('order/detail');
+                return url('order/detail');
 
                }
 
@@ -3589,7 +3589,7 @@ class AlpCartController extends JoshController
 
                 \Session::put('aviso_bono', 'No se puede aplicar el pago, debido a que el restante de la compra seria menor a '.number_format($almacen->minimo_compra,0,',','.').' y no podria ser procesado correctamento');
 
-                return secure_url('order/detail');
+                return url('order/detail');
 
                }
 
@@ -3598,7 +3598,7 @@ class AlpCartController extends JoshController
 
                 \Session::put('aviso_bono', 'No posee el saldo suficiente para asignar este pago.');
 
-                return secure_url('order/detail');
+                return url('order/detail');
 
               }
 
@@ -3691,7 +3691,7 @@ class AlpCartController extends JoshController
 
                 $idc=$compra->id*1024;
 
-                return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+                return url('cart/'.$idc.'/gracias?pago=pendiente');
 
                 \Session::forget('pagando');
 
@@ -3877,7 +3877,7 @@ public function orderProcesarIcg(Request $request)
                    \Session::put('aviso_bono', 'Pago aplicado satisfactoriamente, puede asignar un nuevo pago para completar la compra');
 
 
-                   return secure_url('order/detail');
+                   return url('order/detail');
                   
                 }
 
@@ -3885,7 +3885,7 @@ public function orderProcesarIcg(Request $request)
 
                 \Session::put('aviso_bono', 'El monto que intenta aplicar es mayor al monto de la compra por favor verifique e intente nuevamente.');
 
-                return secure_url('order/detail');
+                return url('order/detail');
 
                }
 
@@ -3895,7 +3895,7 @@ public function orderProcesarIcg(Request $request)
 
                 \Session::put('aviso_bono', 'No se puede aplicar el pago, debido a que el restante de la compra seria menor a '.number_format($almacen->minimo_compra,0,',','.').' y no podria ser procesado correctamento');
 
-                return secure_url('order/detail');
+                return url('order/detail');
 
                }
 
@@ -3904,7 +3904,7 @@ public function orderProcesarIcg(Request $request)
 
                 \Session::put('aviso_bono', 'No posee el saldo suficiente para asignar este pago.');
 
-                return secure_url('order/detail');
+                return url('order/detail');
 
               }
 
@@ -3996,7 +3996,7 @@ public function orderProcesarIcg(Request $request)
 
                 $idc=$compra->id*1024;
 
-                return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+                return url('cart/'.$idc.'/gracias?pago=pendiente');
 
                 \Session::forget('pagando');
 
@@ -5162,7 +5162,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $payment, $tipo){
 
            $idc=$orden->id*1024;
 
-          return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+          return url('cart/'.$idc.'/gracias?pago=pendiente');
 
               #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
           
@@ -12331,7 +12331,7 @@ private function addpromocion(){
                     $dif=$promo->monto_minimo-$monto;
 
                     
-                    $enlace='<a href="'.secure_url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
+                    $enlace='<a href="'.url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
 
                     
                     $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de las categorias: '.$categoria->nombre_categoria.',  puedes obtener un regalo.'; 

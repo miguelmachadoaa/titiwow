@@ -7,8 +7,8 @@ Estatus Ordenes
 @stop
 
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -45,7 +45,7 @@ Estatus Ordenes
                 <br />
                 <div class="panel-body">
 
-                         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                             <input type="hidden" name="envio_id" id="envio_id" value="">
 
 
@@ -103,8 +103,8 @@ Estatus Ordenes
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 <script>

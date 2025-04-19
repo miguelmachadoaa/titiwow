@@ -34,7 +34,7 @@
 
                                                 <div class="hidden-xs col-sm-2 ">
 
-                                                   <a href="{{ route('producto', [$car->slug]) }}"> <img width="50em" src="{{ secure_url('/').'/uploads/productos/60/'.$car->imagen_producto }}"  alt="{{ $car->nombre_producto }}" title="{{ $car->nombre_producto }}"></a>
+                                                   <a href="{{ route('producto', [$car->slug]) }}"> <img width="50em" src="{{ url('/').'/uploads/productos/60/'.$car->imagen_producto }}"  alt="{{ $car->nombre_producto }}" title="{{ $car->nombre_producto }}"></a>
 
                                                 </div>
 

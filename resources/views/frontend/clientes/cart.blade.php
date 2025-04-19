@@ -9,8 +9,8 @@ Carro de Productos
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -19,7 +19,7 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -37,7 +37,7 @@ Carro de Productos
 <div class="container text-center ">
     <div class="row">
         <h2>Carrito de Compras</h2>
-        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar Carrito</a>
+        <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar Carrito</a>
         @if(count($cart))
             
         
@@ -74,7 +74,7 @@ Carro de Productos
                                 <a 
                                 href="#"
                                 class="btn btn-warning btn-update-item" 
-                                data-href="{{secure_url('cart/update', [$row->slug])}}" 
+                                data-href="{{url('cart/update', [$row->slug])}}" 
                                 data-id="{{$row->id}}" 
                                 ><i class="fa fa-refresh"></i></a>
                                 
@@ -99,7 +99,7 @@ Carro de Productos
                                     </div>
                                 </td-->
                             <td>{{ number_format($row->cantidad*$row->precio_base, 2) }}</td>
-                            <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
+                            <td><a class="btn btn-danger" href="{{url('cart/delete', [$row->slug])}}">X</a></td>
                         </tr>
                      @endforeach
                      <tr>
@@ -120,9 +120,9 @@ Carro de Productos
      </div>
 
     <p style="text-align: center;">
-        <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="label label-seguir" href="{{url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart btn-checkout" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart btn-checkout" href="{{url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 
@@ -133,7 +133,7 @@ Carro de Productos
 
         <p style="text-align: center;">
            
-            <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 
@@ -148,7 +148,7 @@ Carro de Productos
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             new WOW().init();

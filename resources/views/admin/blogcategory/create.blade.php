@@ -36,7 +36,7 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    {!! Form::open(array('url' => secure_url('admin/blogcategory'), 'method' => 'post', 'class' => 'form-horizontal', 'files'=> true)) !!}
+                    {!! Form::open(array('url' => url('admin/blogcategory'), 'method' => 'post', 'class' => 'form-horizontal', 'files'=> true)) !!}
                     <div class="form-group {{ $errors->first('title', 'has-error') }}">
                         <label for="title" class="col-sm-2 control-label">
                             @lang('blogcategory/form.name')
@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4">
-                            <a class="btn btn-danger" href="{{ secure_url('admin/blogcategory/') }}">
+                            <a class="btn btn-danger" href="{{ url('admin/blogcategory/') }}">
                                 @lang('button.cancel')
                             </a>
                             <button type="submit" class="btn btn-success">

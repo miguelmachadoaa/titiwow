@@ -52,19 +52,19 @@
                         </p>
                         <p>316 2442018 | (01) 8000 529999</p>
                         <p>alpina@alpina.com</p>
-                        <p><a href="{{ secure_url('pqr') }}">¿Necesitas ayuda? Contáctanos ></a></p>
+                        <p><a href="{{ url('pqr') }}">¿Necesitas ayuda? Contáctanos ></a></p>
                         <p style="text-align:left !important;">Km 3, vía Briceño Sopó, Edificio Administrativo Alpina Cundinamarca, Colombia</p>
                     
                 </div>
                 <!-- Contacto Section Start -->
                 <div class="col-sm-3 clearfix">
-                    <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style=" margin:10px auto;width:220px;">
+                    <img src="{{ asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style=" margin:10px auto;width:220px;">
                  </div>   
                 <!-- Pare y Compare Section Start -->
                 <div class="col-sm-3 clearfix">
                     
-                    <a href="http://www.sic.gov.co" target="_blank"><img src="{{ secure_asset('uploads/files/logosic.png') }}" alt="Camara de Comercio Colombiana" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
-                    <a href="https://www.ccce.org.co" target="_blank"><img src="{{ secure_asset('uploads/files/ccce.png') }}" alt="Secretaria de Industria y Comercio" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
+                    <a href="http://www.sic.gov.co" target="_blank"><img src="{{ asset('uploads/files/logosic.png') }}" alt="Camara de Comercio Colombiana" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
+                    <a href="https://www.ccce.org.co" target="_blank"><img src="{{ asset('uploads/files/ccce.png') }}" alt="Secretaria de Industria y Comercio" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
                 </div>
                 <!-- //redes Section End -->
 
@@ -75,7 +75,7 @@
             <div class="row" style="margin:0px;padding:0px;">
                 <div class="col-md-12 text-center">
                 <div class="separador" style="    border-bottom: 2px solid #ffffff;margin-bottom: 10px; width:20%"></div>
-                <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> | <a href="{{ secure_asset('uploads/files/politica_de_tratamiento_de_la_informacion.pdf') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a>
+                <a href="{{ url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> | <a href="{{ asset('uploads/files/politica_de_tratamiento_de_la_informacion.pdf') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a>
                 </div>
             </div>
             </div>
@@ -102,9 +102,9 @@
                 </div>
                 
                 <div class="modal-body ">
-                     <form method="POST" action="{{secure_url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
+                     <form method="POST" action="{{url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
 
-                        <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                        <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             <!--div class="form-group col-sm-12">
                                 <label for="select21" class="col-md-3 control-label">

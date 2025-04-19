@@ -503,7 +503,7 @@ public function compramasupdate()
 
 
             $reenviar="<div style='display: inline-block;' class='compramas_".$row->id."'>  
-            <a href='".secure_url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Aprobar Orden Compramas </a></div>";
+            <a href='".url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Aprobar Orden Compramas </a></div>";
 
 
 
@@ -512,7 +512,7 @@ public function compramasupdate()
                     
 
                      $reenviar="<div style='display: inline-block;' class='compramas_".$row->id."'>  
-            <a href='".secure_url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Aprobar Orden Compramas</a></div>";
+            <a href='".url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Aprobar Orden Compramas</a></div>";
 
 
                     $compramas = " <button  class='btn btn-xs btn-danger ' > Error compramas </button></div>";
@@ -635,14 +635,10 @@ public function compramasupdate()
           $direcciones=AlpDirecciones::pluck('city_id', 'id');
           $ciudades=City::pluck('city_name', 'id');
 
-
-       
-
             $data = array();
 
 
           foreach($ordenes as $row){
-
 
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
 
@@ -664,10 +660,6 @@ public function compramasupdate()
 
                 $row->monto_total=$row->monto_total+$envio->costo;
               } 
-
-              
-              
-
                                           
               $nombre_almacen='N/A';
 
@@ -700,10 +692,6 @@ public function compramasupdate()
                 $origen='Web';
 
               }
-
-
-             
-
 
 
                $data[]= array(
@@ -952,7 +940,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -1135,7 +1123,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -1386,7 +1374,7 @@ public function compramasupdate()
 
                 $actions = $actions." 
                   
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -1684,7 +1672,7 @@ public function compramasupdate()
                   if (isset($mensaje->id)) {
 
                     $actions = $actions." 
-                      <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                           Ver Pdf
                       </a>";
                     
@@ -1830,7 +1818,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -2137,7 +2125,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank'  class='btn btn-info btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank'  class='btn btn-info btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -2339,7 +2327,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -2531,7 +2519,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -3978,7 +3966,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -4177,7 +4165,7 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
@@ -6408,7 +6396,7 @@ public function sendcompramascancelar($id_orden){
                   if (isset($mensaje->id)) {
 
                     $actions = $actions." 
-                      <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      <a target='_blank' class='btn btn-info  btn-xs' href='".url('admin/ordenes/'.$row->id.'/pdf'). "'>
                           Ver Pdf
                       </a>";
                     

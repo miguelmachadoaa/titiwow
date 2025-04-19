@@ -10,7 +10,7 @@ Punto de Venta
 {{-- page level styles --}}
 @section('header_styles')
 
-  <link rel="canonical" href="{{secure_url('clientes')}}" />
+  <link rel="canonical" href="{{url('clientes')}}" />
 
     <style type="text/css">
 
@@ -127,7 +127,7 @@ Punto de Venta
 </div>
 
 
-<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
+<input type="hidden" id="base" name="base" value="{{url('/')}}">
 
 
   
@@ -347,10 +347,10 @@ Punto de Venta
 
                     dataType: 'JSON',
                         
-                    complete: function(datos){     
+                    complete: function(datos){
 
                         console.log(datos);
-                        console.log(datos.responseJSON.status);
+                       // console.log(datos.responseJSON.status);
 
                         if(datos.responseJSON.status=='dashboard'){
 
@@ -477,7 +477,7 @@ Punto de Venta
                     data:{basefinal, observacion,id},
                     url: base+"/pos/updatecaja",
                         
-                    complete: function(datos){     
+                    complete: function(datos){
 
                         $('.panelprincipal').html((datos.responseText));
                     }
@@ -504,7 +504,7 @@ Punto de Venta
                 data:{nombre_cliente, telefono_cliente, email_cliente, cedula_cliente},
                 url: base+"/pos/addcliente",
                     
-                complete: function(datos){     
+                complete: function(datos){
 
                     $('.panelprincipal').html((datos.responseText));
                 }

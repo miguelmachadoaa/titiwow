@@ -9,8 +9,8 @@ Mi Estatus
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -19,17 +19,17 @@ Mi Estatus
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('miestatus') }}">Mi Estatus  </a>
+                    <a href="{{ url('miestatus') }}">Mi Estatus  </a>
                 </li>
             </ol>
             
@@ -51,7 +51,7 @@ Mi Estatus
                 <div class="row">
                     
                     <div class="col-sm-3">
-                        <img class="img img-responsive" src="{{ secure_url('/').'/assets/images/'.$puntos['nivel'].'.png' }}">
+                        <img class="img img-responsive" src="{{ url('/').'/assets/images/'.$puntos['nivel'].'.png' }}">
                     </div>
                     <div class="col-sm-9">
                         <h4>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h4>
@@ -184,7 +184,7 @@ Mi Estatus
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -200,7 +200,7 @@ Mi Estatus
                     </div>
                     <div class="modal-body">
                       
-                           <input type="hidden" name="url" id="url" value="{{ secure_url('clientes/deleteamigo') }}">
+                           <input type="hidden" name="url" id="url" value="{{ url('clientes/deleteamigo') }}">
 
                             <input type="hidden" name="del_id" id="del_id" value="">
 
@@ -226,9 +226,9 @@ Mi Estatus
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
+                        <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                             {{ csrf_field() }}
 
@@ -309,8 +309,8 @@ Mi Estatus
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
     <script>

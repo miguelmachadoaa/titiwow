@@ -10,15 +10,15 @@ Orden {{$orden->id}}
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/css/pages/timeline.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/timeline2.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/timeline.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/timeline2.css') }}" rel="stylesheet" />
     
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 
 
@@ -383,7 +383,7 @@ Orden {{$orden->id}}
                              <tr>
                                 <td><b> Enlace para Pagos</b></td>
                                 <td>
-                                {{secure_url('pedidos/'.$orden->token.'/pago')}}
+                                {{url('pedidos/'.$orden->token.'/pago')}}
                                 </td>
                             </tr>
 
@@ -411,7 +411,7 @@ Orden {{$orden->id}}
 
                             <!--tr>
                                  <td>Tracking: </td>
-                                 <td><a href="{{secure_url('/tracking/'.$orden->token)}}" class="button button-blue" target="_blank">URL Tracking</a></td>
+                                 <td><a href="{{url('/tracking/'.$orden->token)}}" class="button button-blue" target="_blank">URL Tracking</a></td>
                              </tr-->
 
                          
@@ -423,21 +423,21 @@ Orden {{$orden->id}}
 
         </div>
 
-             <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
+             <!--a href="{{url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
 
 
              @if($user->id==1 )
 
 
-             <!--a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a>
+             <!--a href="{{url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a>
              <br>
 
 
-             <a style="margin-top: 1em; " href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviaryaprobarcompramas' )}}" class="btn btn-danger">Reenviar y Aprobar Orden Compramas</a>
+             <a style="margin-top: 1em; " href="{{url('admin/ordenes/'.$orden->id.'/reenviaryaprobarcompramas' )}}" class="btn btn-danger">Reenviar y Aprobar Orden Compramas</a>
 
 
 
-             <a style="margin-top: 1em; " href="{{secure_url('admin/ordenes/'.$orden->id.'/cancelarcompramas' )}}" class="btn btn-danger">Cancelar Orden Compramas</a-->
+             <a style="margin-top: 1em; " href="{{url('admin/ordenes/'.$orden->id.'/cancelarcompramas' )}}" class="btn btn-danger">Cancelar Orden Compramas</a-->
 
              @endif
 
@@ -445,7 +445,7 @@ Orden {{$orden->id}}
 
                     
             <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>
+                    <a class="btn btn-default" href="{{ url('admin/ordenes') }}">Regresar</a>
 
             </p>
                    
@@ -553,7 +553,7 @@ Orden {{$orden->id}}
 
                                             <div class="col-sm-12">
                                                 
-                                                <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$ticket->archivo)}}">Ver Archivo</a> </h3>
+                                                <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{url('uploads/ticket/'.$ticket->archivo)}}">Ver Archivo</a> </h3>
 
                                             </div>
 
@@ -561,7 +561,7 @@ Orden {{$orden->id}}
 
                                             <div class="col-sm-12" style="margin-top: 1em;">
 
-                                            <a class="btn btn-success" href="{{secure_url('admin/ticket/'.$ticket->id)}}">Ir al Ticket</a>
+                                            <a class="btn btn-success" href="{{url('admin/ticket/'.$ticket->id)}}">Ir al Ticket</a>
 
                                             </div>
 
@@ -653,7 +653,7 @@ Orden {{$orden->id}}
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/60/{{$row->imagen_producto}}"></td>
+                            <td><img height="60px" src="{{ url('/') }}/uploads/productos/60/{{$row->imagen_producto}}"></td>
                             <td>{{$row->referencia_producto}}</td>
                             <td>{{$row->nombre_producto}}</td>
                             @if($row->id_impuesto == 1)
@@ -817,7 +817,7 @@ Orden {{$orden->id}}
              </table>
             </div>
             <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>
+                    <a class="btn btn-default" href="{{ url('admin/ordenes') }}">Regresar</a>
 
             </p>
                    
@@ -1382,15 +1382,15 @@ Orden {{$orden->id}}
 @section('footer_scripts')
 <!-- begining of page level js -->
 <!--edit blog-->
-<script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-<script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
 <script>
     

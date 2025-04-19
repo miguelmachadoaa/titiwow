@@ -18,9 +18,9 @@ Gracias por confirmar Su Correo
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
 
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
     <style>
     .help-block {
         color: #a94442 !important;
@@ -37,11 +37,11 @@ Gracias por confirmar Su Correo
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     </a>
                 </li>
                 <li>
@@ -69,7 +69,7 @@ Gracias por confirmar Su Correo
                 <div class="separador"></div>
             </div>
 
-            <a class="btn btn-primary" href="{{secure_url('clientes')}}">Ir al area de clientes </a>
+            <a class="btn btn-primary" href="{{url('clientes')}}">Ir al area de clientes </a>
           
           
 

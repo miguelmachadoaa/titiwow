@@ -55,7 +55,7 @@ Ip: {{$compra->ip}}
 
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/') }}" class="button button-blue " target="_blank">Sigue Comprando </a>
+    <a  href="{{ url('/') }}" class="button button-blue " target="_blank">Sigue Comprando </a>
 </p>
 
 

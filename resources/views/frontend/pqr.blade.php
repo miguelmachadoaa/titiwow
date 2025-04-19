@@ -18,9 +18,9 @@ PQR
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
 
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
     <style>
     .help-block {
         color: #a94442 !important;
@@ -37,11 +37,11 @@ PQR
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     </a>
                 </li>
                 <li>
@@ -88,7 +88,7 @@ PQR
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form class="contact_us_form row" action="{{ secure_url('/pqr')}}" method="post" id="contactForm" enctype="multipart/form-data" novalidate="novalidate">
+            <form class="contact_us_form row" action="{{ url('/pqr')}}" method="post" id="contactForm" enctype="multipart/form-data" novalidate="novalidate">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="form-group col-lg-4">
@@ -157,13 +157,13 @@ PQR
                 </div>
                 <div class="form-group col-lg-12">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ secure_asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
+                        <input type="checkbox" name="habeas_cliente" id="habeas_cliente" value="1" require> Autorizo y declaro que soy mayor de edad, que he leído y acepto el tratamiento de mis datos personales conforme al formato de autorización disponible <a href="{{ asset('uploads/files/Formato_Autorizacion_Tratamientos_de_Datos_en_Medios_Digitales.pdf') }}" class="menu-item" target="_blank" title="Formato Autorización Tratamientos de Datos en Medios Digitales" alt="Formato Autorización Tratamientos de Datos en Medios Digitales">acá.</a>
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group col-lg-12">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="terminos_cliente" id="terminos_cliente" value="1" require> Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a>
+                        <input type="checkbox" name="terminos_cliente" id="terminos_cliente" value="1" require> Acepto los <a href="{{ url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a>
                     </label>
                     {!! $errors->first('terminos_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -222,7 +222,7 @@ PQR
                     <div class="row productoscarritodetalle"  style="padding:0; margin:0;     border-bottom: 2px solid rgba(0,0,0,0.1);">
                         
                         <div class="col-sm-2" style="padding-top: 3%;">
-                            <img style="width:100% ; max-width: 90px;" src="{{secure_url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
+                            <img style="width:100% ; max-width: 90px;" src="{{url('uploads/productos/'.$cr->imagen_producto)}}"  alt="{{$cr->nombre_producto}}">
                         </div>
                         <div class="col-sm-4" style="padding-top: 3%;">
                             <p>{{$cr->nombre_producto}}</p>
@@ -243,7 +243,7 @@ PQR
 
                         <div class="col-sm-1 col-xs-2" style="padding-left:0; padding-right:0; padding-top: 3%;     text-align: right; ">
                             <a data-id="{{ $cr->slug}}" data-slug="{{ $cr->slug}}"  href="#0" class="delete-item">
-                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{secure_url('assets/images/borrar.png')}}" alt="">
+                                <img style="width:32px; padding-right:0; margin-bottom: 10px;" src="{{url('assets/images/borrar.png')}}" alt="">
                             </a>
                         </div>
 

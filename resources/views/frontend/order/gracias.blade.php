@@ -8,8 +8,8 @@ Carrito de Compras
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- breadcrumb --}}
@@ -18,7 +18,7 @@ Carrito de Compras
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -55,7 +55,7 @@ Carrito de Compras
 
                 <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y se programará la entrega una vez se realice el pago.</h5>
 
-                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
+                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{url('clientes')}}">Perfil</a> 
 
 
             @elseif($metodo=='credit_card')
@@ -94,7 +94,7 @@ Carrito de Compras
 
                 <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }} y se programará la entrega una vez el pago sea efectivo</b></h5>
 
-                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
+                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{url('clientes')}}">Perfil</a> 
 
 
             @endif
@@ -119,9 +119,9 @@ Carrito de Compras
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="{{secure_url('/uploads/productos/60/'.$row->imagen_producto)}}"></a></td>
+                            <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" ><img height="60px" src="{{url('/uploads/productos/60/'.$row->imagen_producto)}}"></a></td>
 
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+                            <td><a target="_blank"  href="{{ url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
 
                             <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
@@ -258,13 +258,13 @@ Carrito de Compras
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="btn btn-primary"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-primary"  href="{{ url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
             <br>
             <br>
             <br>
 
-            <a class="btn btn-danger "  href="{{ secure_url('/logout') }}">Cerrar Sesión <i class="fa fa-sign-out-alt" aria-hidden="true"></i></a>
+            <a class="btn btn-danger "  href="{{ url('/logout') }}">Cerrar Sesión <i class="fa fa-sign-out-alt" aria-hidden="true"></i></a>
 
 
          </div>
@@ -322,7 +322,7 @@ Carrito de Compras
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             new WOW().init();

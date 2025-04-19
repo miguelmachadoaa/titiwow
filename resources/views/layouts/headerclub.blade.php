@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
   
@@ -28,14 +28,14 @@
     </title>
     @yield('meta_tags')
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/lib.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lib.css') }}">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet"> 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of global css-->
 
     <style>
@@ -109,9 +109,9 @@
                 <div class="row hidden-lg">
                     <div class="col-sm-3 col-xs-8" >
                         <div id="header_logo" class="pull-left hidden-lg">
-                                <a  href="{{ secure_url('/') }}" class="hidden-lg">
+                                <a  href="{{ url('/') }}" class="hidden-lg">
                                 
-                                <img src="{{ secure_asset('assets/images/logo_b_m.png') }}" alt="Alpina Go!" class="logo_position">
+                                <img src="{{ asset('assets/images/logo_b_m.png') }}" alt="Alpina Go!" class="logo_position">
                             
                             </a>
                         </div>
@@ -119,7 +119,7 @@
 
                     <div class="col-sm-6 hidden-xs" >
 
-                         <form method="GET" action="{{ secure_url('buscar') }}">
+                         <form method="GET" action="{{ url('buscar') }}">
 
 
                         <div class="input-group" style="padding: 1em 0em;">
@@ -142,17 +142,17 @@
                             </a></span>
                         </button>
 
-                        <a class="hidden-xs" style="float: none; display: inline-block; margin-top: 8px;margin-right: 15px; margin-bottom: 8px;" class="" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="livicon" data-name="shopping-cart" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+                        <a class="hidden-xs" style="float: none; display: inline-block; margin-top: 8px;margin-right: 15px; margin-bottom: 8px;" class="" role="button"  aria-expanded="false"  href="{{ url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="livicon" data-name="shopping-cart" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
 
 
                         
                         @if(Sentinel::guest())
 
-                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{secure_url('login')}}" ><i class="livicon" data-name="user" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{url('login')}}" ><i class="livicon" data-name="user" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
 
                         @else
 
-                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{ secure_url('logout') }}"><i class="livicon" data-name="sign-out" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{ url('logout') }}"><i class="livicon" data-name="sign-out" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
                         
                         @endif
 
@@ -207,23 +207,23 @@
                                 
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{secure_url('login')}}" >Iniciar Sesión</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{url('login')}}" >Iniciar Sesión</a></label>    
                                 </li>
                                 
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{secure_url('registro')}}" >Registrarse</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{url('registro')}}" >Registrarse</a></label>    
                                 </li>
                             @else
                                 <li {{ (Request::is('clientes') ? 'class=active' : '') }}>
                                     <label >                          
-                                        <a  href="{{secure_url('clientes')}}">
+                                        <a  href="{{url('clientes')}}">
                                             Hola: {{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</a>
                                     </label>  
                                 </li>
 
                                 <li>
-                                    <label ><a href="{{ secure_url('logout') }}">Cerrar Sesión</a></label>  
+                                    <label ><a href="{{ url('logout') }}">Cerrar Sesión</a></label>  
                                 </li>
                             @endif
                             </ul>
@@ -240,7 +240,7 @@
                     <div class="row">
                         <div class="col-md-4 hidden-xs hidden-md hidden-sm" >
                             <div id="search_block_top" class="pull-left">
-                                <form method="GET" action="{{ secure_url('buscar') }}">
+                                <form method="GET" action="{{ url('buscar') }}">
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="input-group">
@@ -256,9 +256,9 @@
                         </div>
                         <div class="col-md-4 col-xs-8">
                             <div id="header_logo" class="pull-center">
-                                <a  href="{{ secure_url('/') }}">
+                                <a  href="{{ url('/') }}">
                                  <!-- @include(' layouts.svg')-->
-                                <img src="{{ secure_asset('assets/images/logo_blanco.png') }}" >
+                                <img src="{{ asset('assets/images/logo_blanco.png') }}" >
                             
                                 </a>
                             </div>
@@ -271,7 +271,7 @@
 
                                     <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
                                     
-                                        <a class="btn btn-default2" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto2"></i></a>
+                                        <a class="btn btn-default2" role="button"  aria-expanded="false"  href="{{ url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto2"></i></a>
     
                                     <!--/button-->
 
@@ -290,7 +290,7 @@
 
             <li style="padding: 0.8em 0.2em;list-style:none;" class="hidden-lg hidden-md hidden-sm">
 
-                        <form method="GET" action="{{ secure_url('buscar') }}">
+                        <form method="GET" action="{{ url('buscar') }}">
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="input-group">
@@ -329,18 +329,18 @@
                     {{--based on anyone login or not display menu items--}}
                         @if(Sentinel::guest())
                         <li class="hidden-lg">
-                            <a href="{{secure_url('login')}}" >Iniciar Sesión</a>   
+                            <a href="{{url('login')}}" >Iniciar Sesión</a>   
                         </li> 
                         <li class="hidden-lg">
-                            <a href="{{secure_url('registro')}}" >Registrarse</a>   
+                            <a href="{{url('registro')}}" >Registrarse</a>   
                         </li>
                     @else
                         <li class="hidden-lg" {{ (Request::is('clientes') ? 'class=active' : '') }} >                         
-                                <a  href="{{secure_url('clientes')}}">
+                                <a  href="{{url('clientes')}}">
                                     Hola: {{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</a>
                         </li>
                         <li class="hidden-lg">
-                           <a href="{{ secure_url('logout') }}">Cerrar Sesión</a>
+                           <a href="{{ url('logout') }}">Cerrar Sesión</a>
                         </li>
                     @endif
                 </ul>

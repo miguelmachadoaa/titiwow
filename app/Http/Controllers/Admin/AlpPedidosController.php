@@ -5900,7 +5900,7 @@ public function marketingcliente()
           
         }
 
-        $url=secure_url('producto/'.$producto->slug);
+        $url=url('producto/'.$producto->slug);
 
         $cart= \Session::get('cart');
 

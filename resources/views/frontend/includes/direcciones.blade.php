@@ -54,7 +54,7 @@
 
                 @if($role->role_id=!14)
 
-                  <p>Si quieres editar una dirección <a class="btn btn-link" target="_blank" style="color: #d5006e !important;" href="{{secure_url('misdirecciones')}}">Clic aqui </a></p>
+                  <p>Si quieres editar una dirección <a class="btn btn-link" target="_blank" style="color: #d5006e !important;" href="{{url('misdirecciones')}}">Clic aqui </a></p>
 
                 @endif
 

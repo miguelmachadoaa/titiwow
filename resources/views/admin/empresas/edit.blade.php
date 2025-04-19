@@ -8,11 +8,11 @@ Editar Empresa
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
 
-    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
 
 @stop
 
@@ -25,7 +25,7 @@ Editar Empresa
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}">
+            <a href="{{ url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -47,7 +47,7 @@ Editar Empresa
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($empresas, ['url' => secure_url('admin/empresas/'. $empresas->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
+                        {!! Form::model($empresas, ['url' => url('admin/empresas/'. $empresas->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -113,7 +113,7 @@ Editar Empresa
 
                                     @else
                                         
-                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                        <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
                                              class="img-responsive"/>
 
                                     @endif
@@ -210,8 +210,8 @@ Editar Empresa
 @section('footer_scripts')
 
 
-<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 @stop

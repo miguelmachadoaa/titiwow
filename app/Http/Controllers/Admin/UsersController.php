@@ -111,10 +111,10 @@ class UsersController extends JoshController
 
             })
             ->addColumn('actions',function($user) {
-                $actions = '<a href='. secure_url('admin/users/'.$user->id).'><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i></a>
-                            <a href='. secure_url('admin/users/'.$user->id.'/edit').'><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update user"></i></a>';
+                $actions = '<a href='. url('admin/users/'.$user->id).'><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i></a>
+                            <a href='. url('admin/users/'.$user->id.'/edit').'><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update user"></i></a>';
                 if ((Sentinel::getUser()->id != $user->id) && ($user->id != 1)) {
-                    $actions .= '<a href='. secure_url('admin/users/'.$user->id.'/confirm-delete') .' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete user"></i></a>';
+                    $actions .= '<a href='. url('admin/users/'.$user->id.'/confirm-delete') .' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete user"></i></a>';
                 }
                 return $actions;
             })
@@ -203,7 +203,7 @@ class UsersController extends JoshController
                 // Data to be used on the email view
                 $data =[
                     'user_name' => $user->first_name .' '. $user->last_name,
-                    'activationUrl' => secure_url('activate', [$user->id, Activation::create($user)->code])
+                    'activationUrl' => url('activate', [$user->id, Activation::create($user)->code])
                 ];
                 // Send the activation code through email
                 Mail::to($user->email)
@@ -338,7 +338,7 @@ class UsersController extends JoshController
                     //send activation mail
                     $data=[
                         'user_name' =>$user->first_name .' '. $user->last_name,
-                    'activationUrl' => URL::secure_url('activate', [$user->id, Activation::exists($user)->code])
+                    'activationUrl' => URL::url('activate', [$user->id, Activation::exists($user)->code])
                     ];
                     // Send the activation code through email
                     /*Mail::to($user->email)
@@ -415,8 +415,8 @@ class UsersController extends JoshController
             $error = trans('users/message.user_not_found', compact('id'));
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         }
-        //$confirm_route = secure_url('admin.users.delete', ['id' => $user->id]);
-        $confirm_route = secure_url('admin/users/'.$user->id.'/delete');
+        //$confirm_route = url('admin.users.delete', ['id' => $user->id]);
+        $confirm_route = url('admin/users/'.$user->id.'/delete');
         return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
     }
 

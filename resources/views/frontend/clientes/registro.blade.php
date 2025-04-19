@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro Amigos | Alpina Go </title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">    <!--end of global css-->
     <!--page level css starts-->
-    <!--link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" /-->
-    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/register.css') }}">
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <!--link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" /-->
+    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/register.css') }}">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
     <!--end of page level css-->
     @if (App::environment('production')) 
@@ -52,13 +52,13 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
+            <a href="{{ url('/') }}"><img src="{{ asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
             <h3 class="text-primary">Registro de Amigos</h3>
             <!-- Notifications -->
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ secure_url('signupembajador') }}" method="POST" id="reg_form" autocomplete="off">
+            <form action="{{ url('signupembajador') }}" method="POST" id="reg_form" autocomplete="off">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="hidden" name="back" id="back" value="0">
@@ -185,7 +185,7 @@
                 <hr />
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" value="1" require>  Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> y la  <a href="{{ secure_asset('uploads/files/politica_de_tratamiento_de_la_informacion.PDF') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a> de ALPINA PRODUCTOS ALIMENTICIOS S.A.
+                        <input type="checkbox" name="habeas_cliente" value="1" require>  Acepto los <a href="{{ url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> y la  <a href="{{ asset('uploads/files/politica_de_tratamiento_de_la_informacion.PDF') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a> de ALPINA PRODUCTOS ALIMENTICIOS S.A.
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -200,7 +200,7 @@
                             <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
-                            <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
+                            <a class="btn btn-block btn-danger" href="{{ url('/') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                     </div>
                 </div>
             </form>
-            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
         </div>
         <div>
             <div class="form-group">
@@ -234,12 +234,12 @@
 </div>
 <!--global js starts-->
 <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>
-<script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
-<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<!--script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
+<script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom.js') }}"></script>
+<script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 <!--global js end-->

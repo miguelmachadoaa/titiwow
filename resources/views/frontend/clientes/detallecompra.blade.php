@@ -9,8 +9,8 @@ Detalle de Compra
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
 
     <style>
@@ -77,17 +77,17 @@ Detalle de Compra
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
+                    <a href="{{ url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('clientes/') }}">Mi Perfil </a>
+                    <a href="{{ url('clientes/') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="{{ secure_url('miscompras/') }}">Compras </a>
+                    <a href="{{ url('miscompras/') }}">Compras </a>
                 </li>
             </ol>
         </div>
@@ -103,7 +103,7 @@ Detalle de Compra
         </div>
         <hr>
 
-        <a target="_blank" class="btn btn-info" href="{{secure_url('tracking/'.$orden->token)}}">Rastrea Tu Envio </a>
+        <a target="_blank" class="btn btn-info" href="{{url('tracking/'.$orden->token)}}">Rastrea Tu Envio </a>
 
 
         <!--h3>Historico de Envio </h3>
@@ -157,7 +157,7 @@ Detalle de Compra
                         @foreach( $detalles as $row)
 
                         <tr>
-                            <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/60/{{$row->imagen_producto}}"> </td>
+                            <td><img height="60px" src="{{ url('/') }}/uploads/productos/60/{{$row->imagen_producto}}"> </td>
                              <td>{{$row->referencia_producto}}</td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>
@@ -246,7 +246,7 @@ Detalle de Compra
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -287,9 +287,9 @@ Detalle de Compra
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
                             {{ csrf_field() }}
@@ -313,16 +313,16 @@ Detalle de Compra
 <!-- Modal Direccion -->
 
 
-<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+<input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
 
 @endsection
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
-    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
     <script>

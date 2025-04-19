@@ -104,7 +104,7 @@
 @else
 
 <p style="text-aling:center">
-<a  href="{{ secure_url('/tracking/'.$compra->token) }}" class="button button-blue " target="_blank">Rastrea tu Pedido</a>
+<a  href="{{ url('/tracking/'.$compra->token) }}" class="button button-blue " target="_blank">Rastrea tu Pedido</a>
 
 </p>
 

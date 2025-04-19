@@ -9,8 +9,8 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 
@@ -20,7 +20,7 @@
     <h1>Páginas de Contenido</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 @lang('general.dashboard')
             </a>
         </li>
@@ -38,7 +38,7 @@
                 Lista de Páginas
                 </h4>
                 <div class="pull-right">
-                    <a href="{{ secure_url('admin/cms/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
+                    <a href="{{ url('admin/cms/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
                 </div>
             </div>
             <br />
@@ -63,8 +63,8 @@
                                 <td>{{ $cms->estado_registro }}</td>
                                 <td>{{  date("d/m/Y H:i:s", strtotime($cms->created_at)) }}</td>
                                 <td>
-                                    <a href="{{ secure_url('admin/cms/' . $cms->id . '/edit' ) }}"><i class="livicon" data-name="edit" data-size="18"  data-loop="true"  data-c="#428BCA"   data-hc="#428BCA"  title="@lang('cms/table.update-blog')"></i></a>
-                                    <a href="{{ secure_url('admin/cms/'.$cms->id.'/confirm-delete') }}" data-toggle="modal"
+                                    <a href="{{ url('admin/cms/' . $cms->id . '/edit' ) }}"><i class="livicon" data-name="edit" data-size="18"  data-loop="true"  data-c="#428BCA"   data-hc="#428BCA"  title="@lang('cms/table.update-blog')"></i></a>
+                                    <a href="{{ url('admin/cms/'.$cms->id.'/confirm-delete') }}" data-toggle="modal"
                                        data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"  data-size="18" data-loop="true" data-c="#f56954"  data-hc="#f56954"  title="@lang('cms/table.delete-blog')"></i></a>
                                 </td>
                             </tr>
@@ -81,8 +81,8 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
     <script>
         $(document).ready(function() {

@@ -2,7 +2,7 @@
 <div style="margin:2em">
    
 
-    <p style="margin:1em;"><a style="    padding: 1em;    text-decoration: none;    color: #f9f4f4;    background: #de0a6a;    margin: 1em;" download="plantilla.html" href="{{secure_url('/uploads/files/plantilla.txt')}}">Descargar Html</a></p>
+    <p style="margin:1em;"><a style="    padding: 1em;    text-decoration: none;    color: #f9f4f4;    background: #de0a6a;    margin: 1em;" download="plantilla.html" href="{{url('/uploads/files/plantilla.txt')}}">Descargar Html</a></p>
 
 </div>
 

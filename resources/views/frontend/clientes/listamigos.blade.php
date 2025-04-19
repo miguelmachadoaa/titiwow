@@ -34,7 +34,7 @@
 
                                     <td>    
 
-                                            <a class="btn btn-xs" href="{{ secure_url('clientes/'.$referido->id_user_client.'/compras') }}">
+                                            <a class="btn btn-xs" href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
                                                 <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Compras"></i>
                                             </a>
 

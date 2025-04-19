@@ -128,8 +128,6 @@ Route::get('admin/clientes/saldo', 'Admin\AlpClientesController@saldo')->name('c
     Route::post('admin/clientes/importsaldo', 'Admin\AlpClientesController@importsaldo');
 
 
-    
-
 Route::get('admin/clientes/datasaldo', 'Admin\AlpClientesController@datasaldo')->name('clientes.datasaldo');
 
 
@@ -1968,7 +1966,7 @@ Route::get('emailAmigo', function(){
 Route::get('notificacion', function(){
         return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
 
-       # Mail::to('obarrerafranco@gmail.com')->send(new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!'));
+       # Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!'));
 });
 
 Route::get('compra', function(){

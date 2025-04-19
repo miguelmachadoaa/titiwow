@@ -9,12 +9,12 @@
 
 <p>¿Qué esperas? Regístrate! </p>
 
-@component('mail::button', ['url' => secure_url('/registroembajadores/'.$token)])
+@component('mail::button', ['url' => url('/registroembajadores/'.$token)])
 Registrarme
 @endcomponent
 
 <p style="text-aling:center">
-    <a  href="{{ secure_url('/registroembajadores/'.$token) }}" class="button button-blue " target="_blank">Registrarme</a>
+    <a  href="{{ url('/registroembajadores/'.$token) }}" class="button button-blue " target="_blank">Registrarme</a>
 </p>
 
 Esperamos que disfrutes de la experiencia AlpinaGo! Y recuerda:
