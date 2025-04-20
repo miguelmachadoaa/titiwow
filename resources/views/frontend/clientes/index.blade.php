@@ -549,7 +549,6 @@ Punto de Venta
                 $('.rescliente').html('<div class="alert alert-danger">Todos los campos son obligatorios</div>');
             }else{
 
-
                 $.ajax({
                     type: "POST",
                     data:{nombre_cliente, telefono_cliente, email_cliente, cedula_cliente},
@@ -562,23 +561,7 @@ Punto de Venta
 
                 });
 
-
             }
-
-
-           // alert(nombre_cliente);
-
-            $.ajax({
-                type: "POST",
-                data:{nombre_cliente, telefono_cliente, email_cliente, cedula_cliente},
-                url: base+"/pos/addcliente",
-                    
-                complete: function(datos){
-
-                    $('.panelprincipal').html((datos.responseText));
-                }
-
-            });
 
         });
 

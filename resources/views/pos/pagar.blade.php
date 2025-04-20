@@ -48,9 +48,9 @@
 
                                 <button tabindex="{{$loop->index}}" data-moneda="{{$fp->moneda}}" data-id="{{$fp->id}}" data-name="{{$fp->nombre_forma_pago}}" class="btn btn-primary w-100 my-2 setpago">{{$fp->nombre_forma_pago}}</button>
 
-                            @endforeach     
+                            @endforeach
 
-                                <button tabindex="{{$loop->index}}" data-id="999" data-moneda='1' data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef setpago ">Sitef</button> 
+                                <button tabindex="" data-id="999" data-moneda='1' data-name="sitef" class="btn btn-primary w-100 my-2 pagarSitef setpago ">Sitef</button> 
 
 
                         @endif
