@@ -109,7 +109,7 @@
                             <div class="col-sm-6 text-right">  
                                     @if(isset($cart['total_bs']))
                                     <p class="m-0">
-                                    Bs. {{number_format($cart['total_bs'], 2, ',', '.')}}
+                                    Bs. {{number_format((float) $cart['total_bs'], 2, ',', '.')}}
                                     </p>
                                     @else
                                     <p class="m-0">

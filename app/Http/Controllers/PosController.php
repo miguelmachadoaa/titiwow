@@ -1223,7 +1223,18 @@ class PosController extends JoshController
         }
 
         if(empty($request->email_cliente)){
-          $email = time().'@titiwow.com';
+
+          $email = time().'@gmail.com';
+
+          if(!empty($request->telefono_cliente)){
+            $partes = explode('-', $request->telefono_cliente);
+            if(isset($partes[1])){
+
+              $email = $partes[1].'@gmail.com';
+
+            }
+          }
+
         }else{
           $email = $request->email_cliente;
         }
@@ -1233,6 +1244,23 @@ class PosController extends JoshController
           'email'=>$email,
           'password'=>md5($request->nombre_cliente),
        ]);
+
+        if(empty($request->cedula_cliente)){
+
+          $cedula = time();
+
+          if(!empty($request->telefono_cliente)){
+            $partes = explode('-', $request->telefono_cliente);
+            if(isset($partes[1])){
+
+              $cedula = $partes[1];
+
+            }
+          }
+
+        }else{
+          $cedula = $request->cedula_cliente;
+        }
 
 
         $cliente=AlpClientes::create(
