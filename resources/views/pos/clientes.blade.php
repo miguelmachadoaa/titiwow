@@ -34,11 +34,22 @@
                         <div class="col-sm-4">
                             <p style="margin: 0">{{$c->first_name.' '.$c->last_name}}</p>
                         </div>
-                        <div class="col-sm-3">
-                            <p style="margin: 0">{{$c->email}}</p>
-                        </div>
+                        
                         <div class="col-sm-3">
                             <p style="margin: 0">{{$c->telefono_cliente}}</p>
+                        </div>
+                        <div class="col-sm-3">
+                            @php 
+                                $telefono = $c->telefono_cliente;
+                                $telefono = str_replace(' ', '', $telefono);
+                                $telefono = str_replace('-', '', $telefono);
+                                $telefono = str_replace('(', '', $telefono);
+                                $telefono = str_replace(')', '', $telefono);
+                                $telefono = str_replace('+', '', $telefono);
+                                $telefono = str_replace(' ', '', $telefono);
+                            @endphp
+                            <p style="margin: 0"><a href="https://wa.me/{{$telefono}}">Whatsapp <i class="fa  fa-2x fa-whatsapp"></i></a>
+                            </p>
                         </div>
                         <div class="col-sm-2 ">
                             <button class="btn btn-primary  editcliente"><i class="fa fa-edit"></i></button>

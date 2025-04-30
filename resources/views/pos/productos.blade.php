@@ -33,8 +33,6 @@
 
         <div class="row" style="padding: 1em;">
 
-              
-
 
                         <div class="col-sm-12 reserror"> 
 
@@ -53,7 +51,7 @@
 
                                 @if(isset($cart['inventario'][$p->id]))
 
-                                <div class="col-sm-4 ">   
+                                <div class="col-sm-4  col-xs-6 col-md-3 col-lg-2"  >   
 
                                     <div class="row {{ $p->pesable ? 'producto-pesable' : 'producto'}}" data-id="{{$p->id}}" >   
 
