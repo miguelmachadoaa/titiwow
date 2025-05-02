@@ -162,21 +162,9 @@ class PosController extends JoshController
   public function dashboard(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/dashboard ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/dashboard');
-        }
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/dashboard', $request);
 
         if (isset($user->id)) {
 
@@ -209,20 +197,9 @@ class PosController extends JoshController
   public function opciones(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/opciones ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/opciones');
-        }
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/opciones', $request);
 
         if (isset($user->id)) {
 
@@ -331,21 +308,9 @@ class PosController extends JoshController
     public function caja(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/caja ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/caja');
-        }
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/caja', $request);
 
        if (isset($user->id)) {
 
@@ -413,21 +378,9 @@ class PosController extends JoshController
 
    public function postcaja(Request $request)
   {
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/caja ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/caja');
-        }
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/caja', $request);
 
         AlpCajas::create([
           'monto_inicial'=>$request->baseinicial,
@@ -435,38 +388,21 @@ class PosController extends JoshController
           'id_user'=>$user->id
         ]);
 
-
-
         $cajas = AlpCajas::where('id_user', $user->id)->with('cajero')->orderBy('id', 'desc')->get();
 
-
-
-    return view('pos.caja', compact('cajas'));
+      return view('pos.caja', compact('cajas'));
 
   }
 
 
   public function updatecaja(Request $request)
   {
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/caja ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/caja');
-        }
+        
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/caja', $request);
 
         $caja=AlpCajas::where('id', $request->id)->first();
-
-
 
         $caja->update([
           'monto_final'=>$request->basefinal,
@@ -476,11 +412,7 @@ class PosController extends JoshController
           'id_user'=>$user->id
         ]);
 
-
-
         $cajas = AlpCajas::where('id_user', $user->id)->with('cajero')->orderBy('id', 'desc')->get();
-
-
 
     return view('pos.caja', compact('cajas'));
 
@@ -490,20 +422,9 @@ class PosController extends JoshController
      public function detallecaja(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/reportes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/reportes');
-        }
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/reportes', $request);
 
         $caja = AlpCajas::where('id', $request->id)->with('cajero')->first();
 
@@ -524,20 +445,9 @@ class PosController extends JoshController
    public function cerrarcaja(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/reportes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/reportes');
-        }
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/cerrarcaja', $request);
 
         $caja = AlpCajas::where('id', $request->id)->with('cajero')->first();
 
@@ -551,21 +461,9 @@ class PosController extends JoshController
     public function pedidos(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/pedidos ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/pedidos');
-        }
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/pedidos', $request);
 
 
          if (isset($user->id)) {
@@ -618,20 +516,9 @@ class PosController extends JoshController
     public function buscarpedido(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/pedidos ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/pedidos');
-        }
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/buscarpedido', $request);
 
         $keyword=$request->termino;
 
@@ -645,22 +532,10 @@ class PosController extends JoshController
    public function buscarcliente(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/pedidos ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/pedidos');
-        }
-
+       $user = Sentinel::getUser();
         
+        $this->saveLog('PosController/buscarcliente', $request);
+
         $clientes =  User::select('users.*','roles.name as name_role',
           'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_clientes.doc_cliente as doc_cliente',
@@ -690,22 +565,9 @@ class PosController extends JoshController
     public function detalleorden(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/pedidos ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/pedidos');
-        }
-
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/detalleorden', $request);
 
         $orden = AlpOrdenes::where('id_user', $user->id)->where('id', $request->id)->with('cliente', 'cajero', 'estado', 'detalles', 'pagos')->first();
 
@@ -733,21 +595,9 @@ class PosController extends JoshController
      public function transacciones(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/transacciones ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/transacciones');
-        }
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/transacciones', $request);
 
         if (isset($user->id)) {
 
@@ -801,24 +651,9 @@ class PosController extends JoshController
      public function reportes(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/reportes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/reportes');
-        }
-
-      
-
-       
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/reportes', $request);
 
 
         if (isset($user->id)) {
@@ -877,23 +712,10 @@ class PosController extends JoshController
      public function categorias(Request $request)
   {
 
-        if (Sentinel::check()) {
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/categorias', $request);
 
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/categorias ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/categorias');
-        }
-
-
-       
 
       if (isset($user->id)) {
 
@@ -927,20 +749,10 @@ class PosController extends JoshController
    public function detallecategoria(Request $request)
   {
 
-        if (Sentinel::check()) {
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/detallecategoria', $request);
 
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/productos ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/productos');
-        }
         $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
 
          if (isset($caja->id)) {
@@ -968,22 +780,9 @@ class PosController extends JoshController
   public function clientes(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/clientes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/clientes');
-        }
-
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/clientes', $request);
 
         if (isset($user->id)) {
 
@@ -1036,20 +835,9 @@ class PosController extends JoshController
    public function asignacliente(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/clientes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/clientes');
-        }
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/asignacliente', $request);
 
         $cliente =  User::select('users.*','roles.name as name_role',
           'alp_clientes.telefono_cliente as telefono_cliente',
@@ -1082,21 +870,9 @@ class PosController extends JoshController
   public function removecliente(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/clientes ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/clientes');
-        }
-
+       $user = Sentinel::getUser();
+        
+        $this->saveLog('PosController/removecliente', $request);
 
        $cart= \Session::get('cart');
 
@@ -1115,20 +891,10 @@ class PosController extends JoshController
   public function addproducto(Request $request)
   {
 
-        if (Sentinel::check()) {
+       $user = Sentinel::getUser();
+      
+      $this->saveLog('PosController/addproducto', $request);
 
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addproducto ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addproducto');
-        }
 
        $categorias=AlpCategorias::where('estado_registro', '1')->get();
        $impuestos=AlpImpuestos::where('estado_registro', '1')->get();
@@ -1142,21 +908,9 @@ class PosController extends JoshController
    public function addcliente(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addcliente ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addcliente');
-        }
-
+       $user = Sentinel::getUser();
+      
+      $this->saveLog('PosController/addcliente', $request);
 
         if (isset($user->id)) {
 
@@ -1207,20 +961,10 @@ class PosController extends JoshController
     public function postcliente(Request $request)
   {
 
-        if (Sentinel::check()) {
+       $user = Sentinel::getUser();
+      
+      $this->saveLog('PosController/postcliente', $request);
 
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addcliente ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addcliente');
-        }
 
         if(empty($request->email_cliente)){
 
@@ -1300,21 +1044,9 @@ class PosController extends JoshController
   public function postaddproducto(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/postaddproducto ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/postaddproducto');
-        }
-
+       $user = Sentinel::getUser();
+      
+      $this->saveLog('PosController/postaddproducto', $request);
        
 
        $producto=AlpProductos::create([
@@ -1336,20 +1068,9 @@ class PosController extends JoshController
     public function productos(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/productos ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/productos');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/productos', $request);
           
         $cart= \Session::get('cart');
 
@@ -1420,20 +1141,9 @@ class PosController extends JoshController
   public function buscarproducto(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/buscarproducto ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/buscarproducto');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/buscarproducto', $request);
 
         $cart= \Session::get('cart');
 
@@ -1642,20 +1352,9 @@ class PosController extends JoshController
     public function addtocart(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addtocart ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addtocart');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/addtocart', $request);
 
 
           $cart= \Session::get('cart');
@@ -1752,20 +1451,9 @@ class PosController extends JoshController
    public function deltocart(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addtocart ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addtocart');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/deltocart', $request);
 
 
 
@@ -1806,20 +1494,9 @@ class PosController extends JoshController
   public function vaciarcart(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/vaciarcart ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/vaciarcart');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/vaciarcart', $request);
 
 
         $cart= \Session::get('cart');
@@ -1840,20 +1517,9 @@ class PosController extends JoshController
   public function savecart(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/vaciarcart ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/vaciarcart');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/savecart', $request);
 
 
         $cart= \Session::get('cart');
@@ -1890,20 +1556,9 @@ class PosController extends JoshController
   public function setcarrito(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/vaciarcart ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/vaciarcart');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/setcarrito', $request);
 
 
 
@@ -1938,20 +1593,9 @@ class PosController extends JoshController
    public function pagar(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/setcarrito ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/setcarrito');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/pagar', $request);
 
        # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
        # 
@@ -1997,20 +1641,9 @@ class PosController extends JoshController
 public function addpago(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addpago ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addpago');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/addpago', $request);
 
         $cart= \Session::get('cart');
 
@@ -2061,20 +1694,9 @@ public function addpago(Request $request)
   public function delpago(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/addpago ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/addpago');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/delpago', $request);
 
        # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
 
@@ -2101,20 +1723,9 @@ public function addpago(Request $request)
   public function getcarrito(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/getcarrito ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/getcarrito');
-        }
+       $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/getcarrito', $request);
 
        # \Session::put('cart', ['productos'=>[], 'total'=>0, 'base'=>0, 'impuesto'=>0]);
 
@@ -2131,20 +1742,9 @@ public function addpago(Request $request)
   public function procesar(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/procesar ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/procesar');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/procesar', $request);
 
         
         $caja=AlpCajas::where('id_user', $user->id)->where('estado_registro', '1')->first();
@@ -2448,20 +2048,9 @@ private function inventario()
    public function puntodeventa(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/puntodeventa ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/puntodeventa');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/puntodeventa', $request);
 
 
         if (isset($user->id)) {
@@ -2495,20 +2084,9 @@ private function inventario()
    public function imprimir(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/imprimir ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/imprimir');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/imprimir', $request);
 
 
         $configuracion= AlpConfiguracion::first();
@@ -2555,21 +2133,9 @@ private function inventario()
    public function imprimircierrecaja(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/imprimir ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/imprimir');
-        }
-
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/imprimircierrecaja', $request);
 
         $configuracion= AlpConfiguracion::first();
 
@@ -2609,20 +2175,9 @@ private function inventario()
    public function imprimirpunto(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/imprimir ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/imprimir');
-        }
+       $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/imprimirpunto', $request);
 
 
         $configuracion= AlpConfiguracion::first();
@@ -2661,20 +2216,9 @@ private function inventario()
      public function cart(Request $request)
   {
 
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->getContent())->log('PosController/cart ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->getContent())->log('PosController/cart');
-        }
+        $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/cart', $request);
 
 
         $cart= \Session::get('cart');
@@ -2694,18 +2238,10 @@ private function inventario()
 public function pagomoviltoken()
   {
 
-      if (Sentinel::check()) {
+      $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/pagomoviltoken');
 
-        $user = Sentinel::getUser();
-
-        activity($user->full_name)
-          ->performedOn($user)
-          ->causedBy($user)->log('PosController/pagomoviltoken ');
-
-      }else{
-
-        activity()->log('PosController/pagomoviltoken');
-      }
 
       $configuracion = AlpConfiguracion::first();
 
@@ -2739,26 +2275,14 @@ public function pagomoviltoken()
       }
 
   }
-
-
-
  
 
    public function buscarpago(Request $request)
   {
 
-      if (Sentinel::check()) {
-
-        $user = Sentinel::getUser();
-
-        activity($user->full_name)
-          ->performedOn($user)
-          ->causedBy($user)->log('PosController/buscarpago ');
-
-      }else{
-
-        activity()->log('PosController/buscarpago');
-      }
+      $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/buscarpago', $request);
 
       $configuracion = AlpConfiguracion::first();
 
@@ -2826,18 +2350,11 @@ public function pagomoviltoken()
    public function sendvuelto(Request $request)
   {
 
-      if (Sentinel::check()) {
 
-        $user = Sentinel::getUser();
 
-        activity($user->full_name)
-          ->performedOn($user)
-          ->causedBy($user)->log('PosController/sendvuelto ');
-
-      }else{
-
-        activity()->log('PosController/sendvuelto');
-      }
+       $user = Sentinel::getUser();
+      
+        $this->saveLog('PosController/sendvuelto', $request);
 
       $configuracion = AlpConfiguracion::first();
 
@@ -2924,7 +2441,35 @@ public function pagomoviltoken()
 
   }
 
+  public function saveLog($name, Request $request = null){
+
+    $user = null;
+    $data = [];
+
+    if (Sentinel::check()) {
+      $user = Sentinel::getUser();
+    }
+
+    if($request != null){
+      $data = $request->getContent();
+    }
+
+    if($user!=null){
+
+      activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($data)
+            ->log($name);
+
+    }else{
+      activity()
+          ->withProperties($data)->log($name);
+    }
+     
+
+  }
+
 
 }
-
     
