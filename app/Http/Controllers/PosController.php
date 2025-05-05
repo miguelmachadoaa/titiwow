@@ -435,9 +435,12 @@ class PosController extends JoshController
         ->with('formapago')->groupBy('id_forma_pago')
         ->get();
 
+        $ordenes = AlpOrdenes::where('id_user', $user->id)->where('id_caja', $caja->id)->with('cliente', 'cajero', 'estado')->orderBy('id', 'desc')->get();
 
 
-    return view('pos.detallecaja', compact('pagos', 'caja'));
+
+
+    return view('pos.detallecaja', compact('pagos', 'caja', 'ordenes'));
 
   }
 
