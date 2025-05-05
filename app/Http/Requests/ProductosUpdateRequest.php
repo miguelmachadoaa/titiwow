@@ -28,7 +28,7 @@ class ProductosUpdateRequest extends FormRequest {
             'referencia_producto' => 'required|min:3',
             'referencia_producto_sap' => 'required|min:2',
             'descripcion_corta' => 'required|min:5',
-            'descripcion_larga' => 'required|min:5',
+            //'descripcion_larga' => 'required|min:5',
             'id_categoria_default' => 'required',
             'id_marca' => 'required',
             'id_impuesto' => 'required',

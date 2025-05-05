@@ -1675,14 +1675,6 @@ $("#productosForm").bootstrapValidator({
             },
             minlength: 20
         },
-        descripcion_larga: {
-            validators: {
-                notEmpty: {
-                    message: 'descripcion_corta is required and cannot be empty'
-                }
-            },
-            minlength: 20
-        },
         seo_titulo: {
             validators: {
                 notEmpty: {
