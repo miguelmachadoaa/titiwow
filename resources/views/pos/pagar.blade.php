@@ -157,7 +157,7 @@
                                     <div class="col-sm-12 my-2 vueltofield pagofield">
                                         <input class="form-control" type="number" id="monto_pago" name="monto_pago" value="{{
                                           //  number_format( floatval($cart['total_bs'])-floatval($cart['pagado_bs']) , 2, ',', '.')
-                                          floatval($cart['resto'], 2, ',', '.')
+                                          number_format($cart['resto'], 2, ',', '.')
                                             
                                         }}">
                                     </div>
