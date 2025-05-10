@@ -1956,6 +1956,11 @@ public function addpago(Request $request)
 
           foreach ($cart['pagos'] as $pago) {
 
+                if (is_string($pago['monto'])) {
+                    $pago['monto']= floatval(str_replace(",", "", $pago['monto']));
+                }
+
+
               if ($pago['moneda']=='2') {
 
                  $pagado_usd=$pagado_usd+$pago['monto'];
@@ -1964,7 +1969,6 @@ public function addpago(Request $request)
               }else{
 
                 $pagado_bs=$pagado_bs+$pago['monto'];
-               
 
               }
 
