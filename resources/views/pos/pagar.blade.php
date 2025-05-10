@@ -132,6 +132,15 @@
                                     </div>
                                 </div>
 
+                                 <div class="row">
+
+                                    <div class="col-sm-12">
+                                        <button tabindex="1" class="btn btn-success procesar w-100">Vuelto en efectivo </button>
+                                    </div>
+
+                                </div>
+
+
                                
                             @else
 
