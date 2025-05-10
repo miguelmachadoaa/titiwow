@@ -1846,6 +1846,11 @@ public function addpago(Request $request)
 
         foreach($cart['pagos'] as $pago){
 
+          if (is_string($pago['valor'])) {
+                $pago['valor']= floatval(str_replace(",", "", $pago['valor']));
+            } 
+
+
 
           AlpPagos::create([
             'id_orden'=>$orden->id,
@@ -1872,9 +1877,7 @@ public function addpago(Request $request)
             'id_user'=>$user->id
           ]);
 
-          if (is_string($pago['valor'])) {
-                    $pago['valor']= floatval(str_replace(",", "", $pago['valor']));
-                }
+            
 
           $total_pagos=$total_pagos+$pago['valor'];
 
