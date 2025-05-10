@@ -118,9 +118,9 @@
 
                                     <div class="col-sm-12">
 
-                                        <button tabindex="{{$loop->index}}" class="btn btn-primary addvuelto mb-2 ">Enviar</button>
+                                        <button tabindex="1" class="btn btn-primary addvuelto mb-2 ">Enviar</button>
 
-                                        <button tabindex="{{$loop->index}}" style="display: none"  class="btn btn-primary sendvuelto mb-2 ">Enviar Pago Movil</button>
+                                        <button tabindex="2" style="display: none"  class="btn btn-primary sendvuelto mb-2 ">Enviar Pago Movil</button>
 
                                     </div>
 
