@@ -224,7 +224,7 @@
 
                                     <p class="m-0"><b>Id:</b>{{$pago['id']}}</p>
                                     <p class="m-0"><b>Tipo:</b>{{$pago['name']}}</p>
-                                    <p class="m-0"><b>Monto:</b>{{number_format($pago['monto'],2,',','.')}}</p>
+                                    <p class="m-0"><b>Monto:</b>{{number_format(floatval(str_replace(",", "", $pago['monto'])),2,',','.')}}</p>
 
                             </div>
                             <div class="col-sm-2 p-0"> 
